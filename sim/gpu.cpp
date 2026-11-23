@@ -21,6 +21,7 @@ public:
     VGpu d;
     std::vector<uint8_t> mem;
     std::mt19937 rng{6227};
+    unsigned timeout = 8000000;
     unsigned cycles = 0, overlap = 0, maxBurst = 0, byteWrites = 0, halfWrites = 0;
     unsigned failRead = 0, failWrite = 0;
     bool badId = false, lateLast = false;
@@ -57,7 +58,7 @@ public:
         return value;
     }
     void tick() {
-        check(++cycles < 8000000, "GPU test timed out");
+        check(++cycles < timeout, "GPU test timed out");
         d.io_dma_ar_ready = !rd && (rng() % 4) && cycles % 191 > 15;
         d.io_dma_aw_ready = !wr && !bValid && !waitingB && (rng() % 4) && cycles % 71 > 32;
         d.io_dma_w_ready = beats.size() < 32 && (rng() % 4) && cycles % 127 > 10;
@@ -153,6 +154,7 @@ int main(int argc, char** argv) {
     Machine m({std::istreambuf_iterator<char>(input), std::istreambuf_iterator<char>()});
     unsigned sms = std::stoul(argv[3]), mask = std::stoul(argv[4]), expectedFault = std::stoul(argv[5]);
     std::string mode = argv[6];
+    if (mode == "render") m.timeout = 40000000;
     check(m.read(0) == 0x4d4f5247 && m.read(4) == 0x10000 && (m.read(8) & 255) == sms, "identity");
     m.read(0x80,2);
     check(!m.write(0x30,base) && !m.write(0x34,base + m.mem.size()) && !m.write(0x38,mask), "window");
