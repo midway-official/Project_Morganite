@@ -1,4 +1,9 @@
 / {
+    /* LA32R registers the DT memory banks as System RAM even when a
+     * reserved-memory child overlaps one. Leave the coherent pool between banks. */
+    memory {
+        reg = <0x00000000 0x1f800000>, <0x1fa00000 0x00400000>;
+    };
     reserved-memory {
         #address-cells = <1>;
         #size-cells = <1>;

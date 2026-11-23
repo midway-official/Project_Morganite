@@ -73,6 +73,9 @@ def main():
         ram = re.findall(r"(?m)^([0-9a-f]+)-([0-9a-f]+) : System RAM$",resources)
         if not ram or any(max(int(a,16),lo) <= min(int(b,16),hi-1) for a,b in ram):
             raise ValueError("coherent DMA pool overlaps advertised System RAM")
+        mapping = re.search(r"2097152 bytes, CPU mapping (?:0x)?([0-9a-fA-F]+)", boot)
+        if not mapping or int(mapping.group(1),16) != 0x80000000 + lo:
+            raise ValueError("unexpected LA32R uncached CPU alias for coherent DMA")
         def jobs(name, cmd, timeout=240):
             output = command("/bin/mgpu "+cmd,timeout)
             rows = [json.loads(line) for line in output.splitlines() if line.startswith("{")]
