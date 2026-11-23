@@ -15,13 +15,25 @@ def sha(path):
 root = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("out",type=Path)
-out = p.parse_args().out.resolve()
+p.add_argument("--verify-load", action="store_true",
+               help="compare the entire image and zero ranges over JTAG before releasing the CPU")
+args = p.parse_args()
+out = args.out.resolve()
 out.mkdir(parents=True,exist_ok=False)
 shutil.copytree(root/"baseline/runtime",out/"runtime")
 shutil.copytree(root/"build/initramfs-extra/gpu",out/"gpu")
 for src in ("build/kernel/ram.dat","build/kernel/image.json","board/start_test.py","board/uart_jobs.py"):
     shutil.copy2(root/src,out)
 shutil.copy2(root/"board/observe.tcl",out/"runtime")
+if args.verify_load:
+    shutil.copy2(root/"board/verify_image.tcl",out/"runtime")
+    loader = out/"runtime/debug_load.tcl"
+    original = loader.read_text()
+    marker = '    puts "DEBUG_IMAGE_LOADED_BYTES=$total"'
+    if original.count(marker) != 1:
+        raise ValueError("unexpected board loader")
+    loader.write_text(original.replace(marker, "    source [file join $script_dir verify_image.tcl]\n"
+                                       "    morganite_verify_image $axi $image $zero_ranges\n" + marker))
 bridge = out/"runtime/uart_bridge.tcl"
 original = bridge.read_text()
 marker = "        set status [u50hw::read_word $axi 0x1fe10000]"

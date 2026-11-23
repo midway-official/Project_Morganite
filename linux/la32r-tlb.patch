@@ -1,0 +1,34 @@
+diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.c
+index 2fda19fa6..a66eef168 100644
+--- a/arch/loongarch/kernel/traps.c
++++ b/arch/loongarch/kernel/traps.c
+@@ -599,7 +599,7 @@ extern void cache_error_setup(void);
+ static void configure_exception_vector(void)
+ {
+ 	csr_writel(eentry + 0x4000, LOONGARCH_CSR_EENTRY);
+-	csr_writel( (tlbrentry & 0x0fffffff), LOONGARCH_CSR_TLBRENTRY);
++	csr_writel(TO_PHYS(tlbrentry), LOONGARCH_CSR_TLBRENTRY);
+ }
+ 
+ void __init boot_cpu_trap_init(void)
+diff --git a/arch/loongarch/mm/tlbex-32.S b/arch/loongarch/mm/tlbex-32.S
+index a2805464c..e9e10c0fb 100644
+--- a/arch/loongarch/mm/tlbex-32.S
++++ b/arch/loongarch/mm/tlbex-32.S
+@@ -2,6 +2,7 @@
+ /*
+  * Copyright (C) 2020-2021 Loongson Technology Corporation Limited
+  */
++#include <asm/addrspace.h>
+ #include <asm/asm.h>
+ #include <asm/export.h>
+ #include <asm/loongarchregs.h>
+@@ -275,7 +276,7 @@ SYM_FUNC_START(handle_tlb_refill)
+ 	srli.w	t1, t1, 0x16
+ 	slli.w	t1, t1, 0x2
+ 	add.w	t0, t0, t1
+-	li.w	ra, 0xfffffff
++	li.w	ra, (1 << DMW_PABITS) - 1
+ 	and	t0, t0, ra
+ 	ld.w	t0, t0, 0
+ 
