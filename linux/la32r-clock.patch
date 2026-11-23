@@ -1,0 +1,33 @@
+diff --git a/arch/loongarch/kernel/time.c b/arch/loongarch/kernel/time.c
+index 4719310fb..ddfdbf568 100644
+--- a/arch/loongarch/kernel/time.c
++++ b/arch/loongarch/kernel/time.c
+@@ -10,6 +10,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/delay.h>
+ #include <linux/kernel.h>
++#include <linux/of.h>
+ #include <linux/sched_clock.h>
+ #include <linux/spinlock.h>
+ 
+@@ -211,11 +212,19 @@ int __init constant_clocksource_init(void)
+ 
+ void __init time_init(void)
+ {
+-	if (!cpu_has_cpucfg)
++	struct device_node *cpus = of_find_node_by_path("/cpus");
++	u32 frequency = 0;
++
++	of_property_read_u32(cpus, "timebase-frequency", &frequency);
++	of_node_put(cpus);
++	if (frequency)
++		const_clock_freq = frequency;
++	else if (!cpu_has_cpucfg)
+ 		const_clock_freq = cpu_clock_freq;
+ 	else
+ 		const_clock_freq = calc_const_freq();
+ 
++	pr_info("Constant counter frequency %llu Hz\n", const_clock_freq);
+ 	constant_clockevent_init();
+ 	constant_clocksource_init();
+ }
