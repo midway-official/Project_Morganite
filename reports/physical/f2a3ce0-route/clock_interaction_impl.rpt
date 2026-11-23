@@ -1,0 +1,35 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date              : Tue Nov 24 00:31:39 2026
+| Host              : fpga-KVM running 64-bit Ubuntu 18.04.6 LTS
+| Command           : report_clock_interaction -file /home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/clock_interaction_impl.rpt
+| Design            : u50c_top
+| Device            : xcu50-fsvh2104
+| Speed File        : -2  PRODUCTION 1.30 05-01-2022
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Interaction Report
+
+Clock Interaction Table
+-----------------------
+
+                                                                                                                                                                                                          WNS                            TNS Failing  TNS Total    WNS Path         Clock-Pair           Inter-Clock              
+From Clock                                                                                           To Clock                                                                                             Clock Edges  WNS(ns)  TNS(ns)    Endpoints    Endpoints  Requirement(ns)  Classification       Constraints              
+---------------------------------------------------------------------------------------------------  ---------------------------------------------------------------------------------------------------  -----------  -------  -------  -----------  -----------  ---------------  -------------------  -----------------------  
+clk_out1_clk_wiz_0                                                                                   clk_out1_clk_wiz_0                                                                                   rise - rise     2.09     0.00            0       268289            10.00  Clean                Partial False Path       
+clk_out1_clk_wiz_0                                                                                   clk_out2_clk_wiz_0                                                                                   rise - rise     9.25     0.00            0          413            10.00  Ignored              Max Delay Datapath Only  
+clk_out1_clk_wiz_0                                                                                   sysclk3                                                                                              rise - rise     9.48     0.00            0           43            10.00  Ignored              Max Delay Datapath Only  
+clk_out2_clk_wiz_0                                                                                   clk_out1_clk_wiz_0                                                                                   rise - rise     3.75     0.00            0          296             4.44  Ignored              Max Delay Datapath Only  
+clk_out2_clk_wiz_0                                                                                   clk_out2_clk_wiz_0                                                                                   rise - rise     1.16     0.00            0         5306             4.44  Clean                Partial False Path       
+clk_out2_clk_wiz_0                                                                                   sysclk3                                                                                                                                       0           17                   Ignored              False Path               
+dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  rise - fall    11.80     0.00            0         1107            25.00  Clean                Timed                    
+dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  sysclk3                                                                                              rise - rise    49.37     0.00            0           89            50.00  Ignored              Max Delay Datapath Only  
+sysclk3                                                                                              clk_out1_clk_wiz_0                                                                                   rise - rise     8.41     0.00            0           67            10.00  Clean                Partial False Path       
+sysclk3                                                                                              clk_out2_clk_wiz_0                                                                                                                            0           24                   Ignored              False Path               
+sysclk3                                                                                              dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  rise - rise     9.43     0.00            0          105            10.00  Ignored              Max Delay Datapath Only  
+sysclk3                                                                                              sysclk3                                                                                              rise - rise     6.23     0.00            0         6798            10.00  Clean                Partial False Path       
+
+

@@ -1,0 +1,8 @@
+CANDIDATE=Morganite_2SM
+CPU_MHZ=100
+HBM_AXI_MHZ=225
+CPU_CLOCK=clk_out1_clk_wiz_0
+WNS=1.158
+WHS=0.010
+DRC_ERROR_CRITICAL_COUNT=0
+BITSTREAM=/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit

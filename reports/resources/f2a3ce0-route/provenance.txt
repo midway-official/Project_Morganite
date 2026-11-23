@@ -1,0 +1,14 @@
+checkpoint=/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top_postroute_physopt.dcp
+checkpoint_sha256=e10b4cc3ab5a70fee321581f78c371d4f0b422b9378f7cddba335240a909b31e
+vivado=2023.2
+part=xcu50-fsvh2104-2-e
+stage=route
+variant=gpu
+cpu=u_cpu
+gpu=u_gpu_soc/gpu
+SLR0.cpu.placed=159806
+SLR0.gpu.placed=63673
+SLR0.rest.placed=18833
+SLR1.cpu.placed=0
+SLR1.gpu.placed=0
+SLR1.rest.placed=1

@@ -1,0 +1,114 @@
+{
+  "checkpoint_sha256": "e10b4cc3ab5a70fee321581f78c371d4f0b422b9378f7cddba335240a909b31e",
+  "stage": "route",
+  "scopes": {
+    "cpu": "u_cpu",
+    "gpu": "u_gpu_soc/gpu"
+  },
+  "device": {
+    "soc": {
+      "LUT": 153478,
+      "FF": 63792,
+      "BRAM_tiles": 81.5,
+      "URAM": 0,
+      "DSP": 48
+    },
+    "cpu": {
+      "LUT": 104716,
+      "FF": 40037,
+      "BRAM_tiles": 61,
+      "URAM": 0,
+      "DSP": 8
+    },
+    "gpu": {
+      "LUT": 40305,
+      "FF": 15287,
+      "BRAM_tiles": 16,
+      "URAM": 0,
+      "DSP": 40
+    },
+    "remaining_by_difference": {
+      "LUT": 8457,
+      "FF": 8468,
+      "BRAM_tiles": 4.5,
+      "URAM": 0,
+      "DSP": 0
+    }
+  },
+  "slrs": {
+    "SLR0": {
+      "soc": {
+        "LUT": 153478,
+        "FF": 63792,
+        "BRAM_tiles": 81.5,
+        "URAM": 0,
+        "DSP": 48
+      },
+      "cpu": {
+        "LUT": 104716,
+        "FF": 40037,
+        "BRAM_tiles": 61,
+        "URAM": 0,
+        "DSP": 8
+      },
+      "gpu": {
+        "LUT": 40305,
+        "FF": 15287,
+        "BRAM_tiles": 16,
+        "URAM": 0,
+        "DSP": 40
+      },
+      "rest": {
+        "LUT": 8468,
+        "FF": 8468,
+        "BRAM_tiles": 4.5,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 11,
+        "FF": 0,
+        "BRAM_tiles": 0.0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    },
+    "SLR1": {
+      "soc": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "cpu": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "gpu": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "rest": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    }
+  }
+}
