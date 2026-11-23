@@ -1,0 +1,24 @@
+distribution=Ubuntu 22.04.5 LTS
+kernel=6.6.87.2-microsoft-standard-WSL2
+user=midway
+openjdk version "17.0.21.1" 2026-11-17
+OpenJDK Runtime Environment (build 17.0.21.1+2-1-22.04.1-Ubuntu)
+OpenJDK 64-Bit Server VM (build 17.0.21.1+2-1-22.04.1-Ubuntu, mixed mode, sharing)
+g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0
+sbt.version=1.9.8
+ThisBuild / scalaVersion := "2.13.12"
+  libraryDependencies += "org.chipsalliance" %% "chisel" % "6.6.0",
+  addCompilerPlugin("org.chipsalliance" % "chisel-plugin" % "6.6.0" cross CrossVersion.full),
+LLVM (http://llvm.org/):
+  LLVM version 18.0.0git
+  Optimized build.
+CIRCT firtool-1.62.1
+7f52d2a3782d09736895f66e7eb0e5cc4b3b1b18aa1ad0d04fca4cd6e42cd2ee  /home/midway/.cache/llvm-firtool/1.62.1/bin/firtool
+Verilator 4.038 2020-07-11 rev v4.036-114-g0cd4a57ad
+Verilator 5.050 2026-07-01 rev v5.050
+    VERILATOR_ROOT     = /home/midway/.local/verilator-v5.050/share/verilator
+    VERILATOR_ROOT     = /home/midway/verilator-v5.050-src
+Vivado v2019.2 (64-bit)
+SW Build 2708876 on Wed Nov  6 21:39:14 MST 2019
+IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.

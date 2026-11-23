@@ -1,0 +1,9 @@
+/.worktrees/
+/build/
+/target/
+/project/target/
+/project/project/
+/.bsp/
+/.metals/
+__pycache__/
+*.pyc

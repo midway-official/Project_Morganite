@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "candidate": "5ec35882a6eb4040631c1cf9d322a754bd435907",
+  "board": "physical U50C",
+  "transcript": "/home/midway/Aurora_AXI/reports/2026-11-23-5ec35882-u50c/linux-uart.txt",
+  "transcript_sha256": "6b60801fc8ffd11ff332c42e78960f710807b6a8c0ad96f573690d72b5b12eb9",
+  "boot_evidence": {
+    "linux_version_seen": true,
+    "initramfs_seen": true,
+    "shell_prompt_seen": true
+  },
+  "commands": [
+    {
+      "command": "/bin/busybox echo AURORA_U50C_5EC35882_PASS_20261123",
+      "expected_regex": "AURORA_U50C_5EC35882_PASS_20261123",
+      "passed": true
+    },
+    {
+      "command": "/bin/busybox uname -m",
+      "expected_regex": "(^|\\n)loongarch32r(\\n|$)",
+      "passed": true
+    },
+    {
+      "command": "/bin/busybox id",
+      "expected_regex": "(^|\\n)uid=0 gid=0[^\\n]*(\\n|$)",
+      "passed": true
+    },
+    {
+      "command": "/bin/busybox pwd",
+      "expected_regex": "(^|\\n)/(\\n|$)",
+      "passed": true
+    }
+  ],
+  "finished_local": "2026-11-23T21:49:01+0800"
+}

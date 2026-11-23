@@ -1,0 +1,73 @@
+{
+  "candidate": {
+    "commit": "5ec35882a6eb4040631c1cf9d322a754bd435907",
+    "short": "5ec35882",
+    "subject": "Decouple tick7 SQ scan snapshots and conserve MemIQ dispatch credits"
+  },
+  "source": {
+    "worktree": "/home/midway/Aurora_AXI/build/u50c-linux-5ec35882",
+    "generated_rtl_sha256": "82c673147ce734b2662b3dc5e740377913c594f039102a1c83033a2440d409f1"
+  },
+  "build": {
+    "status": "PASS",
+    "host": "remote Ubuntu FPGA VM",
+    "vivado": "2023.2",
+    "part": "xcu50-fsvh2104-2-e",
+    "cpu_clock_mhz": 100,
+    "hbm_axi_clock_mhz": 225,
+    "synthesis": {
+      "errors": 0,
+      "critical_warnings": 0,
+      "warnings": 246
+    },
+    "implementation": {
+      "fully_routed": true,
+      "fully_routed_nets": 135443,
+      "routing_errors": 0,
+      "wns_ns": 0.514,
+      "tns_ns": 0.0,
+      "whs_ns": 0.01,
+      "ths_ns": 0.0,
+      "drc_errors": 0,
+      "drc_warnings": 31
+    },
+    "bitstream_sha256": "8bc4c4fffeb9c4d59b557a994e1a7784f48daff0d990d78240f185b37e3c246e",
+    "ltx_sha256": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88"
+  },
+  "board_test": {
+    "status": "PASS",
+    "board": "U50C xcu50_u55n_0",
+    "hardware_server": "127.0.0.1:3122",
+    "program_pass": true,
+    "peripheral_rw_pass": true,
+    "hbm": {
+      "pseudo_channels": 16,
+      "patterns": 2,
+      "words_per_pattern_per_channel": 128,
+      "passed": true
+    },
+    "loaded_image_bytes": 6631738,
+    "zero_range": "0x00900000-0x01000000",
+    "zero_range_readback_pass": true
+  },
+  "linux": {
+    "status": "PASS",
+    "kernel": "Linux 5.14.0-rc2-gfbd87836058a",
+    "initramfs": "Minimal LoongArch32 initramfs",
+    "shell_prompt": true,
+    "echo_marker": "AURORA_U50C_5EC35882_PASS_20261123",
+    "uname_m": "loongarch32r",
+    "id": "uid=0 gid=0",
+    "pwd": "/",
+    "finished_local": "2026-11-23T21:49:01+08:00",
+    "uart_transcript": "linux-uart.txt",
+    "uart_transcript_sha256": "6b60801fc8ffd11ff332c42e78960f710807b6a8c0ad96f573690d72b5b12eb9",
+    "machine_result": "linux-uart.txt.result.json"
+  },
+  "remote": {
+    "build_dir": "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123",
+    "hardware_run": "/home/fpga/aurora-u50c-debug/runs/20261123T134334.883268Z",
+    "evidence_archive": "remote-evidence.tar.gz",
+    "evidence_archive_sha256": "fafbfa0da5040c9e44a3b0d951dfcb024efb7782ec7bf2eade0d167ce074c3f0"
+  }
+}
