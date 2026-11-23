@@ -6,7 +6,6 @@
 #include <linux/module.h>
 #include <linux/mutex.h>
 #include <linux/of.h>
-#include <linux/of_reserved_mem.h>
 #include <linux/platform_device.h>
 #include <linux/uaccess.h>
 #include "morganite.h"
@@ -151,8 +150,6 @@ static const struct file_operations mg_fops = {
     .owner = THIS_MODULE, .open = mg_open, .release = mg_release, .llseek = mg_seek,
     .read = mg_read, .write = mg_write, .unlocked_ioctl = mg_ioctl,
 };
-static void mg_release_pool(void *dev) { of_reserved_mem_device_release(dev); }
-
 static int mg_probe(struct platform_device *pdev)
 {
     struct device *dev = &pdev->dev;
@@ -167,10 +164,6 @@ static int mg_probe(struct platform_device *pdev)
     m->caps = reg_read(m, 8);
     if (!(m->caps & 255) || (m->caps & 255) > ARRAY_SIZE(((struct mg_status *)0)->sm)) return -EINVAL;
     err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-    if (err) return err;
-    err = of_reserved_mem_device_init(dev);
-    if (err) return err;
-    err = devm_add_action_or_reset(dev, mg_release_pool, dev);
     if (err) return err;
     m->cpu = dmam_alloc_coherent(dev, MG_BYTES, &m->dma, GFP_KERNEL);
     if (!m->cpu) return -ENOMEM;

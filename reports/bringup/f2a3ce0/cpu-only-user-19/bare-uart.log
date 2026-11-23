@@ -1,0 +1,16 @@
+abcdefghij
+uart work!
+USER_BEGIN plv=3 irq=0 timer=0 static_tlb=4K
+original COPY_PASS bytes_hex 00900000 
+USER_RC 0
+nop COPY_PASS bytes_hex 00900000 
+USER_RC 0
+dbar COPY_PASS bytes_hex 00900000 
+USER_RC 0
+nop COPY_PASS bytes_hex 00900000 
+USER_RC 0
+dbar COPY_PASS bytes_hex 00900000 
+USER_RC 0
+original COPY_PASS bytes_hex 00900000 
+USER_RC 0
+USER_END

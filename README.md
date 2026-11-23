@@ -5,6 +5,14 @@ The board configuration uses two SMs with four physical lanes per SM and an
 eight-thread warp. The CPU/GPU fabric targets 100 MHz and the HBM AXI domain
 targets 225 MHz. Development and test evidence are under `reports/`.
 
+The U50C runs include 100 consecutive integer and FP32 jobs and eight
+320x240 indexed rendering scenes. The Linux boot investigation includes a
+same-image comparison with the original CPU-only bitstream and a halfword
+copy reproducer. [Board results and fault diagnosis](reports/bringup/f2a3ce0/diagnosis.md)
+· [Board frames](reports/bringup/f2a3ce0/boot-15/frames)
+· [RTL frames](reports/graphics/rtl-320x240)
+· [Routed CPU, GPU and SoC resources](reports/resources/f2a3ce0-route/summary.json)
+
 ## WSL build
 
 ```bash

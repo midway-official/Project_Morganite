@@ -2,26 +2,10 @@
     cpus {
         timebase-frequency = <100000000>;
     };
-    /* LA32R registers the DT memory banks as System RAM even when a
-     * reserved-memory child overlaps one. Leave the coherent pool between banks. */
-    memory {
-        reg = <0x00000000 0x1f800000>, <0x1fa00000 0x00400000>;
-    };
-    reserved-memory {
-        #address-cells = <1>;
-        #size-cells = <1>;
-        ranges;
-        gpu_pool: dma-pool@1f800000 {
-            compatible = "shared-dma-pool";
-            reg = <0x1f800000 0x00200000>;
-            no-map;
-        };
-    };
     soc {
         gpu@1fe20000 {
             compatible = "morganite,gpu-v1";
             reg = <0x1fe20000 0x1000>;
-            memory-region = <&gpu_pool>;
         };
     };
 };

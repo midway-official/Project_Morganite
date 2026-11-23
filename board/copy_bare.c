@@ -8,7 +8,6 @@ extern void copy_barrier(unsigned char *, const unsigned char *, unsigned);
 void run_bare(void)
 {
 	unsigned crmd, ecfg, tcfg, dmw0, dmw1;
-	unsigned i;
 
 	asm volatile("csrrd %0, 0" : "=r"(crmd));
 	asm volatile("csrrd %0, 4" : "=r"(ecfg));
@@ -20,7 +19,11 @@ void run_bare(void)
 		return;
 	}
 	MESSAGE("BARE_BEGIN plv=0 irq=0 timer=0 cached=0xa0000011 uncached=0x80000001\n");
-	for (i = 0; i < 2; i++) {
+#ifdef COPY_IRQ_TLB
+	extern void run_irq_tlb(void);
+	run_irq_tlb();
+#else
+	for (unsigned i = 0; i < 2; i++) {
 		/* Each mapping gets a distinct physical region. Code and stack stay cached. */
 		unsigned offset = i * 0x10000;
 		MESSAGE("CACHED_ORIGINAL ");
@@ -30,5 +33,6 @@ void run_bare(void)
 		MESSAGE("UNCACHED_ORIGINAL ");
 		run_probe((unsigned char *)(0x81040000 + offset), copy_match);
 	}
+#endif
 	MESSAGE("BARE_END\n");
 }

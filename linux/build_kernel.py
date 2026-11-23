@@ -136,6 +136,8 @@ result = {"kernel_commit": kernel_rev, "kernel_entry": hex(symbols["kernel_entry
           "sha256": hashlib.sha256((obj/"ram.dat").read_bytes()).hexdigest(),
           "config_sha256": hashlib.sha256((obj/".config").read_bytes()).hexdigest(),
           "zero_ranges": [[bss_start, bss_end]],
-          "segments": [[a,len(b)] for a,b in segments.items()], "dma_window":[0x1f800000,0x1fa00000]}
+          "segments": [[a,len(b)] for a,b in segments.items()],
+          "dma_window":[0x01000000,0x1fe00000], "dma_bytes":0x00200000,
+          "dma_api":"dma_alloc_coherent with loongarch32 uncached direct mapping"}
 (obj/"image.json").write_text(json.dumps(result,indent=2)+"\n")
 print(json.dumps(result))

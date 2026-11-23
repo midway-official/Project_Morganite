@@ -1,0 +1,22 @@
+{
+  "kind": "bare-metal LA32R copy",
+  "sha256": "6771fad76da652f61b2bcb52b4541a73c978275a0646fafdae2ad135ecd34a4f",
+  "zero_ranges": [],
+  "segments": [
+    [
+      3145728,
+      1676
+    ],
+    [
+      469762048,
+      304
+    ]
+  ],
+  "inputs": {
+    "copy_bare_entry.S": "c5b85a9d8b51a7b9c57f1271c59e25a009aeaa05a79fdb37e954f2d5daf36613",
+    "copy_bare.c": "c77aabf2ca4871fff2abaf27a347752259c960db59e373636ce7eedcca1d23f2",
+    "inflate_copy_probe.c": "66b24dee257296f5fe9b42d399ea1dfcfa30be0638e24c3306775167b064ed14",
+    "inflate_copy_probe.S": "3b5275a7ae832c75af37f749be7ea499c677b0acd87673d0b6fd0d874b1b11da"
+  },
+  "frozen_reset_sha256": "cdc5379030c978a87743b94c4b932012e67016358fba466ae4e916f3836420ce"
+}

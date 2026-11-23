@@ -35,11 +35,11 @@ def main():
     layout = json.loads((software/"image.json").read_text())
     if sha(image) != layout["sha256"]:
         raise ValueError("kernel image SHA mismatch")
-    dma, limit = layout["dma_window"]
+    first, limit = layout["dma_window"]
     ranges = [(start,start+size) for start,size in layout["segments"]] + layout["zero_ranges"]
-    ranges += [[(i<<28)+0x100000,(i<<28)+0x100200] for i in range(16)]
-    if any(max(start,dma)<min(end,limit) for start,end in ranges):
-        raise ValueError("image, BSS or HBM diagnostics overlap the DMA pool")
+    for start,end in ranges:
+        if start < first or end > limit:
+            raise ValueError("image segment or BSS is outside the documented Linux RAM")
     control = [sys.executable,str(software/"runtime/remote_debug_session.py"),str(args.manager)]
     status = json.loads(subprocess.check_output(control+["status"]))
     previous = status.get("request",{})

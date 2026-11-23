@@ -79,13 +79,17 @@ def main():
         info = json.loads(next(line for line in command("/bin/mgpu info").splitlines() if line.startswith("{")))
         lo, hi = json.loads((run/"image.json").read_text())["dma_window"]
         if (info["id"] != 0x4d4f5247 or info["abi"] != 0x10000 or info["caps"] != 0x04080402
-                or info["dma"] != lo or lo+info["bytes"] != hi):
+                or info["bytes"] != 0x00200000 or info["dma"] < lo or info["dma"]+info["bytes"] > hi):
             raise ValueError("unexpected device or DMA mapping: "+str(info))
         ram = re.findall(r"(?m)^([0-9a-f]+)-([0-9a-f]+) : System RAM$",resources)
-        if not ram or any(max(int(a,16),lo) <= min(int(b,16),hi-1) for a,b in ram):
-            raise ValueError("coherent DMA pool overlaps advertised System RAM")
+        if not any(int(a,16) <= info["dma"] and info["dma"]+info["bytes"]-1 <= int(b,16) for a,b in ram):
+            raise ValueError("DMA API allocation is outside reported System RAM")
+        kernel_log=command("dmesg")
+        match=re.search(r"coherent DMA [^,]+, 2097152 bytes, uncached CPU mapping (0x[0-9a-fA-F]+)",kernel_log)
+        if not match or int(match.group(1),16) != 0x80000000 + info["dma"]:
+            raise ValueError("DMA API did not return the LA32R uncached KPRANG0 alias")
         mapping = re.search(r"2097152 bytes, CPU mapping (?:0x)?([0-9a-fA-F]+)", boot)
-        if not mapping or int(mapping.group(1),16) != 0x80000000 + lo:
+        if not mapping or int(mapping.group(1),16) != 0x80000000 + info["dma"]:
             raise ValueError("unexpected LA32R uncached CPU alias for coherent DMA")
         def jobs(name, cmd, timeout=240):
             output = command("/bin/mgpu "+cmd,timeout)

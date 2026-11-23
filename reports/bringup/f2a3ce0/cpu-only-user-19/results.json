@@ -1,0 +1,40 @@
+{
+  "run": "/home/fpga/aurora-u50c-debug/runs/20261123T200859.415171Z",
+  "elf_sha256": {
+    "original": "b13bc21cd63400e7fd5f0c240aa328d670e97037b47a21f386878989f18531e3",
+    "nop": "77aa9d6cc0a5969cd6eaf36db5bf48ba7ddf6564ffb831627015cfeea4663593",
+    "dbar": "1c2fe4148ce76509b7c6615b4a987854541b311c56e0493d7614bad94ce90089"
+  },
+  "trials": [
+    {
+      "variant": "original",
+      "rc": 0,
+      "bytes_checked": 9437184
+    },
+    {
+      "variant": "nop",
+      "rc": 0,
+      "bytes_checked": 9437184
+    },
+    {
+      "variant": "dbar",
+      "rc": 0,
+      "bytes_checked": 9437184
+    },
+    {
+      "variant": "nop",
+      "rc": 0,
+      "bytes_checked": 9437184
+    },
+    {
+      "variant": "dbar",
+      "rc": 0,
+      "bytes_checked": 9437184
+    },
+    {
+      "variant": "original",
+      "rc": 0,
+      "bytes_checked": 9437184
+    }
+  ]
+}

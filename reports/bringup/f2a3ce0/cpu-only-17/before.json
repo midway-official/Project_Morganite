@@ -1,0 +1,323 @@
+{
+  "phase": "running",
+  "worker_pid": null,
+  "run_dir": "/home/fpga/aurora-u50c-debug/runs/20261123T194335.094339Z",
+  "request": {
+    "image_format": "dat",
+    "load_address": null,
+    "server": "127.0.0.1:3122",
+    "uart_port": 23251,
+    "vivado_root": "/home/fpga/Xilinx/Vivado/2023.2",
+    "program": true,
+    "hbm_test": true,
+    "zero_ranges": [],
+    "bit": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/u50c_top.bit",
+    "bit_sha256": "8bc4c4fffeb9c4d59b557a994e1a7784f48daff0d990d78240f185b37e3c246e",
+    "ltx": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/u50c_top.ltx",
+    "ltx_sha256": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "image": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/bare-copy-frozen/ram.dat",
+    "image_sha256": "6771fad76da652f61b2bcb52b4541a73c978275a0646fafdae2ad135ecd34a4f"
+  },
+  "runtime": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-inflate-replay/runtime",
+  "log": "/home/fpga/aurora-u50c-debug/runs/20261123T194335.094339Z/bridge.log",
+  "updated_utc": "2026-11-23T19:44:29.490719+00:00",
+  "bridge_pid": 35230,
+  "uart_port": 23251,
+  "bridge_alive": true,
+  "worker_alive": false,
+  "heartbeat": {
+    "PID": "35285",
+    "STATUS": "7",
+    "TIME": "1795463376",
+    "CLIENTS": "0"
+  },
+  "heartbeat_age_seconds": 0.1892855167388916,
+  "observed_soc_status": {
+    "cpu_run": true,
+    "hbm_ready": true,
+    "clock_locked": true,
+    "cpu_held_reset": false
+  },
+  "progress": [
+    {
+      "id": "program:24",
+      "text": "HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA"
+    },
+    {
+      "id": "program:25",
+      "text": "HW_DEVICE=xcu50_u55n_0"
+    },
+    {
+      "id": "program:34",
+      "text": "PROGRAM_OK=/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/u50c_top.bit"
+    },
+    {
+      "id": "board:24",
+      "text": "HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA"
+    },
+    {
+      "id": "board:25",
+      "text": "HW_DEVICE=xcu50_u55n_0"
+    },
+    {
+      "id": "board:56",
+      "text": "PERIPHERAL_RW_VERIFY_PASS=1"
+    },
+    {
+      "id": "board:57",
+      "text": "VIO_STATUS=u_hbm_vio:120B"
+    },
+    {
+      "id": "board:58",
+      "text": "VIO_STATUS=u_status_vio:3F"
+    },
+    {
+      "id": "board:59",
+      "text": "BOARD_VERIFY_PASS=Tick2h_U50C_100MHz"
+    },
+    {
+      "id": "hbm:24",
+      "text": "HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA"
+    },
+    {
+      "id": "hbm:25",
+      "text": "HW_DEVICE=xcu50_u55n_0"
+    },
+    {
+      "id": "hbm:36",
+      "text": "HBM_DIAG_BASE=0x1FDF0000"
+    },
+    {
+      "id": "hbm:37",
+      "text": "HBM_DIAG_BEGIN=1"
+    },
+    {
+      "id": "hbm:41",
+      "text": "HBM_DIAG_OK=1"
+    },
+    {
+      "id": "hbm:42",
+      "text": "HBM_DIAG_BEGIN=2"
+    },
+    {
+      "id": "hbm:46",
+      "text": "HBM_DIAG_OK=2"
+    },
+    {
+      "id": "hbm:47",
+      "text": "HBM_DIAG_BEGIN=4"
+    },
+    {
+      "id": "hbm:51",
+      "text": "HBM_DIAG_OK=4"
+    },
+    {
+      "id": "hbm:52",
+      "text": "HBM_DIAG_BEGIN=8"
+    },
+    {
+      "id": "hbm:56",
+      "text": "HBM_DIAG_OK=8"
+    },
+    {
+      "id": "hbm:57",
+      "text": "HBM_DIAG_BEGIN=16"
+    },
+    {
+      "id": "hbm:61",
+      "text": "HBM_DIAG_OK=16"
+    },
+    {
+      "id": "hbm:62",
+      "text": "HBM_DIAG_BEGIN=32"
+    },
+    {
+      "id": "hbm:66",
+      "text": "HBM_DIAG_OK=32"
+    },
+    {
+      "id": "hbm:67",
+      "text": "HBM_DIAG_BEGIN=64"
+    },
+    {
+      "id": "hbm:71",
+      "text": "HBM_DIAG_OK=64"
+    },
+    {
+      "id": "hbm:72",
+      "text": "HBM_DIAG_BEGIN=128"
+    },
+    {
+      "id": "hbm:76",
+      "text": "HBM_DIAG_OK=128"
+    },
+    {
+      "id": "hbm:94",
+      "text": "HBM_PC_VERIFY_PASS=pc0,invert0"
+    },
+    {
+      "id": "hbm:96",
+      "text": "HBM_PC_VERIFY_PASS=pc1,invert0"
+    },
+    {
+      "id": "hbm:98",
+      "text": "HBM_PC_VERIFY_PASS=pc2,invert0"
+    },
+    {
+      "id": "hbm:100",
+      "text": "HBM_PC_VERIFY_PASS=pc3,invert0"
+    },
+    {
+      "id": "hbm:102",
+      "text": "HBM_PC_VERIFY_PASS=pc4,invert0"
+    },
+    {
+      "id": "hbm:104",
+      "text": "HBM_PC_VERIFY_PASS=pc5,invert0"
+    },
+    {
+      "id": "hbm:106",
+      "text": "HBM_PC_VERIFY_PASS=pc6,invert0"
+    },
+    {
+      "id": "hbm:108",
+      "text": "HBM_PC_VERIFY_PASS=pc7,invert0"
+    },
+    {
+      "id": "hbm:110",
+      "text": "HBM_PC_VERIFY_PASS=pc8,invert0"
+    },
+    {
+      "id": "hbm:112",
+      "text": "HBM_PC_VERIFY_PASS=pc9,invert0"
+    },
+    {
+      "id": "hbm:114",
+      "text": "HBM_PC_VERIFY_PASS=pc10,invert0"
+    },
+    {
+      "id": "hbm:116",
+      "text": "HBM_PC_VERIFY_PASS=pc11,invert0"
+    },
+    {
+      "id": "hbm:118",
+      "text": "HBM_PC_VERIFY_PASS=pc12,invert0"
+    },
+    {
+      "id": "hbm:120",
+      "text": "HBM_PC_VERIFY_PASS=pc13,invert0"
+    },
+    {
+      "id": "hbm:122",
+      "text": "HBM_PC_VERIFY_PASS=pc14,invert0"
+    },
+    {
+      "id": "hbm:124",
+      "text": "HBM_PC_VERIFY_PASS=pc15,invert0"
+    },
+    {
+      "id": "hbm:142",
+      "text": "HBM_PC_VERIFY_PASS=pc0,invert1"
+    },
+    {
+      "id": "hbm:144",
+      "text": "HBM_PC_VERIFY_PASS=pc1,invert1"
+    },
+    {
+      "id": "hbm:146",
+      "text": "HBM_PC_VERIFY_PASS=pc2,invert1"
+    },
+    {
+      "id": "hbm:148",
+      "text": "HBM_PC_VERIFY_PASS=pc3,invert1"
+    },
+    {
+      "id": "hbm:150",
+      "text": "HBM_PC_VERIFY_PASS=pc4,invert1"
+    },
+    {
+      "id": "hbm:152",
+      "text": "HBM_PC_VERIFY_PASS=pc5,invert1"
+    },
+    {
+      "id": "hbm:154",
+      "text": "HBM_PC_VERIFY_PASS=pc6,invert1"
+    },
+    {
+      "id": "hbm:156",
+      "text": "HBM_PC_VERIFY_PASS=pc7,invert1"
+    },
+    {
+      "id": "hbm:158",
+      "text": "HBM_PC_VERIFY_PASS=pc8,invert1"
+    },
+    {
+      "id": "hbm:160",
+      "text": "HBM_PC_VERIFY_PASS=pc9,invert1"
+    },
+    {
+      "id": "hbm:162",
+      "text": "HBM_PC_VERIFY_PASS=pc10,invert1"
+    },
+    {
+      "id": "hbm:164",
+      "text": "HBM_PC_VERIFY_PASS=pc11,invert1"
+    },
+    {
+      "id": "hbm:166",
+      "text": "HBM_PC_VERIFY_PASS=pc12,invert1"
+    },
+    {
+      "id": "hbm:168",
+      "text": "HBM_PC_VERIFY_PASS=pc13,invert1"
+    },
+    {
+      "id": "hbm:170",
+      "text": "HBM_PC_VERIFY_PASS=pc14,invert1"
+    },
+    {
+      "id": "hbm:172",
+      "text": "HBM_PC_VERIFY_PASS=pc15,invert1"
+    },
+    {
+      "id": "hbm:173",
+      "text": "HBM_DIAG_VERIFY_PASS=16_pseudo_channels,2_patterns,128_words"
+    },
+    {
+      "id": "load:24",
+      "text": "HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA"
+    },
+    {
+      "id": "load:25",
+      "text": "HW_DEVICE=xcu50_u55n_0"
+    },
+    {
+      "id": "load:48",
+      "text": "HBM_IMAGE_COMPARE_PASS bytes=1980 zero_bytes=0"
+    },
+    {
+      "id": "load:49",
+      "text": "DEBUG_IMAGE_LOADED_BYTES=1980"
+    },
+    {
+      "id": "load:50",
+      "text": "DEBUG_LOAD_PASS_CPU_HELD=1"
+    },
+    {
+      "id": "bridge:24",
+      "text": "HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA"
+    },
+    {
+      "id": "bridge:25",
+      "text": "HW_DEVICE=xcu50_u55n_0"
+    },
+    {
+      "id": "bridge:33",
+      "text": "UART_BRIDGE_READY=23251"
+    },
+    {
+      "id": "bridge:89",
+      "text": "UART_CPU_RELEASED_AFTER_CLIENT_CONNECT=1"
+    }
+  ]
+}

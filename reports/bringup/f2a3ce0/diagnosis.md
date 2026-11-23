@@ -153,6 +153,38 @@ incorrect read during verification. Sources, binaries, independent model logs
 and board measurements are retained. See [original UART](boot-15/copy-probe-uart.log),
 [interleaved results](boot-15/copy-matrix/results.json) and [ELF hashes](copy-probe/binaries.json).
 
+Runs 16 and 17 used the frozen CPU-only BIT and a freestanding LA32R program
+in place of Linux. The serial writer uses no system calls. NEMU ran both
+exact RAM images before programming. Run 16 read back the privilege, timer,
+interrupt and direct-window CSRs. It checked two 9 MiB copies per case with
+interrupts masked. Cached original, cached DBAR and uncached original all
+passed. Each data mapping used distinct physical pages. Run 17 used static
+4 KiB TLB pages and a short timer handler which preserved its only temporary
+register. Direct addressing with timer interrupts, mapped pages with and
+without timer interrupts, and mapped pages with timer interrupts and DBAR all
+passed twice. Six interrupt counts ranged from 11,973 to 30,867. These runs
+do not reproduce Linux scheduling, user/kernel transitions, dynamic page
+allocation, cache residency or the full OS interrupt path. They narrow the
+conditions of the failure and leave the specific CPU/OS interaction open.
+See [run 16](cpu-only-16/bare-uart.log) and [run 17](cpu-only-17/bare-uart.log).
+
+Run 19 removes the remaining Linux user/kernel and dynamic-page variables while
+keeping the original userspace probe instruction streams. The frozen CPU-only
+BIT ran the original, one-`nop`, and one-`dbar` ELF images at PLV3 with static
+4 KiB mappings, interrupts and the timer disabled. All six trials checked
+9,437,184 bytes and passed on the U50C. The identical RAM image passed all six
+trials in NEMU. The ELF hashes and board UART are retained in
+[CPU-only run 19](cpu-only-user-19).
+
+This separates the GPU from the Linux inflate failure. The Morganite GPU is not
+present in the reproducing BIT, and the same copy loop succeeds in user mode
+with the CPU-only image. The evidence currently points to a Linux-specific
+software or CPU/OS interaction involving the normal kernel path. It does not
+identify a failing GPU RTL block, AXI GPU master, HBM bridge, or a generic
+halfword store defect. A CPU RTL or cache defect that requires the full Linux
+execution context remains possible until the first divergent kernel load or
+store is captured.
+
 ## Tested GPU configuration
 
 Boot 10 recorded 130 completed kernel launches with zero GPU faults, including
@@ -182,6 +214,17 @@ matched the staging manifest before submission. It ran 130 GPU launches and
 passed all eight image comparisons. See [installed payload hashes](boot-15/payload-sha256.json)
 and [board frames with reference results](boot-15/frames).
 
+Boot 18 repeated the full 2-SM acceptance run after the CPU-only controls. The
+board and all 16 HBM pseudo-channel checks passed, followed by the GPU
+loopback, 100 integer/FP32 jobs, FMA benchmark, and all eight 320x240 scenes.
+The measured FMA result was 1.323429 GFLOPS with a 1.99802x 2-SM/1-SM ratio.
+The copy benchmark measured 5.727 MB/s of aggregate read-plus-write payload.
+The independent comparison reported zero coverage, winner, color, and depth
+errors for every scene. The largest color error was one RGBA8 code and the
+largest depth error was `1.7881393432617188e-7`. The complete board readbacks
+are saved under [boot-18/frames](boot-18/frames), with counters in
+[performance.json](boot-18/performance.json).
+
 | Routed hierarchy | CLB LUT | FF | BRAM tiles | URAM | DSP |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Aurora CPU | 104,716 | 40,037 | 61 | 0 | 8 |
@@ -205,4 +248,23 @@ python3 board/check_initramfs.py --require-trace build/sw-gzip-trace reports/bri
 python3 board/check_initramfs.py --require-replay build/sw-inflate-replay reports/bringup/f2a3ce0/cpu-only-14
 python3 graphics/test_render.py board reports/bringup/f2a3ce0/boot-10/frames
 python3 graphics/export_png.py reports/bringup/f2a3ce0/boot-10/frames reports/bringup/f2a3ce0/boot-10/frames/comparisons.json reports/bringup/f2a3ce0/boot-10/frames
+```
+
+The model controls used the LA32R NEMU executable with SHA-256
+`9244e144087369a48cc3948a072095769701b9b420bbb4b047ef7f216b052a81`.
+To build the Linux probe, use the same LA32R GCC 8.3.0 cross toolchain as the
+kernel. For the equal-length timing control, add `-DCOPY_NOP`. For the barrier
+control, add `-DCOPY_DBAR`. The archived ELF hashes are checked again on the
+target before the experiment. The board runner expects a completed Linux
+run directory with a live UART bridge and no connected clients.
+
+```sh
+loongarch32r-linux-gnusf-gcc -O2 -Wall -Werror -nostdlib -static -fno-builtin \
+    -fno-stack-protector -no-pie -Wl,-e,_start -s \
+    board/inflate_copy_probe.S board/inflate_copy_probe.c -o build/inflate-copy
+python3 board/build_copy_bare.py build/copy-direct-control
+python3 board/build_copy_bare.py --irq-tlb build/copy-tlb-control
+sha256sum build/copy-{direct,tlb}-control/ram.dat
+# On the board VM, with the archived copy-probe directory and runner uploaded
+python3 uart_copy_probe.py board-test-15 copy-probe board-test-15/new-copy-matrix
 ```
