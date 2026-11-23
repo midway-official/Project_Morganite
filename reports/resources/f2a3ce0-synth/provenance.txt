@@ -1,0 +1,8 @@
+checkpoint=/home/fpga/morganite-u50c-20261123-QVWeb2PN/utilization-f2a3ce0-synth/linked-synth.dcp
+checkpoint_sha256=83d28430f86eb1c8eb5ea3e94c3d9507fcda9a0e44b2dd7256d8e8a42ad5de98
+vivado=2023.2
+part=xcu50-fsvh2104-2-e
+stage=synth
+variant=gpu
+cpu=u_cpu
+gpu=u_gpu_soc/gpu

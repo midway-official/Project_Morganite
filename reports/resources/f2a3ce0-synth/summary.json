@@ -1,0 +1,38 @@
+{
+  "checkpoint_sha256": "83d28430f86eb1c8eb5ea3e94c3d9507fcda9a0e44b2dd7256d8e8a42ad5de98",
+  "stage": "synth",
+  "scopes": {
+    "cpu": "u_cpu",
+    "gpu": "u_gpu_soc/gpu"
+  },
+  "device": {
+    "soc": {
+      "LUT": 163944,
+      "FF": 63249,
+      "BRAM_tiles": 81.5,
+      "URAM": 0,
+      "DSP": 48
+    },
+    "cpu": {
+      "LUT": 111430,
+      "FF": 40055,
+      "BRAM_tiles": 61,
+      "URAM": 0,
+      "DSP": 8
+    },
+    "gpu": {
+      "LUT": 44142,
+      "FF": 15285,
+      "BRAM_tiles": 16,
+      "URAM": 0,
+      "DSP": 40
+    },
+    "remaining_by_difference": {
+      "LUT": 8372,
+      "FF": 7909,
+      "BRAM_tiles": 4.5,
+      "URAM": 0,
+      "DSP": 0
+    }
+  }
+}

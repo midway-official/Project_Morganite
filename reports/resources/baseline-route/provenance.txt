@@ -1,0 +1,11 @@
+checkpoint=/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123/vivado/aurora_u50c.runs/impl_1/u50c_top_postroute_physopt.dcp
+checkpoint_sha256=193a2f558d44eba804efb7f6707826e27958976dd66fd25d2e2d2b995148862f
+vivado=2023.2
+part=xcu50-fsvh2104-2-e
+stage=route
+variant=baseline
+cpu=u_cpu
+SLR0.cpu.placed=159804
+SLR0.rest.placed=18107
+SLR1.cpu.placed=0
+SLR1.rest.placed=1

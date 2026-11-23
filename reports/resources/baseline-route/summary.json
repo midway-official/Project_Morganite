@@ -1,0 +1,92 @@
+{
+  "checkpoint_sha256": "193a2f558d44eba804efb7f6707826e27958976dd66fd25d2e2d2b995148862f",
+  "stage": "route",
+  "scopes": {
+    "cpu": "u_cpu"
+  },
+  "device": {
+    "soc": {
+      "LUT": 112771,
+      "FF": 48279,
+      "BRAM_tiles": 65.5,
+      "URAM": 0,
+      "DSP": 8
+    },
+    "cpu": {
+      "LUT": 104709,
+      "FF": 40039,
+      "BRAM_tiles": 61,
+      "URAM": 0,
+      "DSP": 8
+    },
+    "remaining_by_difference": {
+      "LUT": 8062,
+      "FF": 8240,
+      "BRAM_tiles": 4.5,
+      "URAM": 0,
+      "DSP": 0
+    }
+  },
+  "slrs": {
+    "SLR0": {
+      "soc": {
+        "LUT": 112771,
+        "FF": 48279,
+        "BRAM_tiles": 65.5,
+        "URAM": 0,
+        "DSP": 8
+      },
+      "cpu": {
+        "LUT": 104709,
+        "FF": 40039,
+        "BRAM_tiles": 61,
+        "URAM": 0,
+        "DSP": 8
+      },
+      "rest": {
+        "LUT": 8067,
+        "FF": 8240,
+        "BRAM_tiles": 4.5,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 5,
+        "FF": 0,
+        "BRAM_tiles": 0.0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    },
+    "SLR1": {
+      "soc": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "cpu": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "rest": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 0,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    }
+  }
+}
