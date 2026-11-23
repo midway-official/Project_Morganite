@@ -1,0 +1,61 @@
+
+/ # cat /proc/cmdline
+earlycon
+/ # cat /proc/iomem
+00000000-1fdfffff : System RAM
+  00300000-0066819f : Kernel code
+  006681a0-007dc99f : Kernel data
+  00960000-009d43d7 : Kernel bss
+1fe001e0-1fe001ef : serial
+1ff00000-1ff0ffff : 1ff00000.dmfe
+/ # cat /proc/meminfo
+MemTotal:         509656 kB
+MemFree:          503928 kB
+MemAvailable:     499692 kB
+Buffers:               0 kB
+Cached:             2380 kB
+SwapCached:            0 kB
+Active:              760 kB
+Inactive:           1684 kB
+Active(anon):        760 kB
+Inactive(anon):     1684 kB
+Active(file):          0 kB
+Inactive(file):        0 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:            96 kB
+Mapped:             1528 kB
+Shmem:              2380 kB
+KReclaimable:         72 kB
+Slab:               1040 kB
+SReclaimable:         72 kB
+SUnreclaim:          968 kB
+KernelStack:         184 kB
+PageTables:           32 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      254828 kB
+Committed_AS:       2956 kB
+VmallocTotal:     524280 kB
+VmallocUsed:          12 kB
+VmallocChunk:          0 kB
+Percpu:               32 kB
+/ # cat /proc/interrupts
+           CPU0       
+ 18:        794  LoongArch   2  ttyS0
+ 27:       1466  LoongArch  11  timer
+ERR:          0
+/ # ls /sys/bus/platform/devices
+[1;36m1fe001e0.serial[m                  [1;36mserial8250[m
+[1;36m1ff00000.dmfe[m                    [1;36mserial8250.0[m
+[1;36mFixed MDIO bus.0[m                 [1;36msoc[m
+[1;36minterrupt-controller@0x1fe11600[m
+/ # ls /sys/firmware
+[1;34mdevicetree[m  [0;0mfdt[m
+/ # cat /proc/cpuinfo
+/ # 

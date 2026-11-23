@@ -18,4 +18,11 @@ case class GpuParams(
   val beats: Int = warpWidth / lanes
   val beatBits: Int = log2Ceil(beats).max(1)
   val maxThreads: Int = warpWidth * warpSlots
+  val warpBits: Int = log2Ceil(warpSlots).max(1)
+  val threadCountBits: Int = log2Ceil(maxThreads + 1)
+  val registerBits: Int = log2Ceil(registers)
+  val rowBits: Int = log2Ceil(warpSlots * beats).max(1)
+  val programWords: Int = 1024
+  val pcBits: Int = log2Ceil(programWords)
+  val splitDepth: Int = 4
 }

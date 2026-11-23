@@ -1,0 +1,632 @@
+[
+  {
+    "kernel": "integer",
+    "threads": 1,
+    "cycles": 88,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 7,
+    "cycles": 90,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 8,
+    "cycles": 90,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 9,
+    "cycles": 111,
+    "requests": 2,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 17,
+    "cycles": 144,
+    "requests": 3,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 31,
+    "cycles": 192,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "integer",
+    "threads": 32,
+    "cycles": 192,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 1,
+    "cycles": 74,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 7,
+    "cycles": 131,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 8,
+    "cycles": 133,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 9,
+    "cycles": 143,
+    "requests": 2,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 17,
+    "cycles": 171,
+    "requests": 3,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 31,
+    "cycles": 248,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "divergence",
+    "threads": 32,
+    "cycles": 248,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 1,
+    "cycles": 100,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 7,
+    "cycles": 116,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 8,
+    "cycles": 116,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 9,
+    "cycles": 137,
+    "requests": 2,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 17,
+    "cycles": 195,
+    "requests": 3,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 31,
+    "cycles": 270,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "shared",
+    "threads": 32,
+    "cycles": 270,
+    "requests": 4,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 1,
+    "cycles": 237,
+    "requests": 6,
+    "fp_ops": 1,
+    "fmas": 1,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 7,
+    "cycles": 269,
+    "requests": 6,
+    "fp_ops": 7,
+    "fmas": 7,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 8,
+    "cycles": 269,
+    "requests": 6,
+    "fp_ops": 8,
+    "fmas": 8,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 9,
+    "cycles": 379,
+    "requests": 12,
+    "fp_ops": 9,
+    "fmas": 9,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 17,
+    "cycles": 527,
+    "requests": 18,
+    "fp_ops": 17,
+    "fmas": 17,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 31,
+    "cycles": 722,
+    "requests": 24,
+    "fp_ops": 31,
+    "fmas": 31,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "axpy",
+    "threads": 32,
+    "cycles": 722,
+    "requests": 24,
+    "fp_ops": 32,
+    "fmas": 32,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 1,
+    "cycles": 24,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 7,
+    "cycles": 26,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 8,
+    "cycles": 26,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 9,
+    "cycles": 24,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 17,
+    "cycles": 26,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 31,
+    "cycles": 26,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "bad-align",
+    "threads": 32,
+    "cycles": 26,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 503316481
+  },
+  {
+    "kernel": "overflow",
+    "threads": 1,
+    "cycles": 33,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 7,
+    "cycles": 36,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 8,
+    "cycles": 36,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 9,
+    "cycles": 33,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 17,
+    "cycles": 36,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 31,
+    "cycles": 36,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "overflow",
+    "threads": 32,
+    "cycles": 36,
+    "requests": 1,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 3,
+    "address": 0
+  },
+  {
+    "kernel": "invalid",
+    "threads": 1,
+    "cycles": 5,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 7,
+    "cycles": 6,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 8,
+    "cycles": 6,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 9,
+    "cycles": 7,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 17,
+    "cycles": 9,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 31,
+    "cycles": 8,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "invalid",
+    "threads": 32,
+    "cycles": 8,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 2,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 1,
+    "cycles": 5,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 7,
+    "cycles": 6,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 8,
+    "cycles": 6,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 9,
+    "cycles": 7,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 17,
+    "cycles": 9,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 31,
+    "cycles": 8,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "stack-underflow",
+    "threads": 32,
+    "cycles": 8,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316480
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 1,
+    "cycles": 26,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 0,
+    "address": 0
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 7,
+    "cycles": 21,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 8,
+    "cycles": 21,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 9,
+    "cycles": 18,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 17,
+    "cycles": 24,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 31,
+    "cycles": 26,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  },
+  {
+    "kernel": "bad-barrier",
+    "threads": 32,
+    "cycles": 26,
+    "requests": 0,
+    "fp_ops": 0,
+    "fmas": 0,
+    "fault": 4,
+    "address": 503316488
+  }
+]

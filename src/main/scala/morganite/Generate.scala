@@ -7,6 +7,10 @@ object Generate extends App {
   val p = GpuParams(numSms = args(2).toInt, warpWidth = args(3).toInt, lanes = args(4).toInt)
   val design = args(0) match {
     case "WarpBeats" => () => new WarpBeats(p)
+    case "Fp32Lane" => () => new Fp32Lane()
+    case "LaneRegisters" => () => new LaneRegisters(p)
+    case "RegisterTiming" => () => new RegisterTiming(p)
+    case "Sm" => () => new Sm(p)
     case other => throw new IllegalArgumentException(s"unknown top $other")
   }
   ChiselStage.emitSystemVerilogFile(design(), Array("--target-dir", args(1)),

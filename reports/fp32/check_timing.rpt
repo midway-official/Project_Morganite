@@ -1,0 +1,268 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date              : Mon Nov 23 23:14:20 2026
+| Host              : fpga-KVM running 64-bit Ubuntu 18.04.6 LTS
+| Command           : check_timing -verbose -file check_timing.rpt
+| Design            : Fp32Lane
+| Device            : xcu50-fsvh2104
+| Speed File        : -2  PRODUCTION 1.30 05-01-2022
+| Design State      : Routed
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (116)
+6. checking no_output_delay (51)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (116)
+--------------------------------
+ There are 116 input ports with no input delay specified. (HIGH)
+
+io_in_bits_a[0]
+io_in_bits_a[10]
+io_in_bits_a[11]
+io_in_bits_a[12]
+io_in_bits_a[13]
+io_in_bits_a[14]
+io_in_bits_a[15]
+io_in_bits_a[16]
+io_in_bits_a[17]
+io_in_bits_a[18]
+io_in_bits_a[19]
+io_in_bits_a[1]
+io_in_bits_a[20]
+io_in_bits_a[21]
+io_in_bits_a[22]
+io_in_bits_a[23]
+io_in_bits_a[24]
+io_in_bits_a[25]
+io_in_bits_a[26]
+io_in_bits_a[27]
+io_in_bits_a[28]
+io_in_bits_a[29]
+io_in_bits_a[2]
+io_in_bits_a[30]
+io_in_bits_a[31]
+io_in_bits_a[3]
+io_in_bits_a[4]
+io_in_bits_a[5]
+io_in_bits_a[6]
+io_in_bits_a[7]
+io_in_bits_a[8]
+io_in_bits_a[9]
+io_in_bits_active
+io_in_bits_b[0]
+io_in_bits_b[10]
+io_in_bits_b[11]
+io_in_bits_b[12]
+io_in_bits_b[13]
+io_in_bits_b[14]
+io_in_bits_b[15]
+io_in_bits_b[16]
+io_in_bits_b[17]
+io_in_bits_b[18]
+io_in_bits_b[19]
+io_in_bits_b[1]
+io_in_bits_b[20]
+io_in_bits_b[21]
+io_in_bits_b[22]
+io_in_bits_b[23]
+io_in_bits_b[24]
+io_in_bits_b[25]
+io_in_bits_b[26]
+io_in_bits_b[27]
+io_in_bits_b[28]
+io_in_bits_b[29]
+io_in_bits_b[2]
+io_in_bits_b[30]
+io_in_bits_b[31]
+io_in_bits_b[3]
+io_in_bits_b[4]
+io_in_bits_b[5]
+io_in_bits_b[6]
+io_in_bits_b[7]
+io_in_bits_b[8]
+io_in_bits_b[9]
+io_in_bits_c[0]
+io_in_bits_c[10]
+io_in_bits_c[11]
+io_in_bits_c[12]
+io_in_bits_c[13]
+io_in_bits_c[14]
+io_in_bits_c[15]
+io_in_bits_c[16]
+io_in_bits_c[17]
+io_in_bits_c[18]
+io_in_bits_c[19]
+io_in_bits_c[1]
+io_in_bits_c[20]
+io_in_bits_c[21]
+io_in_bits_c[22]
+io_in_bits_c[23]
+io_in_bits_c[24]
+io_in_bits_c[25]
+io_in_bits_c[26]
+io_in_bits_c[27]
+io_in_bits_c[28]
+io_in_bits_c[29]
+io_in_bits_c[2]
+io_in_bits_c[30]
+io_in_bits_c[31]
+io_in_bits_c[3]
+io_in_bits_c[4]
+io_in_bits_c[5]
+io_in_bits_c[6]
+io_in_bits_c[7]
+io_in_bits_c[8]
+io_in_bits_c[9]
+io_in_bits_op[0]
+io_in_bits_op[1]
+io_in_bits_op[2]
+io_in_bits_op[3]
+io_in_bits_tag[0]
+io_in_bits_tag[10]
+io_in_bits_tag[11]
+io_in_bits_tag[1]
+io_in_bits_tag[2]
+io_in_bits_tag[3]
+io_in_bits_tag[4]
+io_in_bits_tag[5]
+io_in_bits_tag[6]
+io_in_bits_tag[7]
+io_in_bits_tag[8]
+io_in_bits_tag[9]
+io_in_valid
+io_out_ready
+reset
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (51)
+--------------------------------
+ There are 51 ports with no output delay specified. (HIGH)
+
+io_in_ready
+io_out_bits_active
+io_out_bits_data[0]
+io_out_bits_data[10]
+io_out_bits_data[11]
+io_out_bits_data[12]
+io_out_bits_data[13]
+io_out_bits_data[14]
+io_out_bits_data[15]
+io_out_bits_data[16]
+io_out_bits_data[17]
+io_out_bits_data[18]
+io_out_bits_data[19]
+io_out_bits_data[1]
+io_out_bits_data[20]
+io_out_bits_data[21]
+io_out_bits_data[22]
+io_out_bits_data[23]
+io_out_bits_data[24]
+io_out_bits_data[25]
+io_out_bits_data[26]
+io_out_bits_data[27]
+io_out_bits_data[28]
+io_out_bits_data[29]
+io_out_bits_data[2]
+io_out_bits_data[30]
+io_out_bits_data[31]
+io_out_bits_data[3]
+io_out_bits_data[4]
+io_out_bits_data[5]
+io_out_bits_data[6]
+io_out_bits_data[7]
+io_out_bits_data[8]
+io_out_bits_data[9]
+io_out_bits_flags[0]
+io_out_bits_flags[1]
+io_out_bits_flags[2]
+io_out_bits_flags[4]
+io_out_bits_tag[0]
+io_out_bits_tag[10]
+io_out_bits_tag[11]
+io_out_bits_tag[1]
+io_out_bits_tag[2]
+io_out_bits_tag[3]
+io_out_bits_tag[4]
+io_out_bits_tag[5]
+io_out_bits_tag[6]
+io_out_bits_tag[7]
+io_out_bits_tag[8]
+io_out_bits_tag[9]
+io_out_valid
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
