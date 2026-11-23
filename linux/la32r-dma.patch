@@ -1,0 +1,50 @@
+diff --git a/arch/loongarch/loongson32/Kconfig b/arch/loongarch/loongson32/Kconfig
+index 5cf605a99..25114b101 100644
+--- a/arch/loongarch/loongson32/Kconfig
++++ b/arch/loongarch/loongson32/Kconfig
+@@ -55,6 +55,14 @@ config MACH_LOONGSON_32
+ 
+ endchoice
+ 
++config AURORA_U50C_DMA
++	bool "Aurora U50C noncoherent DMA allocation"
++	depends on MACH_LOONGSON_32
++	select ARCH_HAS_DMA_PREP_COHERENT
++	help
++	  Clean and invalidate the frozen Aurora D-cache before handing an
++	  allocation from the cached kernel direct window to an uncached mapping.
++
+ config LOONGSON_UART_BASE
+ 	bool
+ 	default y
+diff --git a/arch/loongarch/loongson32/dma-noncoherent.c b/arch/loongarch/loongson32/dma-noncoherent.c
+index 3687789bd..57bde24f5 100644
+--- a/arch/loongarch/loongson32/dma-noncoherent.c
++++ b/arch/loongarch/loongson32/dma-noncoherent.c
+@@ -10,6 +10,26 @@
+ 
+ #include <asm/cache.h>
+ #include <asm/io.h>
++
++#ifdef CONFIG_AURORA_U50C_DMA
++#include <asm/cacheflush.h>
++
++void arch_dma_prep_coherent(struct page *page, size_t size)
++{
++	/* The frozen Aurora implements index WB+INV across all four ways.
++	 * Bits 13:6 select one of 256 sets. Pages start on line boundaries.
++	 * dma_direct_alloc has already zeroed the cached alias at this point.
++	 */
++	unsigned long addr = (unsigned long)page_address(page);
++	unsigned long end = addr + min_t(size_t, size, 256 * 64);
++
++	mb();
++	for (; addr < end; addr += 64)
++		cache_op(Index_Writeback_Inv_D, addr);
++	mb();
++}
++#endif
++
+ void *arch_dma_set_uncached(void *addr, size_t size)
+ {
+ 	return (void *)(__pa(addr) + UNCAC_BASE);

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import subprocess
 import sys
+from memory_layout import image_ranges, validate_buffer
 
 
 def sha(path):
@@ -35,11 +36,10 @@ def main():
     layout = json.loads((software/"image.json").read_text())
     if sha(image) != layout["sha256"]:
         raise ValueError("kernel image SHA mismatch")
-    first, limit = layout["dma_window"]
-    ranges = [(start,start+size) for start,size in layout["segments"]] + layout["zero_ranges"]
-    for start,end in ranges:
-        if start < first or end > limit:
-            raise ValueError("image segment or BSS is outside the documented Linux RAM")
+    image_ranges(layout)
+    if "dma_api" not in layout:
+        first, limit = layout["dma_window"]
+        validate_buffer(layout, first, limit - first)
     control = [sys.executable,str(software/"runtime/remote_debug_session.py"),str(args.manager)]
     status = json.loads(subprocess.check_output(control+["status"]))
     previous = status.get("request",{})

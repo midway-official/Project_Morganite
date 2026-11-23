@@ -27,8 +27,9 @@ if subprocess.check_output(["git", "-C", src, "rev-parse", "HEAD"], text=True).s
 dmw_patch = root / "linux/la32r-dmw.patch"
 tlb_patch = root / "linux/la32r-tlb.patch"
 clock_patch = root / "linux/la32r-clock.patch"
+dma_patch = root / "linux/la32r-dma.patch"
 apply = ["git", "-C", src, "apply"]
-for patch in (dmw_patch, tlb_patch, clock_patch):
+for patch in (dmw_patch, tlb_patch, clock_patch, dma_patch):
     if subprocess.run([*apply, "--reverse", "--check", patch], capture_output=True).returncode:
         subprocess.run([*apply, patch], check=True)
 aurora = root / ".worktrees/aurora/sim"
@@ -85,8 +86,12 @@ subprocess.run([src / "scripts/config", "--file", obj / ".config", "--set-str", 
                 str(obj / "initramfs.cpio"), "--disable", "INITRAMFS_COMPRESSION_GZIP",
                 "--disable", "INITRAMFS_COMPRESSION_NONE", "--enable",
                 "INITRAMFS_COMPRESSION_" + args.initramfs_compression.upper(),
-                "--set-str", "LOCALVERSION", "-morganite"], check=True)
+                "--enable", "AURORA_U50C_DMA", "--set-str", "LOCALVERSION", "-morganite"], check=True)
 make("olddefconfig")
+dma_config = {"CONFIG_AURORA_U50C_DMA=y", "CONFIG_ARCH_HAS_DMA_PREP_COHERENT=y",
+              "CONFIG_ARCH_HAS_DMA_SET_UNCACHED=y"}
+if not dma_config.issubset((obj / ".config").read_text().splitlines()):
+    raise ValueError("Aurora coherent DMA cache preparation is missing")
 make("vmlinux")
 kernel = obj / "vmlinux"
 symbols = {}
@@ -133,6 +138,7 @@ result = {"kernel_commit": kernel_rev, "kernel_entry": hex(symbols["kernel_entry
           "dmw_patch_sha256": hashlib.sha256(dmw_patch.read_bytes()).hexdigest(),
           "tlb_patch_sha256": hashlib.sha256(tlb_patch.read_bytes()).hexdigest(),
           "clock_patch_sha256": hashlib.sha256(clock_patch.read_bytes()).hexdigest(),
+          "dma_patch_sha256": hashlib.sha256(dma_patch.read_bytes()).hexdigest(),
           "sha256": hashlib.sha256((obj/"ram.dat").read_bytes()).hexdigest(),
           "config_sha256": hashlib.sha256((obj/".config").read_bytes()).hexdigest(),
           "zero_ranges": [[bss_start, bss_end]],
