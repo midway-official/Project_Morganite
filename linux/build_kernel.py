@@ -15,6 +15,7 @@ p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--source", type=Path, default=Path("/home/midway/la32r-Linux-v0.3-20260819"))
 p.add_argument("--prefix", default="/home/midway/la32r/la32r-toolchains/install/bin/loongarch32r-linux-gnusf-")
 p.add_argument("--jobs", type=int, default=8)
+p.add_argument("--initramfs-compression", choices=("gzip", "none"), default="gzip")
 args = p.parse_args()
 obj, src = root / "build/kernel", root / "build/linux-src"
 obj.mkdir(exist_ok=True)
@@ -81,8 +82,9 @@ def make(target):
 if not (obj / ".config").exists():
     make("la32_defconfig")
 subprocess.run([src / "scripts/config", "--file", obj / ".config", "--set-str", "INITRAMFS_SOURCE",
-                str(obj / "initramfs.cpio"), "--enable", "INITRAMFS_COMPRESSION_GZIP",
-                "--disable", "INITRAMFS_COMPRESSION_NONE",
+                str(obj / "initramfs.cpio"), "--disable", "INITRAMFS_COMPRESSION_GZIP",
+                "--disable", "INITRAMFS_COMPRESSION_NONE", "--enable",
+                "INITRAMFS_COMPRESSION_" + args.initramfs_compression.upper(),
                 "--set-str", "LOCALVERSION", "-morganite"], check=True)
 make("olddefconfig")
 make("vmlinux")
@@ -127,6 +129,7 @@ with (obj/"ram.dat").open("w") as dest:
         for i in range(0, len(data), 4096):
             dest.write(data[i:i+4096].hex("\n")+"\n")
 result = {"kernel_commit": kernel_rev, "kernel_entry": hex(symbols["kernel_entry"]),
+          "initramfs_compression": args.initramfs_compression,
           "dmw_patch_sha256": hashlib.sha256(dmw_patch.read_bytes()).hexdigest(),
           "tlb_patch_sha256": hashlib.sha256(tlb_patch.read_bytes()).hexdigest(),
           "clock_patch_sha256": hashlib.sha256(clock_patch.read_bytes()).hexdigest(),
