@@ -23,6 +23,10 @@ if not src.exists():
     subprocess.run(["git", "-C", args.source, "worktree", "add", "--detach", src, kernel_rev], check=True)
 if subprocess.check_output(["git", "-C", src, "rev-parse", "HEAD"], text=True).strip() != kernel_rev:
     raise ValueError("unexpected source revision")
+dmw_patch = root / "linux/la32r-dmw.patch"
+apply = ["git", "-C", src, "apply"]
+if subprocess.run([*apply, "--reverse", "--check", dmw_patch], capture_output=True).returncode:
+    subprocess.run([*apply, dmw_patch], check=True)
 aurora = root / ".worktrees/aurora/sim"
 image = aurora / "linux-boot-runs/v0.3/image"
 frozen = (image / "vmlinux.bin").read_bytes()
@@ -120,6 +124,7 @@ with (obj/"ram.dat").open("w") as dest:
         for i in range(0, len(data), 4096):
             dest.write(data[i:i+4096].hex("\n")+"\n")
 result = {"kernel_commit": kernel_rev, "kernel_entry": hex(symbols["kernel_entry"]),
+          "dmw_patch_sha256": hashlib.sha256(dmw_patch.read_bytes()).hexdigest(),
           "sha256": hashlib.sha256((obj/"ram.dat").read_bytes()).hexdigest(),
           "config_sha256": hashlib.sha256((obj/".config").read_bytes()).hexdigest(),
           "zero_ranges": [[bss_start, bss_end]],

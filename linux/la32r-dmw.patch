@@ -1,0 +1,31 @@
+diff --git a/arch/loongarch/include/asm/addrspace.h b/arch/loongarch/include/asm/addrspace.h
+--- a/arch/loongarch/include/asm/addrspace.h
++++ b/arch/loongarch/include/asm/addrspace.h
+@@ -31,7 +31,7 @@ extern unsigned long vm_map_base;
+ #endif
+ 
+ #ifdef CONFIG_32BIT
+-#define DMW_PABITS	28
++#define DMW_PABITS	29
+ #define TO_PHYS_MASK	((1UL << DMW_PABITS) - 1)
+ #endif
+ 
+diff --git a/arch/loongarch/include/asm/loongarchregs.h b/arch/loongarch/include/asm/loongarchregs.h
+--- a/arch/loongarch/include/asm/loongarchregs.h
++++ b/arch/loongarch/include/asm/loongarchregs.h
+@@ -1075,13 +1075,13 @@
+ 
+ #else
+ #define CSR_DMW0_PLV0		_ULCAST_(1 << 0)
+-#define CSR_DMW0_VSEG		_ULCAST_(0x8)
++#define CSR_DMW0_VSEG		_ULCAST_(0x4)
+ #define CSR_DMW0_BASE		(CSR_DMW0_VSEG << DMW_PABITS)
+ #define CSR_DMW0_INIT		(CSR_DMW0_BASE | CSR_DMW0_PLV0)
+ 
+ #define CSR_DMW1_PLV0		_ULCAST_(1 << 0)
+ #define CSR_DMW1_MAT		_ULCAST_(1 << 4)
+-#define CSR_DMW1_VSEG		_ULCAST_(0xa)
++#define CSR_DMW1_VSEG		_ULCAST_(0x5)
+ #define CSR_DMW1_BASE		(CSR_DMW1_VSEG << DMW_PABITS)
+ #define CSR_DMW1_INIT		(CSR_DMW1_BASE | CSR_DMW1_MAT | CSR_DMW1_PLV0)
+ #endif
