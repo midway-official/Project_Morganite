@@ -1,0 +1,321 @@
+[
+  {
+    "kernel": "integer",
+    "cycles": 1493,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 135,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      3,
+      2,
+      2,
+      2
+    ],
+    "active_cycles": [
+      1403,
+      1130,
+      1263,
+      1302
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "cycles": 7920,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 55,
+    "longest_burst": 8,
+    "w_before_aw": 135,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      3,
+      2,
+      2,
+      2
+    ],
+    "active_cycles": [
+      7808,
+      6766,
+      6813,
+      6833
+    ],
+    "fmas": [
+      93,
+      62,
+      62,
+      62
+    ]
+  },
+  {
+    "kernel": "shared",
+    "cycles": 477,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 21,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      382,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "divergence",
+    "cycles": 410,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 11,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      302,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "strides",
+    "cycles": 12635,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 537,
+    "longest_burst": 8,
+    "w_before_aw": 293,
+    "byte_writes": 279,
+    "half_writes": 279,
+    "groups": [
+      3,
+      2,
+      2,
+      2
+    ],
+    "active_cycles": [
+      12536,
+      10395,
+      10735,
+      10876
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "rerror",
+    "cycles": 41,
+    "fault": 6,
+    "address": 503320560,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "read-protocol",
+    "cycles": 42,
+    "fault": 6,
+    "address": 503320560,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "berror",
+    "cycles": 100,
+    "fault": 5,
+    "address": 503332852,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 1,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      51,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "cancel",
+    "cycles": 39,
+    "fault": 7,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "wrap",
+    "cycles": 79,
+    "fault": 3,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      28,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "below",
+    "cycles": 67,
+    "fault": 3,
+    "address": 503316476,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "active_cycles": [
+      18,
+      0,
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

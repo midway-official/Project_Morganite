@@ -11,6 +11,9 @@ object Generate extends App {
     case "LaneRegisters" => () => new LaneRegisters(p)
     case "RegisterTiming" => () => new RegisterTiming(p)
     case "Sm" => () => new Sm(p)
+    case "Gpu" => () => new Gpu(p)
+    case "MorganiteBoard" => () => new MorganiteBoard(p)
+    case "PeripheralDecode" => () => new PeripheralDecode(p)
     case other => throw new IllegalArgumentException(s"unknown top $other")
   }
   ChiselStage.emitSystemVerilogFile(design(), Array("--target-dir", args(1)),

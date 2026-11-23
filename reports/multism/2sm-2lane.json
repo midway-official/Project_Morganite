@@ -1,0 +1,255 @@
+[
+  {
+    "kernel": "integer",
+    "cycles": 2134,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 128,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      5,
+      4
+    ],
+    "active_cycles": [
+      2040,
+      1763
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "cycles": 8090,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 79,
+    "longest_burst": 8,
+    "w_before_aw": 139,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      4,
+      5
+    ],
+    "active_cycles": [
+      6835,
+      7973
+    ],
+    "fmas": [
+      124,
+      155
+    ]
+  },
+  {
+    "kernel": "shared",
+    "cycles": 613,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 20,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      518,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "divergence",
+    "cycles": 546,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 19,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      438,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "strides",
+    "cycles": 13816,
+    "fault": 0,
+    "address": 0,
+    "concurrent_rw_cycles": 376,
+    "longest_burst": 8,
+    "w_before_aw": 295,
+    "byte_writes": 279,
+    "half_writes": 279,
+    "groups": [
+      5,
+      4
+    ],
+    "active_cycles": [
+      13713,
+      11728
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "rerror",
+    "cycles": 41,
+    "fault": 6,
+    "address": 503320560,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "read-protocol",
+    "cycles": 42,
+    "fault": 6,
+    "address": 503320560,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "berror",
+    "cycles": 100,
+    "fault": 5,
+    "address": 503332852,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 1,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      51,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "cancel",
+    "cycles": 39,
+    "fault": 7,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "wrap",
+    "cycles": 93,
+    "fault": 3,
+    "address": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      42,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "below",
+    "cycles": 75,
+    "fault": 3,
+    "address": 503316476,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      26,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  }
+]
