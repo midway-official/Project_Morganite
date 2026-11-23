@@ -1,0 +1,3958 @@
+[
+  {
+    "kernel": "copy",
+    "seq": 1,
+    "mask": 3,
+    "cycles": 7890,
+    "host_ns": 534860,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 856,
+    "write_bytes": 256,
+    "read_bursts": 139,
+    "write_bursts": 8,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        7558,
+        1,
+        0,
+        0,
+        7453
+      ],
+      [
+        7645,
+        1,
+        0,
+        0,
+        7540
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 2,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 523400,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 3,
+    "mask": 3,
+    "cycles": 55707,
+    "host_ns": 983690,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        55330,
+        4,
+        128,
+        128,
+        54718
+      ],
+      [
+        55417,
+        4,
+        128,
+        128,
+        54805
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 4,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 525490,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 5,
+    "mask": 3,
+    "cycles": 57666,
+    "host_ns": 995340,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57284,
+        4,
+        128,
+        128,
+        56672
+      ],
+      [
+        57371,
+        4,
+        128,
+        128,
+        56759
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 6,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 3702450,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 7,
+    "mask": 3,
+    "cycles": 57542,
+    "host_ns": 4230670,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57165,
+        4,
+        128,
+        128,
+        56553
+      ],
+      [
+        57252,
+        4,
+        128,
+        128,
+        56640
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 8,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 523940,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 9,
+    "mask": 3,
+    "cycles": 58985,
+    "host_ns": 4184200,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58578,
+        4,
+        128,
+        128,
+        57966
+      ],
+      [
+        58665,
+        4,
+        128,
+        128,
+        58053
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 10,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 522140,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 11,
+    "mask": 3,
+    "cycles": 58848,
+    "host_ns": 4170400,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58467,
+        4,
+        128,
+        128,
+        57855
+      ],
+      [
+        58554,
+        4,
+        128,
+        128,
+        57942
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 12,
+    "mask": 3,
+    "cycles": 1853,
+    "host_ns": 524690,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 13,
+    "mask": 3,
+    "cycles": 57973,
+    "host_ns": 975550,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57592,
+        4,
+        128,
+        128,
+        56980
+      ],
+      [
+        57679,
+        4,
+        128,
+        128,
+        57067
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 14,
+    "mask": 3,
+    "cycles": 1858,
+    "host_ns": 7080670,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1596,
+        4,
+        0,
+        0,
+        1156
+      ],
+      [
+        1637,
+        4,
+        0,
+        0,
+        1197
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 15,
+    "mask": 3,
+    "cycles": 56939,
+    "host_ns": 4239680,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        56561,
+        4,
+        128,
+        128,
+        55949
+      ],
+      [
+        56648,
+        4,
+        128,
+        128,
+        56036
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 16,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 527300,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 17,
+    "mask": 3,
+    "cycles": 57427,
+    "host_ns": 4178610,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57045,
+        4,
+        128,
+        128,
+        56433
+      ],
+      [
+        57132,
+        4,
+        128,
+        128,
+        56520
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 18,
+    "mask": 3,
+    "cycles": 1856,
+    "host_ns": 3746200,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 19,
+    "mask": 3,
+    "cycles": 58620,
+    "host_ns": 987690,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58238,
+        4,
+        128,
+        128,
+        57626
+      ],
+      [
+        58325,
+        4,
+        128,
+        128,
+        57713
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 20,
+    "mask": 3,
+    "cycles": 1861,
+    "host_ns": 3761320,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 21,
+    "mask": 3,
+    "cycles": 58207,
+    "host_ns": 4246590,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57831,
+        4,
+        128,
+        128,
+        57219
+      ],
+      [
+        57918,
+        4,
+        128,
+        128,
+        57306
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 22,
+    "mask": 3,
+    "cycles": 1829,
+    "host_ns": 3700650,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 23,
+    "mask": 3,
+    "cycles": 56109,
+    "host_ns": 4246240,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        55731,
+        4,
+        128,
+        128,
+        55119
+      ],
+      [
+        55818,
+        4,
+        128,
+        128,
+        55206
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 24,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 3724840,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 25,
+    "mask": 3,
+    "cycles": 58634,
+    "host_ns": 4227150,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58252,
+        4,
+        128,
+        128,
+        57640
+      ],
+      [
+        58339,
+        4,
+        128,
+        128,
+        57727
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 26,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 524810,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 27,
+    "mask": 3,
+    "cycles": 57507,
+    "host_ns": 4187620,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57130,
+        4,
+        128,
+        128,
+        56518
+      ],
+      [
+        57217,
+        4,
+        128,
+        128,
+        56605
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 28,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 524310,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 29,
+    "mask": 3,
+    "cycles": 57424,
+    "host_ns": 4225890,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57043,
+        4,
+        128,
+        128,
+        56431
+      ],
+      [
+        57130,
+        4,
+        128,
+        128,
+        56518
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 30,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 520060,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 31,
+    "mask": 3,
+    "cycles": 58559,
+    "host_ns": 7426820,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58181,
+        4,
+        128,
+        128,
+        57569
+      ],
+      [
+        58268,
+        4,
+        128,
+        128,
+        57656
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 32,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 520560,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 33,
+    "mask": 3,
+    "cycles": 58574,
+    "host_ns": 976720,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58193,
+        4,
+        128,
+        128,
+        57581
+      ],
+      [
+        58280,
+        4,
+        128,
+        128,
+        57668
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 34,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3740980,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 35,
+    "mask": 3,
+    "cycles": 58738,
+    "host_ns": 4172550,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58357,
+        4,
+        128,
+        128,
+        57745
+      ],
+      [
+        58444,
+        4,
+        128,
+        128,
+        57832
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 36,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 522080,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 37,
+    "mask": 3,
+    "cycles": 58839,
+    "host_ns": 4182030,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58461,
+        4,
+        128,
+        128,
+        57849
+      ],
+      [
+        58548,
+        4,
+        128,
+        128,
+        57936
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 38,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 522600,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 39,
+    "mask": 3,
+    "cycles": 58851,
+    "host_ns": 4170330,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58405,
+        4,
+        128,
+        128,
+        57793
+      ],
+      [
+        58538,
+        4,
+        128,
+        128,
+        57926
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 40,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 522600,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 41,
+    "mask": 3,
+    "cycles": 58680,
+    "host_ns": 4223680,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58299,
+        4,
+        128,
+        128,
+        57687
+      ],
+      [
+        58386,
+        4,
+        128,
+        128,
+        57774
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 42,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 7010410,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 43,
+    "mask": 3,
+    "cycles": 58717,
+    "host_ns": 975990,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58336,
+        4,
+        128,
+        128,
+        57724
+      ],
+      [
+        58423,
+        4,
+        128,
+        128,
+        57811
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 44,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 523830,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 45,
+    "mask": 3,
+    "cycles": 57428,
+    "host_ns": 4170800,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57051,
+        4,
+        128,
+        128,
+        56439
+      ],
+      [
+        57138,
+        4,
+        128,
+        128,
+        56526
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 46,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3688590,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 47,
+    "mask": 3,
+    "cycles": 58580,
+    "host_ns": 986210,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58198,
+        4,
+        128,
+        128,
+        57586
+      ],
+      [
+        58285,
+        4,
+        128,
+        128,
+        57673
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 48,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3771670,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 49,
+    "mask": 3,
+    "cycles": 58368,
+    "host_ns": 976680,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57987,
+        4,
+        128,
+        128,
+        57375
+      ],
+      [
+        58074,
+        4,
+        128,
+        128,
+        57462
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 50,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 521260,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 51,
+    "mask": 3,
+    "cycles": 58097,
+    "host_ns": 7802930,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57722,
+        4,
+        128,
+        128,
+        57110
+      ],
+      [
+        57809,
+        4,
+        128,
+        128,
+        57197
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 52,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 518700,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 53,
+    "mask": 3,
+    "cycles": 58763,
+    "host_ns": 978080,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58384,
+        4,
+        128,
+        128,
+        57772
+      ],
+      [
+        58471,
+        4,
+        128,
+        128,
+        57859
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 54,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3773010,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 55,
+    "mask": 3,
+    "cycles": 58758,
+    "host_ns": 992770,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58377,
+        4,
+        128,
+        128,
+        57765
+      ],
+      [
+        58464,
+        4,
+        128,
+        128,
+        57852
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 56,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3716700,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 57,
+    "mask": 3,
+    "cycles": 58247,
+    "host_ns": 978900,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57869,
+        4,
+        128,
+        128,
+        57257
+      ],
+      [
+        57956,
+        4,
+        128,
+        128,
+        57344
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 58,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 522600,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 59,
+    "mask": 3,
+    "cycles": 58310,
+    "host_ns": 4170310,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57908,
+        4,
+        128,
+        128,
+        57296
+      ],
+      [
+        57995,
+        4,
+        128,
+        128,
+        57383
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 60,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3685050,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 61,
+    "mask": 3,
+    "cycles": 58784,
+    "host_ns": 977040,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58406,
+        4,
+        128,
+        128,
+        57794
+      ],
+      [
+        58493,
+        4,
+        128,
+        128,
+        57881
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 62,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3676840,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 63,
+    "mask": 3,
+    "cycles": 57500,
+    "host_ns": 986200,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57124,
+        4,
+        128,
+        128,
+        56512
+      ],
+      [
+        57211,
+        4,
+        128,
+        128,
+        56599
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 64,
+    "mask": 3,
+    "cycles": 1829,
+    "host_ns": 3681970,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 65,
+    "mask": 3,
+    "cycles": 58451,
+    "host_ns": 6350910,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58044,
+        4,
+        128,
+        128,
+        57432
+      ],
+      [
+        58131,
+        4,
+        128,
+        128,
+        57519
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 66,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 519610,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 67,
+    "mask": 3,
+    "cycles": 55865,
+    "host_ns": 975370,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        55486,
+        4,
+        128,
+        128,
+        54874
+      ],
+      [
+        55573,
+        4,
+        128,
+        128,
+        54961
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 68,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 523940,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 69,
+    "mask": 3,
+    "cycles": 58790,
+    "host_ns": 976710,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58410,
+        4,
+        128,
+        128,
+        57798
+      ],
+      [
+        58497,
+        4,
+        128,
+        128,
+        57885
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 70,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 524270,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 71,
+    "mask": 3,
+    "cycles": 58720,
+    "host_ns": 7401020,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58338,
+        4,
+        128,
+        128,
+        57726
+      ],
+      [
+        58425,
+        4,
+        128,
+        128,
+        57813
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 72,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 521760,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 73,
+    "mask": 3,
+    "cycles": 58759,
+    "host_ns": 7322520,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58377,
+        4,
+        128,
+        128,
+        57765
+      ],
+      [
+        58464,
+        4,
+        128,
+        128,
+        57852
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 74,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 522930,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 75,
+    "mask": 3,
+    "cycles": 58553,
+    "host_ns": 975330,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58172,
+        4,
+        128,
+        128,
+        57560
+      ],
+      [
+        58259,
+        4,
+        128,
+        128,
+        57647
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 76,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 3717670,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 77,
+    "mask": 3,
+    "cycles": 58719,
+    "host_ns": 977210,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58339,
+        4,
+        128,
+        128,
+        57727
+      ],
+      [
+        58426,
+        4,
+        128,
+        128,
+        57814
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 78,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3742660,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 79,
+    "mask": 3,
+    "cycles": 58167,
+    "host_ns": 6258620,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57785,
+        4,
+        128,
+        128,
+        57173
+      ],
+      [
+        57872,
+        4,
+        128,
+        128,
+        57260
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 80,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 520030,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 81,
+    "mask": 3,
+    "cycles": 58638,
+    "host_ns": 6228830,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58258,
+        4,
+        128,
+        128,
+        57646
+      ],
+      [
+        58345,
+        4,
+        128,
+        128,
+        57733
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 82,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 519690,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 83,
+    "mask": 3,
+    "cycles": 58718,
+    "host_ns": 6239130,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58338,
+        4,
+        128,
+        128,
+        57726
+      ],
+      [
+        58425,
+        4,
+        128,
+        128,
+        57813
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 84,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 521750,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 85,
+    "mask": 3,
+    "cycles": 59101,
+    "host_ns": 3845390,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        58724,
+        4,
+        128,
+        128,
+        58112
+      ],
+      [
+        58811,
+        4,
+        128,
+        128,
+        58199
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 86,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 519690,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 87,
+    "mask": 3,
+    "cycles": 58718,
+    "host_ns": 4236390,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58338,
+        4,
+        128,
+        128,
+        57726
+      ],
+      [
+        58425,
+        4,
+        128,
+        128,
+        57813
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 88,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3744890,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 89,
+    "mask": 3,
+    "cycles": 58665,
+    "host_ns": 975340,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58283,
+        4,
+        128,
+        128,
+        57671
+      ],
+      [
+        58370,
+        4,
+        128,
+        128,
+        57758
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 90,
+    "mask": 3,
+    "cycles": 1831,
+    "host_ns": 3738750,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 91,
+    "mask": 3,
+    "cycles": 58607,
+    "host_ns": 989240,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58231,
+        4,
+        128,
+        128,
+        57619
+      ],
+      [
+        58318,
+        4,
+        128,
+        128,
+        57706
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 92,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3687210,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 93,
+    "mask": 3,
+    "cycles": 58093,
+    "host_ns": 7023440,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57711,
+        4,
+        128,
+        128,
+        57099
+      ],
+      [
+        57798,
+        4,
+        128,
+        128,
+        57186
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 94,
+    "mask": 3,
+    "cycles": 1861,
+    "host_ns": 521290,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 95,
+    "mask": 3,
+    "cycles": 58629,
+    "host_ns": 7395740,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58248,
+        4,
+        128,
+        128,
+        57636
+      ],
+      [
+        58335,
+        4,
+        128,
+        128,
+        57723
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 96,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 522140,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 97,
+    "mask": 3,
+    "cycles": 58592,
+    "host_ns": 4210630,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58212,
+        4,
+        128,
+        128,
+        57600
+      ],
+      [
+        58299,
+        4,
+        128,
+        128,
+        57687
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 98,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 525150,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 99,
+    "mask": 3,
+    "cycles": 57542,
+    "host_ns": 4228800,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        57164,
+        4,
+        128,
+        128,
+        56552
+      ],
+      [
+        57251,
+        4,
+        128,
+        128,
+        56639
+      ]
+    ]
+  },
+  {
+    "kernel": "integer",
+    "seq": 100,
+    "mask": 3,
+    "cycles": 1830,
+    "host_ns": 3688070,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 80,
+    "write_bytes": 1024,
+    "read_bursts": 3,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        1568,
+        4,
+        0,
+        0,
+        1128
+      ],
+      [
+        1609,
+        4,
+        0,
+        0,
+        1169
+      ]
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "seq": 101,
+    "mask": 3,
+    "cycles": 58749,
+    "host_ns": 978030,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 5220,
+    "write_bytes": 1024,
+    "read_bursts": 836,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        58371,
+        4,
+        128,
+        128,
+        57759
+      ],
+      [
+        58458,
+        4,
+        128,
+        128,
+        57846
+      ]
+    ]
+  },
+  {
+    "kernel": "copy",
+    "seq": 102,
+    "mask": 1,
+    "cycles": 39319,
+    "host_ns": 6126890,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 3160,
+    "write_bytes": 1024,
+    "read_bursts": 547,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        39060,
+        8,
+        0,
+        0,
+        38214
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "copy",
+    "seq": 103,
+    "mask": 2,
+    "cycles": 37963,
+    "host_ns": 4185930,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 3160,
+    "write_bytes": 1024,
+    "read_bursts": 547,
+    "write_bursts": 32,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        37730,
+        8,
+        0,
+        0,
+        36887
+      ]
+    ]
+  },
+  {
+    "kernel": "copy",
+    "seq": 104,
+    "mask": 3,
+    "cycles": 1197199,
+    "host_ns": 15862170,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 98392,
+    "write_bytes": 32768,
+    "read_bursts": 17411,
+    "write_bursts": 1024,
+    "cpu_busy_samples": 10,
+    "sm": [
+      [
+        1196639,
+        128,
+        0,
+        0,
+        1183199
+      ],
+      [
+        1196726,
+        128,
+        0,
+        0,
+        1183286
+      ]
+    ]
+  },
+  {
+    "kernel": "fma_bench",
+    "seq": 105,
+    "mask": 1,
+    "cycles": 2532898,
+    "host_ns": 26566790,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 284,
+    "write_bytes": 2048,
+    "read_bursts": 9,
+    "write_bursts": 64,
+    "cpu_busy_samples": 40,
+    "sm": [
+      [
+        2532187,
+        16,
+        8396288,
+        8388608,
+        2763
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "fma_bench",
+    "seq": 106,
+    "mask": 3,
+    "cycles": 1267708,
+    "host_ns": 13375190,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 284,
+    "write_bytes": 2048,
+    "read_bursts": 9,
+    "write_bursts": 64,
+    "cpu_busy_samples": 13,
+    "sm": [
+      [
+        1266968,
+        8,
+        4198144,
+        4194304,
+        2256
+      ],
+      [
+        1267009,
+        8,
+        4198144,
+        4194304,
+        2297
+      ]
+    ]
+  },
+  {
+    "perf_fmas": 8388608,
+    "cycles_1sm": 2532898,
+    "cycles_all": 1267708,
+    "clock_hz": 100000000,
+    "copy_payload_bytes": 65536,
+    "copy_cycles": 1197199
+  },
+  {
+    "kernel": "vertex",
+    "seq": 107,
+    "mask": 3,
+    "cycles": 14968,
+    "host_ns": 546890,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1432,
+    "write_bytes": 144,
+    "read_bursts": 197,
+    "write_bursts": 36,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        13190,
+        1,
+        207,
+        132,
+        11981
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 108,
+    "mask": 3,
+    "cycles": 5036,
+    "host_ns": 3795260,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 768,
+    "write_bytes": 128,
+    "read_bursts": 51,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        3424,
+        1,
+        11,
+        6,
+        2544
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 109,
+    "mask": 3,
+    "cycles": 45058871,
+    "host_ns": 451899100,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2890492,
+    "write_bytes": 921600,
+    "read_bursts": 655228,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 676,
+    "sm": [
+      [
+        45054315,
+        1199,
+        417741,
+        147438,
+        43832197
+      ],
+      [
+        45041589,
+        1201,
+        416109,
+        146862,
+        43817376
+      ]
+    ]
+  },
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 45078875,
+    "end_to_end_ns": 2127864260
+  },
+  {
+    "kernel": "vertex_shift",
+    "seq": 110,
+    "mask": 3,
+    "cycles": 14428,
+    "host_ns": 556890,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1444,
+    "write_bytes": 144,
+    "read_bursts": 198,
+    "write_bursts": 36,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        12576,
+        1,
+        210,
+        135,
+        11347
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 111,
+    "mask": 3,
+    "cycles": 4918,
+    "host_ns": 529930,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 768,
+    "write_bytes": 128,
+    "read_bursts": 51,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        3313,
+        1,
+        11,
+        6,
+        2433
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 112,
+    "mask": 3,
+    "cycles": 44963519,
+    "host_ns": 450521200,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2890492,
+    "write_bytes": 921600,
+    "read_bursts": 655228,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 666,
+    "sm": [
+      [
+        44958959,
+        1182,
+        426615,
+        150570,
+        43755206
+      ],
+      [
+        44945762,
+        1218,
+        407235,
+        143730,
+        43707906
+      ]
+    ]
+  },
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 44982865,
+    "end_to_end_ns": 2242724540
+  },
+  {
+    "kernel": "vertex",
+    "seq": 113,
+    "mask": 3,
+    "cycles": 14850,
+    "host_ns": 3721870,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1432,
+    "write_bytes": 144,
+    "read_bursts": 197,
+    "write_bursts": 36,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        13040,
+        1,
+        207,
+        132,
+        11831
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 114,
+    "mask": 3,
+    "cycles": 5103,
+    "host_ns": 3695010,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 768,
+    "write_bytes": 128,
+    "read_bursts": 51,
+    "write_bursts": 32,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        3497,
+        1,
+        11,
+        6,
+        2617
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel_swap",
+    "seq": 115,
+    "mask": 3,
+    "cycles": 44987041,
+    "host_ns": 450412740,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2890504,
+    "write_bytes": 921600,
+    "read_bursts": 655229,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 669,
+    "sm": [
+      [
+        44976838,
+        1198,
+        418149,
+        147582,
+        43755346
+      ],
+      [
+        44982405,
+        1202,
+        415701,
+        146718,
+        43756375
+      ]
+    ]
+  },
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 45006994,
+    "end_to_end_ns": 2240490140
+  },
+  {
+    "kernel": "vertex",
+    "seq": 116,
+    "mask": 3,
+    "cycles": 18133,
+    "host_ns": 3780800,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1664,
+    "write_bytes": 192,
+    "read_bursts": 255,
+    "write_bursts": 48,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        16355,
+        1,
+        276,
+        176,
+        15146
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 117,
+    "mask": 3,
+    "cycles": 7517,
+    "host_ns": 529170,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 888,
+    "write_bytes": 256,
+    "read_bursts": 81,
+    "write_bursts": 64,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        5904,
+        1,
+        22,
+        12,
+        5070
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 118,
+    "mask": 3,
+    "cycles": 44794661,
+    "host_ns": 448354820,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 3072892,
+    "write_bytes": 921600,
+    "read_bursts": 633628,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 679,
+    "sm": [
+      [
+        44790097,
+        1200,
+        367200,
+        129600,
+        43028403
+      ],
+      [
+        44789442,
+        1200,
+        367200,
+        129600,
+        43028518
+      ]
+    ]
+  },
+  {
+    "triangles": 2,
+    "pixels": 76800,
+    "render_cycles": 44820311,
+    "end_to_end_ns": 2238354280
+  },
+  {
+    "kernel": "vertex",
+    "seq": 119,
+    "mask": 3,
+    "cycles": 40110,
+    "host_ns": 3007760,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2824,
+    "write_bytes": 432,
+    "read_bursts": 545,
+    "write_bursts": 108,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        38336,
+        1,
+        621,
+        396,
+        37400
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 120,
+    "mask": 3,
+    "cycles": 10988,
+    "host_ns": 3711940,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1008,
+    "write_bytes": 384,
+    "read_bursts": 111,
+    "write_bursts": 96,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        9371,
+        1,
+        33,
+        18,
+        8491
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 121,
+    "mask": 3,
+    "cycles": 43584019,
+    "host_ns": 436221800,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 3226492,
+    "write_bytes": 921600,
+    "read_bursts": 604828,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 659,
+    "sm": [
+      [
+        43578894,
+        1200,
+        414000,
+        132000,
+        41164349
+      ],
+      [
+        43579457,
+        1200,
+        414000,
+        132000,
+        41165334
+      ]
+    ]
+  },
+  {
+    "triangles": 3,
+    "pixels": 76800,
+    "render_cycles": 43635117,
+    "end_to_end_ns": 2227735090
+  },
+  {
+    "kernel": "vertex",
+    "seq": 122,
+    "mask": 3,
+    "cycles": 16674,
+    "host_ns": 551990,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 1664,
+    "write_bytes": 192,
+    "read_bursts": 255,
+    "write_bursts": 48,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        14896,
+        1,
+        276,
+        176,
+        13687
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 123,
+    "mask": 3,
+    "cycles": 7587,
+    "host_ns": 3797250,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 888,
+    "write_bytes": 256,
+    "read_bursts": 81,
+    "write_bursts": 64,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        5944,
+        1,
+        22,
+        12,
+        5110
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 124,
+    "mask": 3,
+    "cycles": 29670025,
+    "host_ns": 297883740,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2151292,
+    "write_bytes": 921600,
+    "read_bursts": 403228,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 455,
+    "sm": [
+      [
+        29664884,
+        1200,
+        0,
+        0,
+        28031684
+      ],
+      [
+        29665460,
+        1200,
+        0,
+        0,
+        28032260
+      ]
+    ]
+  },
+  {
+    "triangles": 2,
+    "pixels": 76800,
+    "render_cycles": 29694286,
+    "end_to_end_ns": 2091823990
+  },
+  {
+    "kernel": "vertex",
+    "seq": 125,
+    "mask": 3,
+    "cycles": 35505,
+    "host_ns": 4180300,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2592,
+    "write_bytes": 384,
+    "read_bursts": 487,
+    "write_bursts": 96,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        33731,
+        1,
+        552,
+        352,
+        32363
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 126,
+    "mask": 3,
+    "cycles": 37084,
+    "host_ns": 4173000,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2088,
+    "write_bytes": 1536,
+    "read_bursts": 381,
+    "write_bursts": 384,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        35478,
+        1,
+        132,
+        72,
+        34827
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 127,
+    "mask": 3,
+    "cycles": 63421985,
+    "host_ns": 634887570,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 6374012,
+    "write_bytes": 921600,
+    "read_bursts": 786908,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 997,
+    "sm": [
+      [
+        63416293,
+        1200,
+        540900,
+        180300,
+        55750239
+      ],
+      [
+        63417428,
+        1200,
+        537900,
+        179300,
+        55748769
+      ]
+    ]
+  },
+  {
+    "triangles": 12,
+    "pixels": 76800,
+    "render_cycles": 63494574,
+    "end_to_end_ns": 2424070490
+  },
+  {
+    "kernel": "vertex",
+    "seq": 128,
+    "mask": 3,
+    "cycles": 34335,
+    "host_ns": 943440,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2592,
+    "write_bytes": 384,
+    "read_bursts": 487,
+    "write_bursts": 96,
+    "cpu_busy_samples": 1,
+    "sm": [
+      [
+        32563,
+        1,
+        552,
+        352,
+        31195
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "setup",
+    "seq": 129,
+    "mask": 3,
+    "cycles": 36969,
+    "host_ns": 3839300,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 2088,
+    "write_bytes": 1536,
+    "read_bursts": 381,
+    "write_bursts": 384,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        35355,
+        1,
+        132,
+        72,
+        34704
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "kernel": "pixel",
+    "seq": 130,
+    "mask": 3,
+    "cycles": 64683647,
+    "host_ns": 647418290,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 6444796,
+    "write_bytes": 921600,
+    "read_bursts": 804604,
+    "write_bursts": 28800,
+    "cpu_busy_samples": 1006,
+    "sm": [
+      [
+        64651927,
+        1199,
+        579360,
+        193120,
+        56966291
+      ],
+      [
+        64679083,
+        1201,
+        565800,
+        188600,
+        56988878
+      ]
+    ]
+  },
+  {
+    "triangles": 12,
+    "pixels": 76800,
+    "render_cycles": 64754951,
+    "end_to_end_ns": 2437014680
+  }
+]

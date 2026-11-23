@@ -1,0 +1,17 @@
+{
+  "parent_image_sha256": "4b4b3bdfd6e370691de6e45125ba51eee5411105707ad6600f5f6fe3a439d839",
+  "patched_image_sha256": "2b092b926b20bc68ef772810bd87a46f9e09b6ed19fa6c65e35bd7ac9c4f5f3f",
+  "kernel_virtual": "0xa030946c",
+  "physical": "0x0030946c",
+  "before": "0x141fffe1",
+  "after": "0x143fffe1",
+  "semantic": "Keep bit 28 in both physical page-table walk addresses",
+  "changed_image_bits": 1,
+  "observed_byte_changes": [
+    {
+      "physical": "0x30946e",
+      "before": "0x1f",
+      "after": "0x3f"
+    }
+  ]
+}

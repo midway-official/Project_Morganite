@@ -1,0 +1,29 @@
+{
+  "phase": "preparing",
+  "worker_pid": 31851,
+  "run_dir": "/home/fpga/aurora-u50c-debug/runs/20261123T185827.336747Z",
+  "request": {
+    "image_format": "dat",
+    "load_address": null,
+    "server": "127.0.0.1:3122",
+    "uart_port": 23251,
+    "vivado_root": "/home/fpga/Xilinx/Vivado/2023.2",
+    "program": true,
+    "hbm_test": true,
+    "zero_ranges": [
+      [
+        17039360,
+        17547976
+      ]
+    ],
+    "bit": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit",
+    "bit_sha256": "0acedd3bc9b6f4aaa0ee56d1426dd6614723d7e5bf6a76dbea12148bfa3d9fc0",
+    "ltx": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/u50c_top.ltx",
+    "ltx_sha256": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "image": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-gzip-trace/ram.dat",
+    "image_sha256": "33f659199540113d7e0c1cc0e534f8929a650a545be17a51e024768541de0e6b"
+  },
+  "runtime": "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-gzip-trace/runtime",
+  "log": "/home/fpga/aurora-u50c-debug/runs/20261123T185827.336747Z/worker.log",
+  "updated_utc": "2026-11-23T18:58:27.337842+00:00"
+}

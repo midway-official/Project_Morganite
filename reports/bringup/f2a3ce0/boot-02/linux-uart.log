@@ -1,0 +1,74 @@
+abcdefghij
+uart work!
+[    0.000000] Linux version 5.14.0-rc2-morganite-gfbd87836058a-dirty (midway@midway) (loongarch32r-linux-gnusf-gcc (GCC) 8.3.0, GNU ld (GNU Binutils) 2.31.1.20190122) #6 PREEMPT Tue Nov 24 00:46:40 CST 2026
+[    0.000000] Standard 32-bit Loongson Processor probed
+[    0.000000] the link is empty!
+[    0.000000] Scan bootparam failed
+[    0.000000] printk: bootconsole [early0] enabled
+[    0.000000] Can't find EFI system table.
+[    0.000000] Reserved memory: created DMA memory pool at 0x1f800000, size 2 MiB
+[    0.000000] OF: reserved mem: initialized node dma-pool@1f800000, compatible id shared-dma-pool
+[    0.000000] start_pfn=0x0, end_pfn=0x1fe00, num_physpages:0x1fc00
+[    0.000000] The BIOS Version: (null)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] CPU0 revision is: 00004200 (Loongson-32bit)
+[    0.000000] Primary instruction cache 8kB, 2-way, VIPT, linesize 16 bytes.
+[    0.000000] Primary data cache 8kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000001f7fffff]
+[    0.000000]   node   0: [mem 0x000000001fa00000-0x000000001fdfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fdfffff]
+[    0.000000] eentry = 0xa0210000,tlbrentry = 0xa0201000
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 128900
+[    0.000000] Kernel command line: earlycon
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 498984K/520192K available (8762K kernel code, 1141K rwdata, 1640K rodata, 2016K init, 496K bss, 21208K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] Kernel bug detected[#1]:
+[    0.000000] CPU: 0 PID: 0 Comm: swapper Not tainted 5.14.0-rc2-morganite-gfbd87836058a-dirty #6
+[    0.000000] $ 0   : 00000000 a0468980 a0d2a000 a0d2bdd0
+[    0.000000] $ 4   : bfd81090 bfd81038 00000000 bfd81084
+[    0.000000] $ 8   : 00000100 00000001 0001e73f 00000001
+[    0.000000] $12   : 00000000 a12f6928 00000000 bfd87058
+[    0.000000] $16   : a0324a20 ffffffe0 00000001 ffffffff
+[    0.000000] $20   : 00000122 00000cc0 00000000 bfd81080
+[    0.000000] $24   : 00000000 bfd81090 a12f6924 a1089a18
+[    0.000000] $28   : bfd81084 bfd81034 bfd81094 00000000
+[    0.000000] epc   : a0467e30 BUG+0x0/0x10
+[    0.000000] ra    : a0468980 kfree+0x390/0x430
+[    0.000000] CSR crmd: 000000b0	
+[    0.000000] CSR prmd: 00000000	
+[    0.000000] CSR ecfg: 00000000	
+[    0.000000] CSR estat: bfd81034	
+[    0.000000] CSR euen: 00000000	
+[    0.000000] ExcCode : 18 (SubCode ff)
+[    0.000000] Modules linked in:
+[    0.000000] Process swapper (pid: 0, threadinfo=(ptrval), task=(ptrval))
+[    0.000000] Stack : bfd81080 a10446b8 bfd84000 000bfd81 bfd84008 bfd81084 bfd84000 bfd81030
+[    0.000000]         bfd81090 bfd85000 bfd81080 a03285ac 000000b0 a0be9b24 bfd84074 00000000
+[    0.000000]         00000000 a0d2f380 bfd8405c bfd84010 bfd84008 00000000 bfd84000 a03286b0
+[    0.000000]         00000000 00000000 bfd84000 a0328b0c a0d2f380 bfd8405c a0c90080 bfd81030
+[    0.000000]         00000002 bfd84000 bfd84000 a0329c24 00000001 00000021 ffffffff a0d2be9c
+[    0.000000]         ...
+[    0.000000] Call Trace:
+[    0.000000] 
+[    0.000000] [<a03285ac>] apply_wqattrs_prepare+0x15c/0x220
+[    0.000000] [<a03286b0>] apply_workqueue_attrs_locked+0x40/0xb0
+[    0.000000] [<a0328b0c>] apply_workqueue_attrs+0x2c/0x50
+[    0.000000] [<a0329c24>] alloc_workqueue+0x154/0x410
+[    0.000000] [<a0e4dd64>] workqueue_init_early+0x1e8/0x2ac
+[    0.000000] [<a0e48b50>] start_kernel+0x464/0x628
+[    0.000000] 
+[    0.000000] Code: 01034000  00010340  2a000103 <002a0001> 00002a00  0000002a  40000000  03400000  00034000 
+[    0.000000] 
+[    0.000000] random: get_random_bytes called from print_oops_end_marker+0x30/0x70 with crng_init=0
+[    0.000000] ---[ end trace 0000000000000000 ]---
+[    0.000000] Kernel panic - not syncing: Attempted to kill the idle task!

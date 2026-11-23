@@ -1,0 +1,202 @@
+[NEMU] ####### INIT HERE ########
+[NEMU] TLB_ENTRY = 32
+[NEMU] PALEN = 32
+[1;34m[src/monitor/monitor.c,117,load_img] The image is /home/midway/Project_Morganite/build/sw-f1a4062-raw/ram.dat[0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'morganite-probe-only' at [0x1fe20000, 0x1fe20fff][0m
+[1;34m[src/device/io/port-io.c,30,add_pio_map] Add port-io map 'serial' at [0x000003f8, 0x000003ff][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'serial' at [0x1fe001e0, 0x1fe001e7][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'ls1a-nand-stub' at [0x1fe78000, 0x1fe7bfff][0m
+[1;34m[src/monitor/monitor.c,41,welcome] Debug: [1;32mOFF[0m[0m
+[1;34m[src/monitor/monitor.c,46,welcome] Build time: 01:14:01, Nov 24 2026[0m
+Welcome to [1;41m[1;33mla32r[0m-NEMU!
+For help, type "help"
+abcdefghij
+uart work!
+[    0.000000] Linux version 5.14.0-rc2-morganite-gfbd87836058a-dirty (midway@midway) (loongarch32r-linux-gnusf-gcc (GCC) 8.3.0, GNU ld (GNU Binutils) 2.31.1.20190122) #3 PREEMPT Tue Nov 24 02:18:42 CST 2026
+[    0.000000] Standard 32-bit Loongson Processor probed
+[    0.000000] the link is empty!
+[    0.000000] Scan bootparam failed
+[    0.000000] printk: bootconsole [early0] enabled
+[    0.000000] Can't find EFI system table.
+[    0.000000] Reserved memory: created DMA memory pool at 0x1f800000, size 2 MiB
+[    0.000000] OF: reserved mem: initialized node dma-pool@1f800000, compatible id shared-dma-pool
+[    0.000000] start_pfn=0x0, end_pfn=0x1fe00, num_physpages:0x1fc00
+[    0.000000] The BIOS Version: (null)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] CPU0 revision is: 00004200 (Loongson-32bit)
+[    0.000000] Primary instruction cache 8kB, 2-way, VIPT, linesize 16 bytes.
+[    0.000000] Primary data cache 8kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000001f7fffff]
+[    0.000000]   node   0: [mem 0x000000001fa00000-0x000000001fdfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fdfffff]
+[    0.000000] eentry = 0xa0210000,tlbrentry = 0xa0201000
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 128900
+[    0.000000] Kernel command line: earlycon
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 497388K/520192K available (8762K kernel code, 1142K rwdata, 1640K rodata, 3616K init, 496K bss, 22804K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] NR_IRQS: 320
+[    0.000000] Constant counter frequency 100000000 Hz
+[    0.000000] Constant clock event device register
+[    0.000000] clocksource: Constant: mask: 0xffffffffffffffff max_cycles: 0x171024e7e0, max_idle_ns: 440795205315 ns
+[    0.000000] Constant clock source device register
+[    0.004000] Console: colour dummy device 80x25
+[    0.004000] Calibrating delay loop (skipped), value calculated using timer frequency.. 200.00 BogoMIPS (lpj=400000)
+[    0.004000] pid_max: default: 32768 minimum: 301
+[    0.004000] LSM: Security Framework initializing
+[    0.004000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.004000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.012000] rcu: Hierarchical SRCU implementation.
+[    0.012000] devtmpfs: initialized
+[    0.016000] random: get_random_u32 called from bucket_table_alloc.isra.38+0x68/0x1e0 with crng_init=0
+[    0.016000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.016000] futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+[    0.020000] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.160000] raid6: int32x8  gen()    28 MB/s
+[    0.228000] raid6: int32x8  xor()    17 MB/s
+[    0.296000] raid6: int32x4  gen()    35 MB/s
+[    0.364000] raid6: int32x4  xor()    19 MB/s
+[    0.432000] raid6: int32x2  gen()    32 MB/s
+[    0.500000] raid6: int32x2  xor()    18 MB/s
+[    0.568000] raid6: int32x1  gen()    28 MB/s
+[    0.636000] raid6: int32x1  xor()    16 MB/s
+[    0.636000] raid6: using algorithm int32x4 gen() 35 MB/s
+[    0.636000] raid6: .... xor() 19 MB/s, rmw enabled
+[    0.636000] raid6: using intx1 recovery algorithm
+[    0.636000] SCSI subsystem initialized
+[    0.640000] libata version 3.00 loaded.
+[    0.640000] pps_core: LinuxPPS API ver. 1 registered
+[    0.640000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.644000] clocksource: Switched to clocksource Constant
+[    0.644000] FS-Cache: Loaded
+[    0.680000] NET: Registered PF_INET protocol family
+[    0.684000] IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.692000] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.692000] TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.692000] TCP bind hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.692000] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.692000] UDP hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.692000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.692000] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.696000] workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[    0.780000] ntfs: driver 2.1.32 [Flags: R/W DEBUG].
+[    0.780000] SGI XFS with security attributes, quota, no debug enabled
+[    0.796000] xor: measuring software checksum speed
+[    1.016000] random: fast init done
+[    1.020000]    8regs           :    87 MB/sec
+[    1.248000]    8regs_prefetch  :    74 MB/sec
+[    1.360000]    32regs          :    87 MB/sec
+[    1.492000]    32regs_prefetch :    74 MB/sec
+[    1.492000] xor: using function: 32regs (87 MB/sec)
+[    1.492000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    1.492000] io scheduler mq-deadline registered
+[    1.492000] io scheduler kyber registered
+[    1.492000] io scheduler bfq registered
+[    1.496000] IPMI message handler: version 39.2
+[    1.496000] ipmi device interface
+[    1.496000] ipmi_si: IPMI System Interface driver
+[    1.496000] ipmi_si: Unable to find any System Interface(s)
+[    1.512000] Serial: 8250/16550 driver, 16 ports, IRQ sharing enabled
+[    1.528000] printk: console [ttyS0] disabled
+[    1.528000] 1fe001e0.serial: ttyS0 at MMIO 0x1fe001e0 (irq = 18, base_baud = 2062500) is a 16550A
+[    1.528000] printk: console [ttyS0] enabled
+[    1.528000] printk: console [ttyS0] enabled
+[    1.528000] printk: bootconsole [early0] disabled
+[    1.528000] printk: bootconsole [early0] disabled
+[    1.560000] loop: module loaded
+[    1.560000] morganite 1fe20000.gpu: assigned reserved memory node dma-pool@1f800000
+[    1.644000] morganite 1fe20000.gpu: ABI 1.0, 2 SM, coherent DMA 0x1f800000, 2097152 bytes, CPU mapping 9f800000
+[    1.648000] ls1a-nand driver initializing
+[    1.648000] ITC MAC 10/100M Fast Ethernet Adapter driver 1.0 init
+[    1.656000] libphy: Fixed MDIO Bus: probed
+[    1.656000] tun: Universal TUN/TAP device driver, 1.6
+[    1.660000] mousedev: PS/2 mouse device common for all mice
+[    1.660000] IR MCE Keyboard/mouse protocol handler initialized
+[    1.660000] hid: raw HID events driver (C) Jiri Kosina
+[    1.668000] NET: Registered PF_INET6 protocol family
+[    1.676000] Segment Routing with IPv6
+[    1.676000] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    1.680000] sctp: Hash tables configured (bind 1024/1024)
+[    1.688000] Btrfs loaded, crc32c=crc32c-generic, zoned=yes
+[    1.692000] Key type encrypted registered
+[    1.844000] Freeing unused kernel image (initmem) memory: 3616K
+[    1.844000] This architecture does not have kernel memory protection.
+[    1.844000] Run /init as init process
+[    1.844000]   with arguments:
+[    1.844000]     /init
+[    1.844000]   with environment:
+[    1.844000]     HOME=/
+[    1.844000]     TERM=linux
+Minimal LoongArch32 initramfs
+PATH=/bin:/sbin:/usr/bin:/usr/sbin
+/bin/sh: can't access tty; job control turned off
+/ # > /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo H4sIAJGUBGsC/5VUX2hbZRQ/90uyDRv1Zja2aqxXEbxfJkm2tm6K2IzWFaGsKZlk6iBJk1t
+XSduwe63Z1PXLzOaGCUYoDlG2 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo DnRPGfRJUNhSsfim7EH63AcLCj7UJycuuf6+m6St4oMe+HHuOd/5znf+3bPw4tgRRVGoQ4y
+YI62TQgPgP7uJpDxAGrlIp13k >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo oW1rxcEybCQ8UqW2tDAHlBYkXSPcbZ1PbFhZ+hfa1Tr+G32xR7Da3aFgCfy7u3VWuRal2p2
+hYHnQT+U7C3xl3U7iqbHr5Kfz >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo gNstXF1UdBHtkyGMUZ6OdVktmSjqyog68wrBchHi6bzgc5t1llMFu48o8MNvH7DK81HX94M
+q3VAoWG7UWak6QpXHiX/4i53M >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo ws7zpGD2ZTuBu3oGfpw34LeDzMotVqAiP7MueDpS5PNakb+lFvnpTcHfvi34OyuCv7ss+Nk
+lwReqgqdSgvci7ocV6u4ZEawn >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo GaAA5FRM8EcswX49WmS5qOCAfoyoezGuUrVfpbwmOB4OlH1fsbxGwcUJlfq8gqWQU8/iLfb
+JGyqdP+Ojqwx1Ai4rxMsewZ7+ >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 00564X9lHx2X8V6cCVCpMkLuvSpdj6gkbUqaSqtE/MqGnSzh7gW8m48IbuFN22wmHsV96QO
+yDr2OpsVu7kZdgK+/peMfw+dF >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo +HR8/eGnDRcF3dW95FZ9VP6om9aeUOnBV1Wah795xP7lqv2a50fBMEKBUvUCsw82E26Xn+x
+EM1GSfLyZWJV8tJn4XPIhyIhL >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 2v0E33a4mfC42/dvl5j9eyOB2uuovY7a6+iHjvrr6ImOHujogY4e6OiBjh7omBmWiRadXs6
+gr7MpodduRmltGnOAHNYOqAQ9 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 90Ywi5foRC4mdJlbRfETvrm3t6XvRf5ezIj3Kp3wxNrxbJ5j9uuNVrzvN7bjjEA//j/jRM0
+7cdYuRele+Lnhe4/V9qt0RRG6 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo /UAzLmNz9BPn2Dxmqww7ef6ZPK834lJnf9qId+b1HvwVkf0H+gcGnzl46Nn0ZCZrTMn/bng
+89koydjge1yZPW4aZPGkUtC39 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo kcMvjWn5tGmG56amTMMKZ6dNKz2bMcLTs1mjEDYKeSNjGdlwOmO9mc5pW7uFqA94ATgLNAE
+EQaiHszt2A3uA+4HHgCGgCNhY >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo ITaUNpSjw8PPafro0Ze5dijUH4oQhcyTpnXKSk9SyDIKFoVOzWXTVppCk6ZJoczczIwxa9F
+/pa72VpO7aAlfS+Ap1/Z5Zz/5 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 2nYyJ3IrThLLO/y42/yhdk6OC2cftnbhFrWL09f2F2mr5T717TBTdmBHOPQN7J76h52kvwA
+tkKR32AUAAA== >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /bin/busybox base64 -d /tmp/cp64 | /bin/busybox gzip -dc >/tmp/mg-copy; echo
+ CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /bin/busybox sha256sum /tmp/mg-copy; echo CPU_PROBE_RC_$?
+b13bc21cd63400e7fd5f0c240aa328d670e97037b47a21f386878989f18531e3  /tmp/mg-copy
+CPU_PROBE_RC_0
+/ # /bin/busybox chmod 700 /tmp/mg-copy; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /tmp/mg-copy; echo CPU_PROBE_RC_$?
+COPY_PASS bytes_hex 00900000 
+CPU_PROBE_RC_0
+/ # 

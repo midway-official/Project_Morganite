@@ -1,0 +1,22 @@
+[NEMU] ####### INIT HERE ########
+[NEMU] TLB_ENTRY = 32
+[NEMU] PALEN = 32
+[1;34m[src/monitor/monitor.c,117,load_img] The image is /home/midway/Project_Morganite/build/bare-copy/ram.dat[0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'morganite-probe-only' at [0x1fe20000, 0x1fe20fff][0m
+[1;34m[src/device/io/port-io.c,30,add_pio_map] Add port-io map 'serial' at [0x000003f8, 0x000003ff][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'serial' at [0x1fe001e0, 0x1fe001e7][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'ls1a-nand-stub' at [0x1fe78000, 0x1fe7bfff][0m
+[1;34m[src/monitor/monitor.c,41,welcome] Debug: [1;32mOFF[0m[0m
+[1;34m[src/monitor/monitor.c,46,welcome] Build time: 01:14:01, Nov 24 2026[0m
+Welcome to [1;41m[1;33mla32r[0m-NEMU!
+For help, type "help"
+abcdefghij
+uart work!
+BARE_BEGIN plv=0 irq=0 timer=0 cached=0xa0000011 uncached=0x80000001
+CACHED_ORIGINAL COPY_PASS bytes_hex 00900000 
+CACHED_DBAR COPY_PASS bytes_hex 00900000 
+UNCACHED_ORIGINAL COPY_PASS bytes_hex 00900000 
+CACHED_ORIGINAL COPY_PASS bytes_hex 00900000 
+CACHED_DBAR COPY_PASS bytes_hex 00900000 
+UNCACHED_ORIGINAL COPY_PASS bytes_hex 00900000 
+BARE_END

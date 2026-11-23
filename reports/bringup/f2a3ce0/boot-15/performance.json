@@ -1,0 +1,11 @@
+{
+  "perf_fmas": 8388608,
+  "cycles_1sm": 2532898,
+  "cycles_all": 1267708,
+  "clock_hz": 100000000,
+  "copy_payload_bytes": 65536,
+  "copy_cycles": 1197199,
+  "gflops": 1.323429054640343,
+  "speedup": 1.9980137381794545,
+  "copy_aggregate_MBps": 5.47411082033981
+}

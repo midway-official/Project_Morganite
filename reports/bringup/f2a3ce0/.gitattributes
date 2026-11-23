@@ -1,0 +1,7 @@
+# Preserve on-wire UART bytes and board readbacks in every checkout.
+*.log -text
+*.rgba binary
+*.f32 binary
+*.u32 binary
+*.bin binary
+*.scene binary

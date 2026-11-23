@@ -1,0 +1,28 @@
+{
+  "image_sha256": "33f659199540113d7e0c1cc0e534f8929a650a545be17a51e024768541de0e6b",
+  "gzip_physical": "0xe77240",
+  "gzip_bytes": 1818978,
+  "gzip_crc32": "1e28d3b4",
+  "gzip_sha256": "808e854f61af5f50016d216da127e14f392a4572df130db3efa48386426012d2",
+  "cpio_bytes": 3474432,
+  "cpio_crc32": "0bc6d138",
+  "cpio_sha256": "9126133a219ae4fba52edb7e8a4ca83460cc8c5ab1c926ea8abf868ef767c213",
+  "panic": "junk within compressed archive",
+  "unexpected_byte": {
+    "offset": 3463740,
+    "parser_state": 7,
+    "observed": 56,
+    "expected": 48
+  },
+  "cpu_trace": {
+    "input_bytes": 1818978,
+    "cached_crc": "1e28d3b4",
+    "uncached_crc": "1e28d3b4",
+    "output_bytes": 3473408,
+    "output_crc": "01cc675e",
+    "expected_prefix_crc": "c5529353"
+  },
+  "input_matches": true,
+  "output_prefix_matches": false,
+  "output_complete": false
+}

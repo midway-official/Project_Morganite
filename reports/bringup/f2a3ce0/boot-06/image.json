@@ -1,0 +1,41 @@
+{
+  "kernel_commit": "fbd87836058ae5e676bf97463076916a18c94ad7",
+  "kernel_entry": "0xa0b85610",
+  "dmw_patch_sha256": "fefc996abf57c3bc1460e39d537d3602273f49c5381d13bf41cb93e9549df6b6",
+  "sha256": "2b092b926b20bc68ef772810bd87a46f9e09b6ed19fa6c65e35bd7ac9c4f5f3f",
+  "config_sha256": "6f0db6ef3f7ee249b34d2c602f66bb371430c9e654850b44d262561a537fcd88",
+  "zero_ranges": [
+    [
+      17039360,
+      17547976
+    ]
+  ],
+  "segments": [
+    [
+      3145728,
+      13847204
+    ],
+    [
+      99614720,
+      512
+    ],
+    [
+      469762048,
+      308
+    ]
+  ],
+  "dma_window": [
+    528482304,
+    530579456
+  ],
+  "diagnostic_patch": {
+    "parent_image_sha256": "4b4b3bdfd6e370691de6e45125ba51eee5411105707ad6600f5f6fe3a439d839",
+    "patched_image_sha256": "2b092b926b20bc68ef772810bd87a46f9e09b6ed19fa6c65e35bd7ac9c4f5f3f",
+    "kernel_virtual": "0xa030946c",
+    "physical": "0x0030946c",
+    "before": "0x141fffe1",
+    "after": "0x143fffe1",
+    "semantic": "Keep bit 28 in both physical page-table walk addresses",
+    "changed_image_bits": 1
+  }
+}

@@ -1,0 +1,146 @@
+abcdefghij
+uart work!
+[    0.000000] Linux version 5.14.0-rc2-morganite-gfbd87836058a-dirty (midway@midway) (loongarch32r-linux-gnusf-gcc (GCC) 8.3.0, GNU ld (GNU Binutils) 2.31.1.20190122) #5 PREEMPT Tue Nov 24 03:07:30 CST 2026
+[    0.000000] Standard 32-bit Loongson Processor probed
+[    0.000000] the link is empty!
+[    0.000000] Scan bootparam failed
+[    0.000000] printk: bootconsole [early0] enabled
+[    0.000000] Can't find EFI system table.
+[    0.000000] Reserved memory: created DMA memory pool at 0x1f800000, size 2 MiB
+[    0.000000] OF: reserved mem: initialized node dma-pool@1f800000, compatible id shared-dma-pool
+[    0.000000] start_pfn=0x0, end_pfn=0x1fe00, num_physpages:0x1fc00
+[    0.000000] The BIOS Version: (null)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] CPU0 revision is: 00004200 (Loongson-32bit)
+[    0.000000] Primary instruction cache 8kB, 2-way, VIPT, linesize 16 bytes.
+[    0.000000] Primary data cache 8kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000001f7fffff]
+[    0.000000]   node   0: [mem 0x000000001fa00000-0x000000001fdfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fdfffff]
+[    0.000000] eentry = 0xa0210000,tlbrentry = 0xa0201000
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 128900
+[    0.000000] Kernel command line: earlycon
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 498988K/520192K available (8762K kernel code, 1142K rwdata, 1640K rodata, 2016K init, 496K bss, 21204K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] NR_IRQS: 320
+[    0.000000] Constant counter frequency 100000000 Hz
+[    0.000000] Constant clock event device register
+[    0.000000] clocksource: Constant: mask: 0xffffffffffffffff max_cycles: 0x171024e7e0, max_idle_ns: 440795205315 ns
+[    0.000000] Constant clock source device register
+[    0.008000] Console: colour dummy device 80x25
+[    0.012000] Calibrating delay loop (skipped), value calculated using timer frequency.. 200.00 BogoMIPS (lpj=400000)
+[    0.016000] pid_max: default: 32768 minimum: 301
+[    0.024000] LSM: Security Framework initializing
+[    0.032000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.036000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.164000] rcu: Hierarchical SRCU implementation.
+[    0.196000] devtmpfs: initialized
+[    0.284000] random: get_random_u32 called from bucket_table_alloc.isra.38+0x68/0x1e0 with crng_init=0
+[    0.316000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.316000] futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+[    0.356000] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    1.024000] random: fast init done
+[    2.080000] raid6: int32x8  gen()    46 MB/s
+[    2.148000] raid6: int32x8  xor()    27 MB/s
+[    2.216000] raid6: int32x4  gen()    57 MB/s
+[    2.284000] raid6: int32x4  xor()    32 MB/s
+[    2.352000] raid6: int32x2  gen()    56 MB/s
+[    2.420000] raid6: int32x2  xor()    31 MB/s
+[    2.488000] raid6: int32x1  gen()    39 MB/s
+[    2.556000] raid6: int32x1  xor()    24 MB/s
+[    2.556000] raid6: using algorithm int32x4 gen() 57 MB/s
+[    2.560000] raid6: .... xor() 32 MB/s, rmw enabled
+[    2.560000] raid6: using intx1 recovery algorithm
+[    2.620000] SCSI subsystem initialized
+[    2.640000] libata version 3.00 loaded.
+[    2.676000] pps_core: LinuxPPS API ver. 1 registered
+[    2.680000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    2.740000] clocksource: Switched to clocksource Constant
+[    2.784000] FS-Cache: Loaded
+[    3.688000] NET: Registered PF_INET protocol family
+[    3.700000] IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    3.748000] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    3.752000] TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    3.760000] TCP bind hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    3.764000] TCP: Hash tables configured (established 4096 bind 4096)
+[    3.776000] UDP hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    3.780000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    3.796000] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    3.964000] workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[    5.928000] ntfs: driver 2.1.32 [Flags: R/W DEBUG].
+[    6.000000] SGI XFS with security attributes, quota, no debug enabled
+[    6.376000] xor: measuring software checksum speed
+[    6.584000]    8regs           :    97 MB/sec
+[    6.696000] inflate replay pass=0 irq_masked=0 fill=00 rc=1 bytes=3474432 crc=8ee932b7
+[    7.532000]    8regs_prefetch  :    96 MB/sec
+[    7.640000]    32regs          :    97 MB/sec
+[    7.748000]    32regs_prefetch :    96 MB/sec
+[    7.752000] xor: using function: 32regs (97 MB/sec)
+[    7.760000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    7.764000] io scheduler mq-deadline registered
+[    7.764000] io scheduler kyber registered
+[    7.780000] io scheduler bfq registered
+[    7.816000] IPMI message handler: version 39.2
+[    7.824000] ipmi device interface
+[    7.832000] ipmi_si: IPMI System Interface driver
+[    7.852000] ipmi_si: Unable to find any System Interface(s)
+[    8.264000] Serial: 8250/16550 driver, 16 ports, IRQ sharing enabled
+[    8.412000] inflate replay pass=1 irq_masked=1 fill=00 rc=1 bytes=3474432 crc=7ed8ea89
+[    8.880000] printk: console [ttyS0] disabled
+[    8.904000] 1fe001e0.serial: ttyS0 at MMIO 0x1fe001e0 (irq = 18, base_baud = 2062500) is a 16550A
+[    8.920000] printk: console [ttyS0] enabled
+[    8.920000] printk: console [ttyS0] enabled
+[    8.976000] printk: bootconsole [early0] disabled
+[    8.976000] printk: bootconsole [early0] disabled
+[   10.380000] loop: module loaded
+[   10.516000] ls1a-nand driver initializing
+[   10.580000] ITC MAC 10/100M Fast Ethernet Adapter driver 1.0 init
+[   11.036000] libphy: Fixed MDIO Bus: probed
+[   11.092000] tun: Universal TUN/TAP device driver, 1.6
+[   11.260000] mousedev: PS/2 mouse device common for all mice
+[   11.340000] IR MCE Keyboard/mouse protocol handler initialized
+[   11.392000] inflate replay pass=2 irq_masked=0 fill=a5 rc=1 bytes=3474432 crc=93a9574c
+[   11.416000] hid: raw HID events driver (C) Jiri Kosina
+[   12.400000] NET: Registered PF_INET6 protocol family
+[   12.520000] Segment Routing with IPv6
+[   12.552000] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[   12.644000] sctp: Hash tables configured (bind 1024/1024)
+[   12.796000] Btrfs loaded, crc32c=crc32c-generic, zoned=yes
+[   12.872000] inflate replay pass=3 irq_masked=1 fill=a5 rc=1 bytes=3474432 crc=0bc6d138
+[   16.204000] initramfs trace input_bytes=1818978 cached_crc=1e28d3b4 uncached_crc=1e28d3b4 output_bytes=2776052 output_crc=bace96b8
+[   16.228000] Mem-Info:
+[   16.248000] active_anon:83 inactive_anon:592 isolated_anon:0
+[   16.248000]  active_file:0 inactive_file:0 isolated_file:0
+[   16.248000]  unevictable:0 dirty:0 writeback:0
+[   16.248000]  slab_reclaimable:25 slab_unreclaimable:1591
+[   16.248000]  mapped:0 shmem:679 pagetables:0 bounce:0
+[   16.248000]  free:122010 free_pcp:79 free_cma:0
+[   16.276000] Node 0 active_anon:332kB inactive_anon:2368kB active_file:0kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:0kB dirty:0kB writeback:0kB shmem:2716kB writeback_tmp:0kB kernel_stack:256kB pagetables:0kB all_unreclaimable? no
+[   16.304000] DMA32 free:488040kB min:2824kB low:3528kB high:4232kB reserved_highatomic:0KB active_anon:332kB inactive_anon:2368kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:520192kB managed:498988kB mlocked:0kB bounce:0kB free_pcp:316kB local_pcp:316kB free_cma:0kB
+[   16.332000] lowmem_reserve[]: 0 0 0
+[   16.364000] DMA32: 2*4kB (UM) 2*8kB (UE) 1*16kB (M) 2*32kB (UM) 2*64kB (U) 1*128kB (U) 1*256kB (E) 2*512kB (UE) 3*1024kB (UME) 2*2048kB (UE) 1*4096kB (E) 58*8192kB (M) = 488040kB
+[   16.456000] 679 total pagecache pages
+[   16.464000] 0 pages in swap cache
+[   16.492000] Swap cache stats: add 0, delete 0, find 0/0
+[   16.516000] Free swap  = 0kB
+[   16.544000] Total swap = 0kB
+[   16.568000] 130048 pages RAM
+[   16.596000] 0 pages HighMem/MovableOnly
+[   16.624000] 5301 pages reserved
+[   16.648000] Kernel panic - not syncing: uncompression error
+[   16.648000] ---[ end Kernel panic - not syncing: uncompression error ]---

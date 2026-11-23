@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "sw-bbf5177-verify/uart_jobs.py", line 125, in <module>
+    main()
+  File "sw-bbf5177-verify/uart_jobs.py", line 61, in main
+    boot = prompt(1200)
+  File "sw-bbf5177-verify/uart_jobs.py", line 51, in prompt
+    raise RuntimeError("kernel fault on UART")
+RuntimeError: kernel fault on UART

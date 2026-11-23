@@ -1,0 +1,12 @@
+{
+  "image_sha256": "fa113a83bcad01fc08227855312358af28eff0858659f31db31a25349f90645b",
+  "gzip_physical": "0xe77120",
+  "gzip_bytes": 1818978,
+  "gzip_crc32": "1e28d3b4",
+  "gzip_sha256": "808e854f61af5f50016d216da127e14f392a4572df130db3efa48386426012d2",
+  "cpio_bytes": 3474432,
+  "cpio_crc32": "0bc6d138",
+  "cpio_sha256": "9126133a219ae4fba52edb7e8a4ca83460cc8c5ab1c926ea8abf868ef767c213",
+  "panic_string_pointer": "0xa0c8d0c4",
+  "panic": "junk within compressed archive"
+}

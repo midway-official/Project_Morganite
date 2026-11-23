@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "sw-f5ec0ad/uart_jobs.py", line 122, in <module>
+    main()
+  File "sw-f5ec0ad/uart_jobs.py", line 68, in main
+    info = json.loads(next(line for line in command("/bin/mgpu info").splitlines() if line.startswith("{")))
+  File "sw-f5ec0ad/uart_jobs.py", line 59, in command
+    raise RuntimeError("Linux command failed: "+cmd+"\n"+text[-600:])
+RuntimeError: Linux command failed: /bin/mgpu info
+ /bin/mgpu info; echo MG_EXIT_$?
+Morganite driver registration: No such file or directory
+MG_EXIT_1
+/ #

@@ -1,0 +1,32 @@
+[
+  {
+    "kernel": "copy",
+    "seq": 1,
+    "mask": 3,
+    "cycles": 7827,
+    "host_ns": 531730,
+    "fault": 0,
+    "fault_addr": 0,
+    "read_bytes": 856,
+    "write_bytes": 256,
+    "read_bursts": 139,
+    "write_bursts": 8,
+    "cpu_busy_samples": 0,
+    "sm": [
+      [
+        7521,
+        1,
+        0,
+        0,
+        7416
+      ],
+      [
+        7608,
+        1,
+        0,
+        0,
+        7503
+      ]
+    ]
+  }
+]

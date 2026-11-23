@@ -1,0 +1,149 @@
+{
+  "backend": "board",
+  "scenes": {
+    "triangle": {
+      "covered": 16350,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "9cb3329d18c3260eef11f23f5caae884ca134c8d6a4280b144baba2b0d73b236",
+        "b150e708d91205bd3cb6fdbb3bf985c5f783e44f6be8fb56980c5b7dbe752e91",
+        "6f01b695792c0c1423d08743d90cf9fc84560e481c0ebd04a07e7ea94444501e"
+      ],
+      "triangles": 1,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "vertex_shift": {
+      "covered": 16350,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "bd364f700338e61eeaa26da1c51d82c09f1dbfb82adce532a24c89397bd30ff6",
+        "604911093a092b25fc2f2745c7f32aaabd0bebbff9b1270ab1b409680c2fd9ce",
+        "3d994535b9dfd6cfd6670136f0f878ed11db82453e1bd9ce2f5a0ac178441df8"
+      ],
+      "triangles": 1,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "fragment_swap": {
+      "covered": 16350,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "c718d5285b621f98bccf3ccaa27a5846885cd183e21cf932092e4989c20f3c30",
+        "b150e708d91205bd3cb6fdbb3bf985c5f783e44f6be8fb56980c5b7dbe752e91",
+        "6f01b695792c0c1423d08743d90cf9fc84560e481c0ebd04a07e7ea94444501e"
+      ],
+      "triangles": 1,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "shared": {
+      "covered": 14400,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "7dca66536ce24be563a7d459252e06c67d8fc6a6f7bd3da5da0586d896552507",
+        "256ad136771d078ce347e98ec438633830bde2179e98dbc76c77f0423e7ea9a7",
+        "80a6f7afdf4eee96f49255d9773dfe9d9e329b017b79e696c5c92c065c1d84c2"
+      ],
+      "triangles": 2,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "overlap": {
+      "covered": 12000,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "9a7f372937514f0013e4a276a9359826e7e95074756c5e1c54304461836956d5",
+        "ba4405ab4fcb87e4e02b02ec39b53601484837bf19a06276036cc2b0e872b97f",
+        "731aca6e62ed6ac4e83a447aa7f332cd0b8d7f0608a2041fd2321872621422b2"
+      ],
+      "triangles": 3,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "degenerate": {
+      "covered": 0,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "4d856b7a9008759aff68a0d1cde95b895fb952761719549f339d00d6eda9f543",
+        "69bd48f432b5ab0b2ca4fbbe446c2ecf5203960138a72cb2e514678fe018e0db",
+        "7818f5542a0404157573be6cffc0e0c8e68ce3c0f5d17d07ccdd9313fb700baf"
+      ],
+      "triangles": 2,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "cube_a": {
+      "covered": 17980,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.7881393432617188e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "6defaa8b0b700778dddc679bc9b64c3f204ea6d9916abe0b33ae35dbefbcd413",
+        "e240b4e01bbe0feb338326f0e7e024b44910d73c8b0be51cf29ef3ec0b7a697d",
+        "1942d3e1b3d6699b30b321992b9c0155af6ff61712b1653447b4f973c9fb7d0f"
+      ],
+      "triangles": 12,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    },
+    "cube_b": {
+      "covered": 19086,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "7d535d5380e8a8e27c40e878d47b317fc9f6c46cf2fc5c72285f4bec79fda9fe",
+        "0d344844987ad35cd6c45000ce3370563503fdbb696917dcd1c4045104999a48",
+        "990cdffa899ed9433cb4a885cc3c4f36f807384c893ad0a5445cb32ef169e3b0"
+      ],
+      "triangles": 12,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    }
+  }
+}

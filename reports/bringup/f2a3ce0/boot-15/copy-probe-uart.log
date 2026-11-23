@@ -1,0 +1,57 @@
+
+/ # > /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo H4sIADOVBGsC/5VUX2hbZRQ/90uyDRv1Zja2aqxXEbxfJkm2tm6K2IzWFaGsKZlk6iBJk1t
+XSduwe63Z1PXLzOaGCUYoDlG2 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo DnRPGfRJUNhSsfim7EH63AcLCj7UJycuuf6+m6St4oMe+HHuOd/5znf+3bPw4tgRRVGoQ4y
+YI62TQgPgP7uJpDxAGrlIp13k >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo oW1rxcEybCQ8UqW2tDAHlBYkXSPcbZ1PbFhZ+hfa1Tr+G32xR7Da3aFgCfy7u3VWuRal2p2
+hYHnQT+U7C3xl3U7iqbHr5Kfz >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo gNstXF1UdBHtkyGMUZ6OdVktmSjqyog68wrBchHi6bzgc5t1llMFu48o8MNvH7DK81HX94M
+q3VAoWG7UWak6QpXHiX/4i53M >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo ws7zpGD2ZTuBu3oGfpw34LeDzMotVqAiP7MueDpS5PNakb+lFvnpTcHfvi34OyuCv7ss+Nk
+lwReqgqdSgvci7ocV6u4ZEawn >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo GaAA5FRM8EcswX49WmS5qOCAfoyoezGuUrVfpbwmOB4OlH1fsbxGwcUJlfq8gqWQU8/iLfb
+JGyqdP+Ojqwx1Ai4rxMsewZ7+ >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 00564X9lHx2X8V6cCVCpMkLuvSpdj6gkbUqaSqtE/MqGnSzh7gW8m48IbuFN22wmHsV96QO
+yDr2OpsVu7kZdgK+/peMfw+dF >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo +HR8/eGnDRcF3dW95FZ9VP6om9aeUOnBV1Wah795xP7lqv2a50fBMEKBUvUCsw82E26Xn+x
+EM1GSfLyZWJV8tJn4XPIhyIhL >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 2v0E33a4mfC42/dvl5j9eyOB2uuovY7a6+iHjvrr6ImOHujogY4e6OiBjh7omBmWiRadXs6
+gr7MpodduRmltGnOAHNYOqAQ9 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 90Ywi5foRC4mdJlbRfETvrm3t6XvRf5ezIj3Kp3wxNrxbJ5j9uuNVrzvN7bjjEA//j/jRM0
+7cdYuRele+Lnhe4/V9qt0RRG6 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo /UAzLmNz9BPn2Dxmqww7ef6ZPK834lJnf9qId+b1HvwVkf0H+gcGnzl46Nn0ZCZrTMn/bng
+89koydjge1yZPW4aZPGkUtC39 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo kcMvjWn5tGmG56amTMMKZ6dNKz2bMcLTs1mjEDYKeSNjGdlwOmO9mc5pW7uFqA94ATgLNAE
+EQaiHszt2A3uA+4HHgCGgCNhY >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo ITaUNpSjw8PPafro0Ze5dijUH4oQhcyTpnXKSk9SyDIKFoVOzWXTVppCk6ZJoczczIwxa9F
+/pa72VpO7aAlfS+Ap1/Z5Zz/5 >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # echo 2nYyJ3IrThLLO/y42/yhdk6OC2cftnbhFrWL09f2F2mr5T717TBTdmBHOPQN7J76h52kvwA
+tkKR32AUAAA== >> /tmp/cp64; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /bin/busybox base64 -d /tmp/cp64 | /bin/busybox gzip -dc >/tmp/mg-copy; echo
+ CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /bin/busybox sha256sum /tmp/mg-copy; echo CPU_PROBE_RC_$?
+b13bc21cd63400e7fd5f0c240aa328d670e97037b47a21f386878989f18531e3  /tmp/mg-copy
+CPU_PROBE_RC_0
+/ # /bin/busybox chmod 700 /tmp/mg-copy; echo CPU_PROBE_RC_$?
+CPU_PROBE_RC_0
+/ # /tmp/mg-copy; echo CPU_PROBE_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 0000007e 00000005 000056a0 000000ee 000000a5 
+CPU_PROBE_RC_1
+/ # 

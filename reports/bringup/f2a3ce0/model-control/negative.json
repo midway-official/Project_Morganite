@@ -1,0 +1,13 @@
+{
+  "backend": "NEMU",
+  "positive_ram_dat_sha256": "33f659199540113d7e0c1cc0e534f8929a650a545be17a51e024768541de0e6b",
+  "negative_ram_dat_sha256": "76b198b6413e42b95bf4bfb40724f07a546a0f468fa23e0a3c2a3c6e7d5e0528",
+  "cpio_change_offset": 2428580,
+  "expected_byte": 0,
+  "inserted_byte": 90,
+  "cpio_bytes": 2428836,
+  "cpio_crc32": "e6d92bfc",
+  "input_slot_bytes": 1818978,
+  "input_slot_crc32": "9b47d7a3",
+  "gzip_bytes": 1359998
+}

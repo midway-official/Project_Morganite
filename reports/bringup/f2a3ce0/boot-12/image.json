@@ -1,0 +1,34 @@
+{
+  "kernel_commit": "fbd87836058ae5e676bf97463076916a18c94ad7",
+  "kernel_entry": "0xa0b855f0",
+  "initramfs_compression": "gzip",
+  "dmw_patch_sha256": "fefc996abf57c3bc1460e39d537d3602273f49c5381d13bf41cb93e9549df6b6",
+  "tlb_patch_sha256": "9bc176e8bcd743c7405d2e57bb51e94ae97808d24eceec2afb163ab24c83bc1a",
+  "clock_patch_sha256": "6054f4f0506cf20cf06b1e76eac937f0efc19fd31ba6e4981ff34f4e0918d608",
+  "sha256": "33f659199540113d7e0c1cc0e534f8929a650a545be17a51e024768541de0e6b",
+  "config_sha256": "0911fc3bcfefdf61abc64ea9d35dfe246de47790fde4a66890afe677b1a3d9e4",
+  "zero_ranges": [
+    [
+      17039360,
+      17547976
+    ]
+  ],
+  "segments": [
+    [
+      3145728,
+      13847668
+    ],
+    [
+      99614720,
+      512
+    ],
+    [
+      469762048,
+      308
+    ]
+  ],
+  "dma_window": [
+    528482304,
+    530579456
+  ]
+}

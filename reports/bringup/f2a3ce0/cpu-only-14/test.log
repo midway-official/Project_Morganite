@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/fpga/morganite-u50c-20261123-QVWeb2PN/test_uart.py", line 42, in <module>
+    for text in collect(boot_deadline):
+  File "/home/fpga/morganite-u50c-20261123-QVWeb2PN/test_uart.py", line 37, in collect
+    raise RuntimeError('Linux UART reported a fatal kernel exception')
+RuntimeError: Linux UART reported a fatal kernel exception

@@ -1,0 +1,95 @@
+diff --git a/init/initramfs.c b/init/initramfs.c
+index af27abc59..96743ee95 100644
+--- a/init/initramfs.c
++++ b/init/initramfs.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <linux/init.h>
+ #include <linux/async.h>
++#include <linux/crc32.h>
+ #include <linux/fs.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+@@ -15,6 +16,7 @@
+ #include <linux/mm.h>
+ #include <linux/namei.h>
+ #include <linux/init_syscalls.h>
++#include <asm/addrspace.h>
+ 
+ static ssize_t __init xwrite(struct file *file, const char *p, size_t count,
+ 		loff_t *pos)
+@@ -47,14 +49,10 @@ static void __init error(char *x)
+ 		message = x;
+ }
+ 
+-static void panic_show_mem(const char *fmt, ...)
++static void panic_show_mem(const char *reason)
+ {
+-	va_list args;
+-
+ 	show_mem(0, NULL);
+-	va_start(args, fmt);
+-	panic(fmt, args);
+-	va_end(args);
++	panic("%s", reason);
+ }
+ 
+ /* link hash */
+@@ -433,13 +431,20 @@ static long __init write_buffer(char *buf, unsigned long len)
+ 	return len - byte_count;
+ }
+ 
++static unsigned long __initdata output_bytes;
++static u32 __initdata output_crc;
++
+ static long __init flush_buffer(void *bufv, unsigned long len)
+ {
+ 	char *buf = (char *) bufv;
+ 	long written;
+ 	long origLen = len;
++	unsigned long block_start = output_bytes;
++
+ 	if (message)
+ 		return -1;
++	output_crc = crc32_le(output_crc, bufv, len);
++	output_bytes += len;
+ 	while ((written = write_buffer(buf, len)) < len && !message) {
+ 		char c = buf[written];
+ 		if (c == '0') {
+@@ -450,8 +455,12 @@ static long __init flush_buffer(void *bufv, unsigned long len)
+ 			buf += written;
+ 			len -= written;
+ 			state = Reset;
+-		} else
++		} else {
++			pr_err("initramfs unexpected byte offset=%lu value=%02x state=%u\n",
++			       block_start + (buf - (char *)bufv) + written,
++			       (unsigned char)c, state);
+ 			error("junk within compressed archive");
++		}
+ 	}
+ 	return origLen;
+ }
+@@ -670,9 +679,20 @@ static void __init populate_initrd_image(char *err)
+ static void __init do_populate_rootfs(void *unused, async_cookie_t cookie)
+ {
+ 	/* Load the built in initramfs */
+-	char *err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
++	char *err;
++	const u8 *input = (const u8 *)__initramfs_start;
++	const u8 *uncached = (const u8 *)TO_UNCAC((unsigned long)input);
++
++	output_crc = ~0U;
++	output_bytes = 0;
++	err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
++	pr_info("initramfs trace input_bytes=%lu cached_crc=%08x uncached_crc=%08x output_bytes=%lu output_crc=%08x\n",
++		(unsigned long)__initramfs_size,
++		crc32_le(~0U, input, __initramfs_size) ^ ~0U,
++		crc32_le(~0U, uncached, __initramfs_size) ^ ~0U,
++		output_bytes, output_crc ^ ~0U);
+ 	if (err)
+-		panic_show_mem("%s", err); /* Failed to decompress INTERNAL initramfs */
++		panic_show_mem(err);
+ 
+ 	if (!initrd_start || IS_ENABLED(CONFIG_INITRAMFS_FORCE))
+ 		goto done;

@@ -1,0 +1,157 @@
+[NEMU] ####### INIT HERE ########
+[NEMU] TLB_ENTRY = 32
+[NEMU] PALEN = 32
+[1;34m[src/monitor/monitor.c,117,load_img] The image is /home/midway/Project_Morganite/build/boot-diagnosis/trace-negative/ram.dat[0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'morganite-probe-only' at [0x1fe20000, 0x1fe20fff][0m
+[1;34m[src/device/io/port-io.c,30,add_pio_map] Add port-io map 'serial' at [0x000003f8, 0x000003ff][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'serial' at [0x1fe001e0, 0x1fe001e7][0m
+[1;34m[src/device/io/mmio.c,33,add_mmio_map] Add mmio map 'ls1a-nand-stub' at [0x1fe78000, 0x1fe7bfff][0m
+[1;34m[src/monitor/monitor.c,41,welcome] Debug: [1;32mOFF[0m[0m
+[1;34m[src/monitor/monitor.c,46,welcome] Build time: 01:14:01, Nov 24 2026[0m
+Welcome to [1;41m[1;33mla32r[0m-NEMU!
+For help, type "help"
+abcdefghij
+uart work!
+[    0.000000] Linux version 5.14.0-rc2-morganite-gfbd87836058a-dirty (midway@midway) (loongarch32r-linux-gnusf-gcc (GCC) 8.3.0, GNU ld (GNU Binutils) 2.31.1.20190122) #4 PREEMPT Tue Nov 24 02:56:31 CST 2026
+[    0.000000] Standard 32-bit Loongson Processor probed
+[    0.000000] the link is empty!
+[    0.000000] Scan bootparam failed
+[    0.000000] printk: bootconsole [early0] enabled
+[    0.000000] Can't find EFI system table.
+[    0.000000] Reserved memory: created DMA memory pool at 0x1f800000, size 2 MiB
+[    0.000000] OF: reserved mem: initialized node dma-pool@1f800000, compatible id shared-dma-pool
+[    0.000000] start_pfn=0x0, end_pfn=0x1fe00, num_physpages:0x1fc00
+[    0.000000] The BIOS Version: (null)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] CPU0 revision is: 00004200 (Loongson-32bit)
+[    0.000000] Primary instruction cache 8kB, 2-way, VIPT, linesize 16 bytes.
+[    0.000000] Primary data cache 8kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000001f7fffff]
+[    0.000000]   node   0: [mem 0x000000001fa00000-0x000000001fdfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fdfffff]
+[    0.000000] eentry = 0xa0210000,tlbrentry = 0xa0201000
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 128900
+[    0.000000] Kernel command line: earlycon
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 498988K/520192K available (8762K kernel code, 1142K rwdata, 1640K rodata, 2016K init, 496K bss, 21204K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] NR_IRQS: 320
+[    0.000000] Constant counter frequency 100000000 Hz
+[    0.000000] Constant clock event device register
+[    0.000000] clocksource: Constant: mask: 0xffffffffffffffff max_cycles: 0x171024e7e0, max_idle_ns: 440795205315 ns
+[    0.000000] Constant clock source device register
+[    0.004000] Console: colour dummy device 80x25
+[    0.004000] Calibrating delay loop (skipped), value calculated using timer frequency.. 200.00 BogoMIPS (lpj=400000)
+[    0.004000] pid_max: default: 32768 minimum: 301
+[    0.004000] LSM: Security Framework initializing
+[    0.004000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.004000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.012000] rcu: Hierarchical SRCU implementation.
+[    0.012000] devtmpfs: initialized
+[    0.016000] random: get_random_u32 called from bucket_table_alloc.isra.38+0x68/0x1e0 with crng_init=0
+[    0.016000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.016000] futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+[    0.020000] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.160000] raid6: int32x8  gen()    28 MB/s
+[    0.228000] raid6: int32x8  xor()    17 MB/s
+[    0.296000] raid6: int32x4  gen()    35 MB/s
+[    0.364000] raid6: int32x4  xor()    19 MB/s
+[    0.432000] raid6: int32x2  gen()    32 MB/s
+[    0.500000] raid6: int32x2  xor()    18 MB/s
+[    0.568000] raid6: int32x1  gen()    28 MB/s
+[    0.636000] raid6: int32x1  xor()    16 MB/s
+[    0.636000] raid6: using algorithm int32x4 gen() 35 MB/s
+[    0.636000] raid6: .... xor() 19 MB/s, rmw enabled
+[    0.636000] raid6: using intx1 recovery algorithm
+[    0.636000] SCSI subsystem initialized
+[    0.640000] libata version 3.00 loaded.
+[    0.640000] pps_core: LinuxPPS API ver. 1 registered
+[    0.640000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.644000] clocksource: Switched to clocksource Constant
+[    0.644000] FS-Cache: Loaded
+[    0.680000] NET: Registered PF_INET protocol family
+[    0.684000] IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.692000] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.692000] TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.692000] TCP bind hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    0.692000] TCP: Hash tables configured (established 4096 bind 4096)
+[    0.692000] UDP hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.692000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.692000] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.696000] workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[    0.772000] ntfs: driver 2.1.32 [Flags: R/W DEBUG].
+[    0.780000] SGI XFS with security attributes, quota, no debug enabled
+[    0.796000] xor: measuring software checksum speed
+[    1.016000] random: fast init done
+[    1.020000]    8regs           :    87 MB/sec
+[    1.276000]    8regs_prefetch  :    74 MB/sec
+[    1.500000]    32regs          :    87 MB/sec
+[    1.756000]    32regs_prefetch :    74 MB/sec
+[    1.756000] xor: using function: 32regs (87 MB/sec)
+[    1.756000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    1.756000] io scheduler mq-deadline registered
+[    1.756000] io scheduler kyber registered
+[    1.756000] io scheduler bfq registered
+[    1.756000] IPMI message handler: version 39.2
+[    1.756000] ipmi device interface
+[    1.756000] ipmi_si: IPMI System Interface driver
+[    1.764000] ipmi_si: Unable to find any System Interface(s)
+[    1.788000] Serial: 8250/16550 driver, 16 ports, IRQ sharing enabled
+[    1.808000] printk: console [ttyS0] disabled
+[    1.808000] 1fe001e0.serial: ttyS0 at MMIO 0x1fe001e0 (irq = 18, base_baud = 2062500) is a 16550A
+[    1.808000] printk: console [ttyS0] enabled
+[    1.808000] printk: console [ttyS0] enabled
+[    1.808000] printk: bootconsole [early0] disabled
+[    1.808000] printk: bootconsole [early0] disabled
+[    1.872000] loop: module loaded
+[    1.872000] morganite 1fe20000.gpu: assigned reserved memory node dma-pool@1f800000
+[    2.040000] morganite 1fe20000.gpu: ABI 1.0, 2 SM, coherent DMA 0x1f800000, 2097152 bytes, CPU mapping 9f800000
+[    2.048000] ls1a-nand driver initializing
+[    2.048000] ITC MAC 10/100M Fast Ethernet Adapter driver 1.0 init
+[    2.072000] libphy: Fixed MDIO Bus: probed
+[    2.072000] tun: Universal TUN/TAP device driver, 1.6
+[    2.072000] mousedev: PS/2 mouse device common for all mice
+[    2.080000] IR MCE Keyboard/mouse protocol handler initialized
+[    2.080000] hid: raw HID events driver (C) Jiri Kosina
+[    2.096000] NET: Registered PF_INET6 protocol family
+[    2.112000] Segment Routing with IPv6
+[    2.112000] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    2.120000] sctp: Hash tables configured (bind 1024/1024)
+[    2.136000] Btrfs loaded, crc32c=crc32c-generic, zoned=yes
+[    2.328000] initramfs unexpected byte offset=2428580 value=5a state=7
+[    2.532000] initramfs trace input_bytes=1818978 cached_crc=9b47d7a3 uncached_crc=9b47d7a3 output_bytes=2428836 output_crc=e6d92bfc
+[    2.532000] Mem-Info:
+[    2.532000] active_anon:72 inactive_anon:513 isolated_anon:0
+[    2.532000]  active_file:0 inactive_file:0 isolated_file:0
+[    2.532000]  unevictable:0 dirty:0 writeback:0
+[    2.532000]  slab_reclaimable:26 slab_unreclaimable:1593
+[    2.532000]  mapped:0 shmem:594 pagetables:0 bounce:0
+[    2.532000]  free:122072 free_pcp:99 free_cma:0
+[    2.532000] Node 0 active_anon:288kB inactive_anon:2052kB active_file:0kB inactive_file:0kB unevictable:0kB isolated(anon):0kB isolated(file):0kB mapped:0kB dirty:0kB writeback:0kB shmem:2376kB writeback_tmp:0kB kernel_stack:256kB pagetables:0kB all_unreclaimable? no
+[    2.532000] DMA32 free:488288kB min:2824kB low:3528kB high:4232kB reserved_highatomic:0KB active_anon:288kB inactive_anon:2052kB active_file:0kB inactive_file:0kB unevictable:0kB writepending:0kB present:520192kB managed:498988kB mlocked:0kB bounce:0kB free_pcp:396kB local_pcp:396kB free_cma:0kB
+[    2.532000] lowmem_reserve[]: 0 0 0
+[    2.532000] DMA32: 2*4kB (UM) 3*8kB (UME) 0*16kB 2*32kB (UM) 2*64kB (U) 1*128kB (U) 2*256kB (ME) 2*512kB (UE) 3*1024kB (UME) 2*2048kB (UE) 1*4096kB (E) 58*8192kB (M) = 488288kB
+[    2.532000] 594 total pagecache pages
+[    2.532000] 0 pages in swap cache
+[    2.532000] Swap cache stats: add 0, delete 0, find 0/0
+[    2.532000] Free swap  = 0kB
+[    2.532000] Total swap = 0kB
+[    2.532000] 130048 pages RAM
+[    2.532000] 0 pages HighMem/MovableOnly
+[    2.532000] 5301 pages reserved
+[    2.532000] Kernel panic - not syncing: junk within compressed archive
+[    2.532000] ---[ end Kernel panic - not syncing: junk within compressed archive ]---

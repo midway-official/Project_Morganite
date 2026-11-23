@@ -1,0 +1,118 @@
+{
+  "run": "/home/fpga/aurora-u50c-debug/runs/20261123T192323.870632Z",
+  "elf_sha256": {
+    "original": "b13bc21cd63400e7fd5f0c240aa328d670e97037b47a21f386878989f18531e3",
+    "nop": "77aa9d6cc0a5969cd6eaf36db5bf48ba7ddf6564ffb831627015cfeea4663593",
+    "dbar": "1c2fe4148ce76509b7c6615b4a987854541b311c56e0493d7614bad94ce90089"
+  },
+  "trials": [
+    {
+      "round": 1,
+      "variant": "original",
+      "rc": 1,
+      "pass": 0,
+      "offset": 0,
+      "distance": 7,
+      "index": 8607,
+      "expected": 199,
+      "actual": 165
+    },
+    {
+      "round": 1,
+      "variant": "nop",
+      "rc": 1,
+      "pass": 0,
+      "offset": 2,
+      "distance": 7,
+      "index": 24541,
+      "expected": 3,
+      "actual": 165
+    },
+    {
+      "round": 1,
+      "variant": "dbar",
+      "rc": 0
+    },
+    {
+      "round": 2,
+      "variant": "nop",
+      "rc": 1,
+      "pass": 0,
+      "offset": 0,
+      "distance": 5,
+      "index": 2974,
+      "expected": 199,
+      "actual": 165
+    },
+    {
+      "round": 2,
+      "variant": "dbar",
+      "rc": 0
+    },
+    {
+      "round": 2,
+      "variant": "original",
+      "rc": 1,
+      "pass": 0,
+      "offset": 2,
+      "distance": 7,
+      "index": 925,
+      "expected": 114,
+      "actual": 165
+    },
+    {
+      "round": 3,
+      "variant": "dbar",
+      "rc": 0
+    },
+    {
+      "round": 3,
+      "variant": "original",
+      "rc": 1,
+      "pass": 0,
+      "offset": 0,
+      "distance": 8,
+      "index": 8225,
+      "expected": 112,
+      "actual": 165
+    },
+    {
+      "round": 3,
+      "variant": "nop",
+      "rc": 1,
+      "pass": 0,
+      "offset": 0,
+      "distance": 7,
+      "index": 479,
+      "expected": 170,
+      "actual": 165
+    },
+    {
+      "round": 4,
+      "variant": "original",
+      "rc": 1,
+      "pass": 0,
+      "offset": 0,
+      "distance": 7,
+      "index": 28063,
+      "expected": 83,
+      "actual": 165
+    },
+    {
+      "round": 4,
+      "variant": "nop",
+      "rc": 1,
+      "pass": 0,
+      "offset": 2,
+      "distance": 7,
+      "index": 13149,
+      "expected": 172,
+      "actual": 165
+    },
+    {
+      "round": 4,
+      "variant": "dbar",
+      "rc": 0
+    }
+  ]
+}

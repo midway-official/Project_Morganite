@@ -1,0 +1,131 @@
+abcdefghij
+uart work!
+[    0.000000] Linux version 5.14.0-rc2-morganite-gfbd87836058a-dirty (midway@midway) (loongarch32r-linux-gnusf-gcc (GCC) 8.3.0, GNU ld (GNU Binutils) 2.31.1.20190122) #7 PREEMPT Tue Nov 24 00:58:50 CST 2026
+[    0.000000] Standard 32-bit Loongson Processor probed
+[    0.000000] the link is empty!
+[    0.000000] Scan bootparam failed
+[    0.000000] printk: bootconsole [early0] enabled
+[    0.000000] Can't find EFI system table.
+[    0.000000] Reserved memory: created DMA memory pool at 0x1f800000, size 2 MiB
+[    0.000000] OF: reserved mem: initialized node dma-pool@1f800000, compatible id shared-dma-pool
+[    0.000000] start_pfn=0x0, end_pfn=0x1fe00, num_physpages:0x1fc00
+[    0.000000] The BIOS Version: (null)
+[    0.000000] Initrd not found or empty - disabling initrd
+[    0.000000] CPU0 revision is: 00004200 (Loongson-32bit)
+[    0.000000] Primary instruction cache 8kB, 2-way, VIPT, linesize 16 bytes.
+[    0.000000] Primary data cache 8kB, 2-way, VIPT, no aliases, linesize 16 bytes
+[    0.000000] Zone ranges:
+[    0.000000]   DMA32    [mem 0x0000000000000000-0x00000000ffffffff]
+[    0.000000]   Normal   empty
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x000000001f7fffff]
+[    0.000000]   node   0: [mem 0x000000001fa00000-0x000000001fdfffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000001fdfffff]
+[    0.000000] eentry = 0xa0210000,tlbrentry = 0xa0201000
+[    0.000000] pcpu-alloc: s0 r0 d32768 u32768 alloc=1*32768
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 128900
+[    0.000000] Kernel command line: earlycon
+[    0.000000] Dentry cache hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 32768 (order: 5, 131072 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:off, heap free:off
+[    0.000000] Memory: 498988K/520192K available (8762K kernel code, 1142K rwdata, 1640K rodata, 2016K init, 496K bss, 21204K reserved, 0K cma-reserved)
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Preemptible hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU event tracing is enabled.
+[    0.000000] 	Trampoline variant of Tasks RCU enabled.
+[    0.000000] 	Tracing variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] NR_IRQS: 320
+[    0.000000] Constant clock event device register
+[    0.000000] clocksource: Constant: mask: 0xffffffffffffffff max_cycles: 0x2e2049d3e8, max_idle_ns: 440795210634 ns
+[    0.000000] Constant clock source device register
+[    0.004000] Console: colour dummy device 80x25
+[    0.008000] Calibrating delay loop (skipped), value calculated using timer frequency.. 400.00 BogoMIPS (lpj=800000)
+[    0.008000] pid_max: default: 32768 minimum: 301
+[    0.012000] LSM: Security Framework initializing
+[    0.016000] Mount-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.020000] Mountpoint-cache hash table entries: 1024 (order: 0, 4096 bytes, linear)
+[    0.084000] rcu: Hierarchical SRCU implementation.
+[    0.096000] devtmpfs: initialized
+[    0.140000] random: get_random_u32 called from bucket_table_alloc.isra.38+0x68/0x1e0 with crng_init=0
+[    0.156000] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.156000] futex hash table entries: 256 (order: -1, 3072 bytes, linear)
+[    0.176000] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    1.008000] raid6: int32x8  gen()    96 MB/s
+[    1.024000] random: fast init done
+[    1.076000] raid6: int32x8  xor()    55 MB/s
+[    1.144000] raid6: int32x4  gen()   120 MB/s
+[    1.212000] raid6: int32x4  xor()    67 MB/s
+[    1.280000] raid6: int32x2  gen()   118 MB/s
+[    1.348000] raid6: int32x2  xor()    64 MB/s
+[    1.416000] raid6: int32x1  gen()    83 MB/s
+[    1.484000] raid6: int32x1  xor()    51 MB/s
+[    1.484000] raid6: using algorithm int32x4 gen() 120 MB/s
+[    1.484000] raid6: .... xor() 67 MB/s, rmw enabled
+[    1.484000] raid6: using intx1 recovery algorithm
+[    1.516000] SCSI subsystem initialized
+[    1.524000] libata version 3.00 loaded.
+[    1.540000] pps_core: LinuxPPS API ver. 1 registered
+[    1.544000] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    1.572000] clocksource: Switched to clocksource Constant
+[    1.588000] FS-Cache: Loaded
+[    1.960000] NET: Registered PF_INET protocol family
+[    1.964000] IP idents hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    1.980000] tcp_listen_portaddr_hash hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    1.988000] TCP established hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    1.988000] TCP bind hash table entries: 4096 (order: 2, 16384 bytes, linear)
+[    1.988000] TCP: Hash tables configured (established 4096 bind 4096)
+[    1.992000] UDP hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    1.996000] UDP-Lite hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    2.004000] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    2.100000] workingset: timestamp_bits=14 max_order=17 bucket_order=3
+[    2.880000] ntfs: driver 2.1.32 [Flags: R/W DEBUG].
+[    2.904000] SGI XFS with security attributes, quota, no debug enabled
+[    3.052000] xor: measuring software checksum speed
+[    3.140000]    8regs           :   231 MB/sec
+[    3.228000]    8regs_prefetch  :   230 MB/sec
+[    3.316000]    32regs          :   231 MB/sec
+[    3.404000]    32regs_prefetch :   230 MB/sec
+[    3.404000] xor: using function: 32regs (231 MB/sec)
+[    3.412000] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 251)
+[    3.412000] io scheduler mq-deadline registered
+[    3.420000] io scheduler kyber registered
+[    3.428000] io scheduler bfq registered
+[    3.460000] IPMI message handler: version 39.2
+[    3.468000] ipmi device interface
+[    3.476000] ipmi_si: IPMI System Interface driver
+[    3.492000] ipmi_si: Unable to find any System Interface(s)
+[    3.868000] Serial: 8250/16550 driver, 16 ports, IRQ sharing enabled
+[    4.208000] printk: console [ttyS0] disabled
+[    4.224000] 1fe001e0.serial: ttyS0 at MMIO 0x1fe001e0 (irq = 18, base_baud = 2062500) is a 16550A
+[    4.224000] printk: console [ttyS0] enabled
+[    4.224000] printk: console [ttyS0] enabled
+[    4.264000] printk: bootconsole [early0] disabled
+[    4.264000] printk: bootconsole [early0] disabled
+[    4.912000] loop: module loaded
+[    4.924000] morganite 1fe20000.gpu: assigned reserved memory node dma-pool@1f800000
+[    5.348000] morganite 1fe20000.gpu: ABI 1.0, 2 SM, coherent DMA 0x1f800000, 2097152 bytes, CPU mapping 9f800000
+[    5.380000] ls1a-nand driver initializing
+[    5.400000] ITC MAC 10/100M Fast Ethernet Adapter driver 1.0 init
+[    5.492000] libphy: Fixed MDIO Bus: probed
+[    5.508000] tun: Universal TUN/TAP device driver, 1.6
+[    5.544000] mousedev: PS/2 mouse device common for all mice
+[    5.560000] IR MCE Keyboard/mouse protocol handler initialized
+[    5.584000] hid: raw HID events driver (C) Jiri Kosina
+[    5.640000] NET: Registered PF_INET6 protocol family
+[    5.696000] Segment Routing with IPv6
+[    5.716000] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    5.752000] sctp: Hash tables configured (bind 1024/1024)
+[    5.820000] Btrfs loaded, crc32c=crc32c-generic, zoned=yes
+[    5.892000] Key type encrypted registered
+[    6.008000] Freeing unused kernel image (initmem) memory: 2016K
+[    6.016000] This architecture does not have kernel memory protection.
+[    6.032000] Run /init as init process
+[    6.048000]   with arguments:
+[    6.052000]     /init
+[    6.068000]   with environment:
+[    6.080000]     HOME=/
+[    6.100000]     TERM=linux
+[    6.224000] CPU 0 Unable to handle kernel paging request at virtual address c774d708, epc == a0a7fe78, ra == a0a7fe54

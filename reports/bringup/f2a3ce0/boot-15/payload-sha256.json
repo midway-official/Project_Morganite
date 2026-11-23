@@ -1,0 +1,26 @@
+{
+  "sha256": {
+    "/bin/mgpu": "80b63a41c58cb6ef600804c489eedfdc158c7dff5bb335e54b91bcb7609fa982",
+    "/gpu/axpy.bin": "7fbee2798e6f58f56b8e9a949e37593a0d982f584c515f5eaa4a83ec36a42286",
+    "/gpu/copy.bin": "25315605f4bd58da09857ab6b135df410e6d4be589b93ce3a2999b58b1486cd3",
+    "/gpu/cube_a.scene": "ae587a4b2b9de1c7ed3e989fce3035ef57b26209be5b64fe48b99b23b21fd01f",
+    "/gpu/cube_b.scene": "58157bc977a6736a7dc92bc28b630944b5d0b1477f53e38488d20ba50fbd59b1",
+    "/gpu/degenerate.scene": "647fc179a58295d1f7e3e8d8d71f4e83e4894e8e8a34ed3e470708eb4942430f",
+    "/gpu/divergence.bin": "4e2c6d45dc3f68415e4f6b0358d646e136390253ebb582433bde2bd32caa5e8e",
+    "/gpu/fma_bench.bin": "a17afed25bf62d9f5ff3157a30a6a641b0cdd307a59d793f4a1c36dac4e89b35",
+    "/gpu/fragment_swap.scene": "16adb5c29004a999b3341bd3cd55bc6adaccb8b3d308317591e65c769ea953bd",
+    "/gpu/integer.bin": "225816a701e36cd68d32b736375a5948a2d52c07bb24171e90cfe0d0c35c1366",
+    "/gpu/overlap.scene": "b580c3fe6b398329cd5b622c843497aae69f843f65ba311ddd63631461862dde",
+    "/gpu/pixel.bin": "6abc620ec5a0425797e78c22ae98c489ea39dc9886e80c28cd05599f0594da16",
+    "/gpu/pixel_swap.bin": "7915c8bf4448bbaf2954fd6768721eb711a1b7314f6a05bf9ffe6b33a76ec301",
+    "/gpu/setup.bin": "da9a0be794346efdd2866b380978c55d10097e4d2e38b3faa8ce482eea43d6b6",
+    "/gpu/shared.bin": "b11ce5feec58f7db84fda10767a0e9df5762f9f8a45502bc485020b68fbf1389",
+    "/gpu/shared.scene": "d4d7733d94517999afd60700419d86ed55a6386ad6b14d31f6fa2faea3ef9e3b",
+    "/gpu/strides.bin": "10d4bc023f7e0d386a581bc20970f6c4a41bfa04553817bc348dd3490f748c40",
+    "/gpu/triangle.scene": "1b4846fbb7396e83c93b7f8afbbef00245fb4bbc32f3d366c75b1da573f30e74",
+    "/gpu/vertex.bin": "be01fc66074ba2815643cd2595a7246ff286bec50ab54f318822ea1ea7c79564",
+    "/gpu/vertex_shift.bin": "4bad48d0b26ab8b5952493a5946e36b6be53480e2763f6e37c02a8d4087cda3f",
+    "/gpu/vertex_shift.scene": "f9be494f9c2074f565fb2b4640473f3d35efdae55e8e744f515c2d378e9d068e"
+  },
+  "mismatches": []
+}

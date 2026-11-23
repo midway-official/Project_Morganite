@@ -1,0 +1,12 @@
+PASS loopback
+PASS 100 integer and FP32 jobs with cross-SM visibility
+PASS FMA throughput and DMA bandwidth
+PASS triangle
+PASS vertex_shift
+PASS fragment_swap
+PASS shared
+PASS overlap
+PASS degenerate
+PASS cube_a
+PASS cube_b
+UART_BOARD_JOBS_PASS

@@ -1,0 +1,15 @@
+{
+  "pass": true,
+  "boot": true,
+  "device": {
+    "id": 1297044039,
+    "abi": 65536,
+    "caps": 67634178,
+    "dma": 528482304,
+    "bytes": 2097152,
+    "completed_or_active": 0
+  },
+  "full": true,
+  "hardware_run": "/home/fpga/aurora-u50c-debug/runs/20261123T182358.786323Z",
+  "image_sha256": "40761eb90f392739a5b174bc66ad76cee36cd874b709bf8a9cd9ec9bc83aabc6"
+}

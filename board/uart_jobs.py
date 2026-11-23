@@ -63,6 +63,17 @@ def main():
             raise RuntimeError("missing Linux boot banner")
         if not re.search(r"(?m)^loongarch32r$",command("uname -m")):
             raise RuntimeError("unexpected architecture")
+        software = json.loads((run/"software.json").read_text())
+        expected = {"/bin/mgpu": software["cli"]}
+        expected.update({"/gpu/" + k: v for k, v in software["gpu_programs_and_scenes"].items()})
+        hashes = command("/bin/busybox sha256sum /bin/mgpu /gpu/*", 240)
+        actual_hashes = {path: digest for digest, path in
+                         re.findall(r"(?m)^([0-9a-f]{64})  (/[^\r\n]+)$", hashes)}
+        mismatch = sorted(k for k in expected.keys() | actual_hashes.keys()
+                          if expected.get(k) != actual_hashes.get(k))
+        record(run/"payload-sha256.json", dict(sha256=actual_hashes, mismatches=mismatch))
+        if mismatch:
+            raise ValueError("installed GPU payload hash mismatch: " + ", ".join(mismatch))
         resources = command("cat /proc/iomem; cat /proc/interrupts; ls /sys/bus/platform/devices")
         (run/"linux-resources.txt").write_text(resources)
         info = json.loads(next(line for line in command("/bin/mgpu info").splitlines() if line.startswith("{")))

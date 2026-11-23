@@ -1,0 +1,194 @@
+
+/ # > /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo H4sIANeVBGsC/5VUX2hbZRQ/90uyDRv1Zja2aqxXEbxfJkm2tm6K2IzWFaGsKZlk6iBJk1t
+XSduwe63Z1PXLzOaGCUYoDlG2 >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo DnRPGfRJUNhSsfim7EH63AcLCj7UJycuuf6+m6St4oMe+HHuOd/5znf+3bPw4tgRRVGoQ4y
+YI62TQgPgP7uJpDxAGrlIp13k >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo oW1rxcEybCQ8UqW2tDAHlBYkXSPcbZ1PbFhZ+hfa1Tr+G32xR7Da3aFgCfy7u3VWuRal2p2
+hYHnQT+U7C3xl3U7iqbHr5Kfz >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo gNstXF1UdBHtkyGMUZ6OdVktmSjqyog68wrBchHi6bzgc5t1llMFu48o8MNvH7DK81HX94M
+q3VAoWG7UWak6QpXHiX/4i53M >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo ws7zpGD2ZTuBu3oGfpw34LeDzMotVqAiP7MueDpS5PNakb+lFvnpTcHfvi34OyuCv7ss+Nk
+lwReqgqdSgvci7ocV6u4ZEawn >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo GaAA5FRM8EcswX49WmS5qOCAfoyoezGuUrVfpbwmOB4OlH1fsbxGwcUJlfq8gqWQU8/iLfb
+JGyqdP+Ojqwx1Ai4rxMsewZ7+ >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 00564X9lHx2X8V6cCVCpMkLuvSpdj6gkbUqaSqtE/MqGnSzh7gW8m48IbuFN22wmHsV96QO
+yDr2OpsVu7kZdgK+/peMfw+dF >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo +HR8/eGnDRcF3dW95FZ9VP6om9aeUOnBV1Wah795xP7lqv2a50fBMEKBUvUCsw82E26Xn+x
+EM1GSfLyZWJV8tJn4XPIhyIhL >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 2v0E33a4mfC42/dvl5j9eyOB2uuovY7a6+iHjvrr6ImOHujogY4e6OiBjh7omBmWiRadXs6
+gr7MpodduRmltGnOAHNYOqAQ9 >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 90Ywi5foRC4mdJlbRfETvrm3t6XvRf5ezIj3Kp3wxNrxbJ5j9uuNVrzvN7bjjEA//j/jRM0
+7cdYuRele+Lnhe4/V9qt0RRG6 >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo /UAzLmNz9BPn2Dxmqww7ef6ZPK834lJnf9qId+b1HvwVkf0H+gcGnzl46Nn0ZCZrTMn/bng
+89koydjge1yZPW4aZPGkUtC39 >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo kcMvjWn5tGmG56amTMMKZ6dNKz2bMcLTs1mjEDYKeSNjGdlwOmO9mc5pW7uFqA94ATgLNAE
+EQaiHszt2A3uA+4HHgCGgCNhY >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo ITaUNpSjw8PPafro0Ze5dijUH4oQhcyTpnXKSk9SyDIKFoVOzWXTVppCk6ZJoczczIwxa9F
+/pa72VpO7aAlfS+Ap1/Z5Zz/5 >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 2nYyJ3IrThLLO/y42/yhdk6OC2cftnbhFrWL09f2F2mr5T717TBTdmBHOPQN7J76h52kvwA
+tkKR32AUAAA== >> /tmp/mg-probe-original.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox base64 -d /tmp/mg-probe-original.b64 | /bin/busybox gzip -dc > 
+/tmp/mg-probe-original; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox sha256sum /tmp/mg-probe-original; echo MG_COPY_RC_$?
+b13bc21cd63400e7fd5f0c240aa328d670e97037b47a21f386878989f18531e3  /tmp/mg-probe-original
+MG_COPY_RC_0
+/ # /bin/busybox chmod 700 /tmp/mg-probe-original; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # > /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo H4sIAOuVBGsC/5VUX2hbVRj/7kmyDRv1Zja2aqxXEbwnkyRbWzf/YDNaV4SypWRypw6SNLl
+l1bQNy7VmU9eTmc0NE4xQFJls >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo HWx7yqBPgsKWisU3ZQ/SJx98WEHBh/o22ZLr79wkbRUf9IMf557vfOc7v+/P/eZfGTugKAp
+1hBFzdrdJoQGsv7qJ5H6ANHKR >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo TtvIQ5vWioMl2Eh4pEptaWEOKC1IuUy42zofX7My9C+yrXX8N7m6Q7DavaFgCev39+qscjl
+KtTtDwfKgn8p35jlR1LX8s53A >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo c2PXyE9nALdbuLqo6CLaJWmMUZYOd1mtfVrUmVcIlo0QT+UEn12vs6wq2ANEgR//+JhVXoq
+6fhhU6bpCwXKjzkrVEao8SfyT >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 3+xEBnaepwWzL9gG7upp+HH8g0MH6eWbrEBFfvIXwVORIp/TivxdtchPrAv+3i3B318W/IM
+lwU8tCj5fFTyZFLwXnB9VqLtn >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo RLCeRIAC2Cdjgj9mCfb7wSLLRgUH9MNE3Qtxlar9KuU0wfFwoOz7muU0Ci6Mq9TnFSyJmHo
+WbrIv3lLpzEkfXWLIE/C5Qrzs >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo EezZu3bCC//Lu+iI5HtuOkClygi5d6p0LaKStClpKq0Q8YtrdqKEu2fxbi4iuIU37XzTeBz
+3pQ/sdeh1FC12YzvyAnzzHR35 >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo DD7Pwafj608/rbko6K7uJLfqo/Kn3bT6lEoPv6HSHPzNgftXK/abnp8EQwsFStWzzH6xabh
+dfrKNplGS66GmsSLX0aZxRa5D >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 2IOXvbdp3IZvO9w0PO72/VslZt9tGMi9jtzryL2OeujIv46a6KiBjhroqIGOGuiogY5+Yel
+o0anlNOo6kxR67UaUVqfQB4hh >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo dY9K0HNvBL14no5mY0KXsVUUP+Gbe3tb+l7E70WPeC/RUU+szWf9NLPfbrT4ftTY5BmBPv4
+/eSLnHZ6181G6H36u+z5ktd0q >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo XVSEbj/UjEtujn78NJtDb5VhJ8+/lOf1Rlzq7AuNeKdf78M/Ftm9p39g8Lm9+55PTaQz5qT
+874YPxV5PxPbH49rECcvMJ46Z >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo BW1Df2D/q2NaLpXPh2cnJ/OmFc5M5a3UTNoMT81kzELYLOTMtGVmwqm09U4qq23MFqI+4GX
+gFNAEQIKQD2d2bAd2AA8CTwBD >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo QBGwMUJsKG0oR4eHX9D00YOvcW1fqD8UIQrlj+Wt41ZqgkKWWbAodHw2k7JSFJrI5ymUnp2
+eNmcs+q/S1Z5qchYt4msRa9K1 >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo ed6ZT762nYyJ3IoTxNIWP+72+kg7JseFMw9bs3BD2snpa/uLtNVynvq2mClbsIUOfQu7Z/5
+hJ+Uvy8XrKtgFAAA= >> /tmp/mg-probe-nop.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox base64 -d /tmp/mg-probe-nop.b64 | /bin/busybox gzip -dc > /tmp/
+mg-probe-nop; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox sha256sum /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+77aa9d6cc0a5969cd6eaf36db5bf48ba7ddf6564ffb831627015cfeea4663593  /tmp/mg-probe-nop
+MG_COPY_RC_0
+/ # /bin/busybox chmod 700 /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # > /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo H4sIAP2VBGsC/5VUX2hbZRT/3S/JNmzUm9nYqrFeRfB+mSTZ2rr6B5vRuiKULSWTTB0kt8k
+tq6Zt6L3WbOr6ZWZzwwQrFEUm >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo WwfbnjLok6CwpWLxTdmD9MkHH1ZQ8KG+Tbbker78aav4oAd+nHvOd77znX/3zL8yelBRFLS
+JgTWk21DQR/xXNyDlPmhwQccO >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo eLBlrTSwTDYSHqlSm1oyJyhNSLoMuts8H1u3M/gX2tE8/htd3SVY5d5gsEj8+3tVVr4cReX
+OYLDU70fpzjwHZgdWfnaS9Nzo >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo NfhxhuB2C1cHCi5gjwxjFFkc6bCbclpUmVcIlo2AGznBZzaqLKsK9gAQ+PGPj1n5pajrh34
+V1xUES7UqKy4Mo/wk+Ce/OckM >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo 2XmeFsy54CTorp4mPw3/iLraSK/cZHkU+MlfBDciBT6nFfi7aoGf2BD8vVuCv78i+AfLgp9
+aEnx+QfBUSvBuivlRBZ1dw4J1 >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo JQMIkJyKCf6YLdjvhwosGxWcoB8BOhfjKhZ6VeQ0wenhQMn3NctpCC6OqejxCpainLoWb7I
+v3lJx5qQPlxjVifC5Al7yCPbs >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo XSfpJf8re3BUxntuKoBieRju3SquRVRIm6KmYhXgF9edZJHunqV3cxHBbXrTseqJx+m+9EG
+yTnqdmha7sZPqQvjmOxz9jHye >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo I58NX3/6se5C0L2wG27Vh9KnnVh7SsXDb6iYI39zFPtXq86bnp8EoxEKFBfOMufFesLt8sN
+J1BNFyQ/XE6uSj9QTVyQfJJni >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo cvbXE7fJtxOuJzzu1v1bRebcrSWo9jrVXqfa69QPneqvU0906oFOPdCpBzr1QKce6DQvLB0
+tNHo5RX2dTgm9ciOKtUmaA8ph >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo bZ8K0nNvhGbxPI5lY0KXuZUVP+ibe7ub+m7K30sz4r2EY55YK56N08x5u9aM96PaVpwR0sf
+/Z5xU83aclfNR3E9+rvs+ZJW9 >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo Ki4qQnceqsdlbA392Gk2R7NVIjt5/qU8r9biUudcqMXb83of/WORvft6+/qf2z/wvDGezpg
+T8r8bOhx7PRk7EI9r4yds00oe >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo N/Papv7ggVdHtZxhWeGZiQnLtMOZScs2ptNmeHI6Y+bDZj5npm0zEzbS9jtGVtvcLUAP4WX
+CKUKdQEGA6tHYHTsJuwgPEp4g >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo DBIKBIdWiENKh5QjQ0MvaPrIode4NhDqDUWAkHXcsmdtYxwh28zbCM3OZAzbQGjcshBKz0x
+NmdM2/it1tLaa3EVL9LVEPOXa >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # echo Om/vJ1/LTuYEt9JIYnmbH3eLP9LKqeGisQ+bu3CTWsXpafmLtNRyn/q2mSnbsC0cfEt2z/z
+DTtJf8tI/7dgFAAA= >> /tmp/mg-probe-dbar.b64; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox base64 -d /tmp/mg-probe-dbar.b64 | /bin/busybox gzip -dc > /tmp
+/mg-probe-dbar; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /bin/busybox sha256sum /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+1c2fe4148ce76509b7c6615b4a987854541b311c56e0493d7614bad94ce90089  /tmp/mg-probe-dbar
+MG_COPY_RC_0
+/ # /bin/busybox chmod 700 /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+MG_COPY_RC_0
+/ # /tmp/mg-probe-original; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000000 00000007 0000219f 000000c7 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000002 00000007 00005fdd 00000003 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+COPY_PASS bytes_hex 00900000 
+MG_COPY_RC_0
+/ # /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000000 00000005 00000b9e 000000c7 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+COPY_PASS bytes_hex 00900000 
+MG_COPY_RC_0
+/ # /tmp/mg-probe-original; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000002 00000007 0000039d 00000072 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+COPY_PASS bytes_hex 00900000 
+MG_COPY_RC_0
+/ # /tmp/mg-probe-original; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000000 00000008 00002021 00000070 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000000 00000007 000001df 000000aa 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-original; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000000 00000007 00006d9f 00000053 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-nop; echo MG_COPY_RC_$?
+COPY_FAIL pass/offset/distance/index/expected/actual 00000000 00000002 00000007 0000335d 000000ac 000000a5 
+MG_COPY_RC_1
+/ # /tmp/mg-probe-dbar; echo MG_COPY_RC_$?
+COPY_PASS bytes_hex 00900000 
+MG_COPY_RC_0
+/ #
