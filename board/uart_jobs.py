@@ -118,7 +118,7 @@ def main():
             tensor = next((r for r in bench if "tensor_macs" in r), {})
             if (expected_features >> 8) and not tensor.get("tensor_macs"):
                 raise ValueError("missing INT8 MAC measurement")
-            record(run/"performance.json",dict(perf | tensor,
+            record(run/"performance.json",dict(perf, **tensor,
                 gflops=2*perf["perf_fmas"]*0.1/perf["cycles_all"],
                 speedup=perf["cycles_1sm"]/perf["cycles_all"],
                 copy_aggregate_MBps=perf["copy_payload_bytes"]*100/perf["copy_cycles"]))
