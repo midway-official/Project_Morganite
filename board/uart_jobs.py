@@ -20,6 +20,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("run", type=Path)
     p.add_argument("--full", action="store_true")
+    p.add_argument("--stress-suite", type=Path, help="load assembled stress programs through Linux")
     p.add_argument("--cache-test", action="store_true", help="check data L1 counters and same-address updates")
     args = p.parse_args()
     run = args.run.resolve()
@@ -98,6 +99,9 @@ def main():
             print("PASS "+name,flush=True)
             return rows
         jobs("loopback","loopback")
+        if args.stress_suite:
+            from uart_stress import verify_stress
+            verify_stress(command, jobs, info, args.stress_suite.resolve(), run/"stress")
         if args.cache_test:
             from uart_cache import verify_cache
             record(run/"cache-test.json", verify_cache(command, jobs, info))
