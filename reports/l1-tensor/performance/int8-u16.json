@@ -1,0 +1,30 @@
+{
+  "cycles": 1066246,
+  "fault": 0,
+  "address": 0,
+  "d_hits": 0,
+  "d_misses": 0,
+  "observed_reads": 0,
+  "concurrent_rw_cycles": 0,
+  "longest_burst": 8,
+  "w_before_aw": 266,
+  "byte_writes": 0,
+  "half_writes": 0,
+  "groups": [
+    8,
+    8
+  ],
+  "active_cycles": [
+    1066142,
+    1066208
+  ],
+  "fmas": [
+    0,
+    0
+  ],
+  "tensor_k": 4,
+  "expected_macs": 33554432,
+  "int8_gops_at_100mhz": 6.293938171866531,
+  "unroll": 16,
+  "utilization": 0.9834278393541452
+}

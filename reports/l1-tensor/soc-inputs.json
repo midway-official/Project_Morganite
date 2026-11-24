@@ -1,0 +1,37 @@
+{
+  "evidence_commit": "c0dd8317e1fbded3f76d4d49fdb86fe2ce28c6ad",
+  "cpu_commit": "5ec35882a6eb4040631c1cf9d322a754bd435907",
+  "sha256": {
+    "generated/Aurora.v": "82c673147ce734b2662b3dc5e740377913c594f039102a1c83033a2440d409f1",
+    "u50c_top.bit": "8bc4c4fffeb9c4d59b557a994e1a7784f48daff0d990d78240f185b37e3c246e",
+    "u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "ram.dat": "5240b97dc6b80198e0420f5272fad0d22ae630b568c9df0515605d5972e1e083"
+  },
+  "part": "xcu50-fsvh2104-2-e",
+  "vivado": "2023.2",
+  "zero_ranges": [
+    [
+      9437184,
+      16777216
+    ]
+  ],
+  "platform_lock_sha256": "c1bcf57e268d2898e447fa256e33f5f2488f8cfab04224a276d60eb2ace9596e",
+  "gpu_commit": "4517279864bd5e7a21833d516bdb199cc62dad83",
+  "gpu_config": {
+    "sms": 2,
+    "lanes": 4,
+    "warp_width": 8,
+    "warp_slots": 4,
+    "registers": 32,
+    "scratch_bytes": 8192,
+    "dma_bits": 32,
+    "gpu_mhz": 100,
+    "ic_bytes": 2048,
+    "dc_bytes": 2048,
+    "line_words": 8,
+    "tensor_k": 4,
+    "bram_rf": true,
+    "early_branch": true
+  },
+  "gpu_rtl": "d7f4c7288c00041a08614abf32fcdae76af8f7582808fc5e1a5f210dadccb869"
+}

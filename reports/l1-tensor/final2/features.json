@@ -1,0 +1,236 @@
+[
+  {
+    "case": "l1",
+    "cycles": 502,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 2,
+    "d_misses": 2,
+    "observed_reads": 2,
+    "concurrent_rw_cycles": 6,
+    "longest_burst": 8,
+    "w_before_aw": 9,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      1
+    ],
+    "active_cycles": [
+      237,
+      316
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ro-write",
+    "cycles": 57,
+    "fault": 3,
+    "address": 503332866,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      31,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fill-error",
+    "cycles": 97,
+    "fault": 6,
+    "address": 503332864,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 1,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      71,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fill-cancel",
+    "cycles": 136,
+    "fault": 7,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 1,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      111,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "conflict",
+    "cycles": 277,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 1,
+    "d_misses": 3,
+    "observed_reads": 2,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      251,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "cross-sm",
+    "cycles": 226,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 4,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      1
+    ],
+    "active_cycles": [
+      0,
+      225
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "code-write",
+    "cycles": 87,
+    "fault": 3,
+    "address": 503320564,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      64,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "matrix",
+    "cycles": 611,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 16,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      588,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "partial-tile",
+    "cycles": 188,
+    "fault": 2,
+    "address": 503320592,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      165,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  }
+]

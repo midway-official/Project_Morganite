@@ -1,0 +1,236 @@
+[
+  {
+    "case": "l1",
+    "cycles": 502,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 2,
+    "d_misses": 2,
+    "observed_reads": 2,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 15,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      1
+    ],
+    "active_cycles": [
+      181,
+      263
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "ro-write",
+    "cycles": 58,
+    "fault": 3,
+    "address": 503332866,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      18,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fill-error",
+    "cycles": 110,
+    "fault": 6,
+    "address": 503332864,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 1,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      41,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "fill-cancel",
+    "cycles": 155,
+    "fault": 7,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 1,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      85,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "conflict",
+    "cycles": 346,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 1,
+    "d_misses": 3,
+    "observed_reads": 2,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 4,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      244,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "cross-sm",
+    "cycles": 226,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 6,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      1
+    ],
+    "active_cycles": [
+      0,
+      200
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "code-write",
+    "cycles": 91,
+    "fault": 3,
+    "address": 503320564,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      28,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "matrix",
+    "cycles": 612,
+    "fault": 0,
+    "address": 0,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 16,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "active_cycles": [
+      530,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "partial-tile",
+    "cycles": 197,
+    "fault": 2,
+    "address": 503320592,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      115,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  }
+]

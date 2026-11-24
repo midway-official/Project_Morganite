@@ -1,0 +1,26 @@
+{
+  "cycles": 1080786,
+  "fault": 0,
+  "address": 0,
+  "concurrent_rw_cycles": 0,
+  "longest_burst": 8,
+  "w_before_aw": 241,
+  "byte_writes": 0,
+  "half_writes": 0,
+  "groups": [
+    8,
+    8
+  ],
+  "active_cycles": [
+    1079817,
+    1080057
+  ],
+  "fmas": [
+    4194304,
+    4194304
+  ],
+  "unroll": 8,
+  "fma_count": 8388608,
+  "utilization": 0.9701976154391341,
+  "gflops_at_100mhz": 1.5523161847026146
+}

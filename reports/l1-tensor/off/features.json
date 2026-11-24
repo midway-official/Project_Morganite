@@ -1,0 +1,54 @@
+[
+  {
+    "case": "matrix",
+    "cycles": 408,
+    "fault": 2,
+    "address": 503320592,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      326,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  },
+  {
+    "case": "partial-tile",
+    "cycles": 197,
+    "fault": 2,
+    "address": 503320592,
+    "d_hits": 0,
+    "d_misses": 0,
+    "observed_reads": 0,
+    "concurrent_rw_cycles": 0,
+    "longest_burst": 8,
+    "w_before_aw": 0,
+    "byte_writes": 0,
+    "half_writes": 0,
+    "groups": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      115,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ]
+  }
+]

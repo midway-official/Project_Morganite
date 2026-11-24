@@ -25,6 +25,7 @@ public:
     unsigned cycles = 0, overlap = 0, maxBurst = 0, byteWrites = 0, halfWrites = 0;
     unsigned failRead = 0, failWrite = 0;
     unsigned observedLine = 0, observedReads = 0;
+    bool holdObserved = false;
     bool badId = false, lateLast = false;
     unsigned wBeforeAW = 0;
     bool awFire = false, wFire = false, arFire = false, bFire = false, rFire = false;
@@ -63,7 +64,7 @@ public:
         d.io_dma_ar_ready = !rd && (rng() % 4) && cycles % 191 > 15;
         d.io_dma_aw_ready = !wr && !bValid && !waitingB && (rng() % 4) && cycles % 71 > 32;
         d.io_dma_w_ready = beats.size() < 32 && (rng() % 4) && cycles % 127 > 10;
-        if (!rValid && rd && (rng() % 4) && cycles % 89 > 12) {
+        if (!rValid && rd && !(holdObserved && rd->addr == observedLine) && (rng() % 4) && cycles % 89 > 12) {
             readValue = get(rd->addr + (std::min(ri,rd->len) << rd->size));
             readResp = rd->addr == failRead ? 3 : 0;
             readID = rd->id ^ unsigned(badId && rd->addr == failRead);
@@ -167,19 +168,39 @@ int main(int argc, char** argv) {
     }
     if (mode == "berror") m.failWrite = m.get(base + 16);
     const auto arg = m.get(base+16);
-    if (mode == "l1" || mode == "ro-write" || mode == "fill-error" || mode == "conflict") {
+    if (mode == "l1" || mode == "ro-write" || mode == "fill-error" || mode == "fill-cancel" || mode == "conflict") {
         unsigned length = mode == "conflict" ? 4128 : 32;
         check(!m.write(0x54,arg) && !m.write(0x58,arg+length), "immutable window");
         m.observedLine = arg;
         if (mode == "fill-error") m.failRead = arg;
+        m.holdObserved = mode == "fill-cancel";
     }
+    if (mode == "cross-sm") check(!m.write(0x38,1), "producer SM0");
     check(!m.write(0x10,1), "doorbell");
     if (mode == "cancel") { for (int i=0; i<14; ++i) m.tick(); check(!m.write(0x2c,1), "cancel"); }
+    if (mode == "fill-cancel") {
+        while (!m.observedReads) m.tick();
+        check(!m.write(0x2c,1) && (m.read(0x14)&1) && m.write(0x10,2)==2,
+              "cancel must drain held AXI response before another submit");
+        m.holdObserved = false;
+    }
     m.done();
     unsigned fault = m.read(0x1c), address = m.read(0x20);
     check(fault == expectedFault && m.read(0x18) == unsigned(!fault) && m.read(0x24) == unsigned(bool(fault)), "fault or completion sequence");
     unsigned cycles = m.read(0x3c);
     unsigned hits = 0, misses = 0, reads = m.observedReads;
+    if (mode == "cross-sm") {
+        check(m.get(arg+32)==42 && m.read(0x104)==1, "SM0 output");
+        unsigned code = m.get(base+8)-base;
+        // The second program follows the four-word producer in the image.
+        unsigned next = base+code+16;
+        for (unsigned i=0;i<4;++i) m.mem.at(8+i)=next>>(8*i);
+        m.mem.at(12)=6;
+        check(!m.write(0x54,arg+32) && !m.write(0x58,arg+64) && !m.write(0x38,2), "consumer SM1");
+        check(!m.write(0x10,2), "consumer doorbell"); m.done();
+        check(m.read(0x18)==2 && m.get(arg+64)==84 && m.read(0x124)==1 &&
+              m.read(0x618)==1 && m.read(0x61c)==1, "SM1 cache read after SM0 write");
+    }
     if (mode == "l1" || mode == "conflict") {
         for (unsigned i=0; i<sms; ++i) {
             hits += m.read(0x608 + i*16);

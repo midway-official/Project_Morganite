@@ -1,0 +1,143 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date         : Tue Nov 24 12:17:06 2026
+| Host         : fpga-KVM running 64-bit Ubuntu 18.04.6 LTS
+| Command      : report_utilization -hierarchical -file hierarchy.rpt
+| Design       : Gpu
+| Device       : xcu50-fsvh2104-2-e
+| Speed File   : -2
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------------+-------------------------------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+|           Instance           |                   Module                  | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs  | RAMB36 | RAMB18 | URAM | DSP Blocks |
++------------------------------+-------------------------------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+| Gpu                          |                                     (top) |      37274 |      36272 |      48 |  954 | 14666 |      8 |     32 |    0 |         40 |
+|   (Gpu)                      |                                     (top) |         21 |         21 |       0 |    0 |  1063 |      0 |      0 |    0 |          0 |
+|   aw                         |                        Queue1_LiteAddress |         21 |         21 |       0 |    0 |    13 |      0 |      0 |    0 |          0 |
+|   dma                        |                                       Dma |       3808 |       3808 |       0 |    0 |  1562 |      0 |      0 |    0 |          0 |
+|     (dma)                    |                                       Dma |        464 |        464 |       0 |    0 |   512 |      0 |      0 |    0 |          0 |
+|     arbiters_0               |                                 RRArbiter |         25 |         25 |       0 |    0 |     3 |      0 |      0 |    0 |          0 |
+|     arbiters_1               |                              RRArbiter_73 |         15 |         15 |       0 |    0 |     2 |      0 |      0 |    0 |          0 |
+|     plans_0                  |                                 BurstPlan |       2584 |       2584 |       0 |    0 |   395 |      0 |      0 |    0 |          0 |
+|     plans_1                  |                              BurstPlan_74 |        720 |        720 |       0 |    0 |   650 |      0 |      0 |    0 |          0 |
+|   sms_0                      |                                        Sm |      15810 |      15309 |      24 |  477 |  5998 |      4 |     16 |    0 |         20 |
+|     (sms_0)                  |                                        Sm |       1521 |       1379 |       0 |  142 |  2525 |      0 |      0 |    0 |         12 |
+|     arb                      |                            RRArbiter_2_29 |        658 |        658 |       0 |    0 |     2 |      0 |      0 |    0 |          0 |
+|     beats                    |                              WarpBeats_30 |        526 |        526 |       0 |    0 |    10 |      0 |      0 |    0 |          0 |
+|     cache                    |                             ReadOnlyL1_31 |        546 |        522 |      24 |    0 |   468 |      4 |      0 |    0 |          0 |
+|       (cache)                |                             ReadOnlyL1_31 |        459 |        459 |       0 |    0 |   462 |      0 |      0 |    0 |          0 |
+|       data_ext               |                            data_64x256_71 |         50 |         50 |       0 |    0 |     0 |      4 |      0 |    0 |          0 |
+|       tags_ext               |                             tags_64x21_72 |         37 |         13 |      24 |    0 |     6 |      0 |      0 |    0 |          0 |
+|     fp                       |                               Fp32Lane_32 |       1991 |       1908 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       (fp)                   |                               Fp32Lane_32 |       1810 |       1727 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_67 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_70 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_68 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_69 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_1                     |                               Fp32Lane_33 |       2008 |       1924 |       0 |   84 |   537 |      0 |      0 |    0 |          2 |
+|       (fp_1)                 |                               Fp32Lane_33 |       1819 |       1735 |       0 |   84 |   537 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_63 |        138 |        138 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_66 |        138 |        138 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_64 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_65 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_2                     |                               Fp32Lane_34 |       1997 |       1913 |       0 |   84 |   533 |      0 |      0 |    0 |          2 |
+|       (fp_2)                 |                               Fp32Lane_34 |       1816 |       1732 |       0 |   84 |   533 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_59 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_62 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_60 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_61 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_3                     |                               Fp32Lane_35 |       1993 |       1909 |       0 |   84 |   533 |      0 |      0 |    0 |          2 |
+|       (fp_3)                 |                               Fp32Lane_35 |       1812 |       1728 |       0 |   84 |   533 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_55 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_58 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_56 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_57 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     misses                   |                            RRArbiter_3_36 |         80 |         80 |       0 |    0 |     2 |      0 |      0 |    0 |          0 |
+|     rf                       |                          LaneRegisters_37 |       2438 |       2438 |       0 |    0 |   151 |      0 |     12 |    0 |          0 |
+|       (rf)                   |                          LaneRegisters_37 |         15 |         15 |       0 |    0 |   151 |      0 |      0 |    0 |          0 |
+|       fromRam_bank_10_ext    |                    fromRam_bank_256x32_43 |        214 |        214 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_11_ext    |                    fromRam_bank_256x32_44 |         34 |         34 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_1_ext     |                    fromRam_bank_256x32_45 |        214 |        214 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_2_ext     |                    fromRam_bank_256x32_46 |         37 |         37 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_3_ext     |                    fromRam_bank_256x32_47 |        339 |        339 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_4_ext     |                    fromRam_bank_256x32_48 |        214 |        214 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_5_ext     |                    fromRam_bank_256x32_49 |         33 |         33 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_6_ext     |                    fromRam_bank_256x32_50 |        488 |        488 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_7_ext     |                    fromRam_bank_256x32_51 |        214 |        214 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_8_ext     |                    fromRam_bank_256x32_52 |         32 |         32 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_9_ext     |                    fromRam_bank_256x32_53 |        329 |        329 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_ext       |                    fromRam_bank_256x32_54 |        331 |        331 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|     scratch                  |                             Scratchpad_38 |       2053 |       2053 |       0 |    0 |   705 |      0 |      4 |    0 |          0 |
+|       (scratch)              |                             Scratchpad_38 |        642 |        642 |       0 |    0 |   705 |      0 |      0 |    0 |          0 |
+|       grants_mem_1_ext       |                      grants_mem_512x32_39 |        364 |        364 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_2_ext       |                      grants_mem_512x32_40 |        445 |        445 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_3_ext       |                      grants_mem_512x32_41 |        254 |        254 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_ext         |                      grants_mem_512x32_42 |        348 |        348 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|   sms_1                      |                                      Sm_1 |      17549 |      17048 |      24 |  477 |  5993 |      4 |     16 |    0 |         20 |
+|     (sms_1)                  |                                      Sm_1 |       1828 |       1684 |       0 |  144 |  2523 |      0 |      0 |    0 |         12 |
+|     arb                      |                               RRArbiter_2 |        189 |        189 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     beats                    |                                 WarpBeats |        953 |        953 |       0 |    0 |    10 |      0 |      0 |    0 |          0 |
+|     cache                    |                                ReadOnlyL1 |       1988 |       1964 |      24 |    0 |   468 |      4 |      0 |    0 |          0 |
+|       (cache)                |                                ReadOnlyL1 |       1897 |       1897 |       0 |    0 |   462 |      0 |      0 |    0 |          0 |
+|       data_ext               |                               data_64x256 |         54 |         54 |       0 |    0 |     0 |      4 |      0 |    0 |          0 |
+|       tags_ext               |                                tags_64x21 |         37 |         13 |      24 |    0 |     6 |      0 |      0 |    0 |          0 |
+|     fp                       |                                  Fp32Lane |       1989 |       1906 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       (fp)                   |                                  Fp32Lane |       1808 |       1725 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_25 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_28 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_26 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_27 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_1                     |                                Fp32Lane_0 |       2008 |       1924 |       0 |   84 |   537 |      0 |      0 |    0 |          2 |
+|       (fp_1)                 |                                Fp32Lane_0 |       1819 |       1735 |       0 |   84 |   537 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_21 |        138 |        138 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_24 |        138 |        138 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_22 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_23 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_2                     |                                Fp32Lane_1 |       1995 |       1912 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       (fp_2)                 |                                Fp32Lane_1 |       1814 |       1731 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       fromInt                |                   INToRecFN_i32_e8_s24_17 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie6_is32_oe8_os24_20 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |               RoundRawFNToRecFN_e8_s24_18 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN | RoundAnyRawFNToRecFN_ie8_is26_oe8_os24_19 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     fp_3                     |                                Fp32Lane_2 |       1987 |       1904 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       (fp_3)                 |                                Fp32Lane_2 |       1806 |       1723 |       0 |   83 |   532 |      0 |      0 |    0 |          2 |
+|       fromInt                |                      INToRecFN_i32_e8_s24 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN |    RoundAnyRawFNToRecFN_ie6_is32_oe8_os24 |        130 |        130 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|       round                  |                  RoundRawFNToRecFN_e8_s24 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|         roundAnyRawFNToRecFN |    RoundAnyRawFNToRecFN_ie8_is26_oe8_os24 |         51 |         51 |       0 |    0 |     0 |      0 |      0 |    0 |          0 |
+|     misses                   |                               RRArbiter_3 |         80 |         80 |       0 |    0 |     2 |      0 |      0 |    0 |          0 |
+|     rf                       |                             LaneRegisters |       2470 |       2470 |       0 |    0 |   152 |      0 |     12 |    0 |          0 |
+|       (rf)                   |                             LaneRegisters |         17 |         17 |       0 |    0 |   152 |      0 |      0 |    0 |          0 |
+|       fromRam_bank_10_ext    |                       fromRam_bank_256x32 |        225 |        225 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_11_ext    |                     fromRam_bank_256x32_6 |         54 |         54 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_1_ext     |                     fromRam_bank_256x32_7 |        225 |        225 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_2_ext     |                     fromRam_bank_256x32_8 |         49 |         49 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_3_ext     |                     fromRam_bank_256x32_9 |        322 |        322 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_4_ext     |                    fromRam_bank_256x32_10 |        225 |        225 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_5_ext     |                    fromRam_bank_256x32_11 |         49 |         49 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_6_ext     |                    fromRam_bank_256x32_12 |        456 |        456 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_7_ext     |                    fromRam_bank_256x32_13 |        225 |        225 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_8_ext     |                    fromRam_bank_256x32_14 |         51 |         51 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_9_ext     |                    fromRam_bank_256x32_15 |        313 |        313 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       fromRam_bank_ext       |                    fromRam_bank_256x32_16 |        315 |        315 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|     scratch                  |                                Scratchpad |       2063 |       2063 |       0 |    0 |   705 |      0 |      4 |    0 |          0 |
+|       (scratch)              |                                Scratchpad |        652 |        652 |       0 |    0 |   705 |      0 |      0 |    0 |          0 |
+|       grants_mem_1_ext       |                         grants_mem_512x32 |        364 |        364 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_2_ext       |                       grants_mem_512x32_3 |        445 |        445 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_3_ext       |                       grants_mem_512x32_4 |        254 |        254 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|       grants_mem_ext         |                       grants_mem_512x32_5 |        348 |        348 |       0 |    0 |     0 |      0 |      1 |    0 |          0 |
+|   wd                         |                  Queue1_AxiLiteSlave_Anon |         73 |         73 |       0 |    0 |    37 |      0 |      0 |    0 |          0 |
++------------------------------+-------------------------------------------+------------+------------+---------+------+-------+--------+--------+------+------------+
+
+

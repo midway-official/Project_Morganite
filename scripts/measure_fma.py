@@ -15,15 +15,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sim", type=Path)
 parser.add_argument("directory", type=Path)
 parser.add_argument("--unroll", type=int, choices=(1, 2, 4, 8, 16), default=1)
+parser.add_argument("--tensor-k", type=int, choices=(0, 1, 2, 4), default=0)
 args = parser.parse_args()
 d = args.directory
 d.mkdir(parents=True, exist_ok=True)
-source = subprocess.check_output([sys.executable, root/"scripts/fma_bench.py"], text=True)
-if args.unroll > 1:
-    start = source.index("body:\n") + len("body:\n")
-    end = source.index("addi r2,r2,-1")
-    source = (source[:start] + source[start:end] * args.unroll + source[end:]).replace(
-        "li r2, 1024", f"li r2, {1024//args.unroll}")
+command = [sys.executable, root/"scripts/fma_bench.py", "--unroll", str(args.unroll)]
+if args.tensor_k:
+    command.append("--tensor")
+source = subprocess.check_output(command, text=True)
 program = assemble(source)
 base = 0x1e000000
 memory = bytearray(65536)
@@ -33,10 +32,17 @@ struct.pack_into("<"+"I"*len(program), memory, 4096, *program)
 (d/"in.bin").write_bytes(memory)
 job = json.loads(subprocess.check_output([args.sim.resolve(), d/"in.bin", d/"out.bin",
                                           "2", "3", "0", "bench"]))
-count = sum(job["fmas"])
-assert count == 8388608
-assert struct.unpack_from("<512f",(d/"out.bin").read_bytes(),32768) == (16384.,)*512
-job.update(unroll=args.unroll, fma_count=count, utilization=count/(8*job["cycles"]),
-           gflops_at_100mhz=count*0.2/job["cycles"])
+output = (d/"out.bin").read_bytes()
+count = 16*32*16*1024
+if args.tensor_k:
+    assert not sum(job["fmas"])
+    assert struct.unpack_from("<512I", output, 32768) == (16384*args.tensor_k,)*512
+    job.update(tensor_k=args.tensor_k, expected_macs=count*args.tensor_k,
+               int8_gops_at_100mhz=count*args.tensor_k*0.2/job["cycles"])
+else:
+    assert sum(job["fmas"]) == count
+    assert struct.unpack_from("<512f", output, 32768) == (16384.,)*512
+    job.update(fma_count=count, gflops_at_100mhz=count*0.2/job["cycles"])
+job.update(unroll=args.unroll, utilization=count/(8*job["cycles"]))
 (d/"performance.json").write_text(json.dumps(job, indent=2)+"\n")
 print(d, job["cycles"],job["utilization"])

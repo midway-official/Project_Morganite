@@ -1,0 +1,781 @@
+{
+  "backend": "rtl",
+  "scenes": {
+    "triangle": {
+      "covered": 654,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "5ede2a1685eeb1bf911f9d99cb67bad06b8bd35fff8273d6394c2672eef9fbd4",
+        "9e7b21f65ecb8cbc42cf2027040093ee13af970de0d37f6e50576af7c3ff6c80",
+        "0beab2824ae4457458a623602a55f203aadf1e61ac02608b806e4fcee1465634"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3306,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 14,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3283,
+            0
+          ],
+          "fmas": [
+            132,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2285,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 17,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            2262,
+            0
+          ],
+          "fmas": [
+            6,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 234447,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5155,
+          "longest_burst": 8,
+          "w_before_aw": 4008,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            233750,
+            234329
+          ],
+          "fmas": [
+            6066,
+            5706
+          ]
+        }
+      ]
+    },
+    "vertex_shift": {
+      "covered": 654,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "8f1f096d4b4cc05ee045e4642ada2882b7f853b897c0b6cd681d1b3b96f64daa",
+        "53b771108ba63d83e60ed1f03afe12077bcf4b95a9b5f97460fcb82cb5d8df6f",
+        "0c03710a323a87437d7fe7103162e92a97fb601a60b2488f251561e8b08c3931"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex_shift",
+          "cycles": 3388,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 15,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3365,
+            0
+          ],
+          "fmas": [
+            135,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2285,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 17,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            2262,
+            0
+          ],
+          "fmas": [
+            6,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 238639,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5085,
+          "longest_burst": 8,
+          "w_before_aw": 4066,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            238344,
+            238521
+          ],
+          "fmas": [
+            5850,
+            5922
+          ]
+        }
+      ]
+    },
+    "fragment_swap": {
+      "covered": 654,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "6f6bca7cf315922d42713c15947eacd6121ceae9b3e83f7664ee0b2afb4382d9",
+        "9e7b21f65ecb8cbc42cf2027040093ee13af970de0d37f6e50576af7c3ff6c80",
+        "0beab2824ae4457458a623602a55f203aadf1e61ac02608b806e4fcee1465634"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3306,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 14,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3283,
+            0
+          ],
+          "fmas": [
+            132,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2285,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 17,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            2262,
+            0
+          ],
+          "fmas": [
+            6,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel_swap",
+          "cycles": 236894,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5500,
+          "longest_burst": 8,
+          "w_before_aw": 3851,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            236535,
+            236776
+          ],
+          "fmas": [
+            6066,
+            5706
+          ]
+        }
+      ]
+    },
+    "shared": {
+      "covered": 576,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 1,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "328fecb46967c6b980aa1a62fd00405165b9c5928104431f4800cad1f39aad60",
+        "62cccf9a41b70cdb9b76639f93980a554fd4e9fb11c202b82d4c651a30a160da",
+        "148e6aeaffcb5322c9522a2f21d2f219d13ac0d71265eae061c25063ac6651b5"
+      ],
+      "triangles": 2,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3867,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 18,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3844,
+            0
+          ],
+          "fmas": [
+            176,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2822,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 29,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            2799,
+            0
+          ],
+          "fmas": [
+            12,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 286736,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5432,
+          "longest_burst": 8,
+          "w_before_aw": 3747,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            286619,
+            286077
+          ],
+          "fmas": [
+            5184,
+            5184
+          ]
+        }
+      ]
+    },
+    "overlap": {
+      "covered": 480,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "79cd86d4dc6f580cfc8fc04a108d976725202a6dc5efd96d868d408c476b85de",
+        "5cad1b8d84b1957c083599204bbaf1645897545829a6e9f497d9518beb0931ad",
+        "db77f31e8a61544acdd9a3212e4b696909ec293f94c725e39e666369a60e8dd9"
+      ],
+      "triangles": 3,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 6381,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5,
+          "longest_burst": 8,
+          "w_before_aw": 47,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            6358,
+            0
+          ],
+          "fmas": [
+            396,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 3379,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 37,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3356,
+            0
+          ],
+          "fmas": [
+            18,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 356275,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5841,
+          "longest_burst": 8,
+          "w_before_aw": 3927,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            356158,
+            356062
+          ],
+          "fmas": [
+            5280,
+            5280
+          ]
+        }
+      ]
+    },
+    "degenerate": {
+      "covered": 0,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "5e9d5b686a0c4122c77d69144a5874dcbbcd05c1b4717bb11d8d730cc17a6659",
+        "83343ed0f6123c1b9be3da8f7d30468fb4a3c49efd0ec60439ce0bd703a49b4d",
+        "f3cc103136423a57975750907ebc1d367e2985ac6338976d4d5a439f50323f4a"
+      ],
+      "triangles": 2,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3867,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 18,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            3844,
+            0
+          ],
+          "fmas": [
+            176,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2822,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 29,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            2799,
+            0
+          ],
+          "fmas": [
+            12,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 227607,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 5776,
+          "longest_burst": 8,
+          "w_before_aw": 3982,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            227292,
+            227489
+          ],
+          "fmas": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "cube_a": {
+      "covered": 716,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "e94f5350408108c9c365f96a207704cab9d062dbd99db8f16e7ed216ac2ec0a5",
+        "b20c07ee8a69e5af96914839ca72e26a0c05fba64c41fde570b1e5d36556ce02",
+        "aabff3237f68c6a630488167b27e2358822f6c525d42fac9fb7b982d21c804f8"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 6137,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 39,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            6114,
+            0
+          ],
+          "fmas": [
+            352,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8996,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 68,
+          "longest_burst": 8,
+          "w_before_aw": 148,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            8973,
+            0
+          ],
+          "fmas": [
+            72,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 876604,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 3932,
+          "longest_burst": 8,
+          "w_before_aw": 4006,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            876285,
+            876486
+          ],
+          "fmas": [
+            7720,
+            6600
+          ]
+        }
+      ]
+    },
+    "cube_b": {
+      "covered": 762,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "e497668ca921cfdeda5ed4060d5eb2a02b0d1a74f4c6f6d63c93453ebcfbcb2c",
+        "8710855846956dd2175c06709e385d9d3bad5af084c52b664d32aa65b13d2275",
+        "191e5b6604a093afe6371426e09c71f28ce4c2a37a8efe05bacdbb89aac4d80f"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 48,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 6137,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 0,
+          "longest_burst": 8,
+          "w_before_aw": 39,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            6114,
+            0
+          ],
+          "fmas": [
+            352,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8996,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 68,
+          "longest_burst": 8,
+          "w_before_aw": 148,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "active_cycles": [
+            8973,
+            0
+          ],
+          "fmas": [
+            72,
+            0
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 902874,
+          "fault": 0,
+          "address": 0,
+          "d_hits": 0,
+          "d_misses": 0,
+          "observed_reads": 0,
+          "concurrent_rw_cycles": 4457,
+          "longest_burst": 8,
+          "w_before_aw": 3838,
+          "byte_writes": 0,
+          "half_writes": 0,
+          "groups": [
+            48,
+            48
+          ],
+          "active_cycles": [
+            902757,
+            898922
+          ],
+          "fmas": [
+            7680,
+            7560
+          ]
+        }
+      ]
+    }
+  }
+}
