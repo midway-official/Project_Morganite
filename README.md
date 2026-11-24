@@ -10,6 +10,8 @@ Morganite 是用 Chisel 编写的多 SM GPU。在 Alveo U50C 上，Aurora LA32R 
 
 ## 源码与接口
 
+开发分支增加了每 SM 的可选 I/D L1、INT8 矩阵乘加和调度选项。双 SM 的 16 倍展开 FP32 基准在 RTL 仿真中达到理论峰值的 98.34%。[架构、资料与一致性](docs/l1-tensor.md) · [综合、吞吐与回归证据](reports/l1-tensor/README.md)
+
 | 内容 | 入口 |
 | --- | --- |
 | GPU 顶层、SM、FP32、DMA、板级接口和参数 | [Chisel 源码](src/main/scala/morganite) · [FP32 语义](docs/fp32.md) |

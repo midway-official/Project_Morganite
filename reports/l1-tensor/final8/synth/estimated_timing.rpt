@@ -1,0 +1,378 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date              : Tue Nov 24 12:23:04 2026
+| Host              : fpga-KVM running 64-bit Ubuntu 18.04.6 LTS
+| Command           : report_timing_summary -file estimated_timing.rpt
+| Design            : Gpu
+| Device            : xcu50-fsvh2104
+| Speed File        : -2  PRODUCTION 1.30 05-01-2022
+| Design State      : Synthesized
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+  Inter-SLR Compensation                     :  Conservative
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+------------------------------------------------------------------------------------------------
+| Report Methodology
+| ------------------
+------------------------------------------------------------------------------------------------
+
+No report available as report_methodology has not been run prior. Run report_methodology on the current design for the summary of methodology violations.
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (116)
+6. checking no_output_delay (157)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (116)
+--------------------------------
+ There are 116 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (157)
+---------------------------------
+ There are 157 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      3.725        0.000                      0               139604        0.034        0.000                      0               139604        4.458        0.000                       0                 65926  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock  Waveform(ns)       Period(ns)      Frequency(MHz)
+-----  ------------       ----------      --------------
+core   {0.000 5.000}      10.000          100.000         
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+core                3.725        0.000                      0               139604        0.034        0.000                      0               139604        4.458        0.000                       0                 65926  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  core
+  To Clock:  core
+
+Setup :            0  Failing Endpoints,  Worst Slack        3.725ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.034ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        4.458ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.725ns  (required time - arrival time)
+  Source:                 sms_6/request_addr_0_reg[5]/C
+                            (rising edge-triggered cell FDRE clocked by core  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            dma/plans_1/faultAddress_reg[6]/D
+                            (rising edge-triggered cell FDRE clocked by core  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             core
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (core rise@10.000ns - core rise@0.000ns)
+  Data Path Delay:        6.256ns  (logic 2.000ns (31.969%)  route 4.256ns (68.031%))
+  Logic Levels:           28  (CARRY8=10 LUT1=1 LUT2=3 LUT3=1 LUT4=4 LUT5=1 LUT6=8)
+  Clock Path Skew:        -0.009ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    0.021ns = ( 10.021 - 10.000 ) 
+    Source Clock Delay      (SCD):    0.030ns
+    Clock Pessimism Removal (CPR):    0.000ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core rise edge)       0.000     0.000 r  
+                                                      0.000     0.000 r  clock (IN)
+                         net (fo=66885, unset)        0.030     0.030    sms_6/clock
+                         FDRE                                         r  sms_6/request_addr_0_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_FDRE_C_Q)         0.076     0.106 f  sms_6/request_addr_0_reg[5]/Q
+                         net (fo=28, unplaced)        0.194     0.300    sms_6/cache/request_address_reg[31]_i_54__5_0[5]
+                         LUT1 (Prop_LUT1_I0_O)        0.037     0.337 r  sms_6/cache/request_address[31]_i_178__4/O
+                         net (fo=1, unplaced)         0.023     0.360    sms_6/cache/request_address[31]_i_178__4_n_0
+                         CARRY8 (Prop_CARRY8_S[1]_CO[7])
+                                                      0.197     0.557 r  sms_6/cache/request_address_reg[31]_i_177__4/CO[7]
+                         net (fo=1, unplaced)         0.005     0.562    sms_6/cache/request_address_reg[31]_i_177__4_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.022     0.584 r  sms_6/cache/request_address_reg[31]_i_120__5/CO[7]
+                         net (fo=1, unplaced)         0.005     0.589    sms_6/cache/request_address_reg[31]_i_120__5_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[1])
+                                                      0.076     0.665 r  sms_6/cache/request_address_reg[31]_i_119__4/O[1]
+                         net (fo=2, unplaced)         0.183     0.848    sms_6/cache/request_address_reg[31]_i_119__4_n_14
+                         LUT4 (Prop_LUT4_I2_O)        0.068     0.916 f  sms_6/cache/request_address[31]_i_61__5/O
+                         net (fo=1, unplaced)         0.242     1.158    sms_6/cache/request_address[31]_i_61__5_n_0
+                         CARRY8 (Prop_CARRY8_DI[2]_CO[7])
+                                                      0.117     1.275 f  sms_6/cache/request_address_reg[31]_i_30__5/CO[7]
+                         net (fo=1, unplaced)         0.005     1.280    sms_6/cache/request_address_reg[31]_i_30__5_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[0])
+                                                      0.052     1.332 f  sms_6/cache/request_address_reg[31]_i_10__5/CO[0]
+                         net (fo=1, unplaced)         0.185     1.517    sms_6/cache/dataCaches_6/cacheable0
+                         LUT2 (Prop_LUT2_I1_O)        0.038     1.555 r  sms_6/cache/request_address[31]_i_5__5/O
+                         net (fo=1, unplaced)         0.185     1.740    sms_6/cache/request_address[31]_i_5__5_n_0
+                         LUT6 (Prop_LUT6_I0_O)        0.038     1.778 f  sms_6/cache/request_address[31]_i_3__7/O
+                         net (fo=6, unplaced)         0.207     1.985    dataCaches_6/cache/cacheable
+                         LUT6 (Prop_LUT6_I5_O)        0.038     2.023 r  dataCaches_6/cache/busy_6_i_5/O
+                         net (fo=8, unplaced)         0.213     2.236    sms_6/_dataCaches_6_io_mem_req_valid
+                         LUT3 (Prop_LUT3_I1_O)        0.070     2.306 r  sms_6/ctrl_validMask_grantMask_lastGrant[4]_i_6__0/O
+                         net (fo=5, unplaced)         0.203     2.509    sms_4/request_data_7[31]_i_13_0
+                         LUT6 (Prop_LUT6_I2_O)        0.038     2.547 r  sms_4/request_data_7[31]_i_23/O
+                         net (fo=1, unplaced)         0.185     2.732    sms_1/request_data_7[27]_i_3
+                         LUT6 (Prop_LUT6_I1_O)        0.038     2.770 r  sms_1/request_data_7[31]_i_13/O
+                         net (fo=7, unplaced)         0.210     2.980    dma/arbiters_1/ctrl_validMask_grantMask_lastGrant_reg[0]_8
+                         LUT6 (Prop_LUT6_I3_O)        0.038     3.018 r  dma/arbiters_1/request_addr_7[29]_i_10/O
+                         net (fo=110, unplaced)       0.273     3.291    dma/arbiters_1/request_addr_7[29]_i_10_n_0
+                         LUT5 (Prop_LUT5_I1_O)        0.038     3.329 r  dma/arbiters_1/request_addr_7[29]_i_3__0/O
+                         net (fo=355, unplaced)       0.251     3.580    dma/arbiters_1/request_addr_7[29]_i_3__0_n_0
+                         LUT4 (Prop_LUT4_I2_O)        0.053     3.633 r  dma/arbiters_1/request_size[1]_i_1__0/O
+                         net (fo=25, unplaced)        0.239     3.872    dma/plans_1/request_size_reg[1]_1[1]
+                         LUT2 (Prop_LUT2_I1_O)        0.037     3.909 r  dma/plans_1/fault[1]_i_2131/O
+                         net (fo=1, unplaced)         0.023     3.932    dma/plans_1/fault[1]_i_2131_n_0
+                         CARRY8 (Prop_CARRY8_S[1]_CO[7])
+                                                      0.197     4.129 r  dma/plans_1/fault_reg[1]_i_2013/CO[7]
+                         net (fo=1, unplaced)         0.005     4.134    dma/plans_1/fault_reg[1]_i_2013_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[7])
+                                                      0.022     4.156 r  dma/plans_1/fault_reg[1]_i_2012/CO[7]
+                         net (fo=1, unplaced)         0.005     4.161    dma/plans_1/fault_reg[1]_i_2012_n_0
+                         CARRY8 (Prop_CARRY8_CI_O[5])
+                                                      0.116     4.277 f  dma/plans_1/fault_reg[1]_i_1502/O[5]
+                         net (fo=6, unplaced)         0.163     4.440    dma/plans_1/fault_reg[1]_i_1502_n_10
+                         LUT4 (Prop_LUT4_I1_O)        0.099     4.539 f  dma/plans_1/fault[1]_i_896/O
+                         net (fo=1, unplaced)         0.242     4.781    dma/plans_1/fault[1]_i_896_n_0
+                         CARRY8 (Prop_CARRY8_DI[2]_CO[7])
+                                                      0.117     4.898 f  dma/plans_1/fault_reg[1]_i_412/CO[7]
+                         net (fo=1, unplaced)         0.005     4.903    dma/plans_1/fault_reg[1]_i_412_n_0
+                         CARRY8 (Prop_CARRY8_CI_CO[0])
+                                                      0.052     4.955 f  dma/plans_1/fault_reg[1]_i_117/CO[0]
+                         net (fo=1, unplaced)         0.185     5.140    dma/plans_1/state916_in
+                         LUT6 (Prop_LUT6_I4_O)        0.038     5.178 r  dma/plans_1/fault[1]_i_33__0/O
+                         net (fo=1, unplaced)         0.185     5.363    dma/arbiters_1/faultAddress[31]_i_8__0_2
+                         LUT4 (Prop_LUT4_I3_O)        0.038     5.401 f  dma/arbiters_1/fault[1]_i_11/O
+                         net (fo=36, unplaced)        0.202     5.603    dma/arbiters_1/fault[1]_i_11_n_0
+                         LUT6 (Prop_LUT6_I3_O)        0.090     5.693 f  dma/arbiters_1/faultAddress[31]_i_9__0/O
+                         net (fo=32, unplaced)        0.245     5.938    dma/arbiters_1/faultAddress[31]_i_9__0_n_0
+                         LUT2 (Prop_LUT2_I1_O)        0.070     6.008 r  dma/arbiters_1/faultAddress[6]_i_3/O
+                         net (fo=1, unplaced)         0.140     6.148    dma/arbiters_1/faultAddress[6]_i_3_n_0
+                         LUT6 (Prop_LUT6_I1_O)        0.090     6.238 r  dma/arbiters_1/faultAddress[6]_i_1__0/O
+                         net (fo=1, unplaced)         0.048     6.286    dma/plans_1/faultAddress_reg[31]_0[6]
+                         FDRE                                         r  dma/plans_1/faultAddress_reg[6]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core rise edge)      10.000    10.000 r  
+                                                      0.000    10.000 r  clock (IN)
+                         net (fo=66885, unset)        0.021    10.021    dma/plans_1/clock
+                         FDRE                                         r  dma/plans_1/faultAddress_reg[6]/C
+                         clock pessimism              0.000    10.021    
+                         clock uncertainty           -0.035     9.986    
+                         FDRE (Setup_FDRE_C_D)        0.025    10.011    dma/plans_1/faultAddress_reg[6]
+  -------------------------------------------------------------------
+                         required time                         10.011    
+                         arrival time                          -6.286    
+  -------------------------------------------------------------------
+                         slack                                  3.725    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.034ns  (arrival time - required time)
+  Source:                 dataCaches_0/cache/request_address_reg[7]/C
+                            (rising edge-triggered cell FDRE clocked by core  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/RAMA/WADR2
+                            (rising edge-triggered cell RAMD64E clocked by core  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             core
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (core rise@0.000ns - core rise@0.000ns)
+  Data Path Delay:        0.122ns  (logic 0.038ns (31.148%)  route 0.084ns (68.852%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.026ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    0.039ns
+    Source Clock Delay      (SCD):    0.013ns
+    Clock Pessimism Removal (CPR):    -0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock core rise edge)       0.000     0.000 r  
+                                                      0.000     0.000 r  clock (IN)
+                         net (fo=66885, unset)        0.013     0.013    dataCaches_0/cache/clock
+                         FDRE                                         r  dataCaches_0/cache/request_address_reg[7]/C
+  -------------------------------------------------------------------    -------------------
+                         FDRE (Prop_FDRE_C_Q)         0.038     0.051 r  dataCaches_0/cache/request_address_reg[7]/Q
+                         net (fo=55, unplaced)        0.084     0.135    dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/ADDRH2
+                         RAMD64E                                      r  dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/RAMA/WADR2
+  -------------------------------------------------------------------    -------------------
+
+                         (clock core rise edge)       0.000     0.000 r  
+                                                      0.000     0.000 r  clock (IN)
+                         net (fo=66885, unset)        0.039     0.039    dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/WCLK
+                         RAMD64E                                      r  dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/RAMA/CLK
+                         clock pessimism              0.000     0.039    
+                         RAMD64E (Hold_RAMD64E_CLK_WADR2)
+                                                      0.062     0.101    dataCaches_0/cache/tags_ext/Memory_reg_0_63_0_6/RAMA
+  -------------------------------------------------------------------
+                         required time                         -0.101    
+                         arrival time                           0.135    
+  -------------------------------------------------------------------
+                         slack                                  0.034    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         core
+Waveform(ns):       { 0.000 5.000 }
+Period(ns):         10.000
+Sources:            { clock }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location  Pin
+Min Period        n/a     RAMB36E2/CLKARDCLK  n/a            1.569         10.000      8.431                dataCaches_0/cache/data_ext/Memory_reg_0/CLKARDCLK
+Low Pulse Width   Slow    RAMB36E2/CLKARDCLK  n/a            0.542         5.000       4.458                dataCaches_0/cache/data_ext/Memory_reg_0/CLKARDCLK
+High Pulse Width  Slow    RAMB36E2/CLKARDCLK  n/a            0.542         5.000       4.458                dataCaches_0/cache/data_ext/Memory_reg_0/CLKARDCLK
+
+
+

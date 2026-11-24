@@ -176,6 +176,7 @@ int main(int argc, char** argv) {
         m.holdObserved = mode == "fill-cancel";
     }
     if (mode == "cross-sm") check(!m.write(0x38,1), "producer SM0");
+    if (mode == "i-reuse") m.observedLine = m.get(base+8);
     check(!m.write(0x10,1), "doorbell");
     if (mode == "cancel") { for (int i=0; i<14; ++i) m.tick(); check(!m.write(0x2c,1), "cancel"); }
     if (mode == "fill-cancel") {
@@ -189,6 +190,12 @@ int main(int argc, char** argv) {
     check(fault == expectedFault && m.read(0x18) == unsigned(!fault) && m.read(0x24) == unsigned(bool(fault)), "fault or completion sequence");
     unsigned cycles = m.read(0x3c);
     unsigned hits = 0, misses = 0, reads = m.observedReads;
+    unsigned iHits = 0, iMisses = 0;
+    if (mode == "i-reuse") {
+        iHits = m.read(0x600);
+        iMisses = m.read(0x604);
+        check(iHits >= 7 && iMisses >= 2 && reads == 1, "instruction reuse across line buffer replacements");
+    }
     if (mode == "cross-sm") {
         check(m.get(arg+32)==42 && m.read(0x104)==1, "SM0 output");
         unsigned code = m.get(base+8)-base;
@@ -241,6 +248,7 @@ int main(int argc, char** argv) {
     auto list = [](const auto& v){ std::cout<<"["; for (size_t i=0;i<v.size();++i) std::cout<<(i?",":"")<<v[i]; std::cout<<"]"; };
     std::cout << "{\"cycles\":" << cycles << ",\"fault\":" << fault << ",\"address\":" << address
         << ",\"d_hits\":" << hits << ",\"d_misses\":" << misses << ",\"observed_reads\":" << reads
+        << ",\"i_hits\":" << iHits << ",\"i_misses\":" << iMisses
         << ",\"concurrent_rw_cycles\":" << m.overlap << ",\"longest_burst\":" << m.maxBurst
         << ",\"w_before_aw\":" << m.wBeforeAW << ",\"byte_writes\":" << m.byteWrites
         << ",\"half_writes\":" << m.halfWrites << ",\"groups\":"; list(groups);

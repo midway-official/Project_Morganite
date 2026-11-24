@@ -67,6 +67,11 @@ tests = [] if args.no_dcache else [
                     "arg r1\nlw r2,32(r1)\nlw r3,32(r1)\nadd r4,r2,r3\nsw r4,64(r1)\nexit",8,0)]
 if not (args.no_icache and args.no_dcache):
     tests.append(("code-write", f"li r1,{base+code}\nsb r0,0(r1)\nexit",7,3))
+if not args.no_icache:
+    # Alternate between nonadjacent lines. The one-line fetch buffer alone
+    # cannot service this loop without repeatedly reading the first line.
+    tests.append(("i-reuse", "addi r1,r0,8\nloop: jmp far\n" + "addi r0,r0,0\n"*32 +
+                  "far: addi r1,r1,-1\nbz r1,end\njmp loop\nend: exit",8,0))
 tests += [("matrix",matrix,28,0 if args.k else 2), ("partial-tile",matrix,7,2)]
 for name, source, threads, fault in tests:
     words = assemble(source)
