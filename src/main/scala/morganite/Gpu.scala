@@ -45,7 +45,7 @@ class Gpu(p: GpuParams) extends Module {
   val block = Reg(Vec(p.warpWidth, UInt(32.W)))
   val nextGroup = RegInit(0.U(32.W))
   val occupied = RegInit(VecInit(Seq.fill(p.numSms)(false.B)))
-  val stats = RegInit(VecInit(Seq.fill(p.numSms)(VecInit(Seq.fill(5)(0.U(32.W))))))
+  val stats = RegInit(VecInit(Seq.fill(p.numSms)(VecInit(Seq.fill(6)(0.U(32.W))))))
   val errorCondition = cancel || fault.orR
   def firstFault(code: UInt, address: UInt): Unit = {
     when(!fault.orR) { fault := code; faultAddress := address }
@@ -112,7 +112,7 @@ class Gpu(p: GpuParams) extends Module {
     0x18 -> completed, 0x1c -> fault, 0x20 -> faultAddress, 0x24 -> faultSeq,
     0x28 -> sequence, 0x30 -> base, 0x34 -> limit, 0x38 -> enable, 0x3c -> elapsed) ++
     counters.zipWithIndex.map { case (v, i) => (0x40 + 4 * i) -> (v - countersAtStart(i)) } ++
-    (for (i <- 0 until p.numSms; j <- 0 until 5) yield (0x100 + i * 0x20 + j * 4) -> stats(i)(j)) ++
+    (for (i <- 0 until p.numSms; j <- 0 until 6) yield (0x100 + i * 0x20 + j * 4) -> stats(i)(j)) ++
     Seq(0x50 -> ((if (p.iCacheBytes > 0) 1 else 0) | (if (p.dCacheBytes > 0) 2 else 0) |
       (p.tensorK << 8)).U, 0x54 -> roBase, 0x58 -> roEnd) ++
     sms.zipWithIndex.flatMap { case (sm,i) =>
@@ -236,7 +236,8 @@ class Gpu(p: GpuParams) extends Module {
     when(sm.io.result.fire) {
       occupied(i) := false.B
       val g = sm.io.result.bits
-      for ((v, j) <- Seq(g.cycles, !g.fault.orR, g.fpOps, g.fmaOps, g.memStalls).zipWithIndex) {
+      for ((v, j) <- Seq(g.cycles, !g.fault.orR, g.fpOps, g.fmaOps, g.memStalls,
+        g.tensorOps).zipWithIndex) {
         stats(i)(j) := stats(i)(j) + v
       }
     }

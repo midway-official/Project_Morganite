@@ -10,7 +10,7 @@ class Group(p: GpuParams) extends Bundle {
 }
 class GroupResult extends Bundle {
   val fault = UInt(4.W)
-  val address, group, cycles, fpOps, fmaOps, memStalls = UInt(32.W)
+  val address, group, cycles, fpOps, fmaOps, memStalls, tensorOps = UInt(32.W)
 }
 class InstructionWrite(p: GpuParams) extends Bundle {
   val address = UInt(p.pcBits.W)
@@ -27,7 +27,7 @@ class WriteTag(p: GpuParams) extends Bundle {
   val row = UInt(p.rowBits.W)
   val dest = UInt(p.registerBits.W)
   val mask = UInt(p.lanes.W)
-  val last, fp, fma = Bool()
+  val last, fp, fma, tensor = Bool()
 }
 class SplitFrame(p: GpuParams) extends Bundle {
   val parent, other = UInt(p.warpWidth.W)
@@ -255,6 +255,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   tag.last := slice.last
   tag.fp := d.fp
   tag.fma := d.fp && d.fpOp === FpOp.fma
+  tag.tensor := d.op === 0x47.U
   val latency = 6
   val retire = ShiftRegister(arithmetic, latency, false.B, true.B)
   val wb = ShiftRegister(tag, latency)
@@ -292,6 +293,9 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     flags(wb.warp) := flags(wb.warp) | exceptions.reduce(_ | _)
     summary.fpOps := summary.fpOps + PopCount(wb.mask)
     when(wb.fma) { summary.fmaOps := summary.fmaOps + PopCount(wb.mask) }
+  }
+  when(retire && wb.tensor) {
+    summary.tensorOps := summary.tensorOps + PopCount(wb.mask) * p.tensorK.U
   }
   val loadWB = memState === writeRegs && !retire
   val parts = loaded.asTypeOf(Vec(p.beats, Vec(p.lanes, UInt(32.W))))

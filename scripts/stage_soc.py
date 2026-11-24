@@ -34,9 +34,12 @@ def instantiate():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out", type=Path)
+    parser.add_argument("--sms", type=int, default=2)
     parser.add_argument("--accelerators", action="store_true",
-                        help="2 SM, 2 KiB I/D L1, 32-byte lines, INT8 K=4 and optimized issue/RF")
+                        help="enable configured I/D L1, INT8 K=4, and optimized issue/RF")
     args = parser.parse_args()
+    if args.sms not in (2, 8, 16, 32):
+        parser.error("--sms must be one of 2, 8, 16, or 32")
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
     frozen = ROOT / "build/baseline"
@@ -47,10 +50,10 @@ if __name__ == "__main__":
     inputs = out / "inputs"
     shutil.copytree(frozen / "generated", inputs / "generated")
     shutil.copytree(frozen / "board_repo", inputs / "board_repo")
-    # Always elaborate the 2-SM signoff target from the source being packaged.
-    extra = " ic=2048 dc=2048 line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
-    rtl_dir = "build/board-rtl-l1" if args.accelerators else "build/board-rtl"
-    subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} 2 8 4{extra}"'],
+    ic_bytes, dc_bytes = (4096, 8192) if args.sms == 32 else (2048, 2048)
+    extra = f" ic={ic_bytes} dc={dc_bytes} line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
+    rtl_dir = f"build/board-rtl-{args.sms}sm"
+    subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} {args.sms} 8 4{extra}"'],
                    cwd=ROOT, check=True)
     gpu = ROOT / rtl_dir / "MorganiteBoard.sv"
     cpu = inputs / "generated/Aurora.v"
@@ -68,7 +71,7 @@ if __name__ == "__main__":
                  "report_exceptions -file [file join $build_dir exceptions_impl.rpt]\n"
                  "report_methodology -file [file join $build_dir methodology_impl.rpt]\n"
                  "report_utilization -hierarchical -file [file join $build_dir hierarchy_impl.rpt]")
-    replace_once(project, "CANDIDATE=Tick2h", "CANDIDATE=Morganite_2SM")
+    replace_once(project, "CANDIDATE=Tick2h", f"CANDIDATE=Morganite_{args.sms}SM")
     if args.accelerators:
         replace_once(project, "report_utilization -file [file join $build_dir utilization_synth.rpt]",
                      "report_utilization -hierarchical -file [file join $build_dir hierarchy_synth.rpt]\n"
@@ -76,13 +79,13 @@ if __name__ == "__main__":
                      "if {[info exists ::env(MORGANITE_SYNTH_ONLY)] && $::env(MORGANITE_SYNTH_ONLY) eq {1}} {close_project; exit}")
     shutil.copy2(ROOT / "board/run_soc.sh", out)
     manifest.update(gpu_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                    gpu_config={"sms": 2, "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
+                    gpu_config={"sms": args.sms, "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
                                 "scratch_bytes": 8192, "dma_bits": 32, "gpu_mhz": 100},
                     gpu_rtl=hashlib.sha256(gpu.read_bytes()).hexdigest())
     if args.accelerators:
-        manifest["gpu_config"].update(ic_bytes=2048, dc_bytes=2048, line_words=8, tensor_k=4,
+        manifest["gpu_config"].update(ic_bytes=ic_bytes, dc_bytes=dc_bytes, line_words=8, tensor_k=4,
                                       bram_rf=True, early_branch=True)
+    (out / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
     inputs_list = sorted(p for p in out.rglob("*") if p.is_file())
     (out / "files.sha256").write_text("".join(
         f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(out)}\n" for p in inputs_list))
-    (out / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
