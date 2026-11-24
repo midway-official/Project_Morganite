@@ -73,9 +73,9 @@ python3 software-board/start_test.py . software-board board-01
 python3 software-board/uart_jobs.py board-01 --full
 ```
 
-第二轮启动可运行 `python3 software-board/uart_jobs.py board-02 --cache-test`。测试使用 `copy`，每个 SM 处理一个 warp。先让参数读旁路，再将两个指针所在的 32 字节行声明为本次作业只读，最后在空闲时修改同地址的源指针并重新提交。每轮比较整段 DMA 输出的 SHA-256，并在 GPU 空闲时读取每个 SM 的 D-cache hit 和 miss。预期旁路为 0/0，两次只读提交各为 1/1。实测结果保存于该轮的 `cache-test.json`。
+第二轮启动可运行 `python3 software-board/uart_jobs.py board-02 --cache-test`。测试使用 `copy`，每个 SM 处理一个 warp。先让参数读旁路，再将两个指针所在的 32 字节行声明为本次作业只读，最后在空闲时修改同地址的源指针并重新提交。每轮比较整段 DMA 输出的 SHA-256，并在 GPU 空闲时读取每个 SM 的 D-cache hit 和 miss。预期旁路为 0/0，两次只读提交各为 1/1。实测结果保存于该轮的 `cache-test.json`。专用 `mgpu kernel_ro copy groups threads sm_mask ro_offset ro_length` 命令会通过 `MG_SUBMIT_RO` 为新作业设置只读范围。
 
-正式包的 `ram.dat` SHA-256 是 `ab96ec949de15d62018e33f245e5c68f0f7b077b02f481038f42c3573f9dc470`。板测入口还会从 Linux 核对实际运行的 CLI、程序和场景。将 `board-01/frames` 回传至本地后，使用 `python3 graphics/test_render.py board board-01/frames` 做逐像素比较，再用 `python3 graphics/export_png.py board-01/frames board-01/frames/comparisons.json board-01/frames` 导出颜色与深度 PNG。每个场景同时保留原始 FP32 深度和图元编号。[已取得的整机综合数据](../reports/l1-tensor/README.md)
+首个上传候选的 `ram.dat` SHA-256 是 `ab96ec949de15d62018e33f245e5c68f0f7b077b02f481038f42c3573f9dc470`。加入 `mgpu kernel_ro` 后更新的测试镜像 SHA-256 是 `39bec2d0c3d54317749419938b42df6f9041f1f63be196164275a7a3130deb2f`，它用于后续冷启动和 L1 测试。板测入口还会从 Linux 核对实际运行的 CLI、程序和场景。将 `board-01/frames` 回传至本地后，使用 `python3 graphics/test_render.py board board-01/frames` 做逐像素比较，再用 `python3 graphics/export_png.py board-01/frames board-01/frames/comparisons.json board-01/frames` 导出颜色与深度 PNG。每个场景同时保留原始 FP32 深度和图元编号。[已取得的整机综合数据](../reports/l1-tensor/README.md)
 
 ## 资料与设计取舍
 

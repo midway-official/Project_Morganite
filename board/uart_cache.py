@@ -36,7 +36,7 @@ def verify_cache(command, jobs, info):
         upload(arg, struct.pack("<2I", base + src, base + dst))
         upload(dst, bytes(size))
         cmd = ("kernel copy {} {} {}".format(sms, warp, mask) if stage == "bypass"
-               else "submit 0 {} {} 32".format(mask, arg))
+               else "kernel_ro copy {} {} {} {} 32".format(sms, warp, mask, arg))
         rows = jobs("data L1 " + stage, cmd)
         if len(rows) != 1 or rows[0]["fault"] or [s[1] for s in rows[0]["sm"]] != [1]*sms:
             raise ValueError("copy did not complete one group per SM")

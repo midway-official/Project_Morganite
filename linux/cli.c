@@ -281,6 +281,11 @@ int main(int argc, char **argv) {
         run(number(argv[2]),number(argv[3]),"submitted");
     }
     else if (!strcmp(argv[1],"kernel") && argc==6) launch(argv[2],number(argv[3]),number(argv[4]),number(argv[5]));
+    else if (!strcmp(argv[1],"kernel_ro") && argc==8) {
+        ro_offset=number(argv[6]);
+        ro_length=number(argv[7]);
+        launch(argv[2],number(argv[3]),number(argv[4]),number(argv[5]));
+    }
     else require(0,"unknown command or argument count");
     return close(fd);
 }
