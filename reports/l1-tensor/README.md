@@ -12,6 +12,9 @@
 | 双 SM，全功能，I/D 各 2 KiB，K=4 | 40,872 | 17,095 | 32 | 72 |
 | 8 SM，全功能 | 149,618 | 61,150 | 128 | 288 |
 | 16 SM，全功能 | 294,934 | 119,899 | 256 | 576 |
+| 32 SM，4 KiB I-cache、8 KiB 只读 D-cache、K=4 | 594,965 | 245,921 | 528 | 1,152 |
+
+32 SM 这一行对应独立综合的 GPU RTL，SHA-256 为 `ed8386d450eae14d9072f71f6bed2628a00c75b51caa443fe4ff4ebe20988ba2`。使用全片 LUT 的 68.25%，BRAM tile 的 39.29%。后续完整 SoC 的硬件提交 `626b31b` 另含每 SM 的 INT8 MAC 计数器。该 SoC 复用 boot-20 冻结的 Aurora CPU，在 `/home/fpga/morganite-soc32-Vmx1k2nM` 运行 Vivado 2023.2。生成同配置输入可执行 `python3 scripts/stage_soc.py build/soc32 --sms 32 --accelerators`，在服务器的输入目录运行 `bash run_soc.sh`。[GPU 利用率](proposal32/synth/utilization.rpt) · [GPU 层次报告](proposal32/synth/hierarchy.rpt)
 
 全部配置的 URAM 为 0。双 SM 的 LUTRAM 从 5,120 降至 96。从仅启用指令 L1 到全功能配置，GPU 增加 3,598 个 LUT、8 个 BRAM tile 和 32 个 DSP。与 boot-20 相比，全功能双 SM 增加 100 个 LUT。资源统计使用 10 ns 输入时钟约束和相同的独立综合脚本，目录中的 timing 是综合估计。Vivado 对部分缓存 RAM 提示读地址寄存可能限制流水化。100 MHz 时序收敛仍需布线报告。[基线](baseline/synth/utilization.rpt) · [寄存器与调度](core2/synth/utilization.rpt) · [指令 L1](finalic/synth/utilization.rpt) · [全功能双 SM](final2/synth/hierarchy.rpt)
 
