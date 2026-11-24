@@ -30,10 +30,18 @@ class LaneRegisters(p: GpuParams) extends Module {
     val wrEna = io.wr.valid && io.wr.bits.dest.orR && io.wr.bits.mask(lane)
     val forwarded = RegEnable(io.wr.bits.data(lane), wrEna)
     for (port <- 0 until 3) {
-      val bank = SyncReadMem(depth, UInt(32.W))
       val rdAddr = address(io.rd.bits.row, io.rd.bits.source(port))
-      val fromRam = bank.read(rdAddr, io.rd.valid)
-      when(wrEna) { bank.write(wrAddr, io.wr.bits.data(lane)) }
+      val fromRam = if (p.bramRf) {
+        // Register the data output (UG901 simple dual-port template). The
+        // explicit forwarding below defines simultaneous same-address access.
+        val bank = Mem(depth, UInt(32.W))
+        when(wrEna) { bank.write(wrAddr, io.wr.bits.data(lane)) }
+        RegEnable(bank(rdAddr), io.rd.valid)
+      } else {
+        val bank = SyncReadMem(depth, UInt(32.W))
+        when(wrEna) { bank.write(wrAddr, io.wr.bits.data(lane)) }
+        bank.read(rdAddr, io.rd.valid)
+      }
       val bypass = RegEnable(wrEna && wrAddr === rdAddr, io.rd.valid)
       val zero = RegEnable(!io.rd.bits.source(port).orR, io.rd.valid)
       io.data(port)(lane) := Mux(zero, 0.U, Mux(bypass, forwarded, fromRam))

@@ -42,6 +42,7 @@ class BurstPlan(p: GpuParams) extends Module {
   val io = IO(new Bundle {
     val in = Flipped(Decoupled(new VectorRequest(p)))
     val base, limit = Input(UInt(32.W))
+    val roBase, roEnd, codeBase, codeEnd = Input(UInt(32.W))
     val burst = Decoupled(new AxiAddress(p))
     val cursor = Input(UInt(log2Ceil(p.warpWidth).max(1).W))
     val lane = Output(UInt(log2Ceil(p.warpWidth).max(1).W))
@@ -71,7 +72,14 @@ class BurstPlan(p: GpuParams) extends Module {
   io.in.ready := state === idle
   when(io.in.fire) {
     val in = io.in.bits
-    val invalid = VecInit(in.addr.map(MemoryAccess.invalid(_, in.size, io.base, io.limit))).asUInt & in.mask
+    val invalid = VecInit(in.addr.map { a =>
+      val end = a +& MemoryAccess.lastOffset(in.size)
+      def overlaps(lo: UInt, hi: UInt) = lo < hi && a < hi && end >= lo
+      val denied = if (p.iCacheBytes > 0 || p.dCacheBytes > 0)
+        in.store && (overlaps(io.roBase, io.roEnd) || overlaps(io.codeBase, io.codeEnd))
+      else false.B
+      MemoryAccess.invalid(a, in.size, io.base, io.limit) || denied
+    }).asUInt & in.mask
     request := in
     remaining := in.mask
     count := 0.U
@@ -113,11 +121,12 @@ class BurstPlan(p: GpuParams) extends Module {
 }
 
 class Dma(p: GpuParams) extends Module {
-  val owners = p.numSms + 1
+  val owners = p.numSms + 1 + (if (p.iCacheBytes > 0) p.numSms else 0)
   val io = IO(new Bundle {
     val clients = Vec(owners, Flipped(new VectorPort(p)))
     val axi = new AxiMaster(p)
     val base, limit = Input(UInt(32.W))
+    val roBase, roEnd, codeBase, codeEnd = Input(UInt(32.W))
     val readBursts, writeBursts, readBytes, writeBytes = Output(UInt(32.W))
     val idle = Output(Bool())
   })
@@ -147,6 +156,10 @@ class Dma(p: GpuParams) extends Module {
     plan.in <> arb.out
     plan.base := io.base
     plan.limit := io.limit
+    plan.roBase := io.roBase
+    plan.roEnd := io.roEnd
+    plan.codeBase := io.codeBase
+    plan.codeEnd := io.codeEnd
     when(plan.in.fire) {
       owner(i) := arb.chosen
       fault(i) := 0.U

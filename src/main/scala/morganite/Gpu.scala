@@ -51,9 +51,16 @@ class Gpu(p: GpuParams) extends Module {
     when(!fault.orR) { fault := code; faultAddress := address }
   }
   val dma = Module(new Dma(p))
+  val sms = (0 until p.numSms).map(i => Module(new Sm(p, i)))
+  val dataCaches = Seq.fill(if (p.dCacheBytes > 0) p.numSms else 0)(Module(new DataL1(p)))
+  val roBase, roEnd = RegInit(0.U(32.W))
   io.dma <> dma.io.axi
   dma.io.base := base
   dma.io.limit := limit
+  dma.io.roBase := roBase
+  dma.io.roEnd := roEnd
+  dma.io.codeBase := desc(2)
+  dma.io.codeEnd := desc(2) + (desc(3) << 2)
   val counters = Seq(dma.io.readBursts, dma.io.writeBursts, dma.io.readBytes, dma.io.writeBytes)
   val countersAtStart = RegInit(VecInit(Seq.fill(4)(0.U(32.W))))
   when(busy) { elapsed := elapsed + 1.U }
@@ -85,6 +92,10 @@ class Gpu(p: GpuParams) extends Module {
     when(wa === 0x30.U && !busy) { base := merge(base); bResp := 0.U }
     when(wa === 0x34.U && !busy) { limit := merge(limit); bResp := 0.U }
     when(wa === 0x38.U && !busy) { enable := merge(enable); bResp := 0.U }
+    if (p.dCacheBytes > 0) {
+      when(wa === 0x54.U && !busy) { roBase := merge(roBase); bResp := 0.U }
+      when(wa === 0x58.U && !busy) { roEnd := merge(roEnd); bResp := 0.U }
+    }
     when(wa === 0x2c.U && strobes === 15.U && value === 1.U) {
       when(busy) { cancel := true.B }
       bResp := 0.U
@@ -101,7 +112,14 @@ class Gpu(p: GpuParams) extends Module {
     0x18 -> completed, 0x1c -> fault, 0x20 -> faultAddress, 0x24 -> faultSeq,
     0x28 -> sequence, 0x30 -> base, 0x34 -> limit, 0x38 -> enable, 0x3c -> elapsed) ++
     counters.zipWithIndex.map { case (v, i) => (0x40 + 4 * i) -> (v - countersAtStart(i)) } ++
-    (for (i <- 0 until p.numSms; j <- 0 until 5) yield (0x100 + i * 0x20 + j * 4) -> stats(i)(j))
+    (for (i <- 0 until p.numSms; j <- 0 until 5) yield (0x100 + i * 0x20 + j * 4) -> stats(i)(j)) ++
+    Seq(0x50 -> ((if (p.iCacheBytes > 0) 1 else 0) | (if (p.dCacheBytes > 0) 2 else 0) |
+      (p.tensorK << 8)).U, 0x54 -> roBase, 0x58 -> roEnd) ++
+    sms.zipWithIndex.flatMap { case (sm,i) =>
+      val d = dataCaches.lift(i)
+      Seq(sm.io.iHits, sm.io.iMisses, d.map(_.io.hits).getOrElse(0.U),
+        d.map(_.io.misses).getOrElse(0.U)).zipWithIndex.map { case (v,j) => (0x600 + i*16 + j*4) -> v }
+    }
   val rValid = RegInit(false.B)
   val rData = Reg(UInt(32.W))
   val rResp = Reg(UInt(2.W))
@@ -131,7 +149,8 @@ class Gpu(p: GpuParams) extends Module {
     countersAtStart := VecInit(counters)
     val validWindow = base >= Abi.dmaFloor.U && limit <= Abi.dmaCeiling.U && base < limit
     val descOK = !descriptor(1, 0).orR && descriptor >= base && (descriptor +& 32.U) <= limit
-    when(!validWindow || !descOK || !enable.orR) {
+    val validRo = roBase === roEnd || (roBase >= base && roBase < roEnd && roEnd <= limit)
+    when(!validWindow || !validRo || !descOK || !enable.orR) {
       fault := 1.U
       faultAddress := descriptor
       state := drain
@@ -176,7 +195,7 @@ class Gpu(p: GpuParams) extends Module {
     when(!legal || errorCondition) {
       when(!legal) { firstFault(1.U, descriptor) }
       state := drain
-    }.otherwise { index := 0.U; state := codeReq }
+    }.otherwise { index := 0.U; state := (if (p.iCacheBytes > 0) dispatch else codeReq) }
   }
   when(state === load) {
     when(errorCondition) { state := drain }
@@ -185,7 +204,6 @@ class Gpu(p: GpuParams) extends Module {
         state := Mux(index + chunk === desc(3), dispatch, codeReq)
       }.otherwise { lane := lane + 1.U }
   }
-  val sms = (0 until p.numSms).map(i => Module(new Sm(p, i)))
   val free = VecInit(sms.zipWithIndex.map { case (sm, i) => sm.io.start.ready && enable(i) }).asUInt
   val chosen = PriorityEncoderOH(free)
   val terminal = VecInit(sms.map(sm => sm.io.result.fire && sm.io.result.bits.fault.orR)).asUInt
@@ -193,7 +211,16 @@ class Gpu(p: GpuParams) extends Module {
   when(terminal.orR) { firstFault(first.fault, first.address) }
   // Registered error state stops later admissions. An already accepted group drains normally.
   for ((sm, i) <- sms.zipWithIndex) {
-    dma.io.clients(i) <> sm.io.global
+    sm.io.invalidate := submit
+    sm.io.fetch.foreach(_ <> dma.io.clients(p.numSms + 1 + i))
+    if (p.dCacheBytes > 0) {
+      val c = dataCaches(i).io
+      c.core <> sm.io.global
+      dma.io.clients(i) <> c.mem
+      c.roBase := roBase
+      c.roEnd := roEnd
+      c.invalidate := submit
+    } else { dma.io.clients(i) <> sm.io.global }
     sm.io.program.valid := state === load && !errorCondition
     sm.io.program.bits.address := index + lane
     sm.io.program.bits.data := block(lane)

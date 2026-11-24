@@ -9,6 +9,13 @@ struct mg_info {
 struct mg_submit {
     __u32 descriptor_offset, sequence, sm_mask;
 };
+struct mg_submit_ro {
+    struct mg_submit job;
+    __u32 offset, length;
+};
+struct mg_sm_counters {
+    __u32 index, values[5], cache[4];
+};
 struct mg_status {
     __u32 state, completed, fault, address, failed_sequence, cycles;
     __u32 read_bursts, write_bursts, read_bytes, write_bytes;
@@ -18,4 +25,6 @@ struct mg_status {
 #define MG_SUBMIT _IOW('M', 1, struct mg_submit)
 #define MG_STATUS _IOR('M', 2, struct mg_status)
 #define MG_CANCEL _IO('M', 3)
+#define MG_SUBMIT_RO _IOW('M', 4, struct mg_submit_ro)
+#define MG_SM_COUNTERS _IOWR('M', 5, struct mg_sm_counters)
 #endif

@@ -34,6 +34,8 @@ def instantiate():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out", type=Path)
+    parser.add_argument("--accelerators", action="store_true",
+                        help="2 SM, 2 KiB I/D L1, 32-byte lines, INT8 K=4 and optimized issue/RF")
     args = parser.parse_args()
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -46,9 +48,11 @@ if __name__ == "__main__":
     shutil.copytree(frozen / "generated", inputs / "generated")
     shutil.copytree(frozen / "board_repo", inputs / "board_repo")
     # Always elaborate the 2-SM signoff target from the source being packaged.
-    subprocess.run(["bash", "-c", 'source scripts/toolchain.sh; sbt "runMain morganite.Generate MorganiteBoard build/board-rtl 2 8 4"'],
+    extra = " ic=2048 dc=2048 line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
+    rtl_dir = "build/board-rtl-l1" if args.accelerators else "build/board-rtl"
+    subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} 2 8 4{extra}"'],
                    cwd=ROOT, check=True)
-    gpu = ROOT / "build/board-rtl/MorganiteBoard.sv"
+    gpu = ROOT / rtl_dir / "MorganiteBoard.sv"
     cpu = inputs / "generated/Aurora.v"
     modules = lambda p: set(re.findall(r"^module\s+(\w+)", p.read_text(), re.M))
     if modules(gpu) & modules(cpu):
@@ -65,11 +69,19 @@ if __name__ == "__main__":
                  "report_methodology -file [file join $build_dir methodology_impl.rpt]\n"
                  "report_utilization -hierarchical -file [file join $build_dir hierarchy_impl.rpt]")
     replace_once(project, "CANDIDATE=Tick2h", "CANDIDATE=Morganite_2SM")
+    if args.accelerators:
+        replace_once(project, "report_utilization -file [file join $build_dir utilization_synth.rpt]",
+                     "report_utilization -hierarchical -file [file join $build_dir hierarchy_synth.rpt]\n"
+                     "report_utilization -file [file join $build_dir utilization_synth.rpt]\n"
+                     "if {[info exists ::env(MORGANITE_SYNTH_ONLY)] && $::env(MORGANITE_SYNTH_ONLY) eq {1}} {close_project; exit}")
     shutil.copy2(ROOT / "board/run_soc.sh", out)
     manifest.update(gpu_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                     gpu_config={"sms": 2, "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
                                 "scratch_bytes": 8192, "dma_bits": 32, "gpu_mhz": 100},
                     gpu_rtl=hashlib.sha256(gpu.read_bytes()).hexdigest())
+    if args.accelerators:
+        manifest["gpu_config"].update(ic_bytes=2048, dc_bytes=2048, line_words=8, tensor_k=4,
+                                      bram_rf=True, early_branch=True)
     inputs_list = sorted(p for p in out.rglob("*") if p.is_file())
     (out / "files.sha256").write_text("".join(
         f"{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.relative_to(out)}\n" for p in inputs_list))

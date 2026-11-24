@@ -15,6 +15,8 @@ p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--source", type=Path, default=Path("/home/midway/la32r-Linux-v0.3-20260819"))
 p.add_argument("--prefix", default="/home/midway/la32r/la32r-toolchains/install/bin/loongarch32r-linux-gnusf-")
 p.add_argument("--jobs", type=int, default=8)
+p.add_argument("--feature-register", action="store_true",
+               help="enable capability discovery on the L1/tensor FPGA design")
 p.add_argument("--initramfs-compression", choices=("gzip", "none"), default="gzip")
 args = p.parse_args()
 obj, src = root / "build/kernel", root / "build/linux-src"
@@ -70,7 +72,11 @@ for name in ["morganite.c", "morganite.h"]:
     write(src / "drivers/misc" / name, (root / "linux" / name).read_bytes())
 append(src / "drivers/misc/Makefile", "obj-y += morganite.o")
 dts = src / "arch/loongarch/boot/dts/loongson"
-write(dts / "morganite.dtsi", (root / "linux/morganite.dtsi").read_bytes())
+node = (root / "linux/morganite.dtsi").read_text()
+if args.feature_register:
+    node = node.replace('            compatible = "morganite,gpu-v1";',
+                        '            compatible = "morganite,gpu-v1";\n            morganite,feature-register;')
+write(dts / "morganite.dtsi", node.encode())
 append(dts / "loongson32_ls.dts", '#include "morganite.dtsi"')
 env = dict(os.environ, ARCH="loongarch", CROSS_COMPILE=args.prefix)
 env.pop("LD_LIBRARY_PATH", None)

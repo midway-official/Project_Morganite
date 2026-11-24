@@ -48,10 +48,11 @@ class Warp:
 
 
 class Model:
-    def __init__(self, memory, warp_width=8, slots=4, scratch_bytes=8192):
+    def __init__(self, memory, warp_width=8, slots=4, scratch_bytes=8192, tensor_k=0):
         self.global_mem = memory
         self.width, self.slots, self.scratch_bytes = warp_width, slots, scratch_bytes
         self.fp = None
+        self.tensor_k = tensor_k
 
     def group(self, program, group, threads, argument, sm=0, program_base=0, max_steps=2000000):
         if not 0 < threads <= self.width * self.slots or not 0 < len(program) <= 1024:
@@ -134,6 +135,24 @@ class Model:
                             val = store.load(addr, size, f in (0, 1))
                             if rd:
                                 regs[t][rd] = val
+                    continue
+                if op == 0x47:
+                    if self.tensor_k not in (1, 2, 4) or f or (hi & 3):
+                        raise Fault(2, loc)
+                    tiles = {t // 4 for t in w.live}
+                    if 4 * len(tiles) != len(w.live):
+                        raise Fault(2, loc)
+                    for tile in tiles:
+                        rows = [regs[4*tile+i][ra] for i in (0, 2)]
+                        cols = [regs[4*tile+i][rb] for i in (0, 1)]
+                        for lane in range(4):
+                            result = regs[4*tile+lane][rc]
+                            for k in range(self.tensor_k):
+                                x = signed((rows[lane//2] >> (8*k)) & 255, 8)
+                                y = signed((cols[lane%2] >> (8*k)) & 255, 8)
+                                result += x * y
+                            if rd:
+                                regs[4*tile+lane][rd] = result & MASK
                     continue
                 for t in w.live:
                     a, b, c = (regs[t][k] for k in (ra, rb, rc))

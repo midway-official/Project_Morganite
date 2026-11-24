@@ -40,6 +40,9 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     val start = Flipped(Decoupled(new Group(p)))
     val result = Decoupled(new GroupResult)
     val global = new VectorPort(p)
+    val fetch = if (p.iCacheBytes > 0) Some(new VectorPort(p)) else None
+    val invalidate = Input(Bool())
+    val iHits, iMisses = Output(UInt(32.W))
     val cancel = Input(Bool())
   })
   val idle :: run :: finish :: Nil = Enum(3)
@@ -135,21 +138,73 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   val arb = Module(new RRArbiter(new WarpIssue(p), p.warpSlots))
   val beats = Module(new WarpBeats(p))
   val meta = RegEnable(arb.io.out.bits, arb.io.out.fire)
-  beats.io.issue.valid := arb.io.out.valid
+  val arbDec = arb.io.out.bits.decoded
+  val immediateJump = p.earlyBranch.B && arbDec.legal && arbDec.ctrl && arbDec.funct === 3.U
+  beats.io.issue.valid := arb.io.out.valid && !immediateJump
   beats.io.issue.bits := arb.io.out.bits.mask
   arb.io.out.ready := beats.io.issue.ready
   beats.io.beat.ready := true.B
+  val fetchIdle = WireDefault(true.B)
+  io.iHits := 0.U
+  io.iMisses := 0.U
+  if (p.iCacheBytes > 0) {
+    val cache = Module(new ReadOnlyL1(p, p.iCacheBytes))
+    io.fetch.get <> cache.io.memory
+    cache.io.invalidate := io.invalidate
+    io.iHits := cache.io.hits
+    io.iMisses := cache.io.misses
+    fetchIdle := cache.io.idle
+    // A line buffer supplies all ready warps, including different PCs in that line.
+    val offsetBits = log2Ceil(p.lineWords)
+    val hot = RegInit(false.B)
+    val hotLine = Reg(UInt((p.pcBits+1).W))
+    val hotData = Reg(Vec(p.lineWords, UInt(32.W)))
+    val misses = Module(new RRArbiter(UInt((p.pcBits+1).W), p.warpSlots))
+    val wanted = misses.io.out.bits
+    cache.io.lookup.valid := misses.io.out.valid
+    misses.io.out.ready := cache.io.lookup.ready
+    cache.io.lookup.bits.address := group.programBase + (wanted << (offsetBits+2))
+    cache.io.lookup.bits.mask := VecInit((0 until p.lineWords).map(i =>
+      ((wanted << offsetBits) +& i.U) < group.words)).asUInt
+    val requested = RegEnable(wanted, cache.io.lookup.fire)
+    cache.io.result.ready := true.B
+    when(cache.io.result.fire) {
+      when(cache.io.result.bits.fault.orR) { fail(cache.io.result.bits.fault, cache.io.result.bits.address) }
+        .otherwise { hot := true.B; hotLine := requested; hotData := cache.io.result.bits.data }
+    }
+    when(io.invalidate) { hot := false.B }
+    for (w <- 0 until p.warpSlots) {
+      val want = healthy && live(w) && !fetched(w) && !locked(w) && !barrier(w)
+      val line = pc(w) >> offsetBits
+      val hit = hot && hotLine === line
+      misses.io.in(w).valid := want && pc(w) < group.words && !hit
+      misses.io.in(w).bits := line
+      when(want && (hit || pc(w) >= group.words)) {
+        val data = if (p.lineWords == 1) hotData(0) else hotData(pc(w)(offsetBits-1,0))
+        instruction(w) := Mux(pc(w) < group.words, data, 0.U)
+        fetched(w) := true.B
+      }
+    }
+  }
   for (w <- 0 until p.warpSlots) {
     // One read port per warp. All replicas are loaded together at the job boundary.
+    if (p.iCacheBytes == 0) {
     val imem = Mem(p.programWords, UInt(32.W))
     when(io.program.valid && state === idle) { imem.write(io.program.bits.address, io.program.bits.data) }
     when(healthy && live(w) && !fetched(w) && !locked(w) && !barrier(w)) {
       instruction(w) := Mux(pc(w) < group.words, imem(pc(w)(p.pcBits - 1, 0)), 0.U)
       fetched(w) := true.B
     }
+    }
     val d = Isa.decode(instruction(w), p)
+    if (p.tensorK > 0) {
+      val completeTiles = mask(w).asTypeOf(Vec(p.warpWidth / 4, UInt(4.W))).map(m => !m.orR || m.andR)
+      when(d.op === 0x47.U && !completeTiles.reduce(_ && _)) { d.legal := false.B }
+    }
     val dep = Seq(d.a, d.b, d.c, d.rd).map(idx => pending(w)(idx(p.registerBits - 1, 0))).reduce(_ || _)
-    val serial = d.mem || d.ctrl || !d.legal || (d.op === 0x5b.U && d.funct === 5.U)
+    val jump = p.earlyBranch.B && d.legal && d.ctrl && d.funct === 3.U
+    val serial = d.mem || (d.ctrl && !(p.earlyBranch.B && (d.funct === 3.U || d.funct === 4.U))) ||
+      !d.legal || (d.op === 0x5b.U && d.funct === 5.U)
     val port = arb.io.in(w)
     port.valid := healthy && live(w) && fetched(w) && !locked(w) && !barrier(w) &&
       !dep && (!serial || !inflight(w).orR) && (!d.mem || memState === memIdle) && memState =/= writeRegs
@@ -160,7 +215,12 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     when(port.fire) {
       fetched(w) := false.B
       pc(w) := pc(w) + 1.U
-      when(d.mem || d.ctrl || !d.legal) { locked(w) := true.B }
+      when(d.mem || (d.ctrl && !jump) || !d.legal) { locked(w) := true.B }
+      when(jump) {
+        val target = pc(w).zext +& d.imm.asSInt
+        when(target < 0.S || target >= group.words.zext) { fail(2.U, group.programBase + (pc(w) << 2)) }
+          .otherwise { pc(w) := target.asUInt }
+      }
       when(d.mem && d.legal) {
         memState := gather
         memIssue := port.bits
@@ -205,7 +265,17 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     val systemValue = MuxLookup(d.funct, 0.U)(Seq(0.U -> tid, 1.U -> group.id,
       2.U -> group.threads, 3.U -> group.argument, 4.U -> smId.U, 5.U -> flags(w)))
     val intValue = Mux(d.op === 0x5b.U, systemValue, Isa.integer(d, a(l), b(l)))
-    val integerWB = ShiftRegister(intValue, latency)
+    val integerWB = if (p.tensorK == 0) ShiftRegister(intValue, latency) else {
+      val rowA = a((l / 4) * 4 + (l % 4) / 2 * 2)
+      val colB = b((l / 4) * 4 + l % 2)
+      val products = (0 until p.tensorK).map { k =>
+        RegNext(rowA(8*k+7, 8*k).asSInt * colB(8*k+7, 8*k).asSInt)
+      }
+      val sum = RegNext(products.reduce(_ +& _))
+      val acc = ShiftRegister(rf.io.data(2)(l), 2)
+      val dot = (acc.asSInt + sum).asUInt
+      ShiftRegister(Mux(ShiftRegister(d.op === 0x47.U, 2), dot, ShiftRegister(intValue, 2)), latency-2)
+    }
     val fp = Module(new Fp32Lane(1))
     fp.io.in.valid := arithmetic && d.fp
     fp.io.in.bits.a := a(l)
@@ -264,7 +334,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   val allVotes = votes | ((laneVotes << (slice.index * p.lanes.U))(p.warpWidth - 1, 0))
   val location = group.programBase + (ex.pc << 2)
   when(exValid && !d.legal && slice.last) { fail(2.U, location) }
-  when(exValid && d.ctrl && d.legal) {
+  when(exValid && d.ctrl && d.legal && !(p.earlyBranch.B && d.funct === 3.U)) {
     votes := Mux(slice.last, 0.U, allVotes)
     when(slice.last) {
       locked(w) := false.B
@@ -324,7 +394,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
       }
   }
   when(state === run && (!live.asUInt.orR || summary.fault.orR) && !inflight.asUInt.orR &&
-      !beats.io.beat.valid && !exValid && memState === memIdle) {
+      fetchIdle && !beats.io.beat.valid && !exValid && memState === memIdle) {
     state := finish
   }
 }

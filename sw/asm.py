@@ -61,6 +61,9 @@ def encode(op, args, pc, labels):
         return 0x37 | reg(rd) << 7 | field(int(imm, 0), 20) << 12
     if op in SYSTEM:
         return 0x5B | reg(operands(1)[0]) << 7 | SYSTEM.index(op) << 12
+    if op == "mma.s8":
+        rd, a, b, c = map(reg, operands(4))
+        return 0x47 | rd << 7 | a << 15 | b << 20 | c << 27
     if op in FP:
         f = FP.index(op)
         rd, *sources = list(map(reg, operands(4 if f == 0 else 3 if f <= 6 else 2)))
@@ -140,8 +143,8 @@ def disassemble(word):
         op, args = "lui", [d, hex(word >> 12)]
     elif code == 0x5B and f < len(SYSTEM):
         op, args = SYSTEM[f], [d]
-    elif code == 0x43:
-        op, args = "fma", [d, a, b, c]
+    elif code in (0x43, 0x47):
+        op, args = ("fma" if code == 0x43 else "mma.s8"), [d, a, b, c]
     elif code == 0x53 and 0 < high < len(FP):
         op, args = FP[high], [d, a] + ([b] if high <= 6 else [])
     elif code == 0x7B:

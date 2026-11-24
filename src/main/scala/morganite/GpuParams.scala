@@ -6,7 +6,9 @@ case class GpuParams(
     numSms: Int = 2, warpWidth: Int = 8, lanes: Int = 4, warpSlots: Int = 4,
     registers: Int = 32, scratchBytes: Int = 8192, axiAddrBits: Int = 32,
     axiDataBits: Int = 32, axiIdBits: Int = 4, readOutstanding: Int = 1,
-    writeOutstanding: Int = 1) {
+    writeOutstanding: Int = 1, iCacheBytes: Int = 0, dCacheBytes: Int = 0,
+    lineWords: Int = 4, tensorK: Int = 0, bramRf: Boolean = false,
+    earlyBranch: Boolean = false) {
   require(numSms > 0 && warpSlots > 0)
   require(isPow2(warpWidth) && warpWidth <= 32)
   require(isPow2(lanes) && lanes <= warpWidth)
@@ -15,6 +17,12 @@ case class GpuParams(
   require(axiAddrBits == 32 && axiDataBits == 32, "ABI v1 uses a 32-bit DMA port")
   require(axiIdBits >= 1 && axiIdBits <= 16)
   require(readOutstanding == 1 && writeOutstanding == 1, "one transaction per direction in v1")
+  require(isPow2(lineWords) && lineWords <= 32)
+  for (bytes <- Seq(iCacheBytes, dCacheBytes) if bytes != 0) {
+    require(isPow2(bytes) && bytes >= 8 * lineWords && bytes <= 65536)
+    require(lineWords <= warpWidth, "a refill fits one DMA vector")
+  }
+  require(Set(0, 1, 2, 4)(tensorK) && (tensorK == 0 || lanes % 4 == 0))
   val beats: Int = warpWidth / lanes
   val beatBits: Int = log2Ceil(beats).max(1)
   val maxThreads: Int = warpWidth * warpSlots

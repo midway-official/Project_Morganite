@@ -33,7 +33,7 @@ tests += [
 evidence = []
 for name, source, fault, mode in tests:
     words = assemble(source)
-    groups = 9 if name in ("integer", "axpy", "strides") else 1
+    groups = max(9, args.sms) if name in ("integer", "axpy", "strides") else 1
     threads = 31
     argument = 0 if mode == "below" else arg
     mem = Memory(base, random.Random(742).randbytes(65536))

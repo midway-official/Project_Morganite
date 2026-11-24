@@ -27,6 +27,7 @@ object Isa {
     val sys = op === 0x5b.U
     val lui = op === 0x37.U
     val fma = op === 0x43.U
+    val mma = p.tensorK.U =/= 0.U && op === 0x47.U
     val fop = op === 0x53.U
     d.op := op
     d.funct := f
@@ -38,9 +39,9 @@ object Isa {
     d.fp := fma || fop
     d.fpOp := Mux(fma, 0.U, hi(3, 0))
     d.rd := Mux(d.ctrl || d.store, 0.U, rd)
-    d.a := Mux(r || imm || d.fp || d.mem || (d.ctrl && (f === 4.U || f === 5.U)), a, 0.U)
-    d.b := Mux(r || d.store || fma || (fop && hi <= 6.U), b, 0.U)
-    d.c := Mux(fma, i(31, 27), 0.U)
+    d.a := Mux(r || imm || d.fp || mma || d.mem || (d.ctrl && (f === 4.U || f === 5.U)), a, 0.U)
+    d.b := Mux(r || d.store || fma || mma || (fop && hi <= 6.U), b, 0.U)
+    d.c := Mux(fma || mma, i(31, 27), 0.U)
     val rawImm = Mux(d.store, Cat(hi, rd), i(31, 20))
     d.imm := Mux(lui, Cat(i(31, 12), 0.U(12.W)), Cat(Fill(20, rawImm(11)), rawImm))
     val ctrlTarget = f >= 3.U && f <= 6.U
@@ -49,7 +50,7 @@ object Isa {
       (r && (hi === 0.U || (hi === 32.U && (f === 0.U || f === 5.U)) || (hi === 1.U && f === 0.U))) ||
       (imm && Mux(f === 1.U, hi === 0.U, Mux(f === 5.U, hi === 0.U || hi === 32.U, true.B))) ||
       (d.mem && (f <= 2.U || (!d.store && (f === 4.U || f === 5.U)))) ||
-      (fma && f === 0.U && i(26, 25) === 0.U) ||
+      ((fma || mma) && f === 0.U && i(26, 25) === 0.U) ||
       (fop && f === 0.U && hi >= 1.U && hi <= 12.U && (hi <= 6.U || b === 0.U)) ||
       (d.ctrl && rd === 0.U && (ctrlTarget || i(31, 20) === 0.U) && (ctrlPred || a === 0.U))
     d.legal := formatOK && Seq(d.rd, d.a, d.b, d.c).map(_ < p.registers.U).reduce(_ && _)

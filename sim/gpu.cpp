@@ -24,6 +24,7 @@ public:
     unsigned timeout = 8000000;
     unsigned cycles = 0, overlap = 0, maxBurst = 0, byteWrites = 0, halfWrites = 0;
     unsigned failRead = 0, failWrite = 0;
+    unsigned observedLine = 0, observedReads = 0;
     bool badId = false, lateLast = false;
     unsigned wBeforeAW = 0;
     bool awFire = false, wFire = false, arFire = false, bFire = false, rFire = false;
@@ -90,6 +91,7 @@ public:
         if (d.io_dma_ar_ready && d.io_dma_ar_valid) {
             rd = Addr{d.io_dma_ar_bits_addr,d.io_dma_ar_bits_id,d.io_dma_ar_bits_len,d.io_dma_ar_bits_size};
             validate(*rd, d.io_dma_ar_bits_burst); ri = 0; maxBurst = std::max(maxBurst, rd->len + 1);
+            if (rd->addr == observedLine) ++observedReads;
         }
         if (d.io_dma_aw_ready && d.io_dma_aw_valid) {
             wr = Addr{d.io_dma_aw_bits_addr,d.io_dma_aw_bits_id,d.io_dma_aw_bits_len,d.io_dma_aw_bits_size};
@@ -164,16 +166,46 @@ int main(int argc, char** argv) {
         m.badId = mode == "rprotocol"; m.lateLast = m.badId;
     }
     if (mode == "berror") m.failWrite = m.get(base + 16);
+    const auto arg = m.get(base+16);
+    if (mode == "l1" || mode == "ro-write" || mode == "fill-error" || mode == "conflict") {
+        unsigned length = mode == "conflict" ? 4128 : 32;
+        check(!m.write(0x54,arg) && !m.write(0x58,arg+length), "immutable window");
+        m.observedLine = arg;
+        if (mode == "fill-error") m.failRead = arg;
+    }
     check(!m.write(0x10,1), "doorbell");
     if (mode == "cancel") { for (int i=0; i<14; ++i) m.tick(); check(!m.write(0x2c,1), "cancel"); }
     m.done();
     unsigned fault = m.read(0x1c), address = m.read(0x20);
     check(fault == expectedFault && m.read(0x18) == unsigned(!fault) && m.read(0x24) == unsigned(bool(fault)), "fault or completion sequence");
     unsigned cycles = m.read(0x3c);
+    unsigned hits = 0, misses = 0, reads = m.observedReads;
+    if (mode == "l1" || mode == "conflict") {
+        for (unsigned i=0; i<sms; ++i) {
+            hits += m.read(0x608 + i*16);
+            misses += m.read(0x60c + i*16);
+        }
+    }
+    if (mode == "conflict") check(misses == 3 && hits == 1 && reads == 2, "A B A A cache replacement");
+    if (mode == "l1") {
+        check(misses == sms && hits >= sms && reads == misses, "expected private fills and reuse");
+        // Each group writes its result to its own word beyond the immutable line.
+        auto verify = [&](unsigned expected) {
+            for (unsigned i=0; i<sms; ++i) check(m.get(arg+64+4*i)==expected, "stale job result");
+        };
+        verify(15);
+        m.mem.at(arg-base) = 11;
+        // Change addi r4,r4,1 to addi r4,r4,2 at the same program address.
+        m.mem.at(m.get(base+8)-base+4*5+2) = 0x22;
+        check(!m.write(0x10,2),"resubmit"); m.done();
+        check(m.read(0x18)==2 && m.read(0x1c)==0 && m.observedReads == 2*reads, "refill after submit");
+        verify(24);
+    }
     std::vector<unsigned> groups, fmas, active;
     for (unsigned i=0;i<sms;++i) {
         active.push_back(m.read(0x100 + i*32)); groups.push_back(m.read(0x104+i*32)); fmas.push_back(m.read(0x10c+i*32));
     }
+    if (mode == "ro-write") check(m.get(arg)==7 && m.halfWrites==0, "protected store escaped");
     if (fault) {
         // Recover on the same DUT after the injected error or cancellation.
         m.failRead = m.failWrite = 0; m.badId = m.lateLast = false;
@@ -187,6 +219,7 @@ int main(int argc, char** argv) {
     out.write(reinterpret_cast<const char*>(m.mem.data()), m.mem.size());
     auto list = [](const auto& v){ std::cout<<"["; for (size_t i=0;i<v.size();++i) std::cout<<(i?",":"")<<v[i]; std::cout<<"]"; };
     std::cout << "{\"cycles\":" << cycles << ",\"fault\":" << fault << ",\"address\":" << address
+        << ",\"d_hits\":" << hits << ",\"d_misses\":" << misses << ",\"observed_reads\":" << reads
         << ",\"concurrent_rw_cycles\":" << m.overlap << ",\"longest_burst\":" << m.maxBurst
         << ",\"w_before_aw\":" << m.wBeforeAW << ",\"byte_writes\":" << m.byteWrites
         << ",\"half_writes\":" << m.halfWrites << ",\"groups\":"; list(groups);

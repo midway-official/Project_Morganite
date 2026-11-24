@@ -16,6 +16,11 @@
 enum { DESC = 0, CODE = 4096, ARG = 8192, X = 65536, Y = 131072 };
 static int fd;
 static struct mg_info device;
+static unsigned ro_offset, ro_length;
+
+static unsigned all_sms(void) {
+    return UINT32_MAX >> (32 - (device.caps & 255));
+}
 
 static void die(const char *why) { perror(why); exit(1); }
 static void require(int ok, const char *why) {
@@ -70,7 +75,10 @@ static struct mg_status run(unsigned desc, unsigned mask, const char *name) {
     uint64_t begin = ns(), end;
     volatile unsigned cpu_private[64];
     unsigned samples=0;
-    if (ioctl(fd, MG_SUBMIT, &job)) die("MG_SUBMIT");
+    if (ro_length) {
+        struct mg_submit_ro ro = {job, ro_offset, ro_length};
+        if (ioctl(fd, MG_SUBMIT_RO, &ro)) die("MG_SUBMIT_RO");
+    } else if (ioctl(fd, MG_SUBMIT, &job)) die("MG_SUBMIT");
     for (;;) {
         if (ioctl(fd, MG_STATUS, &s)) die("MG_STATUS");
         if (!(s.state & 1)) break;
@@ -88,8 +96,12 @@ static struct mg_status run(unsigned desc, unsigned mask, const char *name) {
            "\"read_bursts\":%u,\"write_bursts\":%u,\"cpu_busy_samples\":%u,\"sm\":[",
            name, job.sequence, mask, s.cycles, end-begin, s.fault, s.address,
            s.read_bytes, s.write_bytes, s.read_bursts, s.write_bursts, samples);
-    for (unsigned i = 0; i < (device.caps & 255); ++i)
-        printf("%s[%u,%u,%u,%u,%u]", i?",":"", s.sm[i][0], s.sm[i][1], s.sm[i][2], s.sm[i][3], s.sm[i][4]);
+    for (unsigned i = 0; i < (device.caps & 255); ++i) {
+        struct mg_sm_counters extra = {.index = i};
+        if (i >= 4 && ioctl(fd, MG_SM_COUNTERS, &extra)) die("MG_SM_COUNTERS");
+        const __u32 *v = i < 4 ? s.sm[i] : extra.values;
+        printf("%s[%u,%u,%u,%u,%u]", i?",":"", v[0],v[1],v[2],v[3],v[4]);
+    }
     puts("]}"); fflush(stdout);
     require(!s.fault && s.completed == job.sequence, "GPU sequence or fault");
     return s;
@@ -108,14 +120,14 @@ static void loopback(void) {
     for (unsigned i=0;i<64;++i) input[i]=0xa5a50000u+i;
     memset(output,0,sizeof(output)); upload(Y,output,sizeof(output));
     upload(X,input,sizeof(input)); upload(ARG,params,sizeof(params));
-    launch("copy",2,32,(1u<<(device.caps & 255))-1);
+    launch("copy",2,32,all_sms());
     download(Y,output,sizeof(output));
     require(!memcmp(input,output,sizeof(input)),"DMA loopback mismatch");
     puts("MORGANITE_LOOPBACK_PASS=1");
 }
 
 static void selftest(unsigned n) {
-    const unsigned mask = (1u << (device.caps & 255))-1;
+    const unsigned mask = all_sms();
     unsigned in[256], out[256], params[3];
     for (unsigned job=0; job<n; ++job) {
         if (job & 1) {
@@ -142,7 +154,7 @@ static void selftest(unsigned n) {
 }
 
 static void performance(void) {
-    const unsigned mask=(1u << (device.caps & 255))-1;
+    const unsigned mask=all_sms();
     unsigned params[] = {device.device_base+X,device.device_base+Y};
     unsigned data[8192], output[8192];
     for (unsigned i=0; i<8192; ++i) data[i]=i*0x9e3779b9u;
@@ -156,7 +168,11 @@ static void performance(void) {
     for (unsigned i=0; i<512; ++i)
         require(data[i]==as_word(16384.f) && output[i]==data[i],"FMA benchmark mismatch");
     unsigned fmas=0;
-    for (unsigned i=0;i<(device.caps&255);++i) fmas+=all.sm[i][3];
+    for (unsigned i=0;i<(device.caps&255);++i) {
+        struct mg_sm_counters extra = {.index = i};
+        if (i >= 4 && ioctl(fd, MG_SM_COUNTERS, &extra)) die("MG_SM_COUNTERS");
+        fmas += i < 4 ? all.sm[i][3] : extra.values[3];
+    }
     require(fmas==16u*32*16*1024 && fmas==one.sm[0][3],"FMA operation count");
     printf("{\"perf_fmas\":%u,\"cycles_1sm\":%u,\"cycles_all\":%u,\"clock_hz\":100000000,"
            "\"copy_payload_bytes\":65536,\"copy_cycles\":%u}\n",fmas,one.cycles,all.cycles,bw.cycles);
@@ -175,7 +191,7 @@ static void render_scene(const char *scene_path, const char *directory) {
             size == 208 + 32*vertices + 12*triangles, "invalid scene dimensions");
     unsigned *indices = scene+52+8*vertices;
     for (unsigned i=0; i<3*triangles; ++i) require(indices[i]<vertices, "bad vertex index");
-    unsigned base = device.device_base, mask=(1u << (device.caps & 255))-1;
+    unsigned base = device.device_base, mask=all_sms();
     unsigned params[] = {base+VERTICES,base+CLIP,base+INDICES,base+SETUP,triangles,base+COLOR,base+DEPTH,base+WINNER};
     upload(ARG,params,sizeof(params));
     upload(ARG+64,scene+4,192);
@@ -231,7 +247,10 @@ int main(int argc, char **argv) {
         unsigned n=number(argv[3]); require(n<=device.bytes,"download size");
         void *data=malloc(n ? n:1); if(!data)die("malloc");
         download(number(argv[2]),data,n); write_file(argv[4],data,n); free(data);
-    } else if (!strcmp(argv[1],"submit") && argc==4) run(number(argv[2]),number(argv[3]),"submitted");
+    } else if (!strcmp(argv[1],"submit") && (argc==4 || argc==6)) {
+        if (argc == 6) { ro_offset=number(argv[4]); ro_length=number(argv[5]); }
+        run(number(argv[2]),number(argv[3]),"submitted");
+    }
     else if (!strcmp(argv[1],"kernel") && argc==6) launch(argv[2],number(argv[3]),number(argv[4]),number(argv[5]));
     else require(0,"unknown command or argument count");
     return close(fd);
