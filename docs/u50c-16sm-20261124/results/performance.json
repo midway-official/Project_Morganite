@@ -1,0 +1,14 @@
+{
+  "perf_fmas": 33554432,
+  "cycles_1sm": 8521842,
+  "cycles_all": 579391,
+  "clock_hz": 100000000,
+  "copy_payload_bytes": 16384,
+  "copy_cycles": 290148,
+  "tensor_macs": 134217728,
+  "tensor_cycles_1sm": 8521757,
+  "tensor_cycles_all": 580480,
+  "gflops": 11.582655581463985,
+  "speedup": 14.708274722941848,
+  "copy_aggregate_MBps": 5.646773370831438
+}

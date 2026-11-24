@@ -1,0 +1,3 @@
+analysis	launch_clock	capture_clock	slack_ns	data_ns	logic_levels	from_owner	to_owner	from_slr	to_slr	start_pin	end_pin
+max	clk_out1_clk_wiz_0	clk_out1_clk_wiz_0	0.062	9.534	11	gpu	gpu	SLR0	SLR1	u_gpu_soc/gpu/fault_reg[2]/C	u_gpu_soc/gpu/sms_10/summary_address_reg[25]/D
+min	clk_out1_clk_wiz_0	clk_out1_clk_wiz_0	0.007	0.307	0	cpu	cpu	SLR0	SLR1	u_cpu/u_aurora/core/lsu/io_cdbData_5_copy_reg[3]/C	u_cpu/u_aurora/core/lsu/sqCdbData_3_reg[3]/D

@@ -1,0 +1,29 @@
+{
+  "phase": "preparing",
+  "worker_pid": 4795,
+  "run_dir": "/home/fpga/aurora-u50c-debug/runs/20261124T144409.648312Z",
+  "request": {
+    "image_format": "dat",
+    "load_address": null,
+    "server": "127.0.0.1:3122",
+    "uart_port": 23251,
+    "vivado_root": "/home/fpga/Xilinx/Vivado/2023.2",
+    "program": true,
+    "hbm_test": true,
+    "zero_ranges": [
+      [
+        18677760,
+        19186376
+      ]
+    ],
+    "bit": "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit",
+    "bit_sha256": "b7a470eef97dc1b5b7d352d84475ac159244439ea7a44915ffbf06ccb3312609",
+    "ltx": "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/u50c_top.ltx",
+    "ltx_sha256": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "image": "/home/fpga/morganite-soc16-switch-20261124/software-board-uncompressed/ram.dat",
+    "image_sha256": "e485601b9f774ecf65c04b61fdef5e6902dafba11dad04b75d240a65c36aca59"
+  },
+  "runtime": "/home/fpga/morganite-soc16-switch-20261124/software-board-uncompressed/runtime",
+  "log": "/home/fpga/aurora-u50c-debug/runs/20261124T144409.648312Z/worker.log",
+  "updated_utc": "2026-11-24T14:44:09.649489+00:00"
+}

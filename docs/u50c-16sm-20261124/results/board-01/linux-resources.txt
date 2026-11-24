@@ -1,0 +1,19 @@
+ cat /proc/iomem; cat /proc/interrupts; ls /sys/bus/platform/devices; echo MG
+_EXIT_$?
+00000000-1fdfffff : System RAM
+  00300000-00b8ecaf : Kernel code
+  00b8ecb0-00e4745f : Kernel data
+  011d0000-0124c2c7 : Kernel bss
+1fe001e0-1fe001ef : serial
+1fe20000-1fe20fff : 1fe20000.gpu gpu@1fe20000
+1ff00000-1ff0ffff : 1ff00000.dmfe
+           CPU0       
+ 18:        713  LoongArch   2  ttyS0
+ 27:       3790  LoongArch  11  timer
+ERR:          0
+[1;36m1fe001e0.serial[m                  [1;36minterrupt-controller@0x1fe11600[m
+[1;36m1fe20000.gpu[m                     [1;36mserial8250[m
+[1;36m1ff00000.dmfe[m                    [1;36mserial8250.0[m
+[1;36mFixed MDIO bus.0[m                 [1;36msoc[m
+MG_EXIT_0
+/ #

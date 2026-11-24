@@ -1,0 +1,62 @@
+
+****** Vivado v2023.2 (64-bit)
+  **** SW Build 4029153 on Fri Oct 13 20:13:54 MDT 2023
+  **** IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+  **** SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source /home/fpga/morganite-soc16-switch-20261124/software-board-uncompressed/runtime/verify_board.tcl -notrace
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:127.0.0.1:3122
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+
+******** Xilinx cs_server v2023.2.0
+  ****** Build date   : Oct 10 2023-12:01:56
+    **** Build number : 2023.2.1696910516
+      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+INFO: [Labtoolstcl 44-466] Opening hw_target 127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA
+HW_TARGET=127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA
+HW_DEVICE=xcu50_u55n_0
+HW_PART=xcu50_u55n
+INFO: [Labtools 27-2302] Device xcu50_u55n (JTAG device index = 0) is programmed with a design that has 1 HBM core(s).
+INFO: [Labtools 27-2302] Device xcu50_u55n (JTAG device index = 0) is programmed with a design that has 1 JTAG AXI core(s).
+INFO: [Labtools 27-2302] Device xcu50_u55n (JTAG device index = 0) is programmed with a design that has 2 VIO core(s).
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_1]
+INFO: [Labtools 27-1889] Uploading output probe values for VIO core [hw_vio_2]
+INFO: [Labtoolstcl 44-481] WRITE DATA is: 0000000E
+INFO: [Labtoolstcl 44-481] READ DATA is: 00000016
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 54324801
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] READ DATA is: 00e10064
+INFO: [Labtoolstcl 44-481] WRITE DATA is: 0000005A
+INFO: [Labtoolstcl 44-481] WRITE DATA is: 000000A5
+INFO: [Labtoolstcl 44-481] WRITE DATA is: 00000031
+INFO: [Labtoolstcl 44-481] READ DATA is: 00000c16
+INFO: [Labtoolstcl 44-481] WRITE DATA is: 0000000E
+INFO: [Labtoolstcl 44-481] READ DATA is: 00000016
+PERIPHERAL_RW_VERIFY_PASS=1
+VIO_STATUS=u_hbm_vio:120B
+VIO_STATUS=u_status_vio:3F
+BOARD_VERIFY_PASS=Tick2h_U50C_100MHz
+INFO: [Labtoolstcl 44-464] Closing hw_target 127.0.0.1:3122/xilinx_tcf/Xilinx/50241A20256MA
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 24 22:05:17 2026...

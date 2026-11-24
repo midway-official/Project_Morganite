@@ -28,6 +28,8 @@ def verify_cache(command, jobs, info):
                         for i in range(sms * warp))
 
     values = [pattern(0x12345678), pattern(0x98765432)]
+    command("test -c /dev/mem || { test \"$(cat /sys/class/mem/mem/dev)\" = 1:1 && "
+            "/bin/busybox mknod -m 600 /dev/mem c 1 1; }")
     upload(src_a, values[0])
     upload(src_b, values[1])
     evidence = []

@@ -22,6 +22,7 @@ def main():
     p.add_argument("--full", action="store_true")
     p.add_argument("--stress-suite", type=Path, help="load assembled stress programs through Linux")
     p.add_argument("--cache-test", action="store_true", help="check data L1 counters and same-address updates")
+    p.add_argument("--resume-cache", action="store_true", help="retry a cache test on the same verified Linux boot")
     args = p.parse_args()
     run = args.run.resolve()
     launch = json.loads((run/"launch.json").read_text())
@@ -35,8 +36,19 @@ def main():
     request = json.loads((actual/"request.json").read_text())
     if request != launch["request"]:
         raise ValueError("manager request and launch differ")
+    boot_log = run/"linux-uart.log"
     stats = []
-    with socket.create_connection(("127.0.0.1", request["uart_port"]),15) as sock, (run/"linux-uart.log").open("wb") as log:
+    if args.resume_cache:
+        if not args.cache_test or args.full or args.stress_suite or (run/"uart-result.json").exists():
+            p.error("--resume-cache requires --cache-test alone")
+        state = json.loads((actual.parent.parent/"state.json").read_text())
+        if (state["run_dir"] != str(actual) or state["request"] != request or
+                "CLIENTS=0" not in (actual/"heartbeat").read_text().splitlines()):
+            raise RuntimeError("board run or UART ownership changed")
+        boot = boot_log.read_text(errors="replace")
+        boot_log = run/"linux-uart-cache-retry.log"
+        stats = json.loads((run/"jobs.json").read_text())
+    with socket.create_connection(("127.0.0.1", request["uart_port"]),15) as sock, boot_log.open("ab" if args.resume_cache else "wb") as log:
         sock.settimeout(1)
         def prompt(timeout):
             data = bytearray()
@@ -61,7 +73,11 @@ def main():
             if not re.search(r"(?m)^MG_EXIT_0$",text):
                 raise RuntimeError("Linux command failed: "+cmd+"\n"+text[-600:])
             return text
-        boot = prompt(1200)
+        if args.resume_cache:
+            sock.sendall(b"\r")
+            prompt(30)
+        else:
+            boot = prompt(1200)
         if "Minimal LoongArch32 initramfs" not in boot or "Linux version" not in boot:
             raise RuntimeError("missing Linux boot banner")
         if not re.search(r"(?m)^loongarch32r$",command("uname -m")):

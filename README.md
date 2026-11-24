@@ -2,6 +2,8 @@
 
 Morganite 是用 Chisel 编写的多 SM GPU。在 Alveo U50C 上，Aurora LA32R CPU 启动 Linux，将 GPU 程序、描述符和数据写入 HBM，通过 AXI4-Lite 提交作业。GPU 从 AXI4 主口访问 HBM，支持计算内核、可替换的顶点程序和片元程序。
 
+**16 SM 实板记录（2026-11-24）**。FP32 FMA 实测 11.583 GFLOPS。GPU 渲染 1024×768 曼德博和朱利亚集合分别耗时 20.714 和 20.718 秒，512×384 球体光追耗时 3.374 秒。首轮完成计算和图形校验，第二轮启动后在缓存专项中停止。[中文报告、位流、镜像和实板图](docs/u50c-16sm-20261124/README.md)
+
 **实板版本 `u50c-boot-20`** 使用 2 个 SM、每 SM 4 条 FP32 lane、8 线程 warp。CPU 和 GPU 运行在 100 MHz，HBM AXI 运行在 225 MHz。Linux 从普通 RAM 动态分配 DMA 缓冲区，完成 130 次 GPU 提交，故障数为零。其中 100 次为连续的整数和 FP32 AXPY 作业。八个 320×240 场景的覆盖、深度胜者和颜色、深度误差均通过独立 CPU 光栅器检查。[板测记录、哈希与复现步骤](docs/u50c-boot-20.md) · [发布文件](releases/u50c-boot-20)
 
 ![第 20 次 U50C 实板从 HBM 回读的立方体彩色图](reports/bringup/f2a3ce0/board-test-20/frames/cube_a/color.png)

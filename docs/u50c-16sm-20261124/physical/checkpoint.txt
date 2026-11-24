@@ -1,0 +1,7 @@
+checkpoint=implementation/vivado/aurora_u50c.runs/impl_1/u50c_top_postroute_physopt.dcp
+sha256=cf078976a9dcedd0ed0a4477b74e9204a5cc8987f681605fe404f5b205584eda
+vivado=2023.2
+max.negative_paths_returned=0
+max.query_limit=4096
+min.negative_paths_returned=0
+min.query_limit=4096

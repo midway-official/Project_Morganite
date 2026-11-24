@@ -1,0 +1,114 @@
+{
+  "checkpoint_sha256": "cf078976a9dcedd0ed0a4477b74e9204a5cc8987f681605fe404f5b205584eda",
+  "stage": "route",
+  "scopes": {
+    "cpu": "u_cpu",
+    "gpu": "u_gpu_soc/gpu"
+  },
+  "device": {
+    "soc": {
+      "LUT": 417161,
+      "FF": 185487,
+      "BRAM_tiles": 321.5,
+      "URAM": 0,
+      "DSP": 584
+    },
+    "cpu": {
+      "LUT": 105660,
+      "FF": 40087,
+      "BRAM_tiles": 61,
+      "URAM": 0,
+      "DSP": 8
+    },
+    "gpu": {
+      "LUT": 300491,
+      "FF": 136926,
+      "BRAM_tiles": 256,
+      "URAM": 0,
+      "DSP": 576
+    },
+    "remaining_by_difference": {
+      "LUT": 11010,
+      "FF": 8474,
+      "BRAM_tiles": 4.5,
+      "URAM": 0,
+      "DSP": 0
+    }
+  },
+  "slrs": {
+    "SLR0": {
+      "soc": {
+        "LUT": 248923,
+        "FF": 114758,
+        "BRAM_tiles": 228.5,
+        "URAM": 0,
+        "DSP": 396
+      },
+      "cpu": {
+        "LUT": 20824,
+        "FF": 6062,
+        "BRAM_tiles": 48,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "gpu": {
+        "LUT": 217320,
+        "FF": 100414,
+        "BRAM_tiles": 176,
+        "URAM": 0,
+        "DSP": 396
+      },
+      "rest": {
+        "LUT": 10805,
+        "FF": 8282,
+        "BRAM_tiles": 4.5,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 26,
+        "FF": 0,
+        "BRAM_tiles": 0.0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    },
+    "SLR1": {
+      "soc": {
+        "LUT": 168238,
+        "FF": 70729,
+        "BRAM_tiles": 93,
+        "URAM": 0,
+        "DSP": 188
+      },
+      "cpu": {
+        "LUT": 84836,
+        "FF": 34025,
+        "BRAM_tiles": 13,
+        "URAM": 0,
+        "DSP": 8
+      },
+      "gpu": {
+        "LUT": 83171,
+        "FF": 36512,
+        "BRAM_tiles": 80,
+        "URAM": 0,
+        "DSP": 180
+      },
+      "rest": {
+        "LUT": 234,
+        "FF": 192,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      },
+      "scoped_sum_minus_soc": {
+        "LUT": 3,
+        "FF": 0,
+        "BRAM_tiles": 0,
+        "URAM": 0,
+        "DSP": 0
+      }
+    }
+  }
+}

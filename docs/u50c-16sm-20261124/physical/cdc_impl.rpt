@@ -1,0 +1,26 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
+| Date              : Tue Nov 24 21:58:40 2026
+| Host              : fpga-KVM running 64-bit Ubuntu 18.04.6 LTS
+| Command           : report_cdc -file /home/fpga/morganite-soc16-switch-20261124/soc/implementation/cdc_impl.rpt
+| Design            : u50c_top
+| Device            : xcu50-fsvh2104
+| Speed File        : -2  PRODUCTION 1.30 05-01-2022
+| Design State      : Physopt postRoute
+| Temperature Grade : E
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+CDC Report
+
+Severity  Source Clock                                                                                         Destination Clock                                                                                    CDC Type                 Exceptions               Endpoints  Safe  Unsafe  Unknown  No ASYNC_REG  
+--------  ---------------------------------------------------------------------------------------------------  ---------------------------------------------------------------------------------------------------  -----------------------  -----------------------  ---------  ----  ------  -------  ------------  
+Warning   clk_out2_clk_wiz_0                                                                                   clk_out1_clk_wiz_0                                                                                   Safely Timed             Max Delay Datapath Only         12    12       0        0             0  
+Warning   sysclk3                                                                                              clk_out2_clk_wiz_0                                                                                   User Ignored             False Path                       5     5       0        0             0  
+Warning   sysclk3                                                                                              dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  No Common Primary Clock  Max Delay Datapath Only          4     4       0        0             0  
+Warning   clk_out1_clk_wiz_0                                                                                   sysclk3                                                                                              Safely Timed             Max Delay Datapath Only         19    19       0        0             0  
+Warning   dbg_hub/inst/BSCANID.u_xsdbm_id/SWITCH_N_EXT_BSCAN.bscan_inst/SERIES7_BSCAN.bscan_inst/INTERNAL_TCK  sysclk3                                                                                              No Common Primary Clock  Max Delay Datapath Only         11    11       0        0             0  
+Info      sysclk3                                                                                              clk_out1_clk_wiz_0                                                                                   Safely Timed             None                            64    64       0        0             0  
+Info      clk_out1_clk_wiz_0                                                                                   clk_out2_clk_wiz_0                                                                                   Safely Timed             Max Delay Datapath Only         10    10       0        0             0  
+Info      clk_out2_clk_wiz_0                                                                                   sysclk3                                                                                              User Ignored             False Path                       1     1       0        0             0  
+
