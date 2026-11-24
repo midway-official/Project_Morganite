@@ -16,10 +16,12 @@
 enum { DESC = 0, CODE = 4096, ARG = 8192, X = 65536, Y = 131072 };
 static int fd;
 static struct mg_info device;
+static unsigned features;
 static unsigned ro_offset, ro_length;
 
 static unsigned all_sms(void) {
-    return UINT32_MAX >> (32 - (device.caps & 255));
+    unsigned count = device.caps & 255;
+    return count == 32 ? UINT32_MAX : (1u << count) - 1;
 }
 
 static void die(const char *why) { perror(why); exit(1); }
@@ -128,44 +130,49 @@ static void loopback(void) {
 
 static void selftest(unsigned n) {
     const unsigned mask = all_sms();
-    unsigned in[256], out[256], params[3];
+    static unsigned in[4096], out[4096];
+    unsigned params[3], groups = (device.caps & 255) * 4;
+    if (groups < 8) groups = 8;
     for (unsigned job=0; job<n; ++job) {
+        unsigned words = groups * 32;
         if (job & 1) {
             params[0] = as_word(1.5f); params[1] = device.device_base+X; params[2] = device.device_base+Y;
-            for (unsigned i=0; i<256; ++i) { in[i] = as_word((float)(i+job)); out[i] = as_word(0.25f); }
-            upload(ARG,params,sizeof(params)); upload(X,in,sizeof(in)); upload(Y,out,sizeof(out));
-            launch("axpy",8,32,mask); download(Y,out,sizeof(out));
-            for (unsigned i=0; i<256; ++i) require(out[i] == as_word(1.5f*(i+job)+0.25f),"AXPY mismatch");
+            for (unsigned i=0; i<words; ++i) { in[i] = as_word((float)(i+job)); out[i] = as_word(0.25f); }
+            upload(ARG,params,sizeof(params)); upload(X,in,words*4); upload(Y,out,words*4);
+            launch("axpy",groups,32,mask); download(Y,out,words*4);
+            for (unsigned i=0; i<words; ++i) require(out[i] == as_word(1.5f*(i+job)+0.25f),"AXPY mismatch");
         } else {
-            memset(out,0xbf,sizeof(out)); upload(ARG,out,sizeof(out));
-            launch("integer",8,32,mask); download(ARG,out,sizeof(out));
-            for (unsigned i=0; i<256; ++i) require(out[i] == i*i+13,"integer mismatch");
+            memset(out,0xbf,words*4); upload(ARG,out,words*4);
+            launch("integer",groups,32,mask); download(ARG,out,words*4);
+            for (unsigned i=0; i<words; ++i) require(out[i] == i*i+13,"integer mismatch");
         }
     }
     // CPU -> SM0 -> distinct SM1 -> CPU without host access to the intermediate buffer.
     for (unsigned i=0;i<256;++i) in[i] = 0x76b71983u*(i+1);
-    upload(X,in,sizeof(in));
+    const size_t copy_bytes = 256 * sizeof(in[0]);
+    upload(X,in,copy_bytes);
     params[0]=device.device_base+X; params[1]=device.device_base+Y;
     upload(ARG,params,8); launch("copy",8,32,1);
     params[0]=device.device_base+Y; params[1]=device.device_base+X+4096;
     upload(ARG,params,8); launch("copy",8,32,(mask & 2) ? 2 : 1);
-    download(X+4096,out,sizeof(out)); require(!memcmp(in,out,sizeof(out)),"cross-SM visibility mismatch");
+    download(X+4096,out,copy_bytes); require(!memcmp(in,out,copy_bytes),"cross-SM visibility mismatch");
     printf("MORGANITE_SELFTEST_PASS=%u\n", n);
 }
 
 static void performance(void) {
     const unsigned mask=all_sms();
     unsigned params[] = {device.device_base+X,device.device_base+Y};
-    unsigned data[8192], output[8192];
-    for (unsigned i=0; i<8192; ++i) data[i]=i*0x9e3779b9u;
-    upload(ARG,params,sizeof(params)); upload(X,data,sizeof(data));
-    struct mg_status bw = launch("copy",256,32,mask);
-    download(Y,output,sizeof(output)); require(!memcmp(data,output,sizeof(data)),"copy bandwidth mismatch");
-    struct mg_status one = launch("fma_bench",16,32,1);
-    download(ARG,data,512*4);
-    struct mg_status all = launch("fma_bench",16,32,mask);
-    download(ARG,output,512*4);
-    for (unsigned i=0; i<512; ++i)
+    static unsigned data[4096], output[4096];
+    unsigned groups = (device.caps & 255) * 4;
+    for (unsigned i=0; i<groups*32; ++i) data[i]=i*0x9e3779b9u;
+    upload(ARG,params,sizeof(params)); upload(X,data,groups*32*4);
+    struct mg_status bw = launch("copy",groups,32,mask);
+    download(Y,output,groups*32*4); require(!memcmp(data,output,groups*32*4),"copy bandwidth mismatch");
+    struct mg_status one = launch("fma_bench",groups,32,1);
+    download(ARG,data,groups*32*4);
+    struct mg_status all = launch("fma_bench",groups,32,mask);
+    download(ARG,output,groups*32*4);
+    for (unsigned i=0; i<groups*32; ++i)
         require(data[i]==as_word(16384.f) && output[i]==data[i],"FMA benchmark mismatch");
     unsigned fmas=0;
     for (unsigned i=0;i<(device.caps&255);++i) {
@@ -173,9 +180,30 @@ static void performance(void) {
         if (i >= 4 && ioctl(fd, MG_SM_COUNTERS, &extra)) die("MG_SM_COUNTERS");
         fmas += i < 4 ? all.sm[i][3] : extra.values[3];
     }
-    require(fmas==16u*32*16*1024 && fmas==one.sm[0][3],"FMA operation count");
+    require(fmas==groups*32*16*1024 && fmas==one.sm[0][3],"FMA operation count");
+    unsigned tensor_k = (features >> 8) & 7;
+    if (tensor_k) {
+        struct mg_status tensor1 = launch("tensor_bench",groups,32,1);
+        unsigned one_macs = 0;
+        if (ioctl(fd, MG_SM_MACS, &one_macs)) die("MG_SM_MACS");
+        download(ARG,data,groups*32*4);
+        struct mg_status tensorAll = launch("tensor_bench",groups,32,mask);
+        download(ARG,output,groups*32*4);
+        for (unsigned i=0; i<groups*32; ++i)
+            require(data[i]==16384u*tensor_k && output[i]==data[i],"INT8 matrix benchmark mismatch");
+        unsigned macs=0;
+        for (unsigned i=0; i<(device.caps&255); ++i) {
+            unsigned count = i;
+            if (ioctl(fd,MG_SM_MACS,&count)) die("MG_SM_MACS");
+            macs += count;
+        }
+        require(macs==groups*32*16*1024*tensor_k && macs==one_macs,"INT8 MAC count");
+        printf("{\"tensor_macs\":%u,\"tensor_cycles_1sm\":%u,\"tensor_cycles_all\":%u}\n",
+               macs,tensor1.cycles,tensorAll.cycles);
+    }
     printf("{\"perf_fmas\":%u,\"cycles_1sm\":%u,\"cycles_all\":%u,\"clock_hz\":100000000,"
-           "\"copy_payload_bytes\":65536,\"copy_cycles\":%u}\n",fmas,one.cycles,all.cycles,bw.cycles);
+           "\"copy_payload_bytes\":%u,\"copy_cycles\":%u}\n",
+           fmas,one.cycles,all.cycles,2*groups*32*4,bw.cycles);
 }
 
 static void render_scene(const char *scene_path, const char *directory) {
@@ -234,9 +262,10 @@ int main(int argc, char **argv) {
         fd=open("/dev/morganite",O_RDWR);
     }
     if (fd<0 || ioctl(fd,MG_INFO,&device)) die("/dev/morganite");
+    if (ioctl(fd,MG_FEATURES,&features) && errno != ENOTTY) die("MG_FEATURES");
     if (!strcmp(argv[1],"info") && argc==2)
-        printf("{\"id\":%u,\"abi\":%u,\"caps\":%u,\"dma\":%u,\"bytes\":%u,\"completed_or_active\":%u}\n",
-               device.id,device.abi,device.caps,device.device_base,device.bytes,device.last_sequence);
+        printf("{\"id\":%u,\"abi\":%u,\"caps\":%u,\"features\":%u,\"dma\":%u,\"bytes\":%u,\"completed_or_active\":%u}\n",
+               device.id,device.abi,device.caps,features,device.device_base,device.bytes,device.last_sequence);
     else if (!strcmp(argv[1],"selftest") && argc==3) selftest(number(argv[2]));
     else if (!strcmp(argv[1],"loopback") && argc==2) loopback();
     else if (!strcmp(argv[1],"bench") && argc==2) performance();

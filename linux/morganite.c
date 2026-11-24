@@ -104,6 +104,15 @@ static long mg_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
         info.last_sequence = reg_read(m, 0x28);
         if (copy_to_user(ptr, &info, sizeof(info))) err = -EFAULT;
         break;
+    case MG_FEATURES:
+        err = put_user(m->features, (__u32 __user *)ptr);
+        break;
+    case MG_SM_MACS:
+        if (!(m->features >> 8)) { err = -EOPNOTSUPP; break; }
+        if (get_user(i, (__u32 __user *)ptr)) { err = -EFAULT; break; }
+        if (i >= (m->caps & 255)) { err = -EINVAL; break; }
+        err = put_user(reg_read(m, 0x114 + 32*i), (__u32 __user *)ptr);
+        break;
     case MG_SUBMIT:
     case MG_SUBMIT_RO:
         if (cmd == MG_SUBMIT_RO) {
@@ -140,7 +149,7 @@ static long mg_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
         s.read_bytes = reg_read(m, 0x48);
         s.write_bytes = reg_read(m, 0x4c);
         for (i = 0; i < min_t(unsigned int, m->caps & 255, ARRAY_SIZE(s.sm)); ++i)
-            for (j = 0; j < 5; ++j)
+            for (j = 0; j < ARRAY_SIZE(s.sm[i]); ++j)
                 s.sm[i][j] = reg_read(m, 0x100 + 0x20*i + 4*j);
         if (copy_to_user(ptr, &s, sizeof(s))) err = -EFAULT;
         break;

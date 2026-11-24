@@ -15,6 +15,10 @@ def sha(path):
 root = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("out",type=Path)
+p.add_argument("--sms", type=int, choices=(2, 8, 16, 32), default=2,
+               help="SM count in the matching FPGA build")
+p.add_argument("--gpu-features", type=lambda value: int(value, 0), default=0,
+               help="GPU feature register value in the matching FPGA build")
 p.add_argument("--verify-load", action="store_true",
                help="compare the entire image and zero ranges over JTAG before releasing the CPU")
 args = p.parse_args()
@@ -49,6 +53,8 @@ sources = [f for d in ("board","linux","graphics","examples") for f in (root/d).
 sources.extend(root/s for s in ("scripts/stage_software.py","scripts/fma_bench.py","sw/asm.py"))
 manifest={"source_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),
           "sources":{str(f.relative_to(root)):sha(f) for f in sorted(sources)},
+          "gpu_config":{"sms":args.sms},
+          "gpu_features":args.gpu_features,
           "cli":sha(root/"build/initramfs-extra/bin/mgpu"),
           "gpu_programs_and_scenes":{p.name:sha(p) for p in sorted((out/"gpu").iterdir())},
           "image":layout}

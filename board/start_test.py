@@ -22,8 +22,19 @@ def main():
     args = p.parse_args()
     build, software, run = (x.resolve() for x in (args.build, args.software, args.output))
     impl = build/"implementation"
+    build_manifest = json.loads((build/"manifest.json").read_text())
+    sms = build_manifest["gpu_config"]["sms"]
+    software_manifest = json.loads((software/"software.json").read_text())
+    gpu_config = build_manifest["gpu_config"]
+    expected_features = ((1 if gpu_config.get("ic_bytes", 0) else 0) |
+                         (2 if gpu_config.get("dc_bytes", 0) else 0) |
+                         (gpu_config.get("tensor_k", 0) << 8))
+    if (software_manifest.get("gpu_config", {"sms": 2})["sms"] != sms or
+            software_manifest.get("gpu_features", 0) != expected_features):
+        raise ValueError("software GPU configuration does not match the routed build")
+    candidate = f"Morganite_{sms}SM"
     complete = dict(line.split("=",1) for line in (impl/"BUILD_COMPLETE.txt").read_text().splitlines())
-    if (complete["CANDIDATE"] != "Morganite_2SM" or float(complete["WNS"]) < 0 or float(complete["WHS"]) < 0
+    if (complete["CANDIDATE"] != candidate or float(complete["WNS"]) < 0 or float(complete["WHS"]) < 0
             or complete["DRC_ERROR_CRITICAL_COUNT"] != "0"):
         raise ValueError("routed candidate did not pass the implementation checks")
     bit = impl/"vivado/aurora_u50c.runs/impl_1/u50c_top.bit"

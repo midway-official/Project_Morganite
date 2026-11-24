@@ -79,8 +79,13 @@ def main():
         (run/"linux-resources.txt").write_text(resources)
         info = json.loads(next(line for line in command("/bin/mgpu info").splitlines() if line.startswith("{")))
         layout = json.loads((run/"image.json").read_text())
-        if info["id"] != 0x4d4f5247 or info["abi"] != 0x10000 or info["caps"] != 0x04080402:
+        sms = software.get("gpu_config", {"sms": 2})["sms"]
+        expected_caps = 0x04080400 | sms
+        expected_features = software.get("gpu_features", 0)
+        if info["id"] != 0x4d4f5247 or info["abi"] != 0x10000 or info["caps"] != expected_caps:
             raise ValueError("unexpected GPU identity: " + str(info))
+        if info.get("features", 0) != expected_features:
+            raise ValueError("unexpected GPU features: " + str(info))
         record(run/"dma-mapping.json", linux_mapping(layout, info["dma"], info["bytes"], resources, boot))
         def jobs(name, cmd, timeout=240):
             output = command("/bin/mgpu "+cmd,timeout)
@@ -94,8 +99,14 @@ def main():
         jobs("loopback","loopback")
         if args.full:
             rows = jobs("100 integer and FP32 jobs with cross-SM visibility","selftest 100",1200)
+            groups = max(8, sms * 4)
             if (len(rows)!=102 or len({r["seq"] for r in rows})!=102 or
-                    any(r["fault"] or sum(s[1] for s in r["sm"])!=8 for r in rows)):
+                    any(r["fault"] for r in rows) or
+                    any(len(r["sm"]) != sms for r in rows) or
+                    any(sum(s[1] for s in r["sm"]) != groups or min(s[1] for s in r["sm"]) < 1
+                        for r in rows[:100]) or
+                    any(r["sm"][i][1] != 8 or sum(s[1] for s in r["sm"]) != 8
+                        for i, r in enumerate(rows[-2:]))):
                 raise ValueError("incomplete workgroup or sequence records")
             (actual/"observe").touch()
             bench = jobs("FMA throughput and DMA bandwidth","bench",600)
@@ -104,7 +115,10 @@ def main():
                 raise ValueError("JTAG/CPU overlap outside the measured job")
             record(run/"concurrent.json",concurrent)
             perf = bench[-1]
-            record(run/"performance.json",dict(perf,
+            tensor = next((r for r in bench if "tensor_macs" in r), {})
+            if (expected_features >> 8) and not tensor.get("tensor_macs"):
+                raise ValueError("missing INT8 MAC measurement")
+            record(run/"performance.json",dict(perf | tensor,
                 gflops=2*perf["perf_fmas"]*0.1/perf["cycles_all"],
                 speedup=perf["cycles_1sm"]/perf["cycles_all"],
                 copy_aggregate_MBps=perf["copy_payload_bytes"]*100/perf["copy_cycles"]))

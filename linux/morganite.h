@@ -27,4 +27,7 @@ struct mg_status {
 #define MG_CANCEL _IO('M', 3)
 #define MG_SUBMIT_RO _IOW('M', 4, struct mg_submit_ro)
 #define MG_SM_COUNTERS _IOWR('M', 5, struct mg_sm_counters)
+#define MG_FEATURES _IOR('M', 6, __u32)
+/* Supply an SM index and receive its retired INT8 scalar MAC count. */
+#define MG_SM_MACS _IOWR('M', 7, __u32)
 #endif
