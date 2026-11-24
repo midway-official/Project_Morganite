@@ -32,6 +32,8 @@
 
 ## 32 SM 整机综合资源
 
+本次 32 SM 实现在布局后按要求终止，综合资源见下表。随后独立生成的 16 SM 完整 SoC 使用每 SM 2 KiB I-cache 和 2 KiB 只读 D-cache，整机综合占 U50C 的 52.95% LUT。[16 SM 资源与镜像](soc16-switch-20261124/README.md)
+
 硬件提交 `626b31b`，生成顶层 `u50c_top`，Vivado 2023.2 已链接 HBM、时钟转换及调试 IP。BRAM tile 按 RAMB36 + RAMB18/2 折算。整机 LUT 占全片 92.59%，GPU 与 CPU 的差额包含板级互连、调试和其他逻辑。时序和分 SLR 利用率在布线后统计。[构建输入](soc32-Vmx1k2nM/manifest.json) · [层次报告](soc32-Vmx1k2nM/hierarchy_synth.rpt) · [器件利用率](soc32-Vmx1k2nM/utilization_synth.rpt)
 
 | 层次 | CLB LUT | FF | BRAM tile | URAM | DSP |
