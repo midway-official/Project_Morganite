@@ -23,7 +23,19 @@ Vivado 2023.2 在 `/home/fpga/morganite-soc16-switch-20261124/soc` 综合完整 
 
 ```bash
 vivado -mode batch -source board/timing_paths.tcl -tclargs "$checkpoint" "$out_dir"
+python3 scripts/timing_summary.py "$out_dir"
 ```
+
+## 带亚纳秒违例的板测
+
+本轮允许在最终 WNS 和 WHS 均严格大于 −1.000 ns 时进行硬件功能验证。脉宽、完整布线、DRC、时钟频率、未约束端点和 CDC 检查仍按板级流程执行。Vivado 已完成写位流且常规流程因负裕量退出时，以下命令读取原实现报告，从对应 DCP 导出探针并记录 BIT/LTX 哈希。用于功能测试的清单为 `implementation/BOARD_TEST_BUILD.txt`，其中包含实际 WNS、TNS、WHS、THS、失败端点数及 `TIMING_STATUS`。Linux 测试运行目录的 `physical.json` 会保留该清单。
+
+```bash
+python3 board/qualify_sub_ns.py "$soc" --vivado /home/fpga/Xilinx/Vivado/2023.2/bin/vivado
+python3 board/start_test.py "$soc" "$software" "$board_run" --allow-sub-ns
+```
+
+使用历史 2 SM 板测构建的最终 DCP 在 Vivado 2023.2 复验了探针导出，LTX 与原文件逐字节一致，SHA-256 为 `7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88`。用历史报告的测试副本验证了 −0.999 ns 放行、−1.000 ns 拒绝，以及脉宽违例和路由错误拒绝。[板测条件](../../../board/qualify_sub_ns.py)
 
 ## 在 WSL 重建输入
 

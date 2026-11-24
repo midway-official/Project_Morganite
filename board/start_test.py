@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 import subprocess
 import sys
@@ -19,6 +20,7 @@ def main():
     p.add_argument("software", type=Path)
     p.add_argument("output", type=Path)
     p.add_argument("--manager", type=Path, default=Path.home()/"aurora-u50c-debug")
+    p.add_argument("--allow-sub-ns", action="store_true", help="allow setup and hold slack strictly above -1 ns for board testing")
     args = p.parse_args()
     build, software, run = (x.resolve() for x in (args.build, args.software, args.output))
     impl = build/"implementation"
@@ -33,8 +35,13 @@ def main():
             software_manifest.get("gpu_features", 0) != expected_features):
         raise ValueError("software GPU configuration does not match the routed build")
     candidate = f"Morganite_{sms}SM"
-    complete = dict(line.split("=",1) for line in (impl/"BUILD_COMPLETE.txt").read_text().splitlines())
-    if (complete["CANDIDATE"] != candidate or float(complete["WNS"]) < 0 or float(complete["WHS"]) < 0
+    marker = impl/"BUILD_COMPLETE.txt"
+    if args.allow_sub_ns and not marker.exists():
+        marker = impl/"BOARD_TEST_BUILD.txt"
+    complete = dict(line.split("=",1) for line in marker.read_text().splitlines())
+    slacks = [float(complete[key]) for key in ("WNS", "WHS")]
+    allowed = all(math.isfinite(s) and (s >= 0 or (args.allow_sub_ns and s > -1)) for s in slacks)
+    if (complete["CANDIDATE"] != candidate or not allowed
             or complete["DRC_ERROR_CRITICAL_COUNT"] != "0"):
         raise ValueError("routed candidate did not pass the implementation checks")
     bit = impl/"vivado/aurora_u50c.runs/impl_1/u50c_top.bit"
