@@ -1,62 +1,32 @@
-# Morganite
+# Morganite 可编程三维 GPU
 
-Morganite is a Chisel SIMT GPU for the Aurora LA32R Linux SoC on the Alveo U50C.
-The board configuration uses two SMs with four physical lanes per SM and an
-eight-thread warp. The CPU/GPU fabric targets 100 MHz and the HBM AXI domain
-targets 225 MHz. Development and test evidence are under `reports/`.
+Morganite 是用 Chisel 编写的多 SM GPU。在 Alveo U50C 上，Aurora LA32R CPU 启动 Linux，将 GPU 程序、描述符和数据写入 HBM，通过 AXI4-Lite 提交作业。GPU 从 AXI4 主口访问 HBM，支持计算内核、可替换的顶点程序和片元程序。
 
-The U50C runs include 100 consecutive integer and FP32 jobs and eight
-320x240 indexed rendering scenes. The Linux boot investigation includes a
-same-image comparison with the original CPU-only bitstream and a halfword
-copy reproducer. [Board results and fault diagnosis](reports/bringup/f2a3ce0/diagnosis.md)
-· [Board frames](reports/bringup/f2a3ce0/boot-15/frames)
-· [RTL frames](reports/graphics/rtl-320x240)
-· [Routed CPU, GPU and SoC resources](reports/resources/f2a3ce0-route/summary.json)
+**实板版本 `u50c-boot-20`** 使用 2 个 SM、每 SM 4 条 FP32 lane、8 线程 warp。CPU 和 GPU 运行在 100 MHz，HBM AXI 运行在 225 MHz。Linux 从普通 RAM 动态分配 DMA 缓冲区，完成 130 次 GPU 提交，故障数为零。其中 100 次为连续的整数和 FP32 AXPY 作业。八个 320×240 场景的覆盖、深度胜者和颜色、深度误差均通过独立 CPU 光栅器检查。[板测记录、哈希与复现步骤](docs/u50c-boot-20.md) · [发布文件](releases/u50c-boot-20)
 
-## WSL build
+![第 20 次 U50C 实板从 HBM 回读的立方体彩色图](reports/bringup/f2a3ce0/board-test-20/frames/cube_a/color.png)
+
+[同帧实板深度图](reports/bringup/f2a3ce0/board-test-20/frames/cube_a/depth.png) · [另一视角](reports/bringup/f2a3ce0/board-test-20/frames/cube_b/color.png) · [同场景 RTL 仿真图](reports/graphics/rtl-320x240/cube_a/color.png) · [逐像素比较](reports/bringup/f2a3ce0/board-test-20/frames/comparisons.json)
+
+## 源码与接口
+
+| 内容 | 入口 |
+| --- | --- |
+| GPU 顶层、SM、FP32、DMA、板级接口和参数 | [Chisel 源码](src/main/scala/morganite) · [FP32 语义](docs/fp32.md) |
+| 本版 Aurora CPU 的可综合源码和独立 sbt 工程 | [Aurora 工程](cpu/aurora) · [出板 CPU 配置](releases/u50c-boot-20/aurora-config.json) |
+| LA32R Linux 驱动、设备树、DMA 缓存维护和 CLI | [驱动与用户态源码](linux) · [提交接口](linux/morganite.h) |
+| GPU ISA、汇编、独立指令模型和计算示例 | [ISA](docs/isa.md) · [汇编器与模型](sw) · [示例](examples) |
+| 顶点与片元程序、光栅化规则和 CPU 参考实现 | [着色程序与参考光栅器](graphics) · [图形 ABI](docs/graphics.md) |
+| CPU、GPU、完整 SoC 的资源与布线时序 | [分层资源](reports/resources/f2a3ce0-route/summary.json) · [物理报告](reports/physical/README.md) |
+
+## 在 WSL 复核实板图
+
+在仓库根目录运行。Python 3 需安装 NumPy 和 Pillow。命令读取已保存的 HBM 数据，重新生成参考图并输出八个场景各自的误差统计。
 
 ```bash
-git -C /home/midway/Aurora_AXI worktree add --detach \
-    "$PWD/.worktrees/aurora" c0dd8317e1fbded3f76d4d49fdb86fe2ce28c6ad
-python3 scripts/prepare_baseline.py
-bash scripts/check_tools.sh
-bash scripts/smoke.sh
+frames=reports/bringup/f2a3ce0/board-test-20/frames
+python3 graphics/test_render.py board "$frames"
+python3 graphics/export_png.py "$frames" "$frames/comparisons.json" "$frames"
 ```
 
-Use JDK 17, sbt 1.9.8, Scala 2.13.12, Chisel 6.6.0 with its matching full
-compiler plugin, CIRCT firtool 1.62.1, and Verilator 5.050. On another WSL
-installation set `CHISEL_FIRTOOL_PATH` to the directory containing that
-firtool binary and `VERILATOR` to the Verilator executable. The Linux x86-64
-firtool binary is also available in the Maven artifact
-`org.chipsalliance:llvm-firtool:1.62.1:linux-x64`. The simulator uses the
-headers and runtime installed with the selected Verilator. The frozen Aurora
-RTL has its own Chisel 3.6.1 provenance.
-
-## U50C inputs
-
-`baseline/platform` preserves the local board worktree snapshot.
-`baseline/server` contains the build Tcl, board RTL and XDC copied from the
-Vivado 2023.2 project named in the archived Vivado log. Use the server files for
-integration. They include the separate reset controller. The local snapshot
-contains older build instructions and validation benches. The vendor board
-files and XDC archives are in `baseline/vendor` with their supplied notices.
-
-`baseline/files.sha256` locks the copies. `prepare_baseline.py` verifies the
-archive, the input files, the CPU source difference between the two frozen
-commits, the UART transcript, and the archived board request. It extracts the
-exact processor, BIT, LTX, board files and checked Linux image to
-`build/baseline`. The manifest records the image-specific zero ranges.
-
-For a baseline replay allocate a fresh directory in the FPGA VM. Upload
-`build/baseline/` as `inputs/`, `baseline/runtime/` as `runtime/`,
-`scripts/start_baseline.py`, and `baseline/rollback/test_uart.py`. Invoke
-`python3 start_baseline.py "$PWD"` there. The existing managed U50C session
-serializes programming, peripheral/HBM tests and image load. The exact
-hardware run is in `launch.json`. When the bridge is running, invoke
-`python3 test_uart.py 23251 "$PWD/linux-uart.txt"` on the VM and retain the
-transcript, result JSON, request and hardware logs. The server uses Vivado
-2023.2. The baseline image in the request is specific to the archived CPU.
-
-The smoke bench exhausts all 256 masks at each of 8/2, 8/4 and 8/8 thread/lane
-ratios. It compares beat indices, lane masks and final-beat flags, including
-empty masks, stalled transfers and adjacent instructions.
+GPU 使用 JDK 17、sbt 1.9.8、Scala 2.13.12、Chisel 6.6.0、firtool 1.62.1 和 Verilator 5.050。CPU 使用独立的 Chisel 3.6.1 工程。完整 SoC 的正式布线使用 Vivado 2023.2。[硬件生成与驱动构建](docs/u50c-boot-20.md) · [原 Aurora 基线与回滚流程](README.en.md)

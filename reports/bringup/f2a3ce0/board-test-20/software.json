@@ -1,0 +1,108 @@
+{
+  "source_commit": "f27299ce9489877c7dec09ecae1c0438c684f99f",
+  "sources": {
+    "board/build_copy_bare.py": "b4de9840e7167f6cc0328d2e85e5a1098363b3b93e77dd2e1d6276dcead1260d",
+    "board/check_initramfs.py": "c2846d1003e82f4b1194dda605728cfccd510194cc28e04da69e1cef4c5c162e",
+    "board/copy_bare.c": "40aa1d622baeb93154b7b14e92f432e232dc9568c43c650512b5f9a6ee028eb6",
+    "board/copy_bare_entry.S": "c5b85a9d8b51a7b9c57f1271c59e25a009aeaa05a79fdb37e954f2d5daf36613",
+    "board/copy_irq_tlb.S": "0f6e924df798bc88be386001be8a98eeb76416a819e9f3f510d9ed2f4d1ca02d",
+    "board/copy_irq_tlb.c": "09733cebb1f7d4659e81716c842d54fe48313146f9507b8ed357a2b851c91b57",
+    "board/copy_user.S": "d396bbe0e790fae5882f5b109d20231392f5d62f293398cdac7ce092c63ea8b1",
+    "board/copy_user.c": "a8e21105e6cf1f23e7f49433e35d207dcc02352d7ad79b829e4d3e30a7718ea2",
+    "board/inflate_copy_probe.S": "3b5275a7ae832c75af37f749be7ea499c677b0acd87673d0b6fd0d874b1b11da",
+    "board/inflate_copy_probe.c": "66b24dee257296f5fe9b42d399ea1dfcfa30be0638e24c3306775167b064ed14",
+    "board/memory_layout.py": "09488ae44498d48792022a8dbb81ed3d06d9fc6d1b2d4f24f3b6e8cec44c4f31",
+    "board/observe.tcl": "f2060da242e6cc736fe186836ff38f11a5c271311e1f54a6a39d6baea27c7aad",
+    "board/resources.tcl": "a3cdeb424c996d009d971ef58cc193831c61d50d0e0d9eec586cfc305176ab2c",
+    "board/run_soc.sh": "1d5321fa27da49c05ef356789a5913738e18ff2a3988d0230243dd33fc0549f4",
+    "board/run_user_control.py": "d96680dd7d73f63f7e1e727561c117834212aac761876e8a00ce0a17df4b26ff",
+    "board/start_test.py": "12ef12090221129e7368d5b4562a5fd683a1640af92bd2e9456d7153801ebe75",
+    "board/uart_copy_probe.py": "2ff0d8367eea7bd1347e59e8e13bd912599418063d5f5b665de18f612a10e532",
+    "board/uart_jobs.py": "9c20ffcd576250eee06035fe16488f84304965aa2b7a4f97c32b480ea89affd0",
+    "board/verify_image.tcl": "f843a059ec7d7468ae125403eb4ef58a87bc43bb29568631ff37613d90d44c5a",
+    "examples/axpy.s": "7ad8983292c16d0428670e23846e2533107099091b1a2e542fe57802e09ff538",
+    "examples/copy.s": "fc77a2fbb6633d842d4ca604ef9d4332deb0e32b6b42d1c253e88ce3d2585a3b",
+    "examples/divergence.s": "6f012201b2544953fc6892bbe999681eeed3350c64e88b2cf08f72dec977c86a",
+    "examples/integer.s": "ae8128d09da68f2320fac36327721d894b24d5a11fd358448810b93025bac1a2",
+    "examples/shared.s": "74f73bf621f4c239277b969d9a71240ec2418938e09b0254a68cc7bdbe731751",
+    "examples/strides.s": "ac130ae5fefbce29e418b9589bd61058f8d4e75678d406c9b8fefa224637bfa0",
+    "graphics/export_png.py": "5482b1992092de7b8a149b44688555c3a95b99037b685d5f51bac38c38d0fe5e",
+    "graphics/reference.py": "305263b0b299518ea3aee4e3a1f7ead05ee530306599a96fe271e58ed54d4bc3",
+    "graphics/scenes.py": "ff63506becafb22118ab31b9b350e882efe25964a940889d0408ea103141f370",
+    "graphics/shaders.py": "04e06ed199efe6afd60ec87f5fcf42705601022a073ee382a8bbdc7c683d7e1d",
+    "graphics/test_render.py": "4d960ada932578a26fa0a4de6e7f9ad7189ddaf34173a2daf42a27dcb39eeab3",
+    "linux/build_kernel.py": "402ad4bd1590aa19d06d210c8dac80597b6b6a9c8453e2ce86d8f4d2b614011a",
+    "linux/build_userspace.sh": "a5b2d232ee641c7616449103abd89a298f897b7db7c611aa72b03b6e1f463cad",
+    "linux/cli.c": "155b765f4a31bb2f7d61f8394fc5398f29fd90031707325509cbe55f1dbf1039",
+    "linux/la32r-clock.patch": "6054f4f0506cf20cf06b1e76eac937f0efc19fd31ba6e4981ff34f4e0918d608",
+    "linux/la32r-dma.patch": "be34f0a47c67d0840a8054cf7e09ec046d6b56dd69c4269d791be5dd84600a68",
+    "linux/la32r-dmw.patch": "fefc996abf57c3bc1460e39d537d3602273f49c5381d13bf41cb93e9549df6b6",
+    "linux/la32r-tlb.patch": "9bc176e8bcd743c7405d2e57bb51e94ae97808d24eceec2afb163ab24c83bc1a",
+    "linux/morganite.c": "74b66caeb09467c4c4547d16050c5b9907b9c3eb9a9e49241213fbc1e916c9ab",
+    "linux/morganite.dtsi": "7b83d919b95c9d2dbff11818d7d766e0b1ac72873506be26e3ee0e4201d5ddb1",
+    "linux/morganite.h": "d7b5f4e7d64a798d9548f19e953a042f942eb32ec79197c5b252de46bd6196cd",
+    "scripts/fma_bench.py": "dbafcf87a79295052cd954af5d660e49f6e649bad849f65799e8ab83fdcfabb2",
+    "scripts/stage_software.py": "76bb5b1001abe441538ac8493520f545c6bdbb0dab721dbb9725dea129f2da82",
+    "sw/asm.py": "eada9a6a173d586e56323b15706a5c8d793ce096813cd8306efc41f8a8093877"
+  },
+  "cli": "80b63a41c58cb6ef600804c489eedfdc158c7dff5bb335e54b91bcb7609fa982",
+  "gpu_programs_and_scenes": {
+    "axpy.bin": "7fbee2798e6f58f56b8e9a949e37593a0d982f584c515f5eaa4a83ec36a42286",
+    "copy.bin": "25315605f4bd58da09857ab6b135df410e6d4be589b93ce3a2999b58b1486cd3",
+    "cube_a.scene": "ae587a4b2b9de1c7ed3e989fce3035ef57b26209be5b64fe48b99b23b21fd01f",
+    "cube_b.scene": "58157bc977a6736a7dc92bc28b630944b5d0b1477f53e38488d20ba50fbd59b1",
+    "degenerate.scene": "647fc179a58295d1f7e3e8d8d71f4e83e4894e8e8a34ed3e470708eb4942430f",
+    "divergence.bin": "4e2c6d45dc3f68415e4f6b0358d646e136390253ebb582433bde2bd32caa5e8e",
+    "fma_bench.bin": "a17afed25bf62d9f5ff3157a30a6a641b0cdd307a59d793f4a1c36dac4e89b35",
+    "fragment_swap.scene": "16adb5c29004a999b3341bd3cd55bc6adaccb8b3d308317591e65c769ea953bd",
+    "integer.bin": "225816a701e36cd68d32b736375a5948a2d52c07bb24171e90cfe0d0c35c1366",
+    "overlap.scene": "b580c3fe6b398329cd5b622c843497aae69f843f65ba311ddd63631461862dde",
+    "pixel.bin": "6abc620ec5a0425797e78c22ae98c489ea39dc9886e80c28cd05599f0594da16",
+    "pixel_swap.bin": "7915c8bf4448bbaf2954fd6768721eb711a1b7314f6a05bf9ffe6b33a76ec301",
+    "setup.bin": "da9a0be794346efdd2866b380978c55d10097e4d2e38b3faa8ce482eea43d6b6",
+    "shared.bin": "b11ce5feec58f7db84fda10767a0e9df5762f9f8a45502bc485020b68fbf1389",
+    "shared.scene": "d4d7733d94517999afd60700419d86ed55a6386ad6b14d31f6fa2faea3ef9e3b",
+    "strides.bin": "10d4bc023f7e0d386a581bc20970f6c4a41bfa04553817bc348dd3490f748c40",
+    "triangle.scene": "1b4846fbb7396e83c93b7f8afbbef00245fb4bbc32f3d366c75b1da573f30e74",
+    "vertex.bin": "be01fc66074ba2815643cd2595a7246ff286bec50ab54f318822ea1ea7c79564",
+    "vertex_shift.bin": "4bad48d0b26ab8b5952493a5946e36b6be53480e2763f6e37c02a8d4087cda3f",
+    "vertex_shift.scene": "f9be494f9c2074f565fb2b4640473f3d35efdae55e8e744f515c2d378e9d068e"
+  },
+  "image": {
+    "kernel_commit": "fbd87836058ae5e676bf97463076916a18c94ad7",
+    "kernel_entry": "0xa0b85640",
+    "initramfs_compression": "none",
+    "dmw_patch_sha256": "fefc996abf57c3bc1460e39d537d3602273f49c5381d13bf41cb93e9549df6b6",
+    "tlb_patch_sha256": "9bc176e8bcd743c7405d2e57bb51e94ae97808d24eceec2afb163ab24c83bc1a",
+    "clock_patch_sha256": "6054f4f0506cf20cf06b1e76eac937f0efc19fd31ba6e4981ff34f4e0918d608",
+    "dma_patch_sha256": "be34f0a47c67d0840a8054cf7e09ec046d6b56dd69c4269d791be5dd84600a68",
+    "sha256": "dbe0e2ae8dc25eb33835f53de85cd5ce981954d26746816763c776bf4f07fa7c",
+    "config_sha256": "f0e70c93396827c92efcde33f0adfd94a781c38f18c6d3c7d55ee7ee997c5e3c",
+    "zero_ranges": [
+      [
+        18677760,
+        19186376
+      ]
+    ],
+    "segments": [
+      [
+        3145728,
+        15502604
+      ],
+      [
+        99614720,
+        512
+      ],
+      [
+        469762048,
+        308
+      ]
+    ],
+    "dma_window": [
+      16777216,
+      534773760
+    ],
+    "dma_bytes": 2097152,
+    "dma_api": "dma_alloc_coherent with loongarch32 uncached direct mapping"
+  }
+}

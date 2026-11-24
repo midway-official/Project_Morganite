@@ -1,0 +1,37 @@
+{
+  "kernel_commit": "fbd87836058ae5e676bf97463076916a18c94ad7",
+  "kernel_entry": "0xa0b85640",
+  "initramfs_compression": "none",
+  "dmw_patch_sha256": "fefc996abf57c3bc1460e39d537d3602273f49c5381d13bf41cb93e9549df6b6",
+  "tlb_patch_sha256": "9bc176e8bcd743c7405d2e57bb51e94ae97808d24eceec2afb163ab24c83bc1a",
+  "clock_patch_sha256": "6054f4f0506cf20cf06b1e76eac937f0efc19fd31ba6e4981ff34f4e0918d608",
+  "dma_patch_sha256": "be34f0a47c67d0840a8054cf7e09ec046d6b56dd69c4269d791be5dd84600a68",
+  "sha256": "dbe0e2ae8dc25eb33835f53de85cd5ce981954d26746816763c776bf4f07fa7c",
+  "config_sha256": "f0e70c93396827c92efcde33f0adfd94a781c38f18c6d3c7d55ee7ee997c5e3c",
+  "zero_ranges": [
+    [
+      18677760,
+      19186376
+    ]
+  ],
+  "segments": [
+    [
+      3145728,
+      15502604
+    ],
+    [
+      99614720,
+      512
+    ],
+    [
+      469762048,
+      308
+    ]
+  ],
+  "dma_window": [
+    16777216,
+    534773760
+  ],
+  "dma_bytes": 2097152,
+  "dma_api": "dma_alloc_coherent with loongarch32 uncached direct mapping"
+}

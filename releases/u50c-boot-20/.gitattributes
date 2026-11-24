@@ -1,0 +1,5 @@
+*.gz binary
+*.ltx -text
+aurora-config.json -text
+linux.config -text
+SHA256SUMS text eol=lf

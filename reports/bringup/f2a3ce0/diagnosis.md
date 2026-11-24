@@ -190,8 +190,8 @@ store is captured.
 Boot 10 recorded 130 completed kernel launches with zero GPU faults, including
 100 consecutive integer/FP32 jobs and a transfer from SM0 to SM1 across two
 job boundaries. The tested driver used the fixed, reserved 2 MiB coherent pool
-at `0x1f800000`, mapped uncached at `0x9f800000`. The general-purpose DMA
-allocation experiment in the development checkout is a separate configuration.
+at `0x1f800000`, mapped uncached at `0x9f800000`. Run 20 below uses the
+same BIT with ordinary Linux RAM and the Aurora coherent allocation hook.
 See [jobs](boot-10/jobs.json) and [Linux memory map](boot-10/linux-resources.txt).
 
 Eight 320x240 board scenes passed the independent CPU comparison. Across
@@ -224,6 +224,11 @@ errors for every scene. The largest color error was one RGBA8 code and the
 largest depth error was `1.7881393432617188e-7`. The complete board readbacks
 are saved under [boot-18/frames](boot-18/frames), with counters in
 [performance.json](boot-18/performance.json).
+
+Run 20 reached the LA32R shell with a 2 MiB coherent allocation from System
+RAM at `0x01c00000` (CPU alias `0x81c00000`). All 130 launches completed
+with zero faults. All eight board readbacks passed the independent raster
+comparison. [Run 20 evidence](board-test-20) · [中文说明和可复现发布包](../../../docs/u50c-boot-20.md)
 
 | Routed hierarchy | CLB LUT | FF | BRAM tiles | URAM | DSP |
 | --- | ---: | ---: | ---: | ---: | ---: |
