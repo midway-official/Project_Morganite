@@ -11,6 +11,20 @@ Vivado 2023.2 在 `/home/fpga/morganite-soc16-switch-20261124/soc` 综合完整 
 
 以上数据取自同一次链接后的综合。GPU 两行具有包含关系。BRAM tile 按 RAMB36 + RAMB18 / 2 计。综合级 WNS 为 +2.250 ns、WHS 为 −0.473 ns。布线时序和实板功能分别验收。[层次资源](hierarchy_synth.rpt) · [器件利用率](utilization_synth.rpt) · [综合时序](timing_synth.rpt)
 
+## 布线前的路径归属
+
+布局后物理优化检查点 `u50c_top_physopt.dcp` 的最紧 setup 路径位于 100 MHz 域、SLR0 内，从 GPU 的 SM5 请求地址寄存器到 DMA 读通路的首错地址寄存器。裕量 +0.501 ns，32 级逻辑，数据路径 9.216 ns，其中逻辑 2.504 ns，预估布线 6.712 ns。16 SM 启用指令缓存时，每个方向的仲裁器连接 33 个请求源。若最终仍由该路径限制，先将仲裁结果、owner、掩码和地址锁存，再逐 lane 检查边界和选取首个错误。需要复测读写独立背压、越界请求不产生 AXI 事务及首错地址。[setup 路径](placement/max_examples.rpt) · [DMA RTL](../../../src/main/scala/morganite/Dma.scala)
+
+该检查点有 1,659 条负 hold 路径，每个端点最多取一条。833 条起终点均在 GPU 核，437 条在 CPU，288 条在 HBM 桥，余下 101 条在其他层次或跨层次。最差一条从 HBM APB 到板级 `hbm_ready_pipe[0]`，裕量 −2.826 ns，数据路径 0.595 ns，时钟偏斜 3.198 ns。CPU 内最差路径是 LSU 的 CDB 副本到 store queue，跨 SLR0→SLR1，裕量 −0.176 ns。若最终保留短路径违例，先核查发射与捕获时钟、同步器及专用跨 SLR 资源，再定向调整布局或使用 hold 修复，并重新检查 setup。布线可以显著改变这些预估。[hold 路径](placement/min_examples.rpt) · [逐端点清单](placement/paths.tsv) · [检查点哈希](placement/checkpoint.txt)
+
+布局时 SLR0、SLR1 分别占用 82.85%、56.36% 的 CLB，跨 SLR 使用 6,586 条连接。最紧 setup 路径的两端都在 SLR0。是否需要调整 SM 与 DMA 的布局，应检查最终路径中各段实际走线和局部拥塞。[布局资源](placement/u50c_top_utilization_placed.rpt)
+
+在包含目标 DCP 的服务器上可复现同样的路径提取，输出记录 Vivado 版本、DCP 哈希和按 slack 排序的起终点。
+
+```bash
+vivado -mode batch -source board/timing_paths.tcl -tclargs "$checkpoint" "$out_dir"
+```
+
 ## 在 WSL 重建输入
 
 ```bash

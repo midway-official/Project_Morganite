@@ -1,0 +1,7 @@
+checkpoint=implementation/vivado/aurora_u50c.runs/impl_1/u50c_top_physopt.dcp
+sha256=edaa47df8e7f4d2d7c1d0ceb14dac92490af82797d2100e4f4f9b2685144ed07
+vivado=2023.2
+max.negative_paths_returned=0
+max.query_limit=4096
+min.negative_paths_returned=1659
+min.query_limit=4096
