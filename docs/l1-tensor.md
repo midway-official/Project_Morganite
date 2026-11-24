@@ -49,6 +49,32 @@ MORGANITE_SYNTH_ONLY=1 bash run_soc.sh
 
 需已有仓库标准 SoftFloat 参考库，初次运行用 `bash scripts/test_fp.sh` 生成。基础回归沿用 AXI-Lite 提交、随机背压、全 DMA 镜像与独立模型对拍。专项覆盖同址程序和数据替换、两个 SM 顺序生产/消费、AXI 补行取消与错误、直接映射 A/B/A/A 冲突、只读区和代码写保护，以及 INT8 tile/掩码/源目的重叠。测试中 2/8/16 SM 对同一数据行各独立读取一次，第二次访问各私有命中。取消时测试主动扣住 R 响应，确认 busy 持续且第二个 doorbell 返回错误，然后释放 R 并成功运行下一作业。
 
+## 32 SM 的 U50C 整机复现
+
+硬件输入来自 `626b31b`，服务器软件包来自 `d2514ae`。复用 boot-20 的 Aurora RTL，GPU 配置为每 SM 四条 lane、八线程 warp、四个 warp 槽、4 KiB 指令缓存和 8 KiB 只读数据缓存，行长 32 字节。控制寄存器 `0x08` 的预期值为 `0x04080420`，`0x50` 为 `0x403`，其中 K=4。[整机输入清单](../reports/l1-tensor/soc32-Vmx1k2nM/manifest.json)
+
+在准备好冻结输入和 LA32R 交叉工具链的 WSL 工作区中运行以下命令。两个输出目录均使用新路径。
+
+```bash
+python3 scripts/stage_soc.py build/rebuild32/soc --sms 32 --accelerators
+bash linux/build_userspace.sh
+python3 linux/build_kernel.py --feature-register
+python3 scripts/stage_software.py build/rebuild32/software-board --sms 32 --gpu-features 0x403 --verify-load
+(cd build/rebuild32/soc && sha256sum --quiet -c files.sha256)
+(cd build/rebuild32/software-board && sha256sum --quiet -c files.sha256)
+```
+
+将 `soc/` 内的文件和同级的 `software-board/` 上传到 Vivado 2023.2 服务器的一次性运行目录。以下命令在包含 `run_soc.sh` 和 `software-board/` 的目录内执行。物理验收核对布线状态、各时钟域 setup/hold、脉宽、DRC、CDC 和约束，随后使用同次 BIT/LTX 与镜像提交编程请求。
+
+```bash
+MORGANITE_SYNTH_ONLY=0 bash run_soc.sh
+sha256sum --quiet -c implementation/program.sha256
+python3 software-board/start_test.py . software-board board-01
+python3 software-board/uart_jobs.py board-01 --full
+```
+
+正式包的 `ram.dat` SHA-256 是 `ab96ec949de15d62018e33f245e5c68f0f7b077b02f481038f42c3573f9dc470`。板测入口还会从 Linux 核对实际运行的 CLI、程序和场景。将 `board-01/frames` 回传至本地后，使用 `python3 graphics/test_render.py board board-01/frames` 做逐像素比较，再用 `python3 graphics/export_png.py board-01/frames board-01/frames/comparisons.json board-01/frames` 导出颜色与深度 PNG。每个场景同时保留原始 FP32 深度和图元编号。[已取得的整机综合数据](../reports/l1-tensor/README.md)
+
 ## 资料与设计取舍
 
 | 查阅的资料 | 本实现采用或验证的结论 |
