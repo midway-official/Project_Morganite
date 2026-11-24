@@ -20,6 +20,7 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("run", type=Path)
     p.add_argument("--full", action="store_true")
+    p.add_argument("--cache-test", action="store_true", help="check data L1 counters and same-address updates")
     args = p.parse_args()
     run = args.run.resolve()
     launch = json.loads((run/"launch.json").read_text())
@@ -97,6 +98,9 @@ def main():
             print("PASS "+name,flush=True)
             return rows
         jobs("loopback","loopback")
+        if args.cache_test:
+            from uart_cache import verify_cache
+            record(run/"cache-test.json", verify_cache(command, jobs, info))
         if args.full:
             rows = jobs("100 integer and FP32 jobs with cross-SM visibility","selftest 100",1200)
             groups = max(8, sms * 4)
