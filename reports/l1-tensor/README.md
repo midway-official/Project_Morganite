@@ -30,6 +30,16 @@
 
 本次完整 SoC 的综合检查点 `u50c_top.dcp` 的 SHA-256 为 `10538f0a019fe17c7dba658e1ed4ddfbe20c78a396213744bb2a9ff95c0a8bf8`。8 和 16 SM 的独立综合可分别在原始报告核对。[8 SM 利用率](final8/synth/utilization.rpt) · [16 SM 利用率](final16/synth/utilization.rpt)
 
+## 32 SM 整机综合资源
+
+硬件提交 `626b31b`，生成顶层 `u50c_top`，Vivado 2023.2 已链接 HBM、时钟转换及调试 IP。BRAM tile 按 RAMB36 + RAMB18/2 折算。整机 LUT 占全片 92.59%，GPU 与 CPU 的差额包含板级互连、调试和其他逻辑。时序和分 SLR 利用率在布线后统计。[构建输入](soc32-Vmx1k2nM/manifest.json) · [层次报告](soc32-Vmx1k2nM/hierarchy_synth.rpt) · [器件利用率](soc32-Vmx1k2nM/utilization_synth.rpt)
+
+| 层次 | CLB LUT | FF | BRAM tile | URAM | DSP |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Aurora CPU，`u_cpu` | 112,589 | 40,085 | 61 | 0 | 8 |
+| 32 SM GPU，`u_gpu_soc/gpu` | 683,118 | 279,681 | 528 | 0 | 1,152 |
+| 完整 SoC，`u50c_top` | 807,058 | 327,667 | 593.5 | 0 | 1,160 |
+
 ## 双 SM 计算吞吐
 
 16 个组，每组 32 线程、16 个独立累加器，512 个输出全部校验。FP32 每个作业含 8,388,608 次融合乘加，每 FMA 算 2 FLOP。分母是从提交到 GPU 排空的周期数，包含装载、循环和结果写回。表内速率由 RTL 仿真周期按 100 MHz 换算。
