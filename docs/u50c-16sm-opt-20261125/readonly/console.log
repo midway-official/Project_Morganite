@@ -1,0 +1,108 @@
+PASS loopback
+PASS raytrace 192 mask=1
+PASS raytrace 0 mask=65535
+PASS raytrace 16 mask=65535
+PASS raytrace 32 mask=65535
+PASS raytrace 48 mask=65535
+PASS raytrace 64 mask=65535
+PASS raytrace 80 mask=65535
+PASS raytrace 96 mask=65535
+PASS raytrace 112 mask=65535
+PASS raytrace 128 mask=65535
+PASS raytrace 144 mask=65535
+PASS raytrace 160 mask=65535
+PASS raytrace 176 mask=65535
+PASS raytrace 192 mask=65535
+PASS raytrace 208 mask=65535
+PASS raytrace 224 mask=65535
+PASS raytrace 240 mask=65535
+PASS raytrace 256 mask=65535
+PASS raytrace 272 mask=65535
+PASS raytrace 288 mask=65535
+PASS raytrace 304 mask=65535
+PASS raytrace 320 mask=65535
+PASS raytrace 336 mask=65535
+PASS raytrace 352 mask=65535
+PASS raytrace 368 mask=65535
+PASS mandelbrot 384 mask=1
+PASS mandelbrot 0 mask=65535
+PASS mandelbrot 16 mask=65535
+PASS mandelbrot 32 mask=65535
+PASS mandelbrot 48 mask=65535
+PASS mandelbrot 64 mask=65535
+PASS mandelbrot 80 mask=65535
+PASS mandelbrot 96 mask=65535
+PASS mandelbrot 112 mask=65535
+PASS mandelbrot 128 mask=65535
+PASS mandelbrot 144 mask=65535
+PASS mandelbrot 160 mask=65535
+PASS mandelbrot 176 mask=65535
+PASS mandelbrot 192 mask=65535
+PASS mandelbrot 208 mask=65535
+PASS mandelbrot 224 mask=65535
+PASS mandelbrot 240 mask=65535
+PASS mandelbrot 256 mask=65535
+PASS mandelbrot 272 mask=65535
+PASS mandelbrot 288 mask=65535
+PASS mandelbrot 304 mask=65535
+PASS mandelbrot 320 mask=65535
+PASS mandelbrot 336 mask=65535
+PASS mandelbrot 352 mask=65535
+PASS mandelbrot 368 mask=65535
+PASS mandelbrot 384 mask=65535
+PASS mandelbrot 400 mask=65535
+PASS mandelbrot 416 mask=65535
+PASS mandelbrot 432 mask=65535
+PASS mandelbrot 448 mask=65535
+PASS mandelbrot 464 mask=65535
+PASS mandelbrot 480 mask=65535
+PASS mandelbrot 496 mask=65535
+PASS mandelbrot 512 mask=65535
+PASS mandelbrot 528 mask=65535
+PASS mandelbrot 544 mask=65535
+PASS mandelbrot 560 mask=65535
+PASS mandelbrot 576 mask=65535
+PASS mandelbrot 592 mask=65535
+PASS mandelbrot 608 mask=65535
+PASS mandelbrot 624 mask=65535
+PASS mandelbrot 640 mask=65535
+PASS mandelbrot 656 mask=65535
+PASS mandelbrot 672 mask=65535
+PASS mandelbrot 688 mask=65535
+PASS mandelbrot 704 mask=65535
+PASS mandelbrot 720 mask=65535
+PASS mandelbrot 736 mask=65535
+PASS mandelbrot 752 mask=65535
+PASS julia 384 mask=1
+PASS julia 0 mask=65535
+PASS julia 16 mask=65535
+PASS julia 32 mask=65535
+PASS julia 48 mask=65535
+PASS julia 64 mask=65535
+PASS julia 80 mask=65535
+PASS julia 96 mask=65535
+PASS julia 112 mask=65535
+PASS julia 128 mask=65535
+PASS julia 144 mask=65535
+PASS julia 160 mask=65535
+Traceback (most recent call last):
+  File "opt-test/uart_jobs.py", line 169, in <module>
+    main()
+  File "opt-test/uart_jobs.py", line 120, in main
+    verify_stress(command, jobs, info, args.stress_suite.resolve(), run/"stress")
+  File "/home/fpga/morganite-soc16-opt-20261125/opt-test/uart_stress.py", line 120, in verify_stress
+    ticks = submit(65535, y, ro)
+  File "/home/fpga/morganite-soc16-opt-20261125/opt-test/uart_stress.py", line 66, in submit
+    rows = jobs("{} {} mask={}".format(name, index, mask), command_line, 600)
+  File "opt-test/uart_jobs.py", line 109, in jobs
+    output = command("/bin/mgpu "+cmd,timeout)
+  File "opt-test/uart_jobs.py", line 74, in command
+    raise RuntimeError("Linux command failed: "+cmd+"\n"+text[-600:])
+RuntimeError: Linux command failed: /bin/mgpu submit 0 65535 8192 832
+ /bin/mgpu submit 0 65535 8192 832; echo MG_EXIT_$?
+[  922.956000] do_page_fault(): sending SIGSEGV to mgpu for invalid write access to 00000010
+[  922.980000] epc = 00064e18 in mgpu[10000+a0000]
+[  923.012000] ra  = 00036e38 in mgpu[10000+a0000]
+Segmentation fault
+MG_EXIT_139
+/ #

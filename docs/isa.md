@@ -1,5 +1,7 @@
 # Morganite ISA 1.0
 
+[简体中文](isa.zh.md) · **English**
+
 The host uploads little-endian 32-bit instruction words. PC is a word index,
 relative targets are signed word deltas from the current instruction.
 The program store holds up to 1024 words per SM. Registers hold 32-bit integer or

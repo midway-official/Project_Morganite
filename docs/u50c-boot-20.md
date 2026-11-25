@@ -1,5 +1,7 @@
 # U50C 第 20 次实板测试与复现
 
+**简体中文** · [English](u50c-boot-20.en.md)
+
 标签 `u50c-boot-20` 对应一次完整的 FPGA 重新编程和 Linux 启动。板卡管理器的实际运行目录是 `/home/fpga/aurora-u50c-debug/runs/20261123T203810.557293Z`。UART、作业计数器和图形原始数据均取自这一次运行。[编程请求](../reports/bringup/f2a3ce0/board-test-20/request.json) · [管理器日志](../reports/bringup/f2a3ce0/board-test-20/manager) · [Linux 测试结果](../reports/bringup/f2a3ce0/board-test-20/uart-result.json)
 
 ## 硬件与驱动版本

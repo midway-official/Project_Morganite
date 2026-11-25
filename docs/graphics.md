@@ -1,5 +1,7 @@
 # Morganite graphics ABI 1
 
+[简体中文](graphics.zh.md) · **English**
+
 Each frame submits a vertex job, an indexed primitive setup job and a pixel
 job. A frame uses 320 by 240 pixels, RGBA8 in little-endian RGBA byte order,
 an FP32 depth plane and a 32-bit winning primitive ordinal. Zero denotes

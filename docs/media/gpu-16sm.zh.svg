@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="587" viewBox="0 0 1040 587" role="img" aria-labelledby="title" font-family="system-ui, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif"><title id="title">Morganite · 16 SM GPU</title><defs><marker id="147a75" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L8 4L0 8Z" fill="#147a75"/></marker><marker id="755586" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L8 4L0 8Z" fill="#755586"/></marker><marker id="ae633c" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L8 4L0 8Z" fill="#ae633c"/></marker></defs><rect width="100%" height="100%" fill="#fbfcfa"/>
+<path d="M250 136 H298" fill="none" stroke="#755586" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#755586)"/>
+<path d="M625 136 H670" fill="none" stroke="#755586" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#755586)"/>
+<path d="M847 170 V201" fill="none" stroke="#755586" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#755586)"/>
+<path d="M386 170 V186 H147 V426" fill="none" stroke="#ae633c" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#ae633c)"/>
+<path d="M616 402 V425" fill="none" stroke="#147a75" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#147a75)"/>
+<path d="M186 491 V513" fill="none" stroke="#147a75" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#147a75)"/>
+<path d="M347 545 H383" fill="none" stroke="#147a75" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#147a75)"/>
+<path d="M700 545 H736" fill="none" stroke="#147a75" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#147a75)"/>
+<text x="30" y="45" font-size="32" fill="#193741" font-weight="690" text-anchor="start">Morganite · 16 SM GPU</text>
+<text x="30" y="72" font-size="17" fill="#147a75" font-weight="500" text-anchor="start">Alveo U50C 已布线配置   /   GPU 100 MHz</text>
+<rect x="32" y="104" width="218" height="66" rx="6" fill="#ecf2f3" stroke="#96b1b6" stroke-width="1.5"/>
+<text x="48" y="131" font-size="19" fill="#193741" font-weight="650" text-anchor="start">Aurora Linux</text>
+<text x="48" y="153" font-size="14" fill="#193741" font-weight="400" text-anchor="start">AXI4-Lite · 32 位</text>
+<rect x="302" y="104" width="323" height="66" rx="6" fill="#f3eff7" stroke="#beaccb" stroke-width="1.5"/>
+<text x="318" y="131" font-size="19" fill="#755586" font-weight="650" text-anchor="start">作业控制器</text>
+<text x="318" y="153" font-size="14" fill="#193741" font-weight="400" text-anchor="start">描述符校验、排空、完成序号</text>
+<rect x="674" y="104" width="336" height="66" rx="6" fill="#f3eff7" stroke="#beaccb" stroke-width="1.5"/>
+<text x="690" y="131" font-size="19" fill="#755586" font-weight="650" text-anchor="start">工作组分派器</text>
+<text x="690" y="153" font-size="14" fill="#193741" font-weight="400" text-anchor="start">选择空闲且已启用的 SM</text>
+<rect x="224" y="204" width="786" height="198" rx="10" fill="#f2f6f5" stroke="#b5c7c4" stroke-width="1.5"/>
+<text x="246" y="234" font-size="21" fill="#193741" font-weight="650" text-anchor="start">16 个独立 SM</text>
+<text x="981" y="234" font-size="15" fill="#193741" font-weight="400" text-anchor="end">每 SM 各 2 KiB I-L1 / D-L1</text>
+<rect x="248" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="286" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 0</text>
+<rect x="340" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="378" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 1</text>
+<rect x="432" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="470" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 2</text>
+<rect x="524" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="562" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 3</text>
+<rect x="616" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="654" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 4</text>
+<rect x="708" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="746" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 5</text>
+<rect x="800" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="838" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 6</text>
+<rect x="892" y="252" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="930" y="279" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 7</text>
+<rect x="248" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="286" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 8</text>
+<rect x="340" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="378" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 9</text>
+<rect x="432" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="470" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 10</text>
+<rect x="524" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="562" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 11</text>
+<rect x="616" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="654" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 12</text>
+<rect x="708" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="746" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 13</text>
+<rect x="800" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="838" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 14</text>
+<rect x="892" y="307" width="77" height="42" rx="5" fill="#23615f" stroke="#194e4c" stroke-width="1.5"/>
+<text x="930" y="334" font-size="17" fill="#fff" font-weight="600" text-anchor="middle">SM 15</text>
+<text x="245" y="383" font-size="15" fill="#193741" font-weight="400" text-anchor="start">私有指令填充和全局访存汇入共享 DMA；scratchpad 留在 SM 内。</text>
+<text x="34" y="337" font-size="15" fill="#ae633c" font-weight="600" text-anchor="start">描述符读取</text>
+<rect x="32" y="430" width="978" height="61" rx="6" fill="#e9f4f1" stroke="#83b6aa" stroke-width="1.5"/>
+<text x="48" y="457" font-size="19" fill="#147a75" font-weight="650" text-anchor="start">共享 DMA  ·  33 个请求源</text>
+<text x="48" y="479" font-size="14" fill="#193741" font-weight="400" text-anchor="start">16 路数据 + 16 路取指 + 1 路描述符；连续地址合并，读写分别仲裁，每方向 1 笔在途</text>
+<rect x="32" y="517" width="315" height="58" rx="6" fill="#e9f4f1" stroke="#83b6aa" stroke-width="1.5"/>
+<text x="48" y="544" font-size="19" fill="#147a75" font-weight="650" text-anchor="start">GPU AXI4 master</text>
+<text x="48" y="566" font-size="14" fill="#193741" font-weight="400" text-anchor="start">32 位 · 100 MHz</text>
+<rect x="387" y="517" width="313" height="58" rx="6" fill="#ecf2f3" stroke="#96b1b6" stroke-width="1.5"/>
+<text x="403" y="544" font-size="19" fill="#193741" font-weight="650" text-anchor="start">与 CPU / JTAG 共享</text>
+<text x="403" y="566" font-size="14" fill="#193741" font-weight="400" text-anchor="start">板级仲裁、扩宽、跨时钟</text>
+<rect x="740" y="517" width="270" height="58" rx="6" fill="#fbf0e8" stroke="#ddaf95" stroke-width="1.5"/>
+<text x="756" y="544" font-size="19" fill="#ae633c" font-weight="650" text-anchor="start">HBM · SAXI_00</text>
+<text x="756" y="566" font-size="14" fill="#193741" font-weight="400" text-anchor="start">256 位 AXI3 · 225 MHz</text>
+</svg>

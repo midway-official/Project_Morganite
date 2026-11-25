@@ -1,36 +1,67 @@
-# Morganite 可编程三维 GPU
+<p align="center"><a href="docs/u50c-16sm-20261124/images/mandelbrot.png"><img src="docs/media/mandelbrot-cover.png" width="100%" alt="Morganite 实板渲染的曼德博集合，点击查看完整的 1024×768 图像"></a></p>
 
-Morganite 是用 Chisel 编写的多 SM GPU。在 Alveo U50C 上，Aurora LA32R CPU 启动 Linux，将 GPU 程序、描述符和数据写入 HBM，通过 AXI4-Lite 提交作业。GPU 从 AXI4 主口访问 HBM，支持计算内核、可替换的顶点程序和片元程序。
+<p align="center"><strong>简体中文</strong> · <a href="README.en.md">English</a> &nbsp; | &nbsp; <a href="docs/README.md">技术文档</a> · <a href="docs/u50c-16sm-20261124/README.md">实板报告</a></p>
 
-**16 SM 实板记录（2026-11-24）**。FP32 FMA 实测 11.583 GFLOPS。GPU 渲染 1024×768 曼德博和朱利亚集合分别耗时 20.714 和 20.718 秒，512×384 球体光追耗时 3.374 秒。首轮完成计算和图形校验，第二轮启动后在缓存专项中停止。[中文报告、位流、镜像和实板图](docs/u50c-16sm-20261124/README.md)
+# Morganite 可编程 GPU
 
-**实板版本 `u50c-boot-20`** 使用 2 个 SM、每 SM 4 条 FP32 lane、8 线程 warp。CPU 和 GPU 运行在 100 MHz，HBM AXI 运行在 225 MHz。Linux 从普通 RAM 动态分配 DMA 缓冲区，完成 130 次 GPU 提交，故障数为零。其中 100 次为连续的整数和 FP32 AXPY 作业。八个 320×240 场景的覆盖、深度胜者和颜色、深度误差均通过独立 CPU 光栅器检查。[板测记录、哈希与复现步骤](docs/u50c-boot-20.md) · [发布文件](releases/u50c-boot-20)
+封面上的每个像素都来自 Alveo U50C。Aurora 乱序 CPU 启动 LoongArch32 Linux，将手写汇编生成的 GPU 程序装入 HBM。Morganite 的 16 个 SM 对每个像素取四个子样本，计算曼德博迭代并写回 RGBA8。换一段程序，同一份位流就能运行光线追踪、N 体引力，或执行可独立替换的顶点和片元着色器。
 
-![第 20 次 U50C 实板从 HBM 回读的立方体彩色图](reports/bringup/f2a3ce0/board-test-20/frames/cube_a/color.png)
+## 硬件架构
 
-[同帧实板深度图](reports/bringup/f2a3ce0/board-test-20/frames/cube_a/depth.png) · [另一视角](reports/bringup/f2a3ce0/board-test-20/frames/cube_b/color.png) · [同场景 RTL 仿真图](reports/graphics/rtl-320x240/cube_a/color.png) · [逐像素比较](reports/bringup/f2a3ce0/board-test-20/frames/comparisons.json)
+[![16 SM GPU，从作业分派到 HBM](docs/media/gpu-16sm.zh.svg)](docs/media/gpu-16sm.zh.svg)
 
-## 源码与接口
+分派器把工作组发给空闲 SM。16 路取指填充、16 路全局数据和作业描述符读取共用一个 DMA 主口。
 
-开发分支增加了每 SM 的可选 I/D L1、INT8 矩阵乘加和调度选项。双 SM 的 16 倍展开 FP32 基准在 RTL 仿真中达到理论峰值的 98.34%。[架构、资料与一致性](docs/l1-tensor.md) · [综合、吞吐与回归证据](reports/l1-tensor/README.md)
+[![单 SM，从 warp 调度到寄存器写回](docs/media/sm.zh.svg)](docs/media/sm.zh.svg)
 
-| 内容 | 入口 |
-| --- | --- |
-| GPU 顶层、SM、FP32、DMA、板级接口和参数 | [Chisel 源码](src/main/scala/morganite) · [FP32 语义](docs/fp32.md) |
-| 本版 Aurora CPU 的可综合源码和独立 sbt 工程 | [Aurora 工程](cpu/aurora) · [出板 CPU 配置](releases/u50c-boot-20/aurora-config.json) |
-| LA32R Linux 驱动、设备树、DMA 缓存维护和 CLI | [驱动与用户态源码](linux) · [提交接口](linux/morganite.h) |
-| GPU ISA、汇编、独立指令模型和计算示例 | [ISA](docs/isa.md) · [汇编器与模型](sw) · [示例](examples) |
-| 顶点与片元程序、光栅化规则和 CPU 参考实现 | [着色程序与参考光栅器](graphics) · [图形 ABI](docs/graphics.md) |
-| CPU、GPU、完整 SoC 的资源与布线时序 | [分层资源](reports/resources/f2a3ce0-route/summary.json) · [物理报告](reports/physical/README.md) |
+一个 8 线程 warp 由 4 条物理 lane 分两拍执行。算术和 load 共用寄存器写回端口，8 KiB scratchpad 在 SM 内服务本地访问。
 
-## 在 WSL 复核实板图
+## 实板图集
 
-在仓库根目录运行。Python 3 需安装 NumPy 和 Pillow。命令读取已保存的 HBM 数据，重新生成参考图并输出八个场景各自的误差统计。
+| 朱利亚集合 · 1024×768 | 球体光追 · 512×384 | 索引立方体 · 320×240 |
+|:---:|:---:|:---:|
+| [![朱利亚集合](docs/u50c-16sm-20261124/images/julia.png)](docs/u50c-16sm-20261124/images/julia.png) | [![方向光与硬阴影](docs/u50c-16sm-20261124/images/raytrace.png)](docs/u50c-16sm-20261124/images/raytrace.png) | [![顶点与片元程序渲染的立方体](docs/u50c-16sm-20261124/images/cube_a/color.png)](docs/u50c-16sm-20261124/images/cube_a/color.png) |
 
-```bash
-frames=reports/bringup/f2a3ce0/board-test-20/frames
-python3 graphics/test_render.py board "$frames"
-python3 graphics/export_png.py "$frames" "$frames/comparisons.json" "$frames"
+## 实板性能
+
+| 同一份 16 SM 位流 | 实测结果 | 测量口径 |
+| --- | ---: | --- |
+| FP32 FMA | **11.583 GFLOPS** | 寄存器驻留，达到 12.8 GFLOPS 理论峰值的 90.49% |
+| INT8 矩阵乘加 | **23.122 GMAC/s** | 有符号 INT8 乘法、INT32 累加；1→16 SM 加速 14.68× |
+| 曼德博集合 | **928.51 ms** | 优化程序，1024×768 整帧，4 个子样本，最多 192 次迭代 |
+| 球体光追 | **42.02 ms** | 优化程序，512×384 整帧，四个球体和硬阴影 |
+
+帧时按 100 MHz GPU 作业计数器对所有图块求和。优化程序同时使用了只读提交窗口；两项整帧均通过图像对照。朱利亚续测遇到用户态故障，优化版 N 体尚无完整板测。 [基准与图像误差](docs/u50c-16sm-20261124/README.md) · [优化轮次与计数](docs/u50c-16sm-opt-20261125/README.md)
+
+## SoC 数据通路
+
+```text
+CPU  ──┐
+       ├────┐
+JTAG ──┘    ├── AXI4 · 32 bit / 100 MHz ──→ 256 bit / 225 MHz ──→ HBM
+GPU  ───────┘
+CPU  ────────── AXI4-Lite · 32 bit ───────→ GPU
 ```
 
-GPU 使用 JDK 17、sbt 1.9.8、Scala 2.13.12、Chisel 6.6.0、firtool 1.62.1 和 Verilator 5.050。CPU 使用独立的 Chisel 3.6.1 工程。完整 SoC 的正式布线使用 Vivado 2023.2。[硬件生成与驱动构建](docs/u50c-boot-20.md) · [原 Aurora 基线与回滚流程](README.en.md)
+读写经过同一个 HBM AXI 入口。CPU 用 AXI4-Lite 写 doorbell 并轮询完成序号，GPU 自行读取描述符、程序和数据。每个 SM 有 4 条 FP32 lane、4 个驻留 warp、8 KiB 工作组 scratchpad，以及各 2 KiB 的指令和只读数据 L1。 [CPU 源码](cpu/aurora) · [GPU 源码](src/main/scala/morganite) · [Linux 驱动与 CLI](linux)
+
+| 布线后资源 | LUT | FF | BRAM tiles | DSP |
+| --- | ---: | ---: | ---: | ---: |
+| Aurora CPU | 105,660 | 40,087 | 61 | 8 |
+| Morganite GPU | 300,491 | 136,926 | 256 | 576 |
+| 完整 SoC | 417,161 | 185,487 | 321.5 | 584 |
+
+Vivado 2023.2 布线后，最小 setup/hold 余量为 +0.062/+0.007 ns。 [时序](docs/u50c-16sm-20261124/physical/timing_impl.rpt) · [分 SLR 资源](docs/u50c-16sm-20261124/physical/resources.json)
+
+## 从哪开始
+
+1. **运行一个 GPU 程序.** 在已启动的 Aurora Linux 上使用下面的 CLI 渲染立方体。 [着色器与场景格式](docs/graphics.zh.md)
+2. **修改内核.** 从汇编示例入手，用独立指令模型检查结果，再在 Verilator 中运行 RTL。 [示例](examples) · [ISA](docs/isa.zh.md)
+3. **复现硬件.** WSL 工具链、冻结 CPU、位流、Linux 镜像和板测档案均有对应入口。 [构建与回滚](docs/build.md) · [双 SM 发布版](docs/u50c-boot-20.md)
+
+```sh
+/bin/mgpu info
+/bin/mgpu render /gpu/cube_a.scene /tmp/frame
+```
+
+[完整技术文档](docs/README.md) · [实板图集](docs/u50c-16sm-20261124/images/) · [RTL 仿真图集](docs/u50c-16sm-20261124/images/rtl)
