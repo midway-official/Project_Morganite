@@ -1,0 +1,64 @@
+{
+  "one_refinement": {
+    "seed": 6521,
+    "points": 1024,
+    "threads_per_group": 32,
+    "sm_grid": [
+      4,
+      4
+    ],
+    "gpu_cycles": 7582,
+    "groups_by_sm": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "max_scaled_vector_error": 7.969186933658547e-05,
+    "code_sha256": "37e571bd9d85e628b7ceafa7c90532e3971f9d91ce2bbc22ae516bc068fa5952",
+    "output_sha256": "e47cde451e581339233d47f12e66b5e02936a7484590ab599330e223071378f9"
+  },
+  "two_refinements": {
+    "seed": 6521,
+    "points": 1024,
+    "threads_per_group": 32,
+    "sm_grid": [
+      4,
+      4
+    ],
+    "gpu_cycles": 7732,
+    "groups_by_sm": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "max_scaled_vector_error": 1.8900199496463329e-06,
+    "code_sha256": "37e571bd9d85e628b7ceafa7c90532e3971f9d91ce2bbc22ae516bc068fa5952",
+    "output_sha256": "4882c25e98818fc285d10f2d69edf908329c7d55cc60be97a4207b572b5a350e"
+  }
+}

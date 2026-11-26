@@ -29,6 +29,19 @@ N 体一步求 65,536 次成对逆距离。SFU 程序把整数初值和两轮 Ne
 
 在目标 4×4 RTL 上用相同输入做配对对照，N 体从 116,319 降至 **103,517** 周期（1.124×），光追从 44,023 变为 **44,060** 周期（0.999×），立方体从 69,392 降至 **68,429** 周期（1.014×）。16 个 SM 均完成了 N 体工作组，两种程序均通过同一精度检查。小光追场景在 16 SM 上没有获得吞吐收益。完整作业还受调度、取指和访存竞争影响，现有计数器不足以将这 37 周期差额归因到其中一项。 [16 SM 计数与输出哈希](sfu-workloads-16.json)
 
+### 八次幂 Mandelbulb 需要哪些函数
+
+球坐标定义取极角 θ 与方位角 φ，八次幂使用半径 r⁸ 和角度 8θ、8φ。令 ρ²=x²+y²。GPU 用一次近似倒平方根和可选次数的 Newton 精化得到 1/ρ，然后将复数 (z+iρ) 与 (x/ρ+i·y/ρ) 各平方三次。前一项的模自然变为 r⁸，后一项给出八倍方位角的方向。轴上使用 φ=0 的极限值，ρ² 小于 FP32 最小正规数时按轴处理。这样一个已支持的 SFU 函数配合 FMA 就能执行固定八次幂映射。 [GPU 汇编](../../examples/mandelbulb_power8.s)
+
+同一个 GPU 程序在 4×4 SM RTL 上处理相同的 1,024 个点，各坐标在 [−2, 2] 内，包含原点、两极、近轴和随机输入。每个 SM 都执行两个工作组。以独立双精度球坐标三角公式对照。对非零输入，误差为三维误差向量的长度除以 r⁸，原点要求三个输出均为零。
+
+| 倒平方根精化 | GPU 作业周期 | 最大观测归一化向量误差 |
+| --- | ---: | ---: |
+| 一轮 | 7,582 | 7.97×10⁻⁵ |
+| 两轮 | 7,732 | 1.89×10⁻⁶ |
+
+两轮精化多用 1.98% 的周期，最大观测误差缩小约 42 倍。数据覆盖一次幂映射。完整 Mandelbulb 的多步逃逸、距离估计、射线步进与图像误差需在完整渲染器单独测量。非整数幂或可变角度的着色器仍是评估三角单元的场景。 [原始结果](mandelbulb-step.json) · [复现与独立参考](../../scripts/bench_mandelbulb_step.py)
+
 ### 下一批函数怎样选
 
 | 顺序 | 函数与接口 | 适用负载和验证方法 |
@@ -75,7 +88,11 @@ Vivado 2023.2 对 16 SM 时序对照版的综合结果见下表。BRAM tile 按�
 
 ### 双栈 HBM 厂商模型
 
-Vivado 2023.2 的 CDC 和 AXI4→AXI3 转换 IP 通过 8R/4W 及逆序响应测试。共享字节存储模型通过 CPU/GPU 双向读写。完整 HBM 模型中，CPU 写奇数页后，GPU 从 `0x01c01000` 读回 `xxxxxxxx`，预期 `55667788`。CPU/JTAG 使用栈 1 本地入口 SAXI16 后，同一测试仍失败。第三次诊断先从 GPU 两端口各写满一行，再从写入端口读回。第一个偶数页 `0x01c00000` 期望 `aabbccdd`，读到 `xxxxxxxx`，此时 CPU 还没有访问该页。故障可以在单一 GPU 端口复现，桥接信号和 HBM 仿真模型仍需定位。远端目录分别为 `morganite-wide-hbm-RcGYZ01b` 和 `morganite-hbm-localports-jB8uByvO`。时序对照版仍在布局，完整 SoC 的布线结果与双栈实板验证待补。 [第一次对照](first-hbm-simulation.tar.gz) · [本地入口对照](local-host-hbm.tar.gz) · [同端口整行写读](initialized-hbm.tar.gz)
+Vivado 2023.2 的 CDC 和 AXI4→AXI3 转换 IP 通过 8R/4W 及逆序响应测试。共享字节存储模型通过 CPU/GPU 双向读写。完整 HBM 模型中，CPU 写奇数页后，GPU 从 `0x01c01000` 读回 `xxxxxxxx`，预期 `55667788`。CPU/JTAG 使用栈 1 本地入口 SAXI16 后，同一测试仍失败。第三次诊断先从 GPU 两端口各写满一行，再从写入端口读回。第一个偶数页 `0x01c00000` 期望 `aabbccdd`，读到 `xxxxxxxx`，此时 CPU 还没有访问该页。故障可以在单一 GPU 端口复现，桥接信号和 HBM 仿真模型仍需定位。远端目录分别为 `morganite-wide-hbm-RcGYZ01b` 和 `morganite-hbm-localports-jB8uByvO`。 [第一次对照](first-hbm-simulation.tar.gz) · [本地入口对照](local-host-hbm.tar.gz) · [同端口整行写读](initialized-hbm.tar.gz)
+
+同一仿真快照重放时，在 HBM IP 外侧的 SAXI01 和 SAXI17 分别捕获到了写地址 0x001c00000 和 0x101c01000，写 ID 均为 4，均为单拍 32 B，所有字节使能有效，两次 B 响应均为 OKAY。SAXI01 随后读取相同地址。在 45,002.166 ns 的读握手上，ID=3、RRESP=OKAY、RLAST=1，256 位 RDATA 已全部为 X。到此时，SAXI00 和 SAXI16 上的主机事务数均为零。故障数据在厂商模型的输出引脚已可见，模型内部、配置与存储初始化还需要区分。采样使用 ACLK 上升沿前的 VALID、READY 和负载。 [八次握手](pin-handshakes.txt) · [原始 VCD](pin-trace.vcd.gz)
+
+该时序对照构建（`14d5252`）已生成 placed DCP，进入 `phys_opt_design`。布局报告记录整 SoC 717,163 CLB LUT（82.27%）、279,090 CLB 寄存器、323.5 BRAM tile、584 DSP 和 0 URAM。SLR0 与 SLR1 分别使用 83.43% 和 81.10% 的 LUT。最终布线时序及启用 SFU 的双栈实板验收待测。 [布局利用率和分 SLR 明细](utilization-placed.rpt.gz)
 
 ## 复现
 
@@ -91,6 +108,7 @@ python3 scripts/bench_sfu.py build/graphics-units/gpu/obj/VGpu build/sfu-workloa
 sbt 'runMain morganite.Generate Gpu build/sfu16 4x4 8 4 dmaBits=256 ports=2 reads=8 writes=4 ic=2048 dc=2048 line=8 earlyBranch=1 bramRf=1 tensor=4 setup=1 bins=1 raster=1 rop=1 sfu=1'
 "$VERILATOR" --cc --exe --build --assert -j 4 --top-module Gpu --Mdir build/sfu16/obj build/sfu16/Gpu.sv "$PWD/sim/wide_gpu.cpp"
 python3 scripts/bench_sfu.py build/sfu16/obj/VGpu build/sfu-workloads-16.json --grid 4x4
+python3 scripts/bench_mandelbulb_step.py build/sfu16/obj/VGpu build/mandelbulb-step.json
 python3 scripts/stage_soc.py build/gfx-soc --grid 4x4 --wide-ports 2 --accelerators --units setup bins raster rop sfu
 bash linux/build_userspace.sh --units setup bins raster rop sfu
 python3 linux/build_kernel.py --feature-register --graphics-registers

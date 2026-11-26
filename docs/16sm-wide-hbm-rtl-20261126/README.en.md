@@ -24,6 +24,19 @@ N-body computes inverse distance for all 65,536 ordered pairs. The SFU program r
 
 On the target 4×4 RTL, using identical workloads within each pair, N-body fell from 116,319 to **103,517** cycles (1.124×), ray tracing went from 44,023 to **44,060** cycles (0.999×), and the cube fell from 69,392 to **68,429** cycles (1.014×). All 16 SMs completed N-body work. Both configurations met the same accuracy checks. The small ray scene shows no throughput gain on 16 SMs. The hardware seed improves local arithmetic but total time also depends on scheduling, instruction fetch and memory contention. These counters alone cannot assign the 37-cycle difference to a single cause. [16-SM counters and output hashes](sfu-workloads-16.json)
 
+### Functions used by a degree-eight Mandelbulb
+
+The spherical power map takes radius r and angles θ (inclination) and φ (azimuth) to r⁸, 8θ and 8φ. For ρ²=x²+y², the kernel estimates 1/ρ with the existing reciprocal-square-root instruction and refines it with FMA. It then squares each complex pair (z+iρ) and (x/ρ+i·y/ρ) three times. The first pair carries the radius factor r⁸. The second gives the azimuth direction. The kernel uses the axial limit at ρ=0 and when ρ² is below the smallest normal binary32 value. [GPU assembly](../../examples/mandelbulb_power8.s)
+
+The same 4×4 SM RTL and program processed 1,024 points with each coordinate in [−2, 2], including the origin, both poles, near-axis cases and seeded random inputs. Each SM executed two groups. The independent double-precision reference evaluates the spherical map with trigonometric functions. For a nonzero point, the test divides Euclidean vector error by r⁸. The origin must map exactly to zero.
+
+| Reciprocal-square-root refinement | GPU job cycles | Maximum observed scaled vector error |
+| --- | ---: | ---: |
+| One step | 7,582 | 7.97×10⁻⁵ |
+| Two steps | 7,732 | 1.89×10⁻⁶ |
+
+The second step cost 1.98% more cycles and reduced the maximum observed error by a factor of 42. These measurements cover a single power map. Orbit iteration, distance estimation, ray marching and image error require a complete renderer. Shaders using noninteger powers or variable angles provide separate use cases for trigonometric units. [Counters and error](mandelbulb-step.json) · [Reproduction and reference](../../scripts/bench_mandelbulb_step.py)
+
 ### Extension order
 
 | Priority | Candidate and intended ABI | Workload and acceptance criterion |
@@ -66,7 +79,11 @@ Vivado 2023.2 synthesis for the 16-SM timing candidate yielded the following hie
 
 ### Dual-stack HBM vendor simulation
 
-Vivado 2023.2 CDC and AXI4-to-AXI3 IP accepted 8R/4W and out-of-order responses. A shared byte-addressable endpoint model passed host/GPU visibility tests. The full HBM simulation returned `xxxxxxxx` from GPU address `0x01c01000` after the CPU wrote `55667788`. Moving the host path to stack-local SAXI16 reproduced the failure. A third run initialized one full line on each GPU port and then read back from the writing port. The first even-page read at `0x01c00000` returned `xxxxxxxx` instead of `aabbccdd` before any CPU access. This isolates a single-port reproducer. The bridge signals and model still need diagnosis. Run directories are `morganite-wide-hbm-RcGYZ01b` and `morganite-hbm-localports-jB8uByvO`. The complete timing comparison is in placement. Routed SoC timing and dual-stack board validation are pending. [First simulation](first-hbm-simulation.tar.gz) · [Stack-local host](local-host-hbm.tar.gz) · [Same-port full-line test](initialized-hbm.tar.gz)
+Vivado 2023.2 CDC and AXI4-to-AXI3 IP accepted 8R/4W and out-of-order responses. A shared byte-addressable endpoint model passed host/GPU visibility tests. The full HBM simulation returned `xxxxxxxx` from GPU address `0x01c01000` after the CPU wrote `55667788`. Moving the host path to stack-local SAXI16 reproduced the failure. A third run initialized one full line on each GPU port and then read back from the writing port. The first even-page read at `0x01c00000` returned `xxxxxxxx` instead of `aabbccdd` before any CPU access. This isolates a single-port reproducer. The bridge signals and model still need diagnosis. Run directories are `morganite-wide-hbm-RcGYZ01b` and `morganite-hbm-localports-jB8uByvO`. [First simulation](first-hbm-simulation.tar.gz) · [Stack-local host](local-host-hbm.tar.gz) · [Same-port full-line test](initialized-hbm.tar.gz)
+
+A replay of the same elaborated snapshot captured the HBM IP boundary. SAXI01 and SAXI17 accepted writes at 0x001c00000 and 0x101c01000 respectively, both with ID 4, a single 32-byte beat, all byte strobes asserted, and OKAY B responses. SAXI01 then read its original address. At the read handshake at 45,002.166 ns the HBM IP asserted RLAST, ID 3 and RRESP=OKAY with all 256 RDATA bits unknown. SAXI00 and SAXI16 had accepted zero host transactions at that point. The unknown data is visible at the vendor model output. Internal behavior, configuration and memory initialization remain under investigation. The decoder samples VALID, READY and payload immediately before rising ACLK. [Eight handshakes](pin-handshakes.txt) · [Raw VCD](pin-trace.vcd.gz)
+
+The timing comparison build (`14d5252`) produced its placed DCP and entered `phys_opt_design`. The placed SoC uses 717,163 CLB LUTs (82.27%), 279,090 CLB registers, 323.5 BRAM tiles, 584 DSPs and no URAM. SLR0 and SLR1 use 83.43% and 81.10% of their LUTs respectively. Final routed timing and tests of the SFU-enabled dual-stack SoC remain pending. [Placed utilization by SLR](utilization-placed.rpt.gz)
 
 ## Reproduction
 
@@ -82,6 +99,7 @@ python3 scripts/bench_sfu.py build/graphics-units/gpu/obj/VGpu build/sfu-workloa
 sbt 'runMain morganite.Generate Gpu build/sfu16 4x4 8 4 dmaBits=256 ports=2 reads=8 writes=4 ic=2048 dc=2048 line=8 earlyBranch=1 bramRf=1 tensor=4 setup=1 bins=1 raster=1 rop=1 sfu=1'
 "$VERILATOR" --cc --exe --build --assert -j 4 --top-module Gpu --Mdir build/sfu16/obj build/sfu16/Gpu.sv "$PWD/sim/wide_gpu.cpp"
 python3 scripts/bench_sfu.py build/sfu16/obj/VGpu build/sfu-workloads-16.json --grid 4x4
+python3 scripts/bench_mandelbulb_step.py build/sfu16/obj/VGpu build/mandelbulb-step.json
 python3 scripts/stage_soc.py build/gfx-soc --grid 4x4 --wide-ports 2 --accelerators --units setup bins raster rop sfu
 bash linux/build_userspace.sh --units setup bins raster rop sfu
 python3 linux/build_kernel.py --feature-register --graphics-registers
