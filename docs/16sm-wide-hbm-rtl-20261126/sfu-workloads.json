@@ -1,0 +1,419 @@
+{
+  "kernel_revision": "d9295b4",
+  "sm_grid": [
+    1,
+    2
+  ],
+  "sfus_per_sm": 4,
+  "nbody": {
+    "bodies": 256,
+    "steps": 1,
+    "seed": 6521,
+    "software": {
+      "cycles": 700339,
+      "address": 0,
+      "fault": 0,
+      "groups": [
+        8,
+        8
+      ],
+      "fmas": [
+        197376,
+        197376
+      ],
+      "active_cycles": [
+        700156,
+        700307
+      ],
+      "concurrent_rw_cycles": 522,
+      "dual_busy_cycles": 491,
+      "dual_data_cycles": 46,
+      "read_beats": [
+        9249,
+        9112
+      ],
+      "write_beats": [
+        1024,
+        1024
+      ],
+      "max_abs_error": 1.1175870895385742e-08,
+      "program_sha256": "a2ddf88d0c82bb07f01092ba6ac5323002e70713df85cf55007d79416a862be5",
+      "output_sha256": "0001d80097b7cefad2bcf8ab68ce4575ba80e6878d86007df5f29d0d26c25478"
+    },
+    "sfu": {
+      "cycles": 582889,
+      "address": 0,
+      "fault": 0,
+      "groups": [
+        8,
+        8
+      ],
+      "fmas": [
+        230144,
+        230144
+      ],
+      "active_cycles": [
+        582831,
+        582857
+      ],
+      "concurrent_rw_cycles": 1334,
+      "dual_busy_cycles": 1074,
+      "dual_data_cycles": 121,
+      "read_beats": [
+        9249,
+        9110
+      ],
+      "write_beats": [
+        1024,
+        1024
+      ],
+      "max_abs_error": 1.1175870895385742e-08,
+      "program_sha256": "a21d328af13d85e2bf2757361d4ed5abeb84bb339edc8865b492a9dca93f97cd",
+      "output_sha256": "e8b3a093d1deab0d3ff812f1310a433fdf0c237e8870861c9f7457e79b6f7daa"
+    },
+    "speedup": 1.2014963397833893
+  },
+  "raytrace": {
+    "width": 64,
+    "height": 48,
+    "spheres": 4,
+    "software": {
+      "cycles": 146920,
+      "address": 0,
+      "fault": 0,
+      "groups": [
+        48,
+        48
+      ],
+      "fmas": [
+        3636,
+        3628
+      ],
+      "active_cycles": [
+        146809,
+        146623
+      ],
+      "concurrent_rw_cycles": 1129,
+      "dual_busy_cycles": 648,
+      "dual_data_cycles": 24,
+      "read_beats": [
+        11119,
+        40
+      ],
+      "write_beats": [
+        256,
+        128
+      ],
+      "max_abs_error": 1.0,
+      "program_sha256": "db132f31909dd9929dd39ac3e6de645bf2fae2985b58113f60b84c5caef41ae3",
+      "output_sha256": "3b18d9a980e1bfcfbef836c36bac90d89fd0373b1b23e3c86f18155f04b41bde"
+    },
+    "sfu": {
+      "cycles": 139446,
+      "address": 0,
+      "fault": 0,
+      "groups": [
+        49,
+        47
+      ],
+      "fmas": [
+        4341,
+        4119
+      ],
+      "active_cycles": [
+        139333,
+        139011
+      ],
+      "concurrent_rw_cycles": 1214,
+      "dual_busy_cycles": 547,
+      "dual_data_cycles": 19,
+      "read_beats": [
+        11119,
+        38
+      ],
+      "write_beats": [
+        256,
+        128
+      ],
+      "max_abs_error": 0.0,
+      "program_sha256": "bff3dad71fa5d5f0beec3aa25a85011f820a3f9114f9ca5a5f01e08df3c65d28",
+      "output_sha256": "7947f21c605652965fe026c5a035ce0f040af1f8797fba6729aa1bb0fcfd653c"
+    },
+    "speedup": 1.0535978084706625
+  },
+  "cube_a": {
+    "software": {
+      "covered": 483,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "a3b56355adaf3b824fe29bcdd71bdf32a6d6ca1d338376107be5eeda50c48dcd",
+        "c7fd3bda3b64ebf045598629e092903fddd396fa7d899cc6932880c246883575",
+        "c33628fbed2c5c0f693356672635c2dae29098db60b369a04d48fef2ea7de26f"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5578,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            352,
+            0
+          ],
+          "active_cycles": [
+            5561,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            86
+          ],
+          "write_beats": [
+            96,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8511,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            72,
+            0
+          ],
+          "active_cycles": [
+            8494,
+            0
+          ],
+          "concurrent_rw_cycles": 613,
+          "dual_busy_cycles": 171,
+          "dual_data_cycles": 10,
+          "read_beats": [
+            209,
+            34
+          ],
+          "write_beats": [
+            386,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 4319,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            4222,
+            4295
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 44,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            121,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 386308,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            5240,
+            4420
+          ],
+          "active_cycles": [
+            382159,
+            386228
+          ],
+          "concurrent_rw_cycles": 1254,
+          "dual_busy_cycles": 631,
+          "dual_data_cycles": 37,
+          "read_beats": [
+            6393,
+            314
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ],
+      "cycles": 404716
+    },
+    "sfu": {
+      "covered": 483,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "a3b56355adaf3b824fe29bcdd71bdf32a6d6ca1d338376107be5eeda50c48dcd",
+        "c7fd3bda3b64ebf045598629e092903fddd396fa7d899cc6932880c246883575",
+        "c33628fbed2c5c0f693356672635c2dae29098db60b369a04d48fef2ea7de26f"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5430,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            336,
+            0
+          ],
+          "active_cycles": [
+            5413,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            85
+          ],
+          "write_beats": [
+            96,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8364,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            48,
+            0
+          ],
+          "active_cycles": [
+            8347,
+            0
+          ],
+          "concurrent_rw_cycles": 523,
+          "dual_busy_cycles": 189,
+          "dual_data_cycles": 10,
+          "read_beats": [
+            209,
+            33
+          ],
+          "write_beats": [
+            386,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 4319,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            4222,
+            4295
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 44,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            121,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 384719,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            4716,
+            3978
+          ],
+          "active_cycles": [
+            380420,
+            384639
+          ],
+          "concurrent_rw_cycles": 1451,
+          "dual_busy_cycles": 934,
+          "dual_data_cycles": 64,
+          "read_beats": [
+            6393,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ],
+      "cycles": 402832
+    },
+    "speedup": 1.0046768876355403
+  }
+}

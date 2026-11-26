@@ -16,3 +16,4 @@
 | 内核优化实板记录 | [内核优化实板记录](u50c-16sm-opt-20261125/README.md) | [Kernel optimization measurements](u50c-16sm-opt-20261125/README.en.md) |
 | 双 SM 发布与复现 | [双 SM 发布与复现](u50c-boot-20.md) | [Two-SM release and reproduction](u50c-boot-20.en.md) |
 | 下一版 NoC 与 LSU 提案 | [下一版 NoC 与 LSU 提案](16sm-noc-lsu.md) | [Proposed NoC and LSU](16sm-noc-lsu.en.md) |
+| 宽口 GPU、图形与 SFU 的 RTL 实测 | [中文报告](16sm-wide-hbm-rtl-20261126/README.md) | [English report](16sm-wide-hbm-rtl-20261126/README.en.md) |

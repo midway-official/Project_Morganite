@@ -11,6 +11,7 @@
 | 0x0b、0x2b | 同 load/store | 相对工作组 scratchpad 起点的字节地址 |
 | 0x43 | RV32 R4，fmt、rm 为零 | 融合 rD = rA × rB + rC |
 | 0x53 | funct7 为操作 1–12，funct3 为零 | 一元运算的 rs2 为零。[浮点操作](fp32.zh.md) |
+| 0x57 | 位 26:25 与 funct3 拼成函数号，9 或 10，rs2 和位 31:27 均为零 | 可选 SFU，分别为一元 FP32 近似倒数和倒平方根。MMIO 0x60 位 4 表示支持，关闭时执行触发 fault 2。 |
 | 0x5b | rd 与 funct3，其余为零 | funct3 0–5 依次为 TID、GID、NTID、ARG、SMID、FFLAGS |
 | 0x7b | funct3、有符号 imm12、需要时用 rs1 谓词 | funct3 0–7 依次为 EXIT、BAR、FENCE、JMP、BZ、SPLIT、NEXT、JOIN |
 
@@ -19,6 +20,8 @@ ARG 返回描述符提供的设备地址，FFLAGS 返回本工作组内该 warp 
 SPLIT 保存父掩码和假分支线程，先执行真分支；全假直接进入 else。NEXT 切到假分支，假掩码为空则跳到 join。JOIN 恢复父掩码并弹栈，最多嵌套四层。BZ 遇全零跳转，全非零顺序执行，混合谓词报错。BAR 要求分歧栈为空，全部驻留 warp 到达同一静态屏障，先前 scratchpad 操作已完成。EXIT 也要求空栈。尾线程不访问内存、不更新标志。
 
 fault 码 1–7 依次为非法作业、非法指令/目标、地址/对齐、重汇合/屏障、AXI 从设备/协议错误、地址译码响应、取消。代码错误给出指令设备地址，地址错误给出问题地址低 32 位。汇编伪指令 LI 展开为 LUI 和 ADDI。
+
+SFU 估计指令对输入、输出使用 FTZ，保留 warp 异常标志。数值约定、误差与负载计数见 [SFU 报告](16sm-wide-hbm-rtl-20261126/README.md)。
 
 ```bash
 python3 sw/asm.py asm examples/divergence.s build/divergence.bin

@@ -1,0 +1,140 @@
+{
+  "backend": "rtl",
+  "scenes": {
+    "cube_a": {
+      "covered": 17980,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.7881393432617188e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "6defaa8b0b700778dddc679bc9b64c3f204ea6d9916abe0b33ae35dbefbcd413",
+        "e240b4e01bbe0feb338326f0e7e024b44910d73c8b0be51cf29ef3ec0b7a697d",
+        "1942d3e1b3d6699b30b321992b9c0155af6ff61712b1653447b4f973c9fb7d0f"
+      ],
+      "triangles": 12,
+      "width": 320,
+      "height": 240,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5430,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            336,
+            0
+          ],
+          "active_cycles": [
+            5413,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            85
+          ],
+          "write_beats": [
+            96,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8364,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            48,
+            0
+          ],
+          "active_cycles": [
+            8347,
+            0
+          ],
+          "concurrent_rw_cycles": 523,
+          "dual_busy_cycles": 189,
+          "dual_data_cycles": 10,
+          "read_beats": [
+            209,
+            33
+          ],
+          "write_beats": [
+            386,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 158128,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            150,
+            150
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            157788,
+            157812
+          ],
+          "concurrent_rw_cycles": 6,
+          "dual_busy_cycles": 49,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            4501,
+            10
+          ],
+          "write_beats": [
+            44,
+            256
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 13770727,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1200,
+            1200
+          ],
+          "fmas": [
+            160416,
+            163224
+          ],
+          "active_cycles": [
+            13767757,
+            13768309
+          ],
+          "concurrent_rw_cycles": 58368,
+          "dual_busy_cycles": 36890,
+          "dual_data_cycles": 1862,
+          "read_beats": [
+            216939,
+            8248
+          ],
+          "write_beats": [
+            14592,
+            14208
+          ]
+        }
+      ]
+    }
+  }
+}

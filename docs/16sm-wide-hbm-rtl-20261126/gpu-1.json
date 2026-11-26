@@ -1,0 +1,314 @@
+[
+  {
+    "kernel": "integer",
+    "cycles": 1817,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      9
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      1784
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 22,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      2
+    ],
+    "write_beats": [
+      71,
+      1
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "cycles": 4511,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      9
+    ],
+    "fmas": [
+      279
+    ],
+    "active_cycles": [
+      4478
+    ],
+    "concurrent_rw_cycles": 12,
+    "dual_busy_cycles": 30,
+    "dual_data_cycles": 2,
+    "read_beats": [
+      4,
+      244
+    ],
+    "write_beats": [
+      1,
+      66
+    ]
+  },
+  {
+    "kernel": "shared",
+    "cycles": 361,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      1
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      344
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      3
+    ],
+    "write_beats": [
+      7,
+      1
+    ]
+  },
+  {
+    "kernel": "divergence",
+    "cycles": 295,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      1
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      278
+    ],
+    "concurrent_rw_cycles": 2,
+    "dual_busy_cycles": 17,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      4
+    ],
+    "write_beats": [
+      7,
+      1
+    ]
+  },
+  {
+    "kernel": "strides",
+    "cycles": 6799,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      9
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      6766
+    ],
+    "concurrent_rw_cycles": 184,
+    "dual_busy_cycles": 84,
+    "dual_data_cycles": 4,
+    "read_beats": [
+      216,
+      5
+    ],
+    "write_beats": [
+      321,
+      3
+    ]
+  },
+  {
+    "kernel": "rerror",
+    "cycles": 48,
+    "address": 503320560,
+    "fault": 6,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      31
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "read-protocol",
+    "cycles": 49,
+    "address": 503320560,
+    "fault": 6,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      32
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      3,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "berror",
+    "cycles": 98,
+    "address": 503332852,
+    "fault": 5,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      81
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      2
+    ]
+  },
+  {
+    "kernel": "cancel",
+    "cycles": 109,
+    "address": 0,
+    "fault": 7,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      92
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "wrap",
+    "cycles": 79,
+    "address": 0,
+    "fault": 3,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      62
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "below",
+    "cycles": 69,
+    "address": 503316476,
+    "fault": 3,
+    "groups": [
+      0
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      52
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "stripe",
+    "cycles": 1208,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      6
+    ],
+    "fmas": [
+      0
+    ],
+    "active_cycles": [
+      1186
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      6,
+      3
+    ],
+    "write_beats": [
+      12,
+      12
+    ]
+  }
+]

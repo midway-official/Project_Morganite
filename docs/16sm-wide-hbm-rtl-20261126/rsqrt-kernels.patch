@@ -1,0 +1,66 @@
+--- a/examples/nbody.s
++++ b/examples/nbody.s
+@@ -23,8 +23,7 @@
+ slli r16, r8, 4
+ slli r7, r8, 5
+ add r2, r2, r7
+-li r26, 0x5f3759df
+-li r27, 0x3f000000
++li r27, 0xbf000000
+ li r28, 0x3fc00000
+ tile: lw r17, 0(r2)
+ s.sw r17, 0(r16)
+@@ -46,17 +45,11 @@
+ fma r22, r18, r18, r5
+ fma r22, r19, r19, r22
+ fma r22, r20, r20, r22
+-# Two Newton refinements of the FP32 inverse square root.
+-srli r23, r22, 1
+-sub r23, r26, r23
++# One Newton refinement of the SFU inverse-square-root seed.
++rsqrt.approx.f32 r23, r22
+ fmul r22, r22, r27
+ fmul r24, r23, r23
+-fmul r24, r22, r24
+-fsub r24, r28, r24
+-fmul r23, r23, r24
+-fmul r24, r23, r23
+-fmul r24, r22, r24
+-fsub r24, r28, r24
++fma r24, r22, r24, r28
+ fmul r23, r23, r24
+ fmul r24, r23, r23
+ fmul r24, r24, r23
+--- a/examples/raytrace.s
++++ b/examples/raytrace.s
+@@ -31,8 +31,7 @@
+ add r11, r0, r0
+ addi r12, r1, 24
+ lw r13, 20(r1)
+-li r25, 0x5f3759df
+-li r26, 0x3f000000
++li r26, 0xbf000000
+ li r27, 0x3fc00000
+ primary: lw r14, 0(r12)
+ lw r15, 4(r12)
+@@ -45,17 +44,11 @@
+ fsub r17, r16, r17
+ flt r18, r0, r17
+ split r18, endhit
+-# sqrt(h) via h * rsqrt(h), two Newton steps.
+-srli r19, r17, 1
+-sub r19, r25, r19
++# sqrt(h) via h * rsqrt(h), one Newton step from the SFU seed.
++rsqrt.approx.f32 r19, r17
+ fmul r20, r17, r26
+ fmul r21, r19, r19
+-fmul r21, r21, r20
+-fsub r21, r27, r21
+-fmul r19, r19, r21
+-fmul r21, r19, r19
+-fmul r21, r21, r20
+-fsub r21, r27, r21
++fma r21, r20, r21, r27
+ fmul r19, r19, r21
+ fmul r19, r17, r19
+ lw r16, 8(r12)

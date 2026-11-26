@@ -1,0 +1,350 @@
+[
+  {
+    "kernel": "integer",
+    "cycles": 1080,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      4,
+      5
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      935,
+      1054
+    ],
+    "concurrent_rw_cycles": 3,
+    "dual_busy_cycles": 29,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      3,
+      4
+    ],
+    "write_beats": [
+      71,
+      1
+    ]
+  },
+  {
+    "kernel": "axpy",
+    "cycles": 2663,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      5,
+      4
+    ],
+    "fmas": [
+      155,
+      124
+    ],
+    "active_cycles": [
+      2638,
+      2199
+    ],
+    "concurrent_rw_cycles": 128,
+    "dual_busy_cycles": 32,
+    "dual_data_cycles": 2,
+    "read_beats": [
+      5,
+      248
+    ],
+    "write_beats": [
+      1,
+      66
+    ]
+  },
+  {
+    "kernel": "shared",
+    "cycles": 361,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      344,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      3
+    ],
+    "write_beats": [
+      7,
+      1
+    ]
+  },
+  {
+    "kernel": "divergence",
+    "cycles": 295,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      1,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      278,
+      0
+    ],
+    "concurrent_rw_cycles": 2,
+    "dual_busy_cycles": 17,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      4
+    ],
+    "write_beats": [
+      7,
+      1
+    ]
+  },
+  {
+    "kernel": "strides",
+    "cycles": 3915,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      5,
+      4
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      3890,
+      3298
+    ],
+    "concurrent_rw_cycles": 600,
+    "dual_busy_cycles": 101,
+    "dual_data_cycles": 5,
+    "read_beats": [
+      217,
+      8
+    ],
+    "write_beats": [
+      321,
+      3
+    ]
+  },
+  {
+    "kernel": "rerror",
+    "cycles": 48,
+    "address": 503320560,
+    "fault": 6,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      31,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "read-protocol",
+    "cycles": 49,
+    "address": 503320560,
+    "fault": 6,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      32,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      3,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "berror",
+    "cycles": 98,
+    "address": 503332852,
+    "fault": 5,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      81,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      2
+    ]
+  },
+  {
+    "kernel": "cancel",
+    "cycles": 109,
+    "address": 0,
+    "fault": 7,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      92,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "wrap",
+    "cycles": 79,
+    "address": 0,
+    "fault": 3,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      62,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "below",
+    "cycles": 69,
+    "address": 503316476,
+    "fault": 3,
+    "groups": [
+      0,
+      0
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      52,
+      0
+    ],
+    "concurrent_rw_cycles": 0,
+    "dual_busy_cycles": 0,
+    "dual_data_cycles": 0,
+    "read_beats": [
+      2,
+      0
+    ],
+    "write_beats": [
+      0,
+      0
+    ]
+  },
+  {
+    "kernel": "stripe",
+    "cycles": 690,
+    "address": 0,
+    "fault": 0,
+    "groups": [
+      3,
+      3
+    ],
+    "fmas": [
+      0,
+      0
+    ],
+    "active_cycles": [
+      674,
+      636
+    ],
+    "concurrent_rw_cycles": 10,
+    "dual_busy_cycles": 61,
+    "dual_data_cycles": 3,
+    "read_beats": [
+      11,
+      6
+    ],
+    "write_beats": [
+      12,
+      12
+    ]
+  }
+]

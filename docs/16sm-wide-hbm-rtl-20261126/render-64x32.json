@@ -1,0 +1,1085 @@
+{
+  "backend": "rtl",
+  "scenes": {
+    "triangle": {
+      "covered": 434,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "c6b5a2107d76570d62d6cce69be45efa46031bd3254167e18d488df5083f84d5",
+        "c5ae1cc91d2dfc1b8d424f3ae63ea84845be71cd3be3da53b3b1b2e574414b65",
+        "6928474ec27a833e17a9d5f551bbc24116229ce1534f58f8dddb34622ac09b9e"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3616,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            126,
+            0
+          ],
+          "active_cycles": [
+            3599,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            45
+          ],
+          "write_beats": [
+            36,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2548,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            4,
+            0
+          ],
+          "active_cycles": [
+            2531,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            29,
+            21
+          ],
+          "write_beats": [
+            33,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 1584,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1521,
+            1560
+          ],
+          "concurrent_rw_cycles": 18,
+          "dual_busy_cycles": 61,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            33,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 81023,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            3344,
+            3600
+          ],
+          "active_cycles": [
+            80646,
+            80942
+          ],
+          "concurrent_rw_cycles": 2014,
+          "dual_busy_cycles": 1463,
+          "dual_data_cycles": 93,
+          "read_beats": [
+            2977,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "vertex_shift": {
+      "covered": 434,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "ae8179864ff6ab59f8a3797ef681cebe26143f4ebb7840c9178c52d6bcda75ad",
+        "9a700478feebe7f87fd2ee44e932f6a6c9c5255b736f0c0ae17b390cc9f796bd",
+        "845b2496c47a50368bd8c063fc1b14d6dc2004d62e45653f3686864e5123c55b"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex_shift",
+          "cycles": 3679,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            129,
+            0
+          ],
+          "active_cycles": [
+            3662,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            46
+          ],
+          "write_beats": [
+            36,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2548,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            4,
+            0
+          ],
+          "active_cycles": [
+            2531,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            29,
+            21
+          ],
+          "write_beats": [
+            33,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 1584,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1521,
+            1560
+          ],
+          "concurrent_rw_cycles": 18,
+          "dual_busy_cycles": 61,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            33,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 79395,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            3040,
+            3904
+          ],
+          "active_cycles": [
+            78909,
+            79314
+          ],
+          "concurrent_rw_cycles": 1941,
+          "dual_busy_cycles": 1354,
+          "dual_data_cycles": 72,
+          "read_beats": [
+            2977,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "fragment_swap": {
+      "covered": 434,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 5.960464477539063e-08,
+      "depth_errors": 0,
+      "sha256": [
+        "3a30c31c8c5ddf68f1fbf64e5f6979542ce00f41d944ff9e0efb85444c384fb0",
+        "c5ae1cc91d2dfc1b8d424f3ae63ea84845be71cd3be3da53b3b1b2e574414b65",
+        "6928474ec27a833e17a9d5f551bbc24116229ce1534f58f8dddb34622ac09b9e"
+      ],
+      "triangles": 1,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3616,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            126,
+            0
+          ],
+          "active_cycles": [
+            3599,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            45
+          ],
+          "write_beats": [
+            36,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 2548,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            4,
+            0
+          ],
+          "active_cycles": [
+            2531,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            29,
+            21
+          ],
+          "write_beats": [
+            33,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 1584,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1521,
+            1560
+          ],
+          "concurrent_rw_cycles": 18,
+          "dual_busy_cycles": 61,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            33,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel_swap",
+          "cycles": 81428,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            3568,
+            3376
+          ],
+          "active_cycles": [
+            81349,
+            81091
+          ],
+          "concurrent_rw_cycles": 2388,
+          "dual_busy_cycles": 1383,
+          "dual_data_cycles": 75,
+          "read_beats": [
+            2977,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "shared": {
+      "covered": 384,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "c08b90f32172f9fa131f97023ed5a34669be6878a04ffa6f00b1aae7b874696f",
+        "2ee060fe72e477f2be75bf4e65efcfd90a2deb8ab38fdc49aa9cdda0620e0389",
+        "b184913d55e8cc6a6aa385d22c284b6374485d26c382caaf6282b17cc44cd493"
+      ],
+      "triangles": 2,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3875,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            168,
+            0
+          ],
+          "active_cycles": [
+            3858,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            53
+          ],
+          "write_beats": [
+            48,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 3172,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            8,
+            0
+          ],
+          "active_cycles": [
+            3155,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            45,
+            21
+          ],
+          "write_beats": [
+            65,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 1808,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1747,
+            1784
+          ],
+          "concurrent_rw_cycles": 23,
+          "dual_busy_cycles": 65,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            41,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 104407,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            3072,
+            3072
+          ],
+          "active_cycles": [
+            102368,
+            104327
+          ],
+          "concurrent_rw_cycles": 1592,
+          "dual_busy_cycles": 939,
+          "dual_data_cycles": 88,
+          "read_beats": [
+            3283,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "overlap": {
+      "covered": 320,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "2239ad48a2c3ebb382273ec405f305f8d8184bf3c978141a8da94e7f0baad7bf",
+        "03b729b8067e0e784cddfcd69dc0980c9a000c20b4a479272242ad694941f96d",
+        "aa14d545c29016c593233fd149a414aed922cca0ab8f3710cabf0a738efb43ed"
+      ],
+      "triangles": 3,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5097,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            378,
+            0
+          ],
+          "active_cycles": [
+            5080,
+            0
+          ],
+          "concurrent_rw_cycles": 83,
+          "dual_busy_cycles": 221,
+          "dual_data_cycles": 19,
+          "read_beats": [
+            101,
+            93
+          ],
+          "write_beats": [
+            108,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 4541,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            12,
+            0
+          ],
+          "active_cycles": [
+            4524,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            77,
+            22
+          ],
+          "write_beats": [
+            97,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 2062,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1933,
+            2038
+          ],
+          "concurrent_rw_cycles": 10,
+          "dual_busy_cycles": 56,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            49,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 136597,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            3200,
+            3200
+          ],
+          "active_cycles": [
+            136148,
+            136516
+          ],
+          "concurrent_rw_cycles": 1780,
+          "dual_busy_cycles": 958,
+          "dual_data_cycles": 76,
+          "read_beats": [
+            3201,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "degenerate": {
+      "covered": 0,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 0.0,
+      "depth_errors": 0,
+      "sha256": [
+        "1f6ae7657fcc3027fc979c20db3b0b75eb9ce6e02465f81a30f0abc3633935c2",
+        "fc3bd1e348ef843a5052596a42863c169d54cc3c352449596039497873862155",
+        "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47"
+      ],
+      "triangles": 2,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 3875,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            168,
+            0
+          ],
+          "active_cycles": [
+            3858,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            53
+          ],
+          "write_beats": [
+            48,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 3215,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            8,
+            0
+          ],
+          "active_cycles": [
+            3198,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            45,
+            21
+          ],
+          "write_beats": [
+            65,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 1808,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            1747,
+            1784
+          ],
+          "concurrent_rw_cycles": 23,
+          "dual_busy_cycles": 65,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            41,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 83315,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            83236,
+            83012
+          ],
+          "concurrent_rw_cycles": 1743,
+          "dual_busy_cycles": 1231,
+          "dual_data_cycles": 85,
+          "read_beats": [
+            2049,
+            290
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "cube_a": {
+      "covered": 483,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "a3b56355adaf3b824fe29bcdd71bdf32a6d6ca1d338376107be5eeda50c48dcd",
+        "c7fd3bda3b64ebf045598629e092903fddd396fa7d899cc6932880c246883575",
+        "c33628fbed2c5c0f693356672635c2dae29098db60b369a04d48fef2ea7de26f"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5430,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            336,
+            0
+          ],
+          "active_cycles": [
+            5413,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            85
+          ],
+          "write_beats": [
+            96,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8364,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            48,
+            0
+          ],
+          "active_cycles": [
+            8347,
+            0
+          ],
+          "concurrent_rw_cycles": 523,
+          "dual_busy_cycles": 189,
+          "dual_data_cycles": 10,
+          "read_beats": [
+            209,
+            33
+          ],
+          "write_beats": [
+            386,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 4319,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            4222,
+            4295
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 44,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            121,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 384719,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            4716,
+            3978
+          ],
+          "active_cycles": [
+            380420,
+            384639
+          ],
+          "concurrent_rw_cycles": 1451,
+          "dual_busy_cycles": 934,
+          "dual_data_cycles": 64,
+          "read_beats": [
+            6393,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    },
+    "cube_b": {
+      "covered": 511,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "1e61d61a7def40dcd261b18a5e04877f6edc869926236dceeb90d9b690df668c",
+        "84f9d504652022a7e01e5f3ce5634276d8567d350cab642a7bf2af44286c8d5d",
+        "c3f7405567d4b1e4529ff759d81eaaef1029f25e988f235a2a27d97b08c46381"
+      ],
+      "triangles": 12,
+      "width": 64,
+      "height": 32,
+      "stages": [
+        {
+          "kernel": "vertex",
+          "cycles": 5430,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            336,
+            0
+          ],
+          "active_cycles": [
+            5413,
+            0
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 0,
+          "dual_data_cycles": 0,
+          "read_beats": [
+            51,
+            85
+          ],
+          "write_beats": [
+            96,
+            0
+          ]
+        },
+        {
+          "kernel": "setup",
+          "cycles": 8364,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            1,
+            0
+          ],
+          "fmas": [
+            48,
+            0
+          ],
+          "active_cycles": [
+            8347,
+            0
+          ],
+          "concurrent_rw_cycles": 523,
+          "dual_busy_cycles": 189,
+          "dual_data_cycles": 10,
+          "read_beats": [
+            209,
+            33
+          ],
+          "write_beats": [
+            386,
+            0
+          ]
+        },
+        {
+          "kernel": "bin",
+          "cycles": 4319,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            4,
+            4
+          ],
+          "fmas": [
+            0,
+            0
+          ],
+          "active_cycles": [
+            4222,
+            4295
+          ],
+          "concurrent_rw_cycles": 0,
+          "dual_busy_cycles": 44,
+          "dual_data_cycles": 3,
+          "read_beats": [
+            121,
+            10
+          ],
+          "write_beats": [
+            0,
+            8
+          ]
+        },
+        {
+          "kernel": "pixel",
+          "cycles": 386900,
+          "address": 0,
+          "fault": 0,
+          "groups": [
+            32,
+            32
+          ],
+          "fmas": [
+            4644,
+            4554
+          ],
+          "active_cycles": [
+            386821,
+            385676
+          ],
+          "concurrent_rw_cycles": 2425,
+          "dual_busy_cycles": 1275,
+          "dual_data_cycles": 74,
+          "read_beats": [
+            6427,
+            312
+          ],
+          "write_beats": [
+            384,
+            384
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -20,6 +20,7 @@ warp through their response.
 | 0x0b, 0x2b | Same load/store fields | Byte address relative to the current workgroup scratchpad |
 | 0x43 | RV32 R4, fmt and rm zero | Fused rD = rA * rB + rC |
 | 0x53 | funct7 = FP operation 1–12, funct3 zero | Binary and unary operations in fp32.md, rs2 zero for unary |
+| 0x57 | {bits 26:25, funct3} selects function 9 or 10, rs2 and bits 31:27 zero | Optional SFU, unary FP32 reciprocal or reciprocal square root. Requires bit 4 at MMIO 0x60. Disabled instructions fault with code 2. |
 | 0x5b | rd and funct3, other fields zero | TID, GID, NTID, ARG, SMID, FFLAGS in funct3 order 0–5 |
 | 0x7b | funct3 and signed imm12, rs1 predicate as applicable | EXIT, BAR, FENCE, JMP, BZ, SPLIT, NEXT, JOIN in order 0–7 |
 
@@ -47,6 +48,8 @@ Fault codes are 1 for an invalid job, 2 for illegal instruction or target,
 protocol error, 6 for decode response, and 7 for cancellation. Code faults
 carry the device address of the instruction. Address faults carry the low
 32 bits of the offending address. The assembler's LI expands to LUI and ADDI.
+
+SFU estimates use input and output FTZ and preserve the current warp flags. The numerical contract, accuracy and workloads are documented in the [SFU report](16sm-wide-hbm-rtl-20261126/README.en.md).
 
 ```bash
 python3 sw/asm.py asm examples/divergence.s build/divergence.bin
