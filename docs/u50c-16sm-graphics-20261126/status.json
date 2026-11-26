@@ -1,22 +1,24 @@
 {
   "remote_directory": "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs",
-  "observed_at": "2026-11-26T20:39:54.070513+08:00",
-  "phase": "place_design",
+  "observed_at": "2026-11-26T21:11:13.753812+08:00",
+  "phase": "route_design",
   "top_exit": null,
   "analysis_finished": false,
   "synthesis_report": true,
   "checkpoint_names": [
-    "u50c_top_opt.dcp"
+    "u50c_top_opt.dcp",
+    "u50c_top_physopt.dcp",
+    "u50c_top_placed.dcp"
   ],
   "bit_present": false,
   "recent_log": [
-    "Phase 3 Detail Placement | Checksum: 17b66396b",
+    "Number SLLs per Column: 1440",
+    "Estimated SLL Demand Per Column: ",
+    "  SLR [0-1]      198 ( 14%)   185 ( 13%)   169 ( 12%)   341 ( 24%)   586 ( 41%)  2221 (154%)  1097 ( 76%)  1493 (104%)   853 ( 59%)   195 ( 14%)   142 ( 10%)   138 ( 10%)    72 (  5%)    71 (  5%)    71 (  5%)    70 (  5%)  Demand:  7902 Available: 23040 Utilization(%): 34.30",
     "",
-    "Time (s): cpu = 01:38:25 ; elapsed = 00:46:08 . Memory (MB): peak = 16657.844 ; gain = 7822.031 ; free physical = 9104 ; free virtual = 22690",
-    "",
-    "Phase 4 Post Placement Optimization and Clean-Up",
-    "",
-    "Phase 4.1 Post Commit Optimization",
-    "INFO: [Timing 38-35] Done setting XDC timing constraints."
+    "Phase 3.1.1 SLL Assignment",
+    "Number SLLs per Column: 1440",
+    "Estimated SLL Demand Per Column: ",
+    "  SLR [0-1]      198 ( 14%)   185 ( 13%)   169 ( 12%)   341 ( 24%)   586 ( 41%)  2221 (154%)  1097 ( 76%)  1493 (104%)   853 ( 59%)   195 ( 14%)   142 ( 10%)   138 ( 10%)    72 (  5%)    71 (  5%)    71 (  5%)    70 (  5%)  Demand:  7902 Available: 23040 Utilization(%): 34.30"
   ]
 }

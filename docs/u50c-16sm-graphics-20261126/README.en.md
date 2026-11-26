@@ -33,3 +33,13 @@ bash run_soc.sh
 The 64 GraphicsLane instances account for 43,152 LUTs, 64,640 FFs and 1,280 DSPs within the GPU row. Synthesized SoC LUT utilization is 95.99%. [Vivado synthesis reports](synthesis.tar.gz) · [Hierarchy totals](synthesis.json)
 
 Of the GPU core LUTs, the 16 SM instances use 388,364 (54.5%), the wide DMA and arbitration use 206,503 (29.0%), and the 16 data L1 instances with their control logic use 116,194 (16.3%). The GPU top level and control-port queues account for the remaining 1,728. The SM counts include the graphics lanes.
+
+## Placement
+
+Placement finished at 20:49:22 UTC+8 and routing began at 20:52:31. Vivado estimated +0.550 ns of worst setup slack after placement. The synthesis table above gives CPU and GPU resource counts. The following figures cover the placed SoC and its two SLRs. [Vivado placement report](utilization-placed.rpt)
+
+| Region | LUT | LUT utilization | FF | BRAM tiles | URAM | DSP |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| SLR0 | 380,942 | 86.64% | 180,240 | 148.5 | 0 | 1,044 |
+| SLR1 | 388,126 | 89.84% | 163,715 | 173 | 0 | 820 |
+| SoC | 769,068 | 88.23% | 343,955 | 321.5 | 0 | 1,864 |
