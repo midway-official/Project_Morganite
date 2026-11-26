@@ -8,6 +8,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
+from wide_board import integrate
 from prepare_baseline import BASE, ROOT, prepare
 
 
@@ -18,11 +19,13 @@ def replace_once(path, before, after):
     path.write_text(content.replace(before, after))
 
 
-def instantiate():
+def instantiate(wide_ports=0):
     ports = [".clock(clk_cpu)", ".reset(!resetn_cpu)"]
     fields = {"ar": "addr id len size burst lock cache prot qos", "aw": "addr id len size burst lock cache prot qos",
               "w": "data strb last", "b": "id resp", "r": "id data resp last"}
-    for bundle, bus in [("cpuMemory", "host_mem"), ("peripheral", "host_io"), ("hbm", "mem_axi"), ("legacy", "periph_axi")]:
+    bundles = [("cpuMemory", "host_mem"), ("peripheral", "host_io"), ("hbm", "mem_axi"), ("legacy", "periph_axi")]
+    bundles.extend((("gpuHbm" if i == 0 else "gpuHbm1"), f"gpu_mem{i}") for i in range(wide_ports))
+    for bundle, bus in bundles:
         for channel, payload in fields.items():
             for handshake in ["ready", "valid"]:
                 ports.append(f".io_{bundle}_{channel}_{handshake}({bus}.{channel}{handshake})")
@@ -37,6 +40,8 @@ if __name__ == "__main__":
     parser.add_argument("--sms", type=int, default=2)
     parser.add_argument("--accelerators", action="store_true",
                         help="enable configured I/D L1, INT8 K=4, and optimized issue/RF")
+    parser.add_argument("--wide-ports", type=int, choices=(1, 2), default=0,
+                        help="dedicated 256-bit endpoints, one per HBM stack")
     args = parser.parse_args()
     if args.sms not in (2, 8, 16, 32):
         parser.error("--sms must be one of 2, 8, 16, or 32")
@@ -52,7 +57,9 @@ if __name__ == "__main__":
     shutil.copytree(frozen / "board_repo", inputs / "board_repo")
     ic_bytes, dc_bytes = (4096, 8192) if args.sms == 32 else (2048, 2048)
     extra = f" ic={ic_bytes} dc={dc_bytes} line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
-    rtl_dir = f"build/board-rtl-{args.sms}sm"
+    if args.wide_ports:
+        extra += f" dmaBits=256 reads=8 writes=4 ports={args.wide_ports}"
+    rtl_dir = f"build/board-rtl-{args.sms}sm" + (f"-wide{args.wide_ports}" if args.wide_ports else "")
     subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} {args.sms} 8 4{extra}"'],
                    cwd=ROOT, check=True)
     gpu = ROOT / rtl_dir / "MorganiteBoard.sv"
@@ -64,7 +71,7 @@ if __name__ == "__main__":
     top = rtl / "u50c_top.sv"
     replace_once(top, "    axi_arbiter_2m2s u_fabric", "    axi4_if host_mem();\n    axi4_if host_io();\n\n    axi_arbiter_2m2s u_fabric")
     replace_once(top, ".mem    (mem_axi),\n        .periph (periph_axi)", ".mem    (host_mem),\n        .periph (host_io)")
-    replace_once(top, "    hbm_axi_bridge u_memory", instantiate() + "    hbm_axi_bridge u_memory")
+    replace_once(top, "    hbm_axi_bridge u_memory", instantiate(args.wide_ports) + "    hbm_axi_bridge u_memory")
     replace_once(project, "add_files -norecurse $generated_rtl", "add_files -norecurse [file join $rtl_dir MorganiteBoard.sv]\nadd_files -norecurse $generated_rtl")
     replace_once(project, "report_timing_summary -file [file join $build_dir timing_impl.rpt]",
                  "report_timing_summary -delay_type min_max -report_unconstrained -file [file join $build_dir timing_impl.rpt]\n"
@@ -77,6 +84,8 @@ if __name__ == "__main__":
                      "report_utilization -hierarchical -file [file join $build_dir hierarchy_synth.rpt]\n"
                      "report_utilization -file [file join $build_dir utilization_synth.rpt]\n"
                      "if {[info exists ::env(MORGANITE_SYNTH_ONLY)] && $::env(MORGANITE_SYNTH_ONLY) eq {1}} {close_project; exit}")
+    if args.wide_ports:
+        integrate(rtl, project, args.wide_ports, replace_once)
     shutil.copy2(ROOT / "board/run_soc.sh", out)
     manifest.update(gpu_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
                     gpu_config={"sms": args.sms, "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
@@ -85,6 +94,9 @@ if __name__ == "__main__":
     if args.accelerators:
         manifest["gpu_config"].update(ic_bytes=ic_bytes, dc_bytes=dc_bytes, line_words=8, tensor_k=4,
                                       bram_rf=True, early_branch=True)
+    if args.wide_ports:
+        manifest["gpu_config"].update(dma_bits=256, hbm_ports=args.wide_ports, read_ids_per_port=8,
+                                      write_ids_per_port=4, stripe_bytes=4096 if args.wide_ports == 2 else 0)
     (out / "manifest.json").write_text(json.dumps(manifest, indent=2)+"\n")
     inputs_list = sorted(p for p in out.rglob("*") if p.is_file())
     (out / "files.sha256").write_text("".join(

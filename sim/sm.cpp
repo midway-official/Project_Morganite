@@ -37,51 +37,61 @@ int main(int argc, char** argv) {
     d.io_start_bits_words = program.size() / 4; d.io_start_bits_programBase = base;
     d.eval(); if (!d.io_start_ready) return 4;
     tick(); d.io_start_valid = 0;
-    std::array<uint32_t, 8> response{};
-    unsigned due = 0, fault = 0, faultAddr = 0, requests = 0;
+    struct Port {
+        CData &ready, &valid, &rspReady, &rspValid, &rspFault, &mask, &size, &store, &uns;
+        IData &rspAddress;
+        std::array<QData*,8> addr;
+        std::array<IData*,8> data, reply;
+        unsigned due=0;
+    };
+#define FIELDS(x) {&x##_0,&x##_1,&x##_2,&x##_3,&x##_4,&x##_5,&x##_6,&x##_7}
+#define PORT(x) {x##_req_ready,x##_req_valid,x##_rsp_ready,x##_rsp_valid,x##_rsp_bits_fault, \
+        x##_req_bits_mask,x##_req_bits_size,x##_req_bits_store,x##_req_bits_unsigned,x##_rsp_bits_address, \
+        FIELDS(x##_req_bits_addr),FIELDS(x##_req_bits_data),FIELDS(x##_rsp_bits_data)}
+    Port ports[] = { PORT(d.io_global)
+#ifdef WIDE_LSU
+        ,PORT(d.io_global1)
+#endif
+    };
+    unsigned requests=0, peak=0;
     for (unsigned cycle = 1; cycle < 1000000; ++cycle) {
-        d.io_global_req_ready = !due && (cycle % 31 > 7);
-        d.io_global_rsp_valid = due && cycle >= due;
-        d.io_global_rsp_bits_fault = fault; d.io_global_rsp_bits_address = faultAddr;
-#define RSP(I) d.io_global_rsp_bits_data_##I = response[I];
-        RSP(0) RSP(1) RSP(2) RSP(3) RSP(4) RSP(5) RSP(6) RSP(7)
-#undef RSP
-        d.eval();
-        if (d.io_global_rsp_valid && d.io_global_rsp_ready) due = 0;
-        if (d.io_global_req_valid && d.io_global_req_ready) {
-            if (due) return 5;
-#define ADDR(I) d.io_global_req_bits_addr_##I
-#define DATA(I) d.io_global_req_bits_data_##I
-            std::array<uint64_t, 8> addr{ADDR(0),ADDR(1),ADDR(2),ADDR(3),ADDR(4),ADDR(5),ADDR(6),ADDR(7)};
-            std::array<uint32_t, 8> data{DATA(0),DATA(1),DATA(2),DATA(3),DATA(4),DATA(5),DATA(6),DATA(7)};
-#undef ADDR
-#undef DATA
-            auto mask = d.io_global_req_bits_mask;
-            unsigned size = 1u << d.io_global_req_bits_size;
-            fault = 0; faultAddr = 0;
-            for (unsigned i = 0; i < 8; ++i) if (mask & (1u << i)) {
-                if ((addr[i] % size) || addr[i] < base || addr[i] + size > base + memory.size()) {
-                    fault = 3; faultAddr = addr[i]; break;
-                }
-            }
-            if (!fault) for (unsigned i = 0; i < 8; ++i) if (mask & (1u << i)) {
-                unsigned pos = addr[i] - base, value = 0;
-                for (unsigned j = 0; j < size; ++j) {
-                    if (d.io_global_req_bits_store) memory[pos + j] = data[i] >> (8 * j);
-                    value |= uint32_t(memory[pos + j]) << (8 * j);
-                }
-                if (!d.io_global_req_bits_unsigned && size < 4 && (value & (1u << (8 * size - 1))))
-                    value |= ~0u << (8 * size);
-                response[i] = value;
-            }
-            ++requests; due = cycle + 2 + (requests * 7 % 37);
+        for (auto &p:ports) {
+            p.ready = !p.due && cycle%31>7;
+            p.rspValid = p.due && cycle>=p.due;
         }
+        d.eval();
+        unsigned active=0;
+        for (auto &p:ports) {
+            if (p.rspValid && p.rspReady) p.due=0;
+            if (p.valid && p.ready) {
+                const unsigned bytes=1u<<p.size;
+                p.rspFault=0; p.rspAddress=0;
+                for(unsigned i=0;i<8;i++) if(p.mask>>i&1) {
+                    uint64_t a=*p.addr[i];
+                    if(a%bytes || a<base || a+bytes>base+memory.size()) {
+                        p.rspFault=3;p.rspAddress=a;break;
+                    }
+                }
+                for(unsigned i=0;i<8;i++) if(!p.rspFault && (p.mask>>i&1)) {
+                    unsigned pos=*p.addr[i]-base, value=0;
+                    for(unsigned j=0;j<bytes;j++) {
+                        if(p.store) memory[pos+j]=*p.data[i]>>(8*j);
+                        value|=uint32_t(memory[pos+j])<<(8*j);
+                    }
+                    if(!p.uns && bytes<4 && (value>>(8*bytes-1))) value|=~0u<<(8*bytes);
+                    *p.reply[i]=value;
+                }
+                ++requests; p.due=cycle+12+(requests*7%57);
+            }
+            active+=bool(p.due);
+        }
+        peak=std::max(peak,active);
         if (d.io_result_valid) {
-            if (due || d.io_result_bits_group != gid) return 6;
+            if (active || d.io_result_bits_group != gid) return 6;
             std::ofstream output(argv[3], std::ios::binary);
             output.write(reinterpret_cast<const char*>(memory.data()), memory.size());
             std::cout << "{\"cycles\":" << d.io_result_bits_cycles << ",\"requests\":" << requests
-                << ",\"fp_ops\":" << d.io_result_bits_fpOps << ",\"fmas\":" << d.io_result_bits_fmaOps
+                << ",\"peak_global\":" << peak << ",\"fp_ops\":" << d.io_result_bits_fpOps << ",\"fmas\":" << d.io_result_bits_fmaOps
                 << ",\"fault\":" << unsigned(d.io_result_bits_fault) << ",\"address\":" << d.io_result_bits_address << "}\n";
             return d.io_result_bits_fault != expectedFault;
         }

@@ -74,12 +74,13 @@ class Scratchpad(p: GpuParams) extends Module {
       val shifted = (value << Cat(address(1, 0), 0.U(3.W)))(31, 0)
       mem.write(index, shifted.asTypeOf(Vec(4, UInt(8.W))), MemoryAccess.strobes(request.size, address).asBools)
     }
-    val readMask = RegNext(Mux(selected && !request.store, grant, 0.U), 0.U)
-    val offset = RegEnable(address(1, 0), selected)
+    val matches = VecInit(request.addr.map(a => a(32,2) === address(32,2))).asUInt & candidates
+    val serviced = Mux(request.store, grant, matches)
+    val readMask = RegNext(Mux(selected && !request.store, matches, 0.U), 0.U)
     for (i <- 0 until p.warpWidth) {
-      when(readMask(i)) { reply.data(i) := MemoryAccess.unpack(data, offset, request.size, request.unsigned) }
+      when(readMask(i)) { reply.data(i) := MemoryAccess.unpack(data, request.addr(i), request.size, request.unsigned) }
     }
-    grant
+    serviced
   }
   when(state === access) {
     val rest = remaining & ~grants.reduce(_ | _)

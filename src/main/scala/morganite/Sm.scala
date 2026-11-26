@@ -39,6 +39,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     val program = Flipped(Valid(new InstructionWrite(p)))
     val start = Flipped(Decoupled(new Group(p)))
     val result = Decoupled(new GroupResult)
+    val global1 = if (p.globalSlots == 2) Some(new VectorPort(p)) else None
     val global = new VectorPort(p)
     val fetch = if (p.iCacheBytes > 0) Some(new VectorPort(p)) else None
     val invalidate = Input(Bool())
@@ -105,33 +106,42 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   when(state === run) { summary.cycles := summary.cycles + 1.U }
 
   val memIdle :: gather :: send :: awaitReply :: writeRegs :: Nil = Enum(5)
-  val memState = RegInit(memIdle)
-  val memIssue = Reg(new WarpIssue(p))
-  val request = Reg(new VectorRequest(p))
-  val loaded = Reg(Vec(p.warpWidth, UInt(32.W)))
-  val wbBeat = Reg(UInt(p.beatBits.W))
+  // Wide configurations reserve two global instructions and one local instruction.
+  // The execution pipe still gathers exactly one physical RF slice per cycle.
+  val slotCount = if (p.globalSlots == 2) 3 else 1
+  val slotState = RegInit(VecInit(Seq.fill(slotCount)(memIdle)))
+  val memIssues = Reg(Vec(slotCount, new WarpIssue(p)))
+  val requests = Reg(Vec(slotCount, new VectorRequest(p)))
+  val loads = Reg(Vec(slotCount, Vec(p.warpWidth, UInt(32.W))))
+  val writeBeat = Reg(Vec(slotCount, UInt(p.beatBits.W)))
   val scratch = Module(new Scratchpad(p))
-  val local = memIssue.decoded.scratch
-  scratch.io.req.valid := memState === send && local
-  io.global.req.valid := memState === send && !local
-  io.global.req.bits := request
-  scratch.io.req.bits := request
-  scratch.io.rsp.ready := memState === awaitReply && local
-  io.global.rsp.ready := memState === awaitReply && !local
-  when(io.global.req.fire || scratch.io.req.fire) { memState := awaitReply }
-  when(io.global.rsp.fire || scratch.io.rsp.fire) {
-    val reply = Mux(local, scratch.io.rsp.bits, io.global.rsp.bits)
-    when(reply.fault.orR || request.store) {
-      memState := memIdle
-      locked(memIssue.warp) := false.B
-      when(reply.fault.orR) { fail(reply.fault, reply.address) }
-    }.otherwise {
-      loaded := reply.data
-      wbBeat := 0.U
-      memState := writeRegs
+  val ports = Seq(io.global) ++ io.global1.toSeq :+ scratch.io
+  for ((port, i) <- ports.zipWithIndex) {
+    val slot = if (slotCount == 1) 0 else i
+    val forPort = if (slotCount > 1) true.B else memIssues(slot).decoded.scratch === (i == 1).B
+    port.req.valid := slotState(slot) === send && forPort
+    port.req.bits := requests(slot)
+    port.rsp.ready := slotState(slot) === awaitReply && forPort
+    when(port.req.fire) { slotState(slot) := awaitReply }
+    when(port.rsp.fire) {
+      val reply = port.rsp.bits
+      when(reply.fault.orR || requests(slot).store || !healthy) {
+        slotState(slot) := memIdle
+        locked(memIssues(slot).warp) := false.B
+        when(reply.fault.orR) { fail(reply.fault, reply.address) }
+      }.otherwise {
+        loads(slot) := reply.data
+        writeBeat(slot) := 0.U
+        slotState(slot) := writeRegs
+      }
     }
   }
-  when(state === run && (memState === awaitReply || memState === send)) {
+  val globalFree = VecInit(slotState.take(p.globalSlots).map(_ === memIdle)).asUInt
+  def available(local: Bool): Bool = Mux(local, slotState.last === memIdle, globalFree.orR)
+  def allocate(local: Bool): UInt = if (slotCount == 1) 0.U
+    else Mux(local, (slotCount-1).U, PriorityEncoder(globalFree))
+  val wbSlots = VecInit(slotState.map(_ === writeRegs)).asUInt
+  when(state === run && slotState.map(s => s === awaitReply || s === send).reduce(_ || _)) {
     summary.memStalls := summary.memStalls + 1.U
   }
 
@@ -207,7 +217,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
       !d.legal || (d.op === 0x5b.U && d.funct === 5.U)
     val port = arb.io.in(w)
     port.valid := healthy && live(w) && fetched(w) && !locked(w) && !barrier(w) &&
-      !dep && (!serial || !inflight(w).orR) && (!d.mem || memState === memIdle) && memState =/= writeRegs
+      !dep && (!serial || !inflight(w).orR) && (!d.mem || available(d.scratch)) && !wbSlots.orR
     port.bits.warp := w.U
     port.bits.pc := pc(w)
     port.bits.mask := mask(w)
@@ -222,8 +232,10 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
           .otherwise { pc(w) := target.asUInt }
       }
       when(d.mem && d.legal) {
-        memState := gather
-        memIssue := port.bits
+        val slot = allocate(d.scratch)
+        val request = requests(slot)
+        slotState(slot) := gather
+        memIssues(slot) := port.bits
         request.mask := mask(w)
         request.size := d.funct(1, 0)
         request.unsigned := d.funct(2)
@@ -297,7 +309,13 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   when(retire && wb.tensor) {
     summary.tensorOps := summary.tensorOps + PopCount(wb.mask) * p.tensorK.U
   }
-  val loadWB = memState === writeRegs && !retire
+  // Stop issuing while a return awaits RF service. Existing fixed-latency writes drain.
+  val wbSlot = if (slotCount == 1) 0.U else PriorityEncoder(wbSlots)
+  val wbBeat = writeBeat(wbSlot)
+  val memIssue = memIssues(wbSlot)
+  val request = requests(wbSlot)
+  val loaded = loads(wbSlot)
+  val loadWB = wbSlots.orR && !retire
   val parts = loaded.asTypeOf(Vec(p.beats, Vec(p.lanes, UInt(32.W))))
   val masks = request.mask.asTypeOf(Vec(p.beats, UInt(p.lanes.W)))
   rf.io.wr.valid := retire || loadWB
@@ -307,9 +325,9 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   rf.io.wr.bits.data := Mux(retire, wbData, if (p.beats == 1) parts(0) else parts(wbBeat))
   when(loadWB) {
     when(wbBeat === (p.beats - 1).U) {
-      memState := memIdle
+      slotState(wbSlot) := memIdle
       locked(memIssue.warp) := false.B
-    }.otherwise { wbBeat := wbBeat + 1.U }
+    }.otherwise { writeBeat(wbSlot) := wbBeat + 1.U }
   }
   for (i <- 0 until p.warpSlots) {
     val port = arb.io.in(i)
@@ -325,13 +343,17 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
   }
 
   when(exValid && d.mem && d.legal) {
+    val gathering = VecInit((0 until slotCount).map(i => slotState(i) === gather && memIssues(i).warp === w)).asUInt
+    assert(PopCount(gathering) === 1.U)
+    val slot = if (slotCount == 1) 0.U else OHToUInt(gathering)
+    val request = requests(slot)
     for (k <- 0 until p.beats; l <- 0 until p.lanes) {
       when(slice.index === k.U) {
         request.addr(k * p.lanes + l) := (a(l).zext +& d.imm.asSInt).asUInt
         request.data(k * p.lanes + l) := b(l)
       }
     }
-    when(slice.last) { memState := send }
+    when(slice.last) { slotState(slot) := send }
   }
   val votes = RegInit(0.U(p.warpWidth.W))
   val laneVotes = VecInit(a.map(_.orR)).asUInt & slice.mask
@@ -398,7 +420,7 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
       }
   }
   when(state === run && (!live.asUInt.orR || summary.fault.orR) && !inflight.asUInt.orR &&
-      fetchIdle && !beats.io.beat.valid && !exValid && memState === memIdle) {
+      fetchIdle && !beats.io.beat.valid && !exValid && slotState.map(_ === memIdle).reduce(_ && _)) {
     state := finish
   }
 }

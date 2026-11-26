@@ -120,9 +120,11 @@ class BurstPlan(p: GpuParams) extends Module {
   when(io.done.fire) { state := idle }
 }
 
-class Dma(p: GpuParams) extends Module {
-  val owners = p.numSms + 1 + (if (p.iCacheBytes > 0) p.numSms else 0)
+abstract class VectorDma(p: GpuParams) extends Module {
+  val owners = p.extraGlobalBase + (p.globalSlots - 1)*p.numSms
   val io = IO(new Bundle {
+    val cancel = if (p.axiDataBits == 256) Some(Input(Bool())) else None
+    val axi1 = if (p.hbmPorts == 2) Some(new AxiMaster(p)) else None
     val clients = Vec(owners, Flipped(new VectorPort(p)))
     val axi = new AxiMaster(p)
     val base, limit = Input(UInt(32.W))
@@ -130,6 +132,10 @@ class Dma(p: GpuParams) extends Module {
     val readBursts, writeBursts, readBytes, writeBytes = Output(UInt(32.W))
     val idle = Output(Bool())
   })
+}
+
+class Dma(p: GpuParams) extends VectorDma(p) {
+  require(p.axiDataBits == 32)
   val busy = RegInit(VecInit(Seq.fill(owners)(false.B)))
   io.idle := !busy.asUInt.orR
   val plans = Seq.fill(2)(Module(new BurstPlan(p)))

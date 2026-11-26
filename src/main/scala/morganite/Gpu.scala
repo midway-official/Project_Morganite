@@ -25,6 +25,7 @@ class Gpu(p: GpuParams) extends Module {
   require(p.numSms <= 32 && p.maxThreads <= 255, "ABI capability fields")
   val io = IO(new Bundle {
     val host = new AxiLiteSlave
+    val dma1 = if (p.hbmPorts == 2) Some(new AxiMaster(p)) else None
     val dma = new AxiMaster(p)
   })
   val idle :: descReq :: descRsp :: validate :: codeReq :: codeRsp :: load :: dispatch :: drain :: Nil = Enum(9)
@@ -50,11 +51,14 @@ class Gpu(p: GpuParams) extends Module {
   def firstFault(code: UInt, address: UInt): Unit = {
     when(!fault.orR) { fault := code; faultAddress := address }
   }
-  val dma = Module(new Dma(p))
+  val dma: VectorDma = if (p.axiDataBits == 256) Module(new WideDma(p)) else Module(new Dma(p))
   val sms = (0 until p.numSms).map(i => Module(new Sm(p, i)))
-  val dataCaches = Seq.fill(if (p.dCacheBytes > 0) p.numSms else 0)(Module(new DataL1(p)))
+  val dataCaches = Seq.fill(if (p.dCacheBytes > 0 && p.globalSlots == 1) p.numSms else 0)(Module(new DataL1(p)))
+  val dualCaches = Seq.fill(if (p.dCacheBytes > 0 && p.globalSlots == 2) p.numSms else 0)(Module(new DualDataL1(p)))
   val roBase, roEnd = RegInit(0.U(32.W))
+  io.dma1.foreach(_ <> dma.io.axi1.get)
   io.dma <> dma.io.axi
+  dma.io.cancel.foreach(_ := errorCondition)
   dma.io.base := base
   dma.io.limit := limit
   dma.io.roBase := roBase
@@ -116,9 +120,9 @@ class Gpu(p: GpuParams) extends Module {
     Seq(0x50 -> ((if (p.iCacheBytes > 0) 1 else 0) | (if (p.dCacheBytes > 0) 2 else 0) |
       (p.tensorK << 8)).U, 0x54 -> roBase, 0x58 -> roEnd) ++
     sms.zipWithIndex.flatMap { case (sm,i) =>
-      val d = dataCaches.lift(i)
-      Seq(sm.io.iHits, sm.io.iMisses, d.map(_.io.hits).getOrElse(0.U),
-        d.map(_.io.misses).getOrElse(0.U)).zipWithIndex.map { case (v,j) => (0x600 + i*16 + j*4) -> v }
+      val d = dataCaches.lift(i).map(c => (c.io.hits,c.io.misses)).orElse(dualCaches.lift(i).map(c => (c.io.hits,c.io.misses)))
+      Seq(sm.io.iHits, sm.io.iMisses, d.map(_._1).getOrElse(0.U),
+        d.map(_._2).getOrElse(0.U)).zipWithIndex.map { case (v,j) => (0x600 + i*16 + j*4) -> v }
     }
   val rValid = RegInit(false.B)
   val rData = Reg(UInt(32.W))
@@ -150,7 +154,8 @@ class Gpu(p: GpuParams) extends Module {
     val validWindow = base >= Abi.dmaFloor.U && limit <= Abi.dmaCeiling.U && base < limit
     val descOK = !descriptor(1, 0).orR && descriptor >= base && (descriptor +& 32.U) <= limit
     val validRo = roBase === roEnd || (roBase >= base && roBase < roEnd && roEnd <= limit)
-    when(!validWindow || !validRo || !descOK || !enable.orR) {
+    val alignedWindow = if (p.axiDataBits == 256) !(base(4,0) | limit(4,0)).orR else true.B
+    when(!alignedWindow || !validWindow || !validRo || !descOK || !enable.orR) {
       fault := 1.U
       faultAddress := descriptor
       state := drain
@@ -213,14 +218,27 @@ class Gpu(p: GpuParams) extends Module {
   for ((sm, i) <- sms.zipWithIndex) {
     sm.io.invalidate := submit
     sm.io.fetch.foreach(_ <> dma.io.clients(p.numSms + 1 + i))
-    if (p.dCacheBytes > 0) {
+    if (dualCaches.nonEmpty) {
+      val c = dualCaches(i).io
+      c.core(0) <> sm.io.global
+      c.core(1) <> sm.io.global1.get
+      c.mem(0) <> dma.io.clients(i)
+      c.mem(1) <> dma.io.clients(p.extraGlobalBase + i)
+      c.roBase := roBase
+      c.roEnd := roEnd
+      c.invalidate := submit
+      c.cancel := errorCondition
+    } else if (dataCaches.nonEmpty) {
       val c = dataCaches(i).io
       c.core <> sm.io.global
       dma.io.clients(i) <> c.mem
       c.roBase := roBase
       c.roEnd := roEnd
       c.invalidate := submit
-    } else { dma.io.clients(i) <> sm.io.global }
+    } else {
+      dma.io.clients(i) <> sm.io.global
+      sm.io.global1.foreach(_ <> dma.io.clients(p.extraGlobalBase+i))
+    }
     sm.io.program.valid := state === load && !errorCondition
     sm.io.program.bits.address := index + lane
     sm.io.program.bits.data := block(lane)

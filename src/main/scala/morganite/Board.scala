@@ -120,16 +120,25 @@ class PeripheralDecode(p: GpuParams) extends Module {
 }
 
 class MorganiteBoard(p: GpuParams) extends Module {
+  private val host = p.copy(hbmPorts = 1, axiDataBits = 32, readOutstanding = 1, writeOutstanding = 1)
   val io = IO(new Bundle {
-    val cpuMemory, peripheral = Flipped(new AxiMaster(p))
-    val hbm, legacy = new AxiMaster(p)
+    val cpuMemory, peripheral = Flipped(new AxiMaster(host))
+    val hbm, legacy = new AxiMaster(host)
+    val gpuHbm1 = if (p.hbmPorts == 2) Some(new AxiMaster(p)) else None
+    val gpuHbm = if (p.axiDataBits == 256) Some(new AxiMaster(p)) else None
   })
   val gpu = Module(new Gpu(p))
-  val mux = Module(new MemoryMux(p))
-  val decode = Module(new PeripheralDecode(p))
-  mux.io.in(0) <> io.cpuMemory
-  mux.io.in(1) <> gpu.io.dma
-  io.hbm <> mux.io.mem
+  if (p.axiDataBits == 256) {
+    io.gpuHbm1.foreach(_ <> gpu.io.dma1.get)
+    io.hbm <> io.cpuMemory
+    io.gpuHbm.get <> gpu.io.dma
+  } else {
+    val mux = Module(new MemoryMux(p))
+    mux.io.in(0) <> io.cpuMemory
+    mux.io.in(1) <> gpu.io.dma
+    io.hbm <> mux.io.mem
+  }
+  val decode = Module(new PeripheralDecode(host))
   decode.io.host <> io.peripheral
   io.legacy <> decode.io.legacy
   gpu.io.host <> decode.io.gpu

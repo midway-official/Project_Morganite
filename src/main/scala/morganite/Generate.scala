@@ -6,16 +6,21 @@ object Generate extends App {
   require(args.length >= 5, "module output-directory SM-count warp-width lanes")
   val options = args.drop(5).map { arg =>
     arg.split("=", -1) match {
-      case Array(k, v) if Set("ic", "dc", "line", "tensor", "bramRf", "earlyBranch")(k) => k -> v.toInt
+      case Array(k, v) if Set("ic", "dc", "line", "tensor", "bramRf", "earlyBranch", "dmaBits", "reads", "writes", "ports")(k) => k -> v.toInt
       case _ => throw new IllegalArgumentException(s"unknown configuration: $arg")
     }
   }.toMap
   def flag(name: String): Boolean = { val v = options.getOrElse(name, 0); require(v == 0 || v == 1); v == 1 }
   val p = GpuParams(numSms = args(2).toInt, warpWidth = args(3).toInt, lanes = args(4).toInt,
+    hbmPorts = options.getOrElse("ports", 1), axiDataBits = options.getOrElse("dmaBits", 32),
+    readOutstanding = options.getOrElse("reads", 1), writeOutstanding = options.getOrElse("writes", 1),
     iCacheBytes = options.getOrElse("ic", 0), dCacheBytes = options.getOrElse("dc", 0),
     lineWords = options.getOrElse("line", 4), tensorK = options.getOrElse("tensor", 0),
     bramRf = flag("bramRf"), earlyBranch = flag("earlyBranch"))
   val design = args(0) match {
+    case "DualDataL1" => () => new DualDataL1(p)
+    case "Scratchpad" => () => new Scratchpad(p)
+    case "WideDma" => () => new WideDma(p)
     case "WarpBeats" => () => new WarpBeats(p)
     case "Fp32Lane" => () => new Fp32Lane()
     case "LaneRegisters" => () => new LaneRegisters(p)

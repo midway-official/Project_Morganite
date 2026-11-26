@@ -16,6 +16,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("sim", type=Path)
 parser.add_argument("sms", type=int)
 parser.add_argument("out", type=Path)
+parser.add_argument("--wide", action="store_true")
 args = parser.parse_args()
 args.out.mkdir(parents=True, exist_ok=True)
 base, code = 0x1e000000, 0x0ff0
@@ -30,12 +31,17 @@ tests += [
     ("wrap", "li r1,0xffffffff\nlbu r2,1(r1)\nexit", 3, "wrap"),
     ("below", "arg r1\nlw r2,-4(r1)\nexit", 3, "below"),
 ]
+if args.wide:
+    tests.append(("stripe", "arg r1\ngid r2\ntid r3\nslli r4,r2,12\nslli r3,r3,2\n" +
+                  "li r5, 0x1e008000\nadd r5,r5,r3\nlw r6,0(r5)\nadd r4,r4,r1\n" +
+                  "add r4,r4,r3\nsw r6,0(r4)\nexit", 0, "immutable"))
 evidence = []
 for name, source, fault, mode in tests:
     words = assemble(source)
     groups = max(9, args.sms) if name in ("integer", "axpy", "strides") else 1
+    if name == "stripe": groups = 6
     threads = 31
-    argument = 0 if mode == "below" else arg
+    argument = 0 if mode == "below" else (0x9000 if name == "stripe" else arg)
     mem = Memory(base, random.Random(742).randbytes(65536))
     struct.pack_into("<8I", mem.data, 0, 0x3144474d, 0x10000, base+code, len(words),
                      base+argument, groups, threads, 0)
@@ -63,9 +69,11 @@ for name, source, fault, mode in tests:
             min(result["groups"]) == 0 or (args.sms > 1 and sum(result["active_cycles"]) <= result["cycles"])):
         raise ValueError(f"missing concurrent SM work {result}")
     evidence.append(dict(kernel=name, **result))
-if max(r["longest_burst"] for r in evidence) < 4 or not sum(r["byte_writes"] for r in evidence) or not sum(
-        r["half_writes"] for r in evidence):
+if not args.wide and (max(r["longest_burst"] for r in evidence) < 4 or not sum(r["byte_writes"] for r in evidence) or not sum(
+        r["half_writes"] for r in evidence)):
     raise ValueError("missing coalesced or narrow transactions")
+if args.wide and args.sms >= 2 and not sum(r["dual_data_cycles"] for r in evidence):
+    raise ValueError("two GPU ports never transferred in the same cycle")
 if args.sms > 1 and not sum(r["concurrent_rw_cycles"] for r in evidence):
     raise ValueError("missing overlapping DMA read and write")
 (args.out / "results.json").write_text(json.dumps(evidence, indent=2) + "\n")
