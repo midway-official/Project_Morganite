@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 import subprocess
+import zipfile
 from pathlib import Path
 
 from wide_board import integrate
@@ -61,12 +62,20 @@ if __name__ == "__main__":
     out.mkdir(parents=True, exist_ok=False)
     frozen = ROOT / "build/baseline"
     manifest = prepare(frozen, ROOT / ".worktrees/aurora")
-    shutil.copytree(BASE / "server/fpga", out / "fpga")
+    # Stage the board files named in the verified baseline manifest.
+    for line in (BASE / "files.sha256").read_text().splitlines():
+        _, name = line.split("  ", 1)
+        if name.startswith("server/fpga/"):
+            dest = out / Path(name).relative_to("server")
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(BASE / name, dest)
     rtl = out / "fpga/u50c/rtl"
     project = out / "fpga/u50c/scripts/create_project.tcl"
     inputs = out / "inputs"
-    shutil.copytree(frozen / "generated", inputs / "generated")
-    shutil.copytree(frozen / "board_repo", inputs / "board_repo")
+    (inputs / "generated").mkdir(parents=True)
+    shutil.copy2(frozen / "generated/Aurora.v", inputs / "generated")
+    with zipfile.ZipFile(BASE / "vendor/au50_boardfiles_v1_3_20211104.zip") as board_files:
+        board_files.extractall(inputs / "board_repo")
     ic_bytes, dc_bytes = (4096, 8192) if args.sms == 32 else (2048, 2048)
     extra = f" ic={ic_bytes} dc={dc_bytes} line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
     units = sorted(set(args.units))

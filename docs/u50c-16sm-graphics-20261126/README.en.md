@@ -43,3 +43,61 @@ Placement finished at 20:49:22 UTC+8 and routing began at 20:52:31. Vivado estim
 | SLR0 | 380,942 | 86.64% | 180,240 | 148.5 | 0 | 1,044 |
 | SLR1 | 388,126 | 89.84% | 163,715 | 173 | 0 | 820 |
 | SoC | 769,068 | 88.23% | 343,955 | 321.5 | 0 | 1,864 |
+
+## Final bitstream and physical results
+
+Vivado wrote the bitstream at 23:13:41 UTC+8 on November 26, 2026. The build exited with code 0 at 23:31. These post-route totals come from `hierarchy_impl.rpt`. The GPU board wrapper includes the GPU core.
+
+| Post-route hierarchy | LUTs | FFs | BRAM tiles | URAMs | DSPs |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Aurora CPU (`u_cpu`) | 105,316 | 40,075 | 61 | 0 | 8 |
+| Morganite GPU core (`u_gpu_soc/gpu`) | 651,988 | 290,910 | 254 | 0 | 1,856 |
+| GPU with board interfaces (`u_gpu_soc`) | 653,485 | 291,019 | 254 | 0 | 1,856 |
+| Full SoC | 769,068 | 343,955 | 321.5 | 0 | 1,864 |
+| Frozen CPU-only SoC (`5ec35882`) | 112,771 | 48,279 | 65.5 | 0 | 8 |
+
+All 1,068,825 routable nets were routed, with zero routing errors. Worst setup/hold slack was +0.100/+0.010 ns. TNS, THS and failing pulse-width endpoints were zero. The table gives intra-clock slack. The archive includes inter-clock timing. [Frozen baseline reports](../../baseline/rollback/remote-evidence.tar.gz) · [Implementation reports](implementation.tar.gz)
+
+| Clock domain | Baseline setup / hold (ns) | This build setup / hold (ns) |
+| --- | ---: | ---: |
+| CPU/GPU 100 MHz | +1.838 / +0.010 | +0.100 / +0.010 |
+| HBM AXI 225 MHz | +1.213 / +0.019 | +0.648 / +0.010 |
+| Board reference sysclk3 | +6.486 / +0.010 | +4.376 / +0.013 |
+| Debug TCK | +11.673 / +0.019 | +11.247 / +0.010 |
+
+DRC reported 5,281 warnings, including 5,272 DSP pipeline warnings, eight LUT equation warnings and one net without routable loads. DRC errors and critical warnings were zero. The CDC summary classified all 166 endpoints as safe. The constraint check reported zero unconstrained internal endpoints and a missing output delay on the board pin `HBM_CATTRIP`. The separate methodology report includes TIMING-9. See `exceptions_impl.rpt` and `methodology_impl.rpt` in the implementation archive for clocks, exceptions and affected cells.
+
+Vivado estimated **26.755 W** total on-chip power, including 16.847 W for the FPGA and 9.908 W for HBM, with medium confidence. Estimated rail current exceeded the reported budget on Vccint_io (7.445 A of 7.380 A), VCC_IO_HBM (4.584 A of 3.840 A) and VCC_HBM (4.919 A of 4.160 A). Board current, Linux boot, HBM readback and rendering remain unmeasured for this bitstream.
+
+Run `sha256sum -c SHA256SUMS` to verify the local artifacts. The uncompressed bitstream hashes to `fe12b419b028d031f5a61e4f3c7f8c7b688399a73a744d613905cdb5c1e192bd` and the matching LTX hashes to `2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc`. Chisel elaboration runs locally. The FPGA build server receives generated Verilog/SystemVerilog, board glue, Tcl/XDC, board definitions and build manifests. [Bitstream](artifacts/u50c_top.bit.gz) · [Debug probes](artifacts/u50c_top.ltx) · [Actual build input package](artifacts/soc-inputs.tar.gz)
+
+## Linux driver and programmable workloads
+
+MG_STATE reads one MMIO register per poll. The CLI reads the final sequence, fault and counters on completion and falls back to the original ioctl on older drivers. Each stage gives the read-only data L1 its immutable inputs. These include parameters and vertices, transformed vertices and indices, triangle bounds, or setup records and tile masks. All stage outputs are outside their respective read-only window. The pixel shader unrolls four tile-mask reads and uses their union to skip a 128-byte triangle record and two barriers whenever a whole workgroup misses it.
+
+Two 320×240 runs on the same 16-SM Verilator model rendered 24 triangles with the read-only L1 enabled. Color, depth and winning triangle IDs matched bit-for-bit between runs. Both covered 13,907 pixels and their maximum absolute depth error against the CPU reference was 1.19×10⁻⁷. Times are GPU cycles converted at 100 MHz. The two AXI ports use a backpressured memory model. [Stage counters](rtl/raster.json) · [Color](rtl/twin-cubes.png) · [Depth preview](rtl/twin-cubes-depth.png)
+
+| Scene and pipeline | GPU cycles | Time at 100 MHz | Total 32-byte read beats |
+| --- | ---: | ---: | ---: |
+| Twin cubes, software shaders | 2,947,199 | 29.472 ms | 215,971 |
+| Twin cubes, graphics instructions and workgroup culling | 551,029 | 5.510 ms | 78,088 |
+
+This was a **5.35×** speedup with **63.8%** fewer read beats. A separate 64×32 run with data L1 bypassed used 103,327 cycles in software, 113,675 cycles with graphics instructions and a full triangle traversal, and 66,572 cycles with workgroup culling.
+
+The 128×96 ray test traces 12,288 primary rays against 20 spheres and casts shadows for lit hits. With identical sphere tables and output layouts, software square root took 220,616 cycles (2.206 ms) and the SFU with one Newton refinement took 219,395 cycles (2.194 ms), a **1.006×** speedup. Each had a maximum RGBA8 channel error of one against the double-precision CPU reference. [Ray-traced frame](rtl/ray.png) · [Ray counters](rtl/ray.json)
+
+The board package contains a 256×192 ray test and reference pixels. The Linux image SHA-256 is `37843c6c4f759ec99d05045363a449771b282b65f07fdc099fedf768ff0f72b0`. Its BSS zero range is `[0x01200000, 0x0127c2c8)`. The uploaded software package passed its hash checks and JTAG identified the target U50C. Linux boot and on-board performance measurements are pending. [Linux image, driver and GPU programs](artifacts/linux-board.tar.gz)
+
+```bash
+bash linux/build_userspace.sh --units setup bins raster rop sfu --software-assets
+python3 linux/build_kernel.py --feature-register --graphics-registers --initramfs-compression none
+python3 scripts/stage_software.py build/linux-gfx --sms 16 --gpu-features 0x403
+```
+
+On the VM, substitute the actual hardware, software and output directories for `python3 software/start_test.py build software output` and `python3 software/uart_jobs.py output --paired-graphics --full`.
+
+The worst setup path crosses SLR0 to SLR1 from a GPU descriptor register to the DMA segment request state machine, with 12 logic levels and 9.395 ns of data-path delay. The worst hold path is inside the AXI4-to-AXI3 write address queue of the HBM bridge. CPU, GPU and full-SoC per-SLR counts come from the same checkpoint. [Timing endpoints and constraints](implementation.json) · [Resources by SLR](resources.json)
+
+The register-resident RTL benchmark uses 16 groups of 32 threads, 16 accumulators and a loop unrolled 16 times. At an assumed 100 MHz, FP32 delivers 0.788 GFLOPS on one SM and **12.513 GFLOPS** on 16 SMs (97.76% of peak), with a 15.87× speedup on identical work. INT8 K=4 reaches **50.051 GOPS** on 16 SMs, counting two operations per scalar MAC. A 512-body N-body step took 247,957 cycles, with a maximum absolute error of 1.12×10⁻⁸. The older harness launched the 32-thread tiled kernel with 16 threads and failed the reference comparison. The 32-thread run passed. [Compute counters and output checks](rtl/compute.json)
+
+Remote cleanup removed 9,139 files and released 12.63 GiB. SHA-256 hashes matched before and after for all 371 retained files checked. The final scan covered 12 project directories including the new Linux payload, retained archives and upload fragments. [Cleanup totals and retained artifact hashes](remote-cleanup.json)

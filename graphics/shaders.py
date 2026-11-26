@@ -117,10 +117,18 @@ def pixel(swap, width, height, units=()):
            "li r6,0x3f800000", "addi r7,r0,0", "bz r5,shade"]
     if "bins" in units:
         out += ["srli r12,r3,7", f"li r21,{width//8}", "mul r12,r12,r21", "srli r21,r2,7",
-                "add r12,r12,r21", "slli r12,r12,2", "lw r21,36(r1)", "add r12,r12,r21", "lw r12,0(r12)"]
-    out += ["triangle: add r20,r4,r11","lw r20,0(r20)", "s.sw r20,0(r11)", "bar", "s.lw r20,124(r0)"]
+                "add r12,r12,r21", "slli r12,r12,2", "lw r21,36(r1)", "andi r10,r12,-16", "add r10,r10,r21",
+                "add r12,r12,r21", "lw r12,0(r12)"]
+        # A workgroup covers four consecutive tiles. Their union is uniform
+        # across all four warps, so it can skip both scratchpad barriers.
+        out += ["lw r24,0(r10)", "lw r25,4(r10)", "lw r26,8(r10)", "lw r27,12(r10)",
+                "or r10,r24,r25", "or r26,r26,r27", "or r10,r10,r26"]
+        out += ["triangle: bz r10,shade", "andi r20,r10,1", "srli r10,r10,1", "bz r20,advance_mask"]
+    else:
+        out += ["triangle:"]
+    out += ["add r20,r4,r11","lw r20,0(r20)", "s.sw r20,0(r11)", "bar", "s.lw r20,124(r0)"]
     if "bins" in units:
-        out += ["and r20,r20,r12", "srli r12,r12,1"]
+        out += ["and r20,r20,r12"]
     for i in range(3):
         out += [f"s.lw r21,{16*i}(r0)", f"s.lw r22,{16*i+4}(r0)", f"s.lw r23,{16*i+8}(r0)",
                 ]
@@ -139,7 +147,10 @@ def pixel(swap, width, height, units=()):
     out += interpolate("s.lw",0,52,16,14,15)
     out += [("rop.less" if "rop" in units else "flt")+" r20,r16,r6", "split r20,depth_end", "addi r6,r16,0", "addi r7,r4,0", "addi r8,r14,0",
             "addi r9,r15,0", "next depth_end", "depth_end: join", "next covered_end", "covered_end: join",
-            "bar", "addi r4,r4,128", "addi r5,r5,-1", "bz r5,shade", "jmp triangle",
+            "bar"]
+    if "bins" in units:
+        out += ["advance_mask: srli r12,r12,1"]
+    out += ["addi r4,r4,128", "addi r5,r5,-1", "bz r5,shade", "jmp triangle",
             "shade: li r18,0xff000000", "addi r17,r0,0", "split r7,background"]
     out += interpolate("lw",7,64,16,8,9) + reciprocal(16,19,"sfu" in units)
     for i in range(4):

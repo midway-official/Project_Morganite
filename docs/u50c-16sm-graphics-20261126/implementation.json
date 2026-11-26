@@ -1,0 +1,105 @@
+{
+  "gpu_commit": "e46aeee8333676544123c8a3f5f5155b6f2af58f",
+  "run_exit": 0,
+  "started_at": "2026-11-26T19:08:59+08:00",
+  "finished_at": "2026-11-26T23:31:12+08:00",
+  "paths_exit": 0,
+  "resources_exit": 0,
+  "timing_ns": {
+    "WNS": "0.100",
+    "TNS": "0.000",
+    "setup_failing": "0",
+    "setup_total": "888855",
+    "WHS": "0.010",
+    "THS": "0.000",
+    "hold_failing": "0",
+    "hold_total": "888671",
+    "WPWS": "0.000",
+    "TPWS": "0.000",
+    "pulse_failing": "0",
+    "pulse_total": "380931"
+  },
+  "route": {
+    "routable nets": 1068825,
+    "fully routed nets": 1068825,
+    "nets with routing errors": 0
+  },
+  "drc_rules": {
+    "DPIP-2": {
+      "severity": "Warning",
+      "violations": 3408
+    },
+    "DPOP-3": {
+      "severity": "Warning",
+      "violations": 512
+    },
+    "DPOP-4": {
+      "severity": "Warning",
+      "violations": 1352
+    },
+    "PDCN-1569": {
+      "severity": "Warning",
+      "violations": 8
+    },
+    "RTSTAT-10": {
+      "severity": "Warning",
+      "violations": 1
+    }
+  },
+  "constraint_checks": {
+    "no_clock": 0,
+    "constant_clock": 0,
+    "pulse_width_clock": 0,
+    "unconstrained_internal_endpoints": 0,
+    "no_input_delay": 0,
+    "no_output_delay": 1,
+    "multiple_clock": 0,
+    "generated_clocks": 0,
+    "loops": 0,
+    "partial_input_delay": 0,
+    "partial_output_delay": 0,
+    "latch_loops": 0
+  },
+  "cdc_endpoints": {
+    "total": 166,
+    "safe": 166,
+    "unsafe": 0,
+    "unknown": 0,
+    "no_async_reg": 0
+  },
+  "checkpoint_sha256": "09896de71bae0f5f375efbd4db1928addd3379a42842afba4e840f4e3feecde9",
+  "worst_paths": {
+    "setup": {
+      "analysis": "max",
+      "launch_clock": "clk_out1_clk_wiz_0",
+      "capture_clock": "clk_out1_clk_wiz_0",
+      "slack_ns": "0.100",
+      "data_ns": "9.395",
+      "logic_levels": "12",
+      "from_owner": "gpu",
+      "to_owner": "gpu",
+      "from_slr": "SLR0",
+      "to_slr": "SLR1",
+      "start_pin": "u_gpu_soc/gpu/desc_3_reg[5]/C",
+      "end_pin": "u_gpu_soc/gpu/dma/SegmentSource_39/state_reg[0]/D"
+    },
+    "hold": {
+      "analysis": "min",
+      "launch_clock": "clk_out2_clk_wiz_0",
+      "capture_clock": "clk_out2_clk_wiz_0",
+      "slack_ns": "0.010",
+      "data_ns": "0.164",
+      "logic_levels": "0",
+      "from_owner": "hbm_bridge",
+      "to_owner": "hbm_bridge",
+      "from_slr": "SLR0",
+      "to_slr": "SLR0",
+      "start_pin": "u_memory/u_gpu_path0/u_protocol/inst/gen_axi4_axi3.axi3_conv_inst/USE_WRITE.write_addr_inst/USE_BURSTS.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_reg[3]/C",
+      "end_pin": "u_memory/u_gpu_path0/u_protocol/inst/gen_axi4_axi3.axi3_conv_inst/USE_WRITE.write_addr_inst/USE_BURSTS.cmd_queue/inst/fifo_gen_inst/inst_fifo_gen/gconvfifo.rf/grf.rf/gntv_or_sync_fifo.gl0.rd/rpntr/gc0.count_d1_reg[3]/D"
+    }
+  },
+  "program_sha256": {
+    "implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "fe12b419b028d031f5a61e4f3c7f8c7b688399a73a744d613905cdb5c1e192bd",
+    "implementation/u50c_top.ltx": "2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc"
+  }
+}

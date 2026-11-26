@@ -19,6 +19,8 @@ static struct mg_info device;
 static unsigned features;
 static struct mg_graphics graphics;
 static unsigned ro_offset, ro_length;
+static int state_ioctl = 1;
+static const char *shader_prefix = "";
 
 static unsigned all_sms(void) {
     unsigned count = device.caps & 255;
@@ -59,7 +61,7 @@ static void write_file(const char *path, const void *ptr, size_t size) {
 }
 static unsigned program(const char *name) {
     char path[160];
-    require(snprintf(path, sizeof(path), "/gpu/%s.bin", name) < (int)sizeof(path), "kernel name too long");
+    require(snprintf(path, sizeof(path), "/gpu/%s%s.bin", shader_prefix, name) < (int)sizeof(path), "kernel name too long");
     void *data;
     size_t n = read_file(path, &data);
     require(n > 0 && n <= 4096 && !(n & 3), "bad program length");
@@ -83,8 +85,15 @@ static struct mg_status run(unsigned desc, unsigned mask, const char *name) {
         if (ioctl(fd, MG_SUBMIT_RO, &ro)) die("MG_SUBMIT_RO");
     } else if (ioctl(fd, MG_SUBMIT, &job)) die("MG_SUBMIT");
     for (;;) {
-        if (ioctl(fd, MG_STATUS, &s)) die("MG_STATUS");
-        if (!(s.state & 1)) break;
+        unsigned state;
+        if (state_ioctl && ioctl(fd, MG_STATE, &state)) {
+            if (errno != ENOTTY) die("MG_STATE");
+            state_ioctl = 0;
+        }
+        if (!state_ioctl || !(state & 1)) {
+            if (ioctl(fd, MG_STATUS, &s)) die("MG_STATUS");
+            if (!(s.state & 1)) break;
+        }
         unsigned value=job.sequence^samples;
         cpu_private[samples & 63]=value;
         require(cpu_private[samples & 63]==value,"concurrent CPU private data");
@@ -207,7 +216,7 @@ static void performance(void) {
            fmas,one.cycles,all.cycles,2*groups*32*4,bw.cycles);
 }
 
-static void render_scene(const char *scene_path, const char *directory) {
+static void render_scene(const char *scene_path, const char *directory, int software) {
     enum { VERTICES=0x3000, CLIP=0x4000, INDICES=0x5000, SETUP=0x6000,
            COLOR=0x10000, DEPTH=0x60000, WINNER=0xb0000, PIXELS=320*240 };
     uint64_t begin = ns();
@@ -222,7 +231,8 @@ static void render_scene(const char *scene_path, const char *directory) {
     for (unsigned i=0; i<3*triangles; ++i) require(indices[i]<vertices, "bad vertex index");
     unsigned base = device.device_base, mask=all_sms();
     unsigned required = 0;
-    FILE *unit_file = fopen("/gpu/graphics-mask.bin","rb");
+    shader_prefix = software ? "sw_" : "";
+    FILE *unit_file = fopen(software ? "/gpu/sw_graphics-mask.bin" : "/gpu/graphics-mask.bin","rb");
     if (unit_file) {
         require(fread(&required,sizeof(required),1,unit_file)==1,"invalid graphics asset header");
         fclose(unit_file);
@@ -242,9 +252,16 @@ static void render_scene(const char *scene_path, const char *directory) {
     if (!frame) die("frame allocation");
     memset(frame,0xa5,bytes);
     for (unsigned i=0; i<3; ++i) upload(offsets[i],frame,bytes);
+    /* Each window contains only inputs that stay immutable during its job. */
+    ro_offset=ARG; ro_length=(features & 2) ? CLIP-ARG : 0;
     uint64_t cycles=launch(flags & 1 ? "vertex_shift":"vertex",1,vertices,mask).cycles;
+    ro_offset=CLIP; ro_length=(features & 2) ? SETUP-CLIP : 0;
     cycles+=launch("setup",1,triangles,mask).cycles;
-    if (required & 2) cycles+=launch("bin",(320/32)*(240/8),4,mask).cycles;
+    if (required & 2) {
+        ro_offset=0x8000; ro_length=(features & 2) ? 0x1000 : 0;
+        cycles+=launch("bin",(320/32)*(240/8),4,mask).cycles;
+    }
+    ro_offset=SETUP; ro_length=(features & 2) ? COLOR-SETUP : 0;
     cycles+=launch(flags & 2 ? "pixel_swap":"pixel",PIXELS/32,32,mask).cycles;
     if (mkdir(directory,0755) && errno != EEXIST) die(directory);
     for (unsigned i=0; i<3; ++i) {
@@ -282,7 +299,10 @@ int main(int argc, char **argv) {
     else if (!strcmp(argv[1],"selftest") && argc==3) selftest(number(argv[2]));
     else if (!strcmp(argv[1],"loopback") && argc==2) loopback();
     else if (!strcmp(argv[1],"bench") && argc==2) performance();
-    else if (!strcmp(argv[1],"render") && argc==4) render_scene(argv[2],argv[3]);
+    else if (!strcmp(argv[1],"render") && (argc==4 || argc==5)) {
+        require(argc==4 || !strcmp(argv[4],"software"),"optional render mode is software");
+        render_scene(argv[2],argv[3],argc==5);
+    }
     else if (!strcmp(argv[1],"upload") && argc==4) {
         void *data; size_t n=read_file(argv[3],&data); upload(number(argv[2]),data,n); free(data);
     } else if (!strcmp(argv[1],"download") && argc==5) {

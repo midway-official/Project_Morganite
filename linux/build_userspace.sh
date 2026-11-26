@@ -14,3 +14,8 @@ python3 sw/asm.py asm build/fma_bench.s "$overlay/gpu/fma_bench.bin"
 python3 scripts/fma_bench.py --unroll 16 --tensor > build/tensor_bench.s
 python3 sw/asm.py asm build/tensor_bench.s "$overlay/gpu/tensor_bench.bin"
 python3 graphics/test_render.py assets "$overlay/gpu" "$@"
+for option in "$@"; do
+    if [[ "$option" == --software-assets ]]; then
+        python3 scripts/bench_graphics_board.py "$overlay/gpu" --width 256 --height 192
+    fi
+done

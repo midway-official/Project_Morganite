@@ -128,7 +128,7 @@ struct System {
     void done(){while(read(0x14)&1){}for(auto &p:h)assert(p.idle());}
 };
 int main(int argc,char**argv){
-    assert(argc==7);std::ifstream f(argv[1],std::ios::binary);
+    assert(argc==7 || argc==9);std::ifstream f(argv[1],std::ios::binary);
     std::vector<uint8_t> image{std::istreambuf_iterator<char>(f),std::istreambuf_iterator<char>()};
     System s(image);
     unsigned sms=std::stoul(argv[3]),mask=std::stoul(argv[4]),fault=std::stoul(argv[5]);
@@ -144,6 +144,13 @@ int main(int argc,char**argv){
     s.late=mode=="rprotocol";
     if(mode=="berror")s.failWrite=s.word(base+16)&~31u;
     if(mode=="immutable"){s.write(0x54,base+0x8000);s.write(0x58,base+0x9000);}
+    if (argc == 9) {
+        unsigned first = std::stoul(argv[7], nullptr, 0);
+        unsigned end = std::stoul(argv[8], nullptr, 0);
+        assert(mode == "render" && first <= end && end <= image.size() && (s.read(0x50) & 2));
+        s.write(0x54, base + first);
+        s.write(0x58, base + end);
+    }
     s.write(0x10,1);if(mode=="cancel"){for(int i=0;i<100;i++)s.tick();s.write(0x2c,1);}s.done();
     unsigned status=s.read(0x1c),address=s.read(0x20),cycles=s.read(0x3c);
     assert(status==fault && s.read(0x18)==unsigned(!fault));

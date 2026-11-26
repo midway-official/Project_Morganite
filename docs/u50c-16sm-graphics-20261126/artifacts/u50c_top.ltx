@@ -1,0 +1,212 @@
+{
+    "ltx_root": {
+        "version": 4,
+        "minor": 0,
+        "ltx_data": [
+            {
+                "name": "EDA_PROBESET",
+                "active": true,
+                "debug_cores": [
+                    {
+                        "type": "XSDB_V3",
+                        "name": "dbg_hub",
+                        "spec": "labtools_xsdbm_v3",
+                        "clk_input_freq_hz": "100000000"
+                    },
+                    {
+                        "type": "VIO_V2",
+                        "name": "u_hbm_vio",
+                        "spec": "labtools_vio_v3",
+                        "ipName": "vio",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 0,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "62A70CC0572C5854A24D24F70F1CDA29",
+                        "pins": [
+                            {
+                                "name": "probe_in0",
+                                "id": 0,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 15,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "hbm_axi_debug",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "hbm_axi_debug[15]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[14]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[13]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[12]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[11]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[10]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[9]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[8]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[7]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[6]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[5]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[4]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[3]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[2]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[1]"
+                                            },
+                                            {
+                                                "name": "hbm_axi_debug[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out0",
+                                "id": 1,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "vio_clear_axi_debug",
+                                        "isBus": false
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type": "XSDBS_V2",
+                        "name": "u_jtag/u_jtag_axi",
+                        "spec": "labtools_xsdbslavelib_v2",
+                        "ipName": "jtag_axi",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 1,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "C346130E4C6253AB913F8C42547448A5"
+                    },
+                    {
+                        "type": "XSDBS_V2",
+                        "name": "u_memory/u_hbm",
+                        "spec": "labtools_xsdbslavelib_v2",
+                        "ipName": "hbm",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 2,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "F83F2625313454659F3B2908EE3E15BB"
+                    },
+                    {
+                        "type": "VIO_V2",
+                        "name": "u_status_vio",
+                        "spec": "labtools_vio_v3",
+                        "ipName": "vio",
+                        "core_location": {
+                            "user_chain": 1,
+                            "slave_index": 4,
+                            "bscan_switch_index": 0
+                        },
+                        "uuid": "C67DF1BA876F523AB9EB1044CAAC8556",
+                        "pins": [
+                            {
+                                "name": "probe_in0",
+                                "id": 2,
+                                "type": "DATA",
+                                "direction": "IN",
+                                "isVector": true,
+                                "leftIndex": 0,
+                                "rightIndex": 7,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "status_ref",
+                                        "isBus": true,
+                                        "subnets": [
+                                            {
+                                                "name": "status_ref[7]"
+                                            },
+                                            {
+                                                "name": "status_ref[6]"
+                                            },
+                                            {
+                                                "name": "status_ref[5]"
+                                            },
+                                            {
+                                                "name": "status_ref[4]"
+                                            },
+                                            {
+                                                "name": "status_ref[3]"
+                                            },
+                                            {
+                                                "name": "status_ref[2]"
+                                            },
+                                            {
+                                                "name": "status_ref[1]"
+                                            },
+                                            {
+                                                "name": "status_ref[0]"
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "probe_out0",
+                                "id": 3,
+                                "type": "DATA",
+                                "direction": "OUT",
+                                "isVector": false,
+                                "leftIndex": 0,
+                                "rightIndex": 0,
+                                "portIndex": 0,
+                                "nets": [
+                                    {
+                                        "name": "vio_force_cpu_reset",
+                                        "isBus": false
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

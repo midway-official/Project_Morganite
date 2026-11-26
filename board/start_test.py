@@ -34,6 +34,11 @@ def main():
     if (software_manifest.get("gpu_config", {"sms": 2})["sms"] != sms or
             software_manifest.get("gpu_features", 0) != expected_features):
         raise ValueError("software GPU configuration does not match the routed build")
+    unit_bits = ("setup", "bins", "raster", "rop", "sfu")
+    built_units = gpu_config.get("graphics_units", [])
+    available = sum(1 << unit_bits.index(name) for name in set(built_units))
+    if software_manifest.get("gpu_config", {}).get("required_graphics_mask", 0) & ~available:
+        raise ValueError("software requires graphics instructions absent from the bitstream")
     candidate = f"Morganite_{sms}SM"
     marker = impl/"BUILD_COMPLETE.txt"
     if args.allow_sub_ns and not marker.exists():

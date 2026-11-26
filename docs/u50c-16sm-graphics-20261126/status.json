@@ -1,24 +1,26 @@
 {
   "remote_directory": "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs",
-  "observed_at": "2026-11-26T21:11:13.753812+08:00",
-  "phase": "route_design",
-  "top_exit": null,
-  "analysis_finished": false,
+  "observed_at": "2026-11-26T23:50:22.005907+08:00",
+  "phase": "reports process ended",
+  "top_exit": "0",
+  "analysis_finished": true,
   "synthesis_report": true,
   "checkpoint_names": [
     "u50c_top_opt.dcp",
     "u50c_top_physopt.dcp",
-    "u50c_top_placed.dcp"
+    "u50c_top_placed.dcp",
+    "u50c_top_postroute_physopt.dcp",
+    "u50c_top_routed.dcp"
   ],
-  "bit_present": false,
+  "bit_present": true,
   "recent_log": [
-    "Number SLLs per Column: 1440",
-    "Estimated SLL Demand Per Column: ",
-    "  SLR [0-1]      198 ( 14%)   185 ( 13%)   169 ( 12%)   341 ( 24%)   586 ( 41%)  2221 (154%)  1097 ( 76%)  1493 (104%)   853 ( 59%)   195 ( 14%)   142 ( 10%)   138 ( 10%)    72 (  5%)    71 (  5%)    71 (  5%)    70 (  5%)  Demand:  7902 Available: 23040 Utilization(%): 34.30",
-    "",
-    "Phase 3.1.1 SLL Assignment",
-    "Number SLLs per Column: 1440",
-    "Estimated SLL Demand Per Column: ",
-    "  SLR [0-1]      198 ( 14%)   185 ( 13%)   169 ( 12%)   341 ( 24%)   586 ( 41%)  2221 (154%)  1097 ( 76%)  1493 (104%)   853 ( 59%)   195 ( 14%)   142 ( 10%)   138 ( 10%)    72 (  5%)    71 (  5%)    71 (  5%)    70 (  5%)  Demand:  7902 Available: 23040 Utilization(%): 34.30"
+    "Writing bitstream ./u50c_top.bit...",
+    "INFO: [Vivado 12-1842] Bitgen Completed Successfully.",
+    "INFO: [Project 1-1876] WebTalk data collection is mandatory when using a ULT device. To see the specific WebTalk data collected for your design, open the usage_statistics_webtalk.html or usage_statistics_webtalk.xml file in the implementation directory.",
+    "INFO: [Common 17-83] Releasing license: Implementation",
+    "33 Infos, 310 Warnings, 0 Critical Warnings and 0 Errors encountered.",
+    "write_bitstream completed successfully",
+    "write_bitstream: Time (s): cpu = 00:07:38 ; elapsed = 00:04:17 . Memory (MB): peak = 19593.832 ; gain = 1696.637 ; free physical = 3999 ; free virtual = 19585",
+    "INFO: [Common 17-206] Exiting Vivado at Thu Nov 26 23:13:41 2026..."
   ]
 }

@@ -32,4 +32,6 @@ struct mg_status {
 #define MG_SM_MACS _IOWR('M', 7, __u32)
 struct mg_graphics { __u32 rows, cols, units; };
 #define MG_GRAPHICS _IOR('M', 8, struct mg_graphics)
+/* One MMIO read while polling. MG_STATUS provides the final job counters. */
+#define MG_STATE _IOR('M', 9, __u32)
 #endif

@@ -17,7 +17,7 @@ BASE, CODE, ARG = 0x1e000000, 4096, 8192
 VERTICES, CLIP, INDICES, SETUP, COLOR, DEPTH, WINNER = (0x3000,0x4000,0x5000,0x6000,0x10000,0x60000,0xb0000)
 
 
-def simulate(sim, folder, scene, code, width, height, sms=2):
+def simulate(sim, folder, scene, code, width, height, sms=2, readonly=False):
     mem = bytearray(WINNER + width*height*4)
     def put(offset, data):
         mem[offset:offset+len(data)] = data
@@ -45,7 +45,12 @@ def simulate(sim, folder, scene, code, width, height, sms=2):
             struct.pack_into("<8I", mem, 0, 0x3144474d,0x10000,BASE+CODE,len(words),BASE+ARG,groups,threads,0)
             struct.pack_into(f"<{len(words)}I", mem, CODE, *words)
             inp.write_bytes(mem)
-            counters = json.loads(subprocess.check_output([sim,inp,out,str(sms),str((1<<sms)-1),"0","render"]))
+            command = [sim,inp,out,str(sms),str((1<<sms)-1),"0","render"]
+            if readonly:
+                windows = {"vertex":(ARG,CLIP), "vertex_shift":(ARG,CLIP), "setup":(CLIP,SETUP),
+                           "bin":(0x8000,0x9000), "pixel":(SETUP,COLOR), "pixel_swap":(SETUP,COLOR)}
+                command.extend(map(str, windows[name]))
+            counters = json.loads(subprocess.check_output(command))
             if sum(counters["groups"]) != groups:
                 raise RuntimeError(f"{name} dispatched {counters['groups']} groups for {groups}")
             stats.append(dict(kernel=name, **counters))
@@ -66,12 +71,21 @@ def main():
     p.add_argument("--sim", type=Path, default=Path("build/gpu-2/obj/VGpu"))
     p.add_argument("--sms", type=int, default=2)
     p.add_argument("--units", choices=UNITS, nargs="+", default=[])
+    p.add_argument("--readonly", action="store_true", help="enable stage-specific data L1 windows in wide RTL simulation")
+    p.add_argument("--software-assets", action="store_true", help="also package scalar shaders for on-board comparisons")
     p.add_argument("--scene", choices=scenes().keys(), action="append")
     args = p.parse_args()
     width, height = args.width, args.height
     if not (0 < width <= 320 and width % 32 == 0 and 0 < height <= 240):
         p.error("width must be a multiple of 32 through 320 and height in 1..240")
     args.out.mkdir(parents=True, exist_ok=True)
+    if args.software_assets:
+        if args.mode != "assets":
+            p.error("--software-assets requires assets mode")
+        (args.out/"sw_graphics-mask.bin").write_bytes(struct.pack("<I", 0))
+        for name, lines in programs(width, height).items():
+            words = assemble("\n".join(lines))
+            (args.out/("sw_"+name+".bin")).write_bytes(struct.pack(f"<{len(words)}I", *words))
     if args.mode == "assets":
         mask = sum(1 << UNITS.index(name) for name in set(args.units))
         (args.out/"graphics-mask.bin").write_bytes(struct.pack("<I",mask))
@@ -92,6 +106,10 @@ def main():
             (args.out/(name+".scene")).write_bytes(scene.encode())
             continue
         folder = args.out/name
+        # The original board suites contain eight scenes. The paired benchmark
+        # requests twin_cubes explicitly and stores it in a separate directory.
+        if args.mode == "board" and not args.scene and name == "twin_cubes" and not folder.is_dir():
+            continue
         folder.mkdir(exist_ok=True)
         expected = render(scene, width, height)
         save(folder/"reference", expected[:3])
@@ -104,7 +122,7 @@ def main():
         if name == "degenerate":
             assert not np.any(expected[2])
         if args.mode == "rtl":
-            actual, counters = simulate(args.sim.resolve(), folder, scene, code, width, height,args.sms)
+            actual, counters = simulate(args.sim.resolve(), folder, scene, code, width, height,args.sms,args.readonly)
         else:
             actual, counters = read(folder, width, height), []
         result = compare(actual, expected, name)

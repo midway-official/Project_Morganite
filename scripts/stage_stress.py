@@ -55,9 +55,13 @@ def fractal(name, width, height, steps):
     return struct.pack("<4I6fI", *fields, 0) + palette.tobytes(), (accum // 4).astype("B")
 
 
-def raytrace(width, height):
+def raytrace(width, height, dense=False):
     spheres = [(-.65,.10,3.1,.81, (232,89,74)), (.68,.24,3.25,.68,(51,187,175)),
                (.04,-.63,2.45,.48,(245,190,82)), (1.14,-.54,4.2,.36,(115,126,222))]
+    if dense:
+        spheres += [(x, y, 3.8 + .2*((i+j)%3), .28 + .04*((2*i+j)%3),
+                     (72+35*i, 82+36*j, 184-12*i))
+                    for j,y in enumerate((-.95,-.31,.43,1.04)) for i,x in enumerate((-1.55,-.52,.59,1.52))]
     packed = bytearray(struct.pack("<3IfI", width.bit_length()-1, width-1, 0, 4/width, len(spheres)))
     y, x = np.indices((height, width), dtype="d")
     x, y = (x+.5)*4/width-2, (y+.5)*4/width-1.5

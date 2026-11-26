@@ -1,0 +1,111 @@
+{
+  "project_directories": [
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026",
+    "/home/fpga/aurora-tock6-u50c-20261120",
+    "/home/fpga/aurora-u50c-debug",
+    "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs",
+    "/home/fpga/morganite-16sm-timing-X1yNfoG8",
+    "/home/fpga/morganite-hbm-localports-jB8uByvO",
+    "/home/fpga/morganite-l1-OOC-W7uF9r43",
+    "/home/fpga/morganite-soc16-opt-20261125",
+    "/home/fpga/morganite-soc16-switch-20261124",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN",
+    "/home/fpga/morganite-wide-hbm-RcGYZ01b",
+    "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2"
+  ],
+  "cleanup": {
+    "historical": {
+      "files_deleted": 8359,
+      "allocated_file_bytes_freed": 10607263744,
+      "archived_files_verified": 1771
+    },
+    "records": {
+      "files_deleted": 71,
+      "allocated_file_bytes_freed": 17911808,
+      "archived_files_verified": 71
+    },
+    "current": {
+      "files_deleted": 709,
+      "allocated_file_bytes_freed": 2937876480,
+      "archived_files_verified": 99
+    }
+  },
+  "deleted_files": 9139,
+  "allocated_file_bytes_freed": 13563052032,
+  "preserved_files_hash_verified": 371,
+  "board_artifacts": {
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "8bc4c4fffeb9c4d59b557a994e1a7784f48daff0d990d78240f185b37e3c246e",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/5ec35882-20261123/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock4-1-20261106/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock4-1-20261106/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock4-1-20261106/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "4c25137159a012b7f771ecc9f6df725625e1fe9bbb270d30918240023822344c",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock4-1-20261106/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock6-20261120/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock6-20261120/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock6-20261120/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "8607581a8e242836c25284cd478c2ef441c219ffcd952b64806924c671f1c97e",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/tock6-20261120/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "4a2077e2a590589407b8ee15e03421a1501f90a17cca01742f7689f728b46997",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/fpga/u50c/build/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/aurora-tick2h-u50c-100mhz-20261026/sim/linux-boot-runs/v0.3/image/ram.dat": "5240b97dc6b80198e0420f5272fad0d22ae630b568c9df0515605d5972e1e083",
+    "/home/fpga/aurora-tock6-u50c-20261120/sim/linux-boot-runs/v0.3/image/ram.dat": "5240b97dc6b80198e0420f5272fad0d22ae630b568c9df0515605d5972e1e083",
+    "/home/fpga/aurora-u50c-debug/assets/893bd50c12c450a8e1f6e6eeddc1374f5b8cbfbfab9131276b5fe94702dd0532/ram.dat": "893bd50c12c450a8e1f6e6eeddc1374f5b8cbfbfab9131276b5fe94702dd0532",
+    "/home/fpga/aurora-u50c-debug/verified/tick2h-100mhz-4a2077e2/ram.dat": "5240b97dc6b80198e0420f5272fad0d22ae630b568c9df0515605d5972e1e083",
+    "/home/fpga/aurora-u50c-debug/verified/tick2h-100mhz-4a2077e2/u50c_top.bit": "4a2077e2a590589407b8ee15e03421a1501f90a17cca01742f7689f728b46997",
+    "/home/fpga/aurora-u50c-debug/verified/tick2h-100mhz-4a2077e2/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-opt-20261125/soc/follow16/probes-test/historical.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-opt-20261125/soc/implementation/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-opt-20261125/soc/implementation/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-opt-20261125/soc/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "b7a470eef97dc1b5b7d352d84475ac159244439ea7a44915ffbf06ccb3312609",
+    "/home/fpga/morganite-soc16-opt-20261125/soc/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-opt-20261125/software-board-uncompressed/ram.dat": "e485601b9f774ecf65c04b61fdef5e6902dafba11dad04b75d240a65c36aca59",
+    "/home/fpga/morganite-soc16-switch-20261124/soc/follow16/probes-test/historical.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "b7a470eef97dc1b5b7d352d84475ac159244439ea7a44915ffbf06ccb3312609",
+    "/home/fpga/morganite-soc16-switch-20261124/soc/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-soc16-switch-20261124/software-board-uncompressed/ram.dat": "e485601b9f774ecf65c04b61fdef5e6902dafba11dad04b75d240a65c36aca59",
+    "/home/fpga/morganite-soc16-switch-20261124/software-board/ram.dat": "82e603f88f22f4bae4421665c776741347355b2beb7b7f9c6a40c0cdb468130d",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/bare-copy-frozen/ram.dat": "6771fad76da652f61b2bcb52b4541a73c978275a0646fafdae2ad135ecd34a4f",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/bare-copy-irq-tlb/ram.dat": "b71e5eef6fffcd7c7c71afe7ba2a1a57477b394a91001eac689195e66ff92a27",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/bare-user-19/ram.dat": "c05984dbc7be789688b5d8fda6830637f293b831dbce958b61d73c13c7afc299",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/ram.dat": "5240b97dc6b80198e0420f5272fad0d22ae630b568c9df0515605d5972e1e083",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/u50c_top.bit": "8bc4c4fffeb9c4d59b557a994e1a7784f48daff0d990d78240f185b37e3c246e",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/inputs/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "0acedd3bc9b6f4aaa0ee56d1426dd6614723d7e5bf6a76dbea12148bfa3d9fc0",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/soc-f2a3ce0/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "7fc80573b73bdeb17e362bdc449c5d55cbdcaa54844c146a92ed1753e7320d88",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-bbf5177-readback/ram.dat": "4b4b3bdfd6e370691de6e45125ba51eee5411105707ad6600f5f6fe3a439d839",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-bbf5177-tlb29/ram.dat": "2b092b926b20bc68ef772810bd87a46f9e09b6ed19fa6c65e35bd7ac9c4f5f3f",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-bbf5177-verify/ram.dat": "4b4b3bdfd6e370691de6e45125ba51eee5411105707ad6600f5f6fe3a439d839",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-bbf5177/ram.dat": "4b4b3bdfd6e370691de6e45125ba51eee5411105707ad6600f5f6fe3a439d839",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-dma-prep-20/ram.dat": "dbe0e2ae8dc25eb33835f53de85cd5ce981954d26746816763c776bf4f07fa7c",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-efdeb2a/ram.dat": "60090e222e093bcae7324fd21ba862cb6785265579a3c8ca061eac17a48a3db8",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-f1a4062-raw/ram.dat": "40761eb90f392739a5b174bc66ad76cee36cd874b709bf8a9cd9ec9bc83aabc6",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-f5ec0ad/ram.dat": "ec0669712b2a9c096b7d7bbc683029a719703d6ef71a91c559f88776c2d1ab99",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-fbe17ff/ram.dat": "fa113a83bcad01fc08227855312358af28eff0858659f31db31a25349f90645b",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-gzip-trace/ram.dat": "33f659199540113d7e0c1cc0e534f8929a650a545be17a51e024768541de0e6b",
+    "/home/fpga/morganite-u50c-20261123-QVWeb2PN/sw-inflate-replay/ram.dat": "5f172ecdbf697058a105bb0088eb3e7318d93c08bfe0d58023d022db8a22919c",
+    "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/u50c_top.ltx": "2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc",
+    "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/vivado/aurora_u50c.runs/impl_1/debug_nets.ltx": "2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc",
+    "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit": "fe12b419b028d031f5a61e4f3c7f8c7b688399a73a744d613905cdb5c1e192bd",
+    "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.ltx": "2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc"
+  },
+  "post_cleanup_scan": {
+    "scanned": {
+      "files": 1745,
+      "unique_archive_objects": 13,
+      "verified_chunk_sets": 5
+    },
+    "source_hits": [],
+    "report_or_checkpoint_files": []
+  },
+  "new_linux": {
+    "directory": "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2",
+    "ram_dat_sha256": "37843c6c4f759ec99d05045363a449771b282b65f07fdc099fedf768ff0f72b0"
+  }
+}

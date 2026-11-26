@@ -46,4 +46,10 @@ def scenes():
         matrices[1, 2, 3] = 3.5
         matrices[2] = [[1.55,0,0,0],[0,2,0,0],[0,0,8/7,-8/7],[0,0,1,0]]
         cases[name] = mesh(corners, faces, palette, matrices)
+    # Two overlapping, indexed cubes use 24 of the 32 triangle-mask bits.
+    points = [(x*.67+dx, y*.67+dy, z*.67+dz, w)
+              for dx,dy,dz in ((-.48,-.13,.14),(.48,.13,-.14)) for x,y,z,w in corners]
+    cases["twin_cubes"] = mesh(points, faces + [tuple(i+8 for i in f) for f in faces],
+                               palette + [(c[2],c[0],c[1],c[3]) for c in palette],
+                               cases["cube_a"].matrices)
     return cases

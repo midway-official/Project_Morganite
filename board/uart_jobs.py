@@ -20,6 +20,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("run", type=Path)
     p.add_argument("--full", action="store_true")
+    p.add_argument("--paired-graphics", action="store_true",
+                   help="compare 320x240 twin-cube pipelines and dense ray programs on one Linux boot")
     p.add_argument("--stress-suite", type=Path, help="load assembled stress programs through Linux")
     p.add_argument("--cache-test", action="store_true", help="check data L1 counters and same-address updates")
     p.add_argument("--resume-cache", action="store_true", help="retry a cache test on the same verified Linux boot")
@@ -104,6 +106,9 @@ def main():
             raise ValueError("unexpected GPU identity: " + str(info))
         if info.get("features", 0) != expected_features:
             raise ValueError("unexpected GPU features: " + str(info))
+        if args.paired_graphics and (sms != 16 or info.get("graphics_units") != 31 or
+                                     (info.get("sm_rows"), info.get("sm_cols")) != (4, 4)):
+            raise ValueError("paired graphics suite requires the 4x4 full graphics configuration")
         record(run/"dma-mapping.json", linux_mapping(layout, info["dma"], info["bytes"], resources, boot))
         def jobs(name, cmd, timeout=240):
             output = command("/bin/mgpu "+cmd,timeout)
@@ -115,6 +120,9 @@ def main():
             print("PASS "+name,flush=True)
             return rows
         jobs("loopback","loopback")
+        if args.paired_graphics:
+            from uart_graphics import paired_graphics
+            paired_graphics(command, jobs, info, run/"paired")
         if args.stress_suite:
             from uart_stress import verify_stress
             verify_stress(command, jobs, info, args.stress_suite.resolve(), run/"stress")

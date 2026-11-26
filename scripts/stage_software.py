@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Package the built LA32R image, actual GPU programs and board test runtime."""
 import argparse
+import gzip
 import hashlib
 import json
 from pathlib import Path
 import shutil
+import struct
+import sys
 import subprocess
 
 
@@ -27,7 +30,7 @@ out.mkdir(parents=True,exist_ok=False)
 shutil.copytree(root/"baseline/runtime",out/"runtime")
 shutil.copytree(root/"build/initramfs-extra/gpu",out/"gpu")
 for src in ("build/kernel/ram.dat","build/kernel/image.json","board/start_test.py","board/uart_jobs.py",
-            "board/memory_layout.py","board/uart_cache.py","board/uart_stress.py"):
+            "board/memory_layout.py","board/uart_cache.py","board/uart_stress.py","board/uart_graphics.py"):
     shutil.copy2(root/src,out)
 shutil.copy2(root/"board/observe.tcl",out/"runtime")
 if args.verify_load:
@@ -50,10 +53,26 @@ layout=json.loads((out/"image.json").read_text())
 if layout["sha256"] != sha(out/"ram.dat"):
     raise ValueError("image hash mismatch")
 sources = [f for d in ("board","linux","graphics","examples") for f in (root/d).glob("*") if f.is_file()]
-sources.extend(root/s for s in ("scripts/stage_software.py","scripts/fma_bench.py","sw/asm.py"))
+sources.extend(root/s for s in ("scripts/stage_software.py","scripts/fma_bench.py","scripts/bench_graphics_board.py","scripts/stage_stress.py","sw/asm.py"))
+gpu_config = {"sms": args.sms}
+mask_file = out/"gpu/graphics-mask.bin"
+if mask_file.is_file():
+    mask, = struct.unpack("<I", mask_file.read_bytes())
+    if mask & ~31:
+        raise ValueError("unknown graphics instruction requirement")
+    gpu_config["required_graphics_mask"] = mask
+    if (out/"gpu/sw_graphics-mask.bin").is_file():
+        sys.path.insert(0, str(root/"graphics"))
+        from reference import render
+        from scenes import scenes
+        refs = out/"references"
+        refs.mkdir()
+        color, depth, winner, _ = render(scenes()["twin_cubes"],320,240)
+        for name,array in (("color.rgba",color),("depth.f32",depth),("winner.u32",winner)):
+            (refs/(name+".gz")).write_bytes(gzip.compress(array.tobytes(),mtime=0))
 manifest={"source_commit":subprocess.check_output(["git","rev-parse","HEAD"],cwd=root,text=True).strip(),
           "sources":{str(f.relative_to(root)):sha(f) for f in sorted(sources)},
-          "gpu_config":{"sms":args.sms},
+          "gpu_config":gpu_config,
           "gpu_features":args.gpu_features,
           "cli":sha(root/"build/initramfs-extra/bin/mgpu"),
           "gpu_programs_and_scenes":{p.name:sha(p) for p in sorted((out/"gpu").iterdir())},

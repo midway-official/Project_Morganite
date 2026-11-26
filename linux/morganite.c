@@ -140,6 +140,9 @@ static long mg_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
         writel(job.sequence, m->regs + 0x10);
         if (reg_read(m, 0x28) != job.sequence) err = -EIO;
         break;
+    case MG_STATE:
+        err = put_user(reg_read(m, 0x14), (__u32 __user *)ptr);
+        break;
     case MG_STATUS:
         s.state = reg_read(m, 0x14);
         s.completed = reg_read(m, 0x18);
