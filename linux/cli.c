@@ -17,6 +17,7 @@ enum { DESC = 0, CODE = 4096, ARG = 8192, X = 65536, Y = 131072 };
 static int fd;
 static struct mg_info device;
 static unsigned features;
+static struct mg_graphics graphics;
 static unsigned ro_offset, ro_length;
 
 static unsigned all_sms(void) {
@@ -220,7 +221,15 @@ static void render_scene(const char *scene_path, const char *directory) {
     unsigned *indices = scene+52+8*vertices;
     for (unsigned i=0; i<3*triangles; ++i) require(indices[i]<vertices, "bad vertex index");
     unsigned base = device.device_base, mask=all_sms();
-    unsigned params[] = {base+VERTICES,base+CLIP,base+INDICES,base+SETUP,triangles,base+COLOR,base+DEPTH,base+WINNER};
+    unsigned required = 0;
+    FILE *unit_file = fopen("/gpu/graphics-mask.bin","rb");
+    if (unit_file) {
+        require(fread(&required,sizeof(required),1,unit_file)==1,"invalid graphics asset header");
+        fclose(unit_file);
+    } else if (errno != ENOENT) die("graphics asset header");
+    require(!(required & ~graphics.units),"shaders require unsupported graphics instructions");
+    unsigned params[] = {base+VERTICES,base+CLIP,base+INDICES,base+SETUP,triangles,base+COLOR,base+DEPTH,base+WINNER,
+                         base+0x8000,base+0x9000};
     upload(ARG,params,sizeof(params));
     upload(ARG+64,scene+4,192);
     upload(VERTICES,scene+52,vertices*32);
@@ -235,6 +244,7 @@ static void render_scene(const char *scene_path, const char *directory) {
     for (unsigned i=0; i<3; ++i) upload(offsets[i],frame,bytes);
     uint64_t cycles=launch(flags & 1 ? "vertex_shift":"vertex",1,vertices,mask).cycles;
     cycles+=launch("setup",1,triangles,mask).cycles;
+    if (required & 2) cycles+=launch("bin",(320/32)*(240/8),4,mask).cycles;
     cycles+=launch(flags & 2 ? "pixel_swap":"pixel",PIXELS/32,32,mask).cycles;
     if (mkdir(directory,0755) && errno != EEXIST) die(directory);
     for (unsigned i=0; i<3; ++i) {
@@ -263,9 +273,12 @@ int main(int argc, char **argv) {
     }
     if (fd<0 || ioctl(fd,MG_INFO,&device)) die("/dev/morganite");
     if (ioctl(fd,MG_FEATURES,&features) && errno != ENOTTY) die("MG_FEATURES");
+    if (ioctl(fd,MG_GRAPHICS,&graphics) && errno != ENOTTY) die("MG_GRAPHICS");
     if (!strcmp(argv[1],"info") && argc==2)
-        printf("{\"id\":%u,\"abi\":%u,\"caps\":%u,\"features\":%u,\"dma\":%u,\"bytes\":%u,\"completed_or_active\":%u}\n",
-               device.id,device.abi,device.caps,features,device.device_base,device.bytes,device.last_sequence);
+        printf("{\"id\":%u,\"abi\":%u,\"caps\":%u,\"features\":%u,\"dma\":%u,\"bytes\":%u,\"completed_or_active\":%u,"
+               "\"sm_rows\":%u,\"sm_cols\":%u,\"graphics_units\":%u}\n",
+               device.id,device.abi,device.caps,features,device.device_base,device.bytes,device.last_sequence,
+               graphics.rows,graphics.cols,graphics.units);
     else if (!strcmp(argv[1],"selftest") && argc==3) selftest(number(argv[2]));
     else if (!strcmp(argv[1],"loopback") && argc==2) loopback();
     else if (!strcmp(argv[1],"bench") && argc==2) performance();

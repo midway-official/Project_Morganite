@@ -13,4 +13,4 @@ python3 scripts/fma_bench.py --unroll 16 > build/fma_bench.s
 python3 sw/asm.py asm build/fma_bench.s "$overlay/gpu/fma_bench.bin"
 python3 scripts/fma_bench.py --unroll 16 --tensor > build/tensor_bench.s
 python3 sw/asm.py asm build/tensor_bench.s "$overlay/gpu/tensor_bench.bin"
-python3 graphics/test_render.py assets "$overlay/gpu"
+python3 graphics/test_render.py assets "$overlay/gpu" "$@"

@@ -16,6 +16,9 @@ SYSTEM = ["tid", "gid", "ntid", "arg", "smid", "fflags"]
 CTRL = ["exit", "bar", "fence", "jmp", "bz", "split", "next", "join"]
 FP = ["fma", "fadd", "fsub", "fmul", "feq", "flt", "fle", "itof", "utof",
       "ftoi", "ftou", "ftoi.rtz", "ftou.rtz"]
+GRAPHICS = [("tri.delta", 2), ("tri.c", 2), ("tri.bias", 2), ("bin.bounds", 3),
+            ("bin.mask", 3), ("rast.edge", 3), ("rast.cover", 3), ("rop.less", 2),
+            ("rop.over", 2), ("rcp.approx.f32", 1), ("rsqrt.approx.f32", 1)]
 
 
 def reg(value):
@@ -44,6 +47,10 @@ def encode(op, args, pc, labels):
 
     if op == ".word":
         return field(int(operands(1)[0], 0), 32)
+    for fn, (name, arity) in enumerate(GRAPHICS):
+        if op == name:
+            rd, a, b, c = list(map(reg, operands(arity+1))) + [0]*(3-arity)
+            return 0x57 | rd << 7 | (fn & 7) << 12 | a << 15 | b << 20 | (fn >> 3) << 25 | c << 27
     if op in R or op in SHIFT or op in I:
         rd, a, b = operands(3)
         code = 0x33 if op in R else 0x13
@@ -147,6 +154,9 @@ def disassemble(word):
         op, args = ("fma" if code == 0x43 else "mma.s8"), [d, a, b, c]
     elif code == 0x53 and 0 < high < len(FP):
         op, args = FP[high], [d, a] + ([b] if high <= 6 else [])
+    elif code == 0x57 and ((high & 3)*8 + f) < len(GRAPHICS):
+        op, arity = GRAPHICS[(high & 3)*8 + f]
+        args = [d, a, b, c][:arity+1]
     elif code == 0x7B:
         op = CTRL[f]
         args = ([a] if f in (4, 5) else []) + ([str(imm)] if 3 <= f <= 6 else [])

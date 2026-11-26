@@ -43,6 +43,7 @@ struct System {
 #endif
     std::vector<uint8_t> banks[2];
     unsigned cycles=0, overlap=0,dual=0, simultaneousData=0;
+    unsigned cycleLimit=2000000;
     unsigned failRead=0,failWrite=0,readValue=0;
     std::array<unsigned,2> readBeats{}, writeBeats{};
     bool late=false, aw=false,w=false,b=false,ar=false,r=false;
@@ -56,7 +57,7 @@ struct System {
         unsigned v=0;for(unsigned i=0;i<4;i++)v|=uint32_t(host(addr+i))<<(8*i);return v;
     }
     void tick(){
-        assert(++cycles<2000000);
+        assert(++cycles<cycleLimit);
         for(unsigned i=0;i<portCount;i++){
             auto &p=h[i];
             p.arready=cycles%17>2;p.awready=cycles%19>6;p.wready=cycles%23<15;
@@ -132,6 +133,11 @@ int main(int argc,char**argv){
     System s(image);
     unsigned sms=std::stoul(argv[3]),mask=std::stoul(argv[4]),fault=std::stoul(argv[5]);
     std::string mode=argv[6];
+    if(mode=="render") s.cycleLimit=80000000;
+    if(mode.rfind("units-",0)==0){
+        auto split=mode.find('-',6);
+        assert(s.read(0x5c)==std::stoul(mode.substr(6,split-6)) && s.read(0x60)==std::stoul(mode.substr(split+1)));
+    }
     assert(s.read(0)==0x4d4f5247 && (s.read(8)&255)==sms);
     s.write(0x30,base);s.write(0x34,base+image.size());s.write(0x38,mask);s.write(0x0c,base);
     if(mode=="rerror" || mode=="rprotocol")s.failRead=s.word(base+8)&~31u;

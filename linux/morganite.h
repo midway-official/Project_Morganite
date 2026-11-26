@@ -30,4 +30,6 @@ struct mg_status {
 #define MG_FEATURES _IOR('M', 6, __u32)
 /* Supply an SM index and receive its retired INT8 scalar MAC count. */
 #define MG_SM_MACS _IOWR('M', 7, __u32)
+struct mg_graphics { __u32 rows, cols, units; };
+#define MG_GRAPHICS _IOR('M', 8, struct mg_graphics)
 #endif

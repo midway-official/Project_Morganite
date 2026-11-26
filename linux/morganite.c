@@ -20,6 +20,7 @@ struct morganite {
     void *cpu;
     dma_addr_t dma;
     u32 caps, features;
+    struct mg_graphics graphics;
     bool opened;
 };
 
@@ -106,6 +107,9 @@ static long mg_ioctl(struct file *f, unsigned int cmd, unsigned long arg)
         break;
     case MG_FEATURES:
         err = put_user(m->features, (__u32 __user *)ptr);
+        break;
+    case MG_GRAPHICS:
+        if (copy_to_user(ptr, &m->graphics, sizeof(m->graphics))) err = -EFAULT;
         break;
     case MG_SM_MACS:
         if (!(m->features >> 8)) { err = -EOPNOTSUPP; break; }
@@ -197,6 +201,13 @@ static int mg_probe(struct platform_device *pdev)
     /* Legacy FPGA builds return SLVERR on an unknown MMIO register. */
     if (of_property_read_bool(dev->of_node, "morganite,feature-register"))
         m->features = reg_read(m, 0x50);
+    if (of_property_read_bool(dev->of_node, "morganite,graphics-registers")) {
+        u32 grid = reg_read(m, 0x5c);
+        m->graphics.rows = grid >> 16;
+        m->graphics.cols = grid & 65535;
+        m->graphics.units = reg_read(m, 0x60);
+        if (m->graphics.rows * m->graphics.cols != (m->caps & 255)) return -EINVAL;
+    }
     err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
     if (err) return err;
     m->cpu = dmam_alloc_coherent(dev, MG_BYTES, &m->dma, GFP_KERNEL);

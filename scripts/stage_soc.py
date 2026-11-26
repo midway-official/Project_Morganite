@@ -37,14 +37,26 @@ def instantiate(wide_ports=0):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out", type=Path)
-    parser.add_argument("--sms", type=int, default=2)
+    topology = parser.add_mutually_exclusive_group()
+    topology.add_argument("--sms", type=int)
+    topology.add_argument("--grid", metavar="MxN", help="SM and memory-tree dimensions, e.g. 4x4 or 2x8")
+    parser.add_argument("--units", nargs="+", choices=("setup","bins","raster","rop","sfu"), default=[])
     parser.add_argument("--accelerators", action="store_true",
                         help="enable configured I/D L1, INT8 K=4, and optimized issue/RF")
     parser.add_argument("--wide-ports", type=int, choices=(1, 2), default=0,
                         help="dedicated 256-bit endpoints, one per HBM stack")
     args = parser.parse_args()
-    if args.sms not in (2, 8, 16, 32):
-        parser.error("--sms must be one of 2, 8, 16, or 32")
+    if args.grid:
+        match = re.fullmatch(r"([1-9][0-9]*)x([1-9][0-9]*)", args.grid)
+        if not match:
+            parser.error("--grid must be RowsxCols")
+        rows, cols = map(int, match.groups())
+        args.sms = rows*cols
+    else:
+        args.sms = 2 if args.sms is None else args.sms
+        rows, cols = (args.sms//4,4) if args.sms >= 4 and args.sms%4 == 0 else (1,args.sms)
+    if not 1 <= args.sms <= 32:
+        parser.error("the dispatch ABI supports 1..32 SMs")
     out = args.out.resolve()
     out.mkdir(parents=True, exist_ok=False)
     frozen = ROOT / "build/baseline"
@@ -57,10 +69,12 @@ if __name__ == "__main__":
     shutil.copytree(frozen / "board_repo", inputs / "board_repo")
     ic_bytes, dc_bytes = (4096, 8192) if args.sms == 32 else (2048, 2048)
     extra = f" ic={ic_bytes} dc={dc_bytes} line=8 tensor=4 bramRf=1 earlyBranch=1" if args.accelerators else ""
+    units = sorted(set(args.units))
+    extra += "".join(f" {unit}=1" for unit in units)
     if args.wide_ports:
         extra += f" dmaBits=256 reads=8 writes=4 ports={args.wide_ports}"
-    rtl_dir = f"build/board-rtl-{args.sms}sm" + (f"-wide{args.wide_ports}" if args.wide_ports else "")
-    subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} {args.sms} 8 4{extra}"'],
+    rtl_dir = f"build/board-rtl-{rows}x{cols}" + (f"-wide{args.wide_ports}" if args.wide_ports else "") + "".join(f"-{name}" for name in units)
+    subprocess.run(["bash", "-c", f'source scripts/toolchain.sh && sbt "runMain morganite.Generate MorganiteBoard {rtl_dir} {rows}x{cols} 8 4{extra}"'],
                    cwd=ROOT, check=True)
     gpu = ROOT / rtl_dir / "MorganiteBoard.sv"
     cpu = inputs / "generated/Aurora.v"
@@ -88,7 +102,8 @@ if __name__ == "__main__":
         integrate(rtl, project, args.wide_ports, replace_once)
     shutil.copy2(ROOT / "board/run_soc.sh", out)
     manifest.update(gpu_commit=subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
-                    gpu_config={"sms": args.sms, "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
+                    gpu_config={"sms": args.sms, "sm_rows": rows, "sm_cols": cols, "graphics_units": units,
+                                "lanes": 4, "warp_width": 8, "warp_slots": 4, "registers": 32,
                                 "scratch_bytes": 8192, "dma_bits": 32, "gpu_mhz": 100},
                     gpu_rtl=hashlib.sha256(gpu.read_bytes()).hexdigest())
     if args.accelerators:

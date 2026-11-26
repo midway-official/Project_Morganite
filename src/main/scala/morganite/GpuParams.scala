@@ -3,12 +3,21 @@ package morganite
 import chisel3.util.{isPow2, log2Ceil}
 
 case class GpuParams(
-    numSms: Int = 2, warpWidth: Int = 8, lanes: Int = 4, warpSlots: Int = 4,
+    smRows: Int = 1, smCols: Int = 2, warpWidth: Int = 8, lanes: Int = 4, warpSlots: Int = 4,
     registers: Int = 32, scratchBytes: Int = 8192, axiAddrBits: Int = 32,
     axiDataBits: Int = 32, axiIdBits: Int = 4, readOutstanding: Int = 1,
     writeOutstanding: Int = 1, iCacheBytes: Int = 0, dCacheBytes: Int = 0,
     lineWords: Int = 4, tensorK: Int = 0, bramRf: Boolean = false,
-    earlyBranch: Boolean = false, hbmPorts: Int = 1) {
+    earlyBranch: Boolean = false, hbmPorts: Int = 1,
+    triangleSetup: Boolean = false, binning: Boolean = false, raster: Boolean = false,
+    rop: Boolean = false, sfu: Boolean = false) {
+  require(smRows > 0 && smCols > 0 && smRows.toLong*smCols <= 32, "SM grid must fit the 32-bit dispatch mask")
+  val numSms = smRows*smCols
+  val smClusters = (0 until smRows).flatMap(row =>
+    (0 until smCols).grouped(4).map(cols => cols.map(col => row*smCols+col)))
+  val graphicsMask = Seq(triangleSetup, binning, raster, rop, sfu).zipWithIndex.collect {
+    case (true, i) => 1 << i
+  }.sum
   require(hbmPorts == 1 || (hbmPorts == 2 && axiDataBits == 256))
   require(numSms > 0 && warpSlots > 0)
   require(isPow2(warpWidth) && warpWidth <= 32)

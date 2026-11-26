@@ -298,7 +298,13 @@ class Sm(p: GpuParams, smId: Int = 0) extends Module {
     fp.io.in.bits.tag := 0.U
     fp.io.in.bits.active := slice.mask(l)
     fp.io.out.ready := true.B
-    wbData(l) := Mux(wb.fp, fp.io.out.bits.data, integerWB)
+    val nonFP = if (p.graphicsMask == 0) integerWB else {
+      val unit = Module(new GraphicsLane(p))
+      unit.io.op := Cat(d.high(1,0),d.funct)
+      unit.io.a := a(l); unit.io.b := b(l); unit.io.c := rf.io.data(2)(l)
+      Mux(ShiftRegister(d.op === 0x57.U,latency),unit.io.result,integerWB)
+    }
+    wbData(l) := Mux(wb.fp, fp.io.out.bits.data, nonFP)
     exceptions(l) := fp.io.out.bits.flags
   }
   when(retire && wb.fp) {

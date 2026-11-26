@@ -18,6 +18,7 @@ p.add_argument("--jobs", type=int, default=8)
 p.add_argument("--feature-register", action="store_true",
                help="enable capability discovery on the L1/tensor FPGA design")
 p.add_argument("--initramfs-compression", choices=("gzip", "none"), default="gzip")
+p.add_argument("--graphics-registers", action="store_true", help="board implements grid and graphics registers")
 args = p.parse_args()
 obj, src = root / "build/kernel", root / "build/linux-src"
 obj.mkdir(exist_ok=True)
@@ -76,6 +77,9 @@ node = (root / "linux/morganite.dtsi").read_text()
 if args.feature_register:
     node = node.replace('            compatible = "morganite,gpu-v1";',
                         '            compatible = "morganite,gpu-v1";\n            morganite,feature-register;')
+if args.graphics_registers:
+    node = node.replace('            compatible = "morganite,gpu-v1";',
+                        '            compatible = "morganite,gpu-v1";\n            morganite,graphics-registers;')
 write(dts / "morganite.dtsi", node.encode())
 append(dts / "loongson32_ls.dts", '#include "morganite.dtsi"')
 env = dict(os.environ, ARCH="loongarch", CROSS_COMPILE=args.prefix)

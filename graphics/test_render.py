@@ -11,13 +11,13 @@ import numpy as np
 
 from reference import compare, read, render, save
 from scenes import scenes
-from shaders import assemble, programs
+from shaders import assemble, programs, UNITS
 
 BASE, CODE, ARG = 0x1e000000, 4096, 8192
 VERTICES, CLIP, INDICES, SETUP, COLOR, DEPTH, WINNER = (0x3000,0x4000,0x5000,0x6000,0x10000,0x60000,0xb0000)
 
 
-def simulate(sim, folder, scene, code, width, height):
+def simulate(sim, folder, scene, code, width, height, sms=2):
     mem = bytearray(WINNER + width*height*4)
     def put(offset, data):
         mem[offset:offset+len(data)] = data
@@ -26,12 +26,18 @@ def simulate(sim, folder, scene, code, width, height):
     put(ARG+64, scene.matrices.tobytes())
     struct.pack_into("<8I", mem, ARG, BASE+VERTICES, BASE+CLIP, BASE+INDICES, BASE+SETUP,
                      len(scene.indices), BASE+COLOR, BASE+DEPTH, BASE+WINNER)
+    if "bin" in code:
+        if len(scene.indices) > 32:
+            raise ValueError("the tile-mask ABI supports up to 32 triangles per draw")
+        struct.pack_into("<2I", mem, ARG+32, BASE+0x8000, BASE+0x9000)
     # Distinct poison is checked by the reference, including background pixels.
     for offset in (COLOR, DEPTH, WINNER):
         put(offset, bytes([0xa5])*(width*height*4))
     stages = [("vertex_shift" if scene.shift else "vertex", 1, len(scene.vertices)),
               ("setup", 1, len(scene.indices)), ("pixel_swap" if scene.swap else "pixel", width*height//32, 32)]
     stats = []
+    if "bin" in code:
+        stages.insert(2,("bin", ((height+7)//8)*(width//32),4))
     with tempfile.TemporaryDirectory(dir=folder) as temp:
         inp, out = Path(temp)/"in", Path(temp)/"out"
         for name, groups, threads in stages:
@@ -39,7 +45,7 @@ def simulate(sim, folder, scene, code, width, height):
             struct.pack_into("<8I", mem, 0, 0x3144474d,0x10000,BASE+CODE,len(words),BASE+ARG,groups,threads,0)
             struct.pack_into(f"<{len(words)}I", mem, CODE, *words)
             inp.write_bytes(mem)
-            counters = json.loads(subprocess.check_output([sim,inp,out,"2","3","0","render"]))
+            counters = json.loads(subprocess.check_output([sim,inp,out,str(sms),str((1<<sms)-1),"0","render"]))
             if sum(counters["groups"]) != groups:
                 raise RuntimeError(f"{name} dispatched {counters['groups']} groups for {groups}")
             stats.append(dict(kernel=name, **counters))
@@ -58,14 +64,19 @@ def main():
     p.add_argument("--width", type=int, default=320)
     p.add_argument("--height", type=int, default=240)
     p.add_argument("--sim", type=Path, default=Path("build/gpu-2/obj/VGpu"))
+    p.add_argument("--sms", type=int, default=2)
+    p.add_argument("--units", choices=UNITS, nargs="+", default=[])
     p.add_argument("--scene", choices=scenes().keys(), action="append")
     args = p.parse_args()
     width, height = args.width, args.height
     if not (0 < width <= 320 and width % 32 == 0 and 0 < height <= 240):
         p.error("width must be a multiple of 32 through 320 and height in 1..240")
     args.out.mkdir(parents=True, exist_ok=True)
+    if args.mode == "assets":
+        mask = sum(1 << UNITS.index(name) for name in set(args.units))
+        (args.out/"graphics-mask.bin").write_bytes(struct.pack("<I",mask))
     code = {}
-    for name, lines in programs(width, height).items():
+    for name, lines in programs(width, height, args.units).items():
         assembly = "\n".join(lines)+"\n"
         code[name] = words = assemble(assembly)
         if len(words) > 1024:
@@ -93,7 +104,7 @@ def main():
         if name == "degenerate":
             assert not np.any(expected[2])
         if args.mode == "rtl":
-            actual, counters = simulate(args.sim.resolve(), folder, scene, code, width, height)
+            actual, counters = simulate(args.sim.resolve(), folder, scene, code, width, height,args.sms)
         else:
             actual, counters = read(folder, width, height), []
         result = compare(actual, expected, name)

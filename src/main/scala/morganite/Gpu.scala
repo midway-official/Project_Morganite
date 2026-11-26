@@ -51,7 +51,7 @@ class Gpu(p: GpuParams) extends Module {
   // Job control stops dispatch immediately. A local stop reaches only live groups.
   // Different occupancy enables keep the cluster and SM register cones distinct.
   val localStop = if (p.axiDataBits == 256) {
-    (0 until p.numSms).grouped(4).flatMap { members =>
+    p.smClusters.flatMap { members =>
       val clusterActive = members.map(occupied(_)).reduce(_ || _)
       val clusterStop = RegNext(errorCondition && clusterActive, false.B)
       members.map(i => RegNext(clusterStop && occupied(i), false.B))
@@ -123,7 +123,8 @@ class Gpu(p: GpuParams) extends Module {
     0x08 -> Cat(p.warpSlots.U(8.W), p.warpWidth.U(8.W), p.lanes.U(8.W), p.numSms.U(8.W)),
     0x0c -> descriptor, 0x14 -> Cat(fault.orR && finished, finished, busy),
     0x18 -> completed, 0x1c -> fault, 0x20 -> faultAddress, 0x24 -> faultSeq,
-    0x28 -> sequence, 0x30 -> base, 0x34 -> limit, 0x38 -> enable, 0x3c -> elapsed) ++
+    0x28 -> sequence, 0x30 -> base, 0x34 -> limit, 0x38 -> enable, 0x3c -> elapsed,
+    0x5c -> Cat(p.smRows.U(16.W),p.smCols.U(16.W)), 0x60 -> p.graphicsMask.U) ++
     counters.zipWithIndex.map { case (v, i) => (0x40 + 4 * i) -> (v - countersAtStart(i)) } ++
     (for (i <- 0 until p.numSms; j <- 0 until 6) yield (0x100 + i * 0x20 + j * 4) -> stats(i)(j)) ++
     Seq(0x50 -> ((if (p.iCacheBytes > 0) 1 else 0) | (if (p.dCacheBytes > 0) 2 else 0) |

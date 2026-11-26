@@ -132,7 +132,7 @@ class WideDma(p: GpuParams) extends VectorDma(p) {
 
   // Loader has its own branch. All traffic belonging to an SM stays in its cluster.
   val loader = p.numSms
-  val clusters = (0 until p.numSms).grouped(4).map { sms =>
+  val clusters = p.smClusters.map { sms =>
     sms.flatMap(sm => (0 until owners).filter(i => i == sm || (i > loader && (i-loader-1)%p.numSms == sm)))
   }.toSeq :+ Seq(loader)
   val ready = Seq.fill(p.hbmPorts*2)(Wire(Vec(owners, Bool())))
@@ -142,7 +142,18 @@ class WideDma(p: GpuParams) extends VectorDma(p) {
   for ((axi, bank) <- ports.zipWithIndex; (capacity, dir) <- Seq(p.readOutstanding, p.writeOutstanding).zipWithIndex) {
     val path = 2*bank + dir
     val write = dir == 1
-    val root = Module(new RRArbiter(new Packet, clusters.size)).io
+    val root = Module(new RRArbiter(new Packet, p.smRows + 1)).io
+    val requestPorts = clusters.map(_ => Wire(Decoupled(new Packet)))
+    val rowWidth = (p.smCols + 3)/4
+    for ((segments,row) <- requestPorts.dropRight(1).grouped(rowWidth).zipWithIndex) {
+      if (segments.size == 1) root.in(row) <> segments.head
+      else {
+        val rowArb = Module(new RRArbiter(new Packet, segments.size)).io
+        segments.zip(rowArb.in).foreach { case (src,dst) => dst <> src }
+        root.in(row) <> Queue(rowArb.out,2)
+      }
+    }
+    root.in(p.smRows) <> requestPorts.last
     val returns = Wire(Decoupled(new Return))
     val canReturn = Wire(Vec(clusters.size, Bool()))
     for ((members, k) <- clusters.zipWithIndex) {
@@ -160,7 +171,7 @@ class WideDma(p: GpuParams) extends VectorDma(p) {
         in.bits.owner := owner.U
         ready(path)(owner) := matchBank && in.ready && source.bits.store === write.B
       }
-      root.in(k) <> Queue(local.out, 2, pipe=false, flow=false)
+      requestPorts(k) <> Queue(local.out, 2, pipe=false, flow=false)
       val q = Module(new Queue(new Return, 2)).io
       val target = members.map(i => returns.bits.owner === i.U).reduce(_ || _)
       q.enq.bits := returns.bits

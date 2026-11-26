@@ -28,6 +28,9 @@ object Isa {
     val lui = op === 0x37.U
     val fma = op === 0x43.U
     val mma = p.tensorK.U =/= 0.U && op === 0x47.U
+    val graphics = op === 0x57.U
+    val gfxFn = Cat(i(26,25),f)
+    val gfxLegal = GraphicsOp.enabled(p).map(gfxFn === _.U).foldLeft(false.B)(_ || _)
     val fop = op === 0x53.U
     d.op := op
     d.funct := f
@@ -39,14 +42,16 @@ object Isa {
     d.fp := fma || fop
     d.fpOp := Mux(fma, 0.U, hi(3, 0))
     d.rd := Mux(d.ctrl || d.store, 0.U, rd)
-    d.a := Mux(r || imm || d.fp || mma || d.mem || (d.ctrl && (f === 4.U || f === 5.U)), a, 0.U)
-    d.b := Mux(r || d.store || fma || mma || (fop && hi <= 6.U), b, 0.U)
-    d.c := Mux(fma || mma, i(31, 27), 0.U)
+    d.a := Mux(r || imm || d.fp || mma || graphics || d.mem || (d.ctrl && (f === 4.U || f === 5.U)), a, 0.U)
+    d.b := Mux(r || d.store || fma || mma || graphics || (fop && hi <= 6.U), b, 0.U)
+    d.c := Mux(fma || mma || graphics, i(31, 27), 0.U)
     val rawImm = Mux(d.store, Cat(hi, rd), i(31, 20))
     d.imm := Mux(lui, Cat(i(31, 12), 0.U(12.W)), Cat(Fill(20, rawImm(11)), rawImm))
     val ctrlTarget = f >= 3.U && f <= 6.U
     val ctrlPred = f === 4.U || f === 5.U
-    val formatOK = lui || (sys && i(31, 15) === 0.U && f <= 5.U) ||
+    val gfxArity = Mux(gfxFn >= 9.U,b === 0.U && !i(31,27).orR,
+      Mux(gfxFn <= 2.U || gfxFn === 7.U || gfxFn === 8.U,!i(31,27).orR,true.B))
+    val formatOK = (graphics && gfxLegal && gfxArity) || lui || (sys && i(31, 15) === 0.U && f <= 5.U) ||
       (r && (hi === 0.U || (hi === 32.U && (f === 0.U || f === 5.U)) || (hi === 1.U && f === 0.U))) ||
       (imm && Mux(f === 1.U, hi === 0.U, Mux(f === 5.U, hi === 0.U || hi === 32.U, true.B))) ||
       (d.mem && (f <= 2.U || (!d.store && (f === 4.U || f === 5.U)))) ||

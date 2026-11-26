@@ -48,11 +48,12 @@ class Warp:
 
 
 class Model:
-    def __init__(self, memory, warp_width=8, slots=4, scratch_bytes=8192, tensor_k=0):
+    def __init__(self, memory, warp_width=8, slots=4, scratch_bytes=8192, tensor_k=0, graphics_mask=0):
         self.global_mem = memory
         self.width, self.slots, self.scratch_bytes = warp_width, slots, scratch_bytes
         self.fp = None
         self.tensor_k = tensor_k
+        self.graphics_mask = graphics_mask
 
     def group(self, program, group, threads, argument, sm=0, program_base=0, max_steps=2000000):
         if not 0 < threads <= self.width * self.slots or not 0 < len(program) <= 1024:
@@ -171,6 +172,14 @@ class Model:
                             shift = b & 31
                             val = (a + b, a << shift, int(signed(a) < signed(b)), int(a < b),
                                    a ^ b, (signed(a) if hi == 32 else a) >> shift, a | b, a & b)[f]
+                    elif op == 0x57:
+                        from graphics_ops import graphics
+                        fn = ((hi & 3) << 3) | f
+                        feature = (0,0,0,1,1,2,2,3,3,4,4)
+                        if fn >= len(feature) or not (self.graphics_mask >> feature[fn]) & 1 or (
+                                fn not in (3,4,5,6) and rc) or (fn >= 9 and rb):
+                            raise Fault(2,loc)
+                        val = graphics(fn,a,b,c)
                     elif op in (0x43, 0x53):
                         if f or (op == 0x43 and (hi & 3)) or (op == 0x53 and
                                 (not 1 <= hi <= 12 or (hi > 6 and rb))):
