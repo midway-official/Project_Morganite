@@ -1,0 +1,18 @@
+PASS loopback
+PASS twin_cubes software
+PASS twin_cubes hardware
+Traceback (most recent call last):
+  File "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2/host-runner/uart_jobs.py", line 192, in <module>
+    main()
+  File "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2/host-runner/uart_jobs.py", line 144, in main
+    paired_graphics(command, jobs, info, run/"paired")
+  File "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2/host-runner/uart_graphics.py", line 113, in paired_graphics
+    command("/bin/busybox dd if=/dev/zero of=/tmp/ray-empty bs=1024 count=192 && /bin/mgpu upload 65536 /tmp/ray-empty")
+  File "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2/host-runner/uart_jobs.py", line 95, in command
+    raise RuntimeError("Linux command failed: "+cmd+"\n"+text[-600:])
+RuntimeError: Linux command failed: /bin/busybox dd if=/dev/zero of=/tmp/ray-empty bs=1024 count=192 && /bin/mgpu upload 65536 /tmp/ray-empty
+ /bin/busybox dd if=/dev/zero of=/tmp/ray-empty bs=1024 count=192 && /bin/mgp
+u upload 65536 /tmp/ray-empty; echo MG_EXIT_$?
+dd: can't open '/dev/zero': No such file or directory
+MG_EXIT_1
+/ #

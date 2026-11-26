@@ -1,0 +1,24 @@
+PASS loopback
+PASS dense rays software
+PASS dense rays hardware
+PASS nbody 0 mask=1
+PASS nbody 1 mask=1
+PASS nbody 2 mask=1
+PASS nbody 3 mask=1
+PASS nbody 0 mask=65535
+PASS nbody 1 mask=65535
+PASS nbody 2 mask=65535
+PASS nbody 3 mask=65535
+PASS HBM page copy mask=1
+PASS HBM page copy mask=65535
+PASS 100 integer and FP32 jobs with cross-SM visibility
+PASS FMA throughput and DMA bandwidth
+PASS triangle
+PASS vertex_shift
+PASS fragment_swap
+PASS shared
+PASS overlap
+PASS degenerate
+PASS cube_a
+PASS cube_b
+UART_BOARD_JOBS_PASS

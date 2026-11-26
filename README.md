@@ -6,7 +6,9 @@
 
 封面上的每个像素都来自 Alveo U50C。Aurora 乱序 CPU 启动 LoongArch32 Linux，将手写汇编生成的 GPU 程序装入 HBM。Morganite 的 16 个 SM 对每个像素取四个子样本，计算曼德博迭代并写回 RGBA8。换一段程序，同一份位流就能运行光线追踪、N 体引力，或执行可独立替换的顶点和片元着色器。
 
-## 硬件架构
+全图形版采用两个原生 256 位 HBM 主口。在同一份 4×4 SM 位流上，320×240 双立方体的 GPU 时间从 30.559 ms 降到 6.030 ms，寄存器驻留 FP32 内核达到 12.570 GFLOPS。[全图形版实板报告](docs/u50c-16sm-graphics-20261126/README.md) · [实板光追图](docs/u50c-16sm-graphics-20261126/board-01/final/paired/hardware/ray.png)
+
+## 封面位流的硬件架构
 
 [![16 SM GPU，从作业分派到 HBM](docs/media/gpu-16sm.zh.svg)](docs/media/gpu-16sm.zh.svg)
 
@@ -22,7 +24,7 @@
 |:---:|:---:|:---:|
 | [![朱利亚集合](docs/u50c-16sm-20261124/images/julia.png)](docs/u50c-16sm-20261124/images/julia.png) | [![方向光与硬阴影](docs/u50c-16sm-20261124/images/raytrace.png)](docs/u50c-16sm-20261124/images/raytrace.png) | [![顶点与片元程序渲染的立方体](docs/u50c-16sm-20261124/images/cube_a/color.png)](docs/u50c-16sm-20261124/images/cube_a/color.png) |
 
-## 实板性能
+## 封面位流的实板性能
 
 | 同一份 16 SM 位流 | 实测结果 | 测量口径 |
 | --- | ---: | --- |
@@ -33,7 +35,7 @@
 
 帧时按 100 MHz GPU 作业计数器对所有图块求和。优化程序同时使用了只读提交窗口；两项整帧均通过图像对照。朱利亚续测遇到用户态故障，优化版 N 体尚无完整板测。 [基准与图像误差](docs/u50c-16sm-20261124/README.md) · [优化轮次与计数](docs/u50c-16sm-opt-20261125/README.md)
 
-## SoC 数据通路
+## 封面位流的 SoC 数据通路
 
 ```text
 CPU  ──┐

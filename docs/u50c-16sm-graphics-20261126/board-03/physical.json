@@ -1,0 +1,10 @@
+{
+  "CANDIDATE": "Morganite_16SM",
+  "CPU_MHZ": "100",
+  "HBM_AXI_MHZ": "225",
+  "CPU_CLOCK": "clk_out1_clk_wiz_0",
+  "WNS": "0.100",
+  "WHS": "0.010",
+  "DRC_ERROR_CRITICAL_COUNT": "0",
+  "BITSTREAM": "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit"
+}

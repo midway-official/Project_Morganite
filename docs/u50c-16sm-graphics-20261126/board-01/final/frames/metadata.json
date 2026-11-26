@@ -1,0 +1,50 @@
+[
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 348257,
+    "end_to_end_ns": 1819286760
+  },
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 348050,
+    "end_to_end_ns": 1938154900
+  },
+  {
+    "triangles": 1,
+    "pixels": 76800,
+    "render_cycles": 349290,
+    "end_to_end_ns": 1920610060
+  },
+  {
+    "triangles": 2,
+    "pixels": 76800,
+    "render_cycles": 337545,
+    "end_to_end_ns": 1939690310
+  },
+  {
+    "triangles": 3,
+    "pixels": 76800,
+    "render_cycles": 434822,
+    "end_to_end_ns": 1924036380
+  },
+  {
+    "triangles": 2,
+    "pixels": 76800,
+    "render_cycles": 279285,
+    "end_to_end_ns": 1938658630
+  },
+  {
+    "triangles": 12,
+    "pixels": 76800,
+    "render_cycles": 556636,
+    "end_to_end_ns": 1939679760
+  },
+  {
+    "triangles": 12,
+    "pixels": 76800,
+    "render_cycles": 566787,
+    "end_to_end_ns": 1933718220
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "cases": {
+    "nbody": {
+      "bodies": 512,
+      "steps": 4,
+      "seed": 6521,
+      "threads": 32,
+      "groups": 16,
+      "max_abs_error": 2e-06,
+      "program": "nbody.bin",
+      "params_hex": "000200000000803b0000003b",
+      "source_sha256": "c52fbb6b36371081054b1a322759758d9ccc5912dbf41f41c721bc9e263a5e5b"
+    }
+  },
+  "model": {
+    "nbody": {
+      "bodies": 32,
+      "steps": 2,
+      "max_abs_error": 9.685754776000977e-08
+    }
+  },
+  "sha256": {
+    "nbody.bin": "7b16c36ce9efda8338a4fb6d2e9b6173610deb5f8926bda02f2f36f14fcc27d9",
+    "nbody.init": "b7590c229c94ff9475d890e5b993b33b20524fff9bfe12a26cc17e02dc3f8bdd",
+    "nbody.ref": "f49fb0db6a885ae9fa4dc98c1254a3be1e983f9b50012e1a50f040c7c4e74e57"
+  }
+}

@@ -1,6 +1,44 @@
-# U50C synthesis and routing of the 16-SM graphics configuration
+# U50C board validation and physical implementation of the 16-SM graphics SoC
 
 [简体中文](README.md)
+
+Aurora booted LoongArch32 Linux on this bitstream. The driver identified the 4×4 SM grid and all five graphics capabilities. The startup diagnostic passed two patterns across 16 HBM pseudo-channels, and Linux verified a GPU DMA loopback. [HBM log](board-01/hbm.log) · [Board request and image hashes](board-01/launch.json)
+
+| Identical BIT, LTX and Linux image | Board manager run (UTC) | Verified scope |
+| --- | --- | --- |
+| First configuration | `20261126T155231.465942Z` | Linux shell, HBM, DMA, sequential jobs, full graphics and compute suite. [Result](board-01/final/uart-result.json) · [UART and raw buffers](board-01/final/linux-tests.tar.gz) |
+| Second configuration | `20261126T163532.122307Z` | Reprogramming, peripheral and HBM diagnostics, image load, Linux shell, GPU identification and DMA loopback. [Result](board-02/uart-result.json) |
+| Third configuration | `20261126T163928.989843Z` | Same checks as the second configuration. [Result](board-03/uart-result.json) |
+
+Each run reconfigured the FPGA over JTAG and loaded 15,722,112 B of Linux image segments. Board power remained on. The remote debug session was closed after the third run. Archived test outputs and Vivado session logs were removed from the VM, and the retained bitstream, probe file and kernel image were hash-checked again. [Run IDs and cleanup record](board-session.json)
+
+| Programmable workload | Software GPU program | GPU program with graphics instructions | GPU speedup |
+| --- | ---: | ---: | ---: |
+| Twin cubes, 24 triangles, 320×240 | 30.559 ms | 6.030 ms | 5.068× |
+| Ray tracing with shadows, 20 spheres, 256×192 | 8.636 ms | 8.600 ms | 1.004× |
+
+The cube pixel stage fell from 3,030,170 to 550,362 cycles. Whole-frame AXI reads fell from 6,912,032 B to 2,502,560 B, while writes changed from 925,440 B to 930,336 B. The ray kernel saved 3,613 cycles by accelerating part of the arithmetic. These counters come from one successful board measurement per variant.
+
+| Rasterization with workgroup culling | 20-sphere ray tracing | Two cube viewpoints |
+|:---:|:---:|:---:|
+| [![Board twin-cube color](board-01/retry/hardware/twin_cubes/color.png)](board-01/retry/hardware/twin_cubes/color.png) | [![Board ray frame](board-01/final/paired/hardware/ray.png)](board-01/final/paired/hardware/ray.png) | [![Board cube view](board-01/final/frames/cube_b/color.png)](board-01/final/frames/cube_b/color.png) |
+
+All eight base scenes passed per-pixel comparison against the CPU reference. Coverage and winning triangle IDs matched exactly. The allowed RGBA8 difference is one quantization level per channel, and general depth tolerance is 2×10⁻⁶. Worst channel difference was one, and worst absolute depth error was 1.79×10⁻⁷. Depth matched exactly for shared edges, overlap and degenerate triangles. Replacing the vertex program changed coverage. Replacing only the fragment program changed color and preserved depth and winning IDs. [Frame comparisons](board-01/final/frames/comparisons.json) · [Board color and depth gallery](board-01/final/frames/)
+
+Both cube runs produced identical color, depth and winning triangle IDs. All 13,907 covered pixels had the correct owner. All RGBA8 channels matched the independent CPU reference exactly, and the maximum absolute depth error was 1.19×10⁻⁷. The Linux render command took 1.932 s and 1.950 s respectively, including shader and input uploads, initialization, download and writing three buffers to files. GPU time sums the shader stage counters. The accelerated program uses both graphics instructions and workgroup culling. [Board color](board-01/retry/hardware/twin_cubes/color.png) · [Board depth](board-01/retry/hardware/twin_cubes/depth.png) · [Counters and CPU comparison](board-01/retry/raster.json)
+
+Each ray kernel traced 49,152 primary rays and cast shadow rays for lit hits. Both frames stayed within one RGBA8 channel level of the independent CPU reference. Linux submission to completion took 10.451 ms and 10.199 ms, excluding scene upload and image download. The SFU variant changes square-root evaluation. Intersection, traversal and shadows still run on the SIMT lanes. [Board ray image](board-01/final/paired/hardware/ray.png) · [Counters](board-01/final/paired/results.json) · [Matching-size RTL](rtl/ray-256x192.json)
+
+| Compute or memory workload | 16-SM board measurement | One active SM on the same bitstream |
+| --- | ---: | ---: |
+| 33,554,432 register-resident FP32 FMAs | 12.570 GFLOPS, 98.20% of peak | 15.946× speedup |
+| 134,217,728 scalar INT8 MACs with INT32 accumulation | 25.139 GMAC/s or 50.278 GOPS | 15.945× speedup |
+| 512-body gravity, four steps, 32 threads per group | 10.783 ms | 138.454 ms, 12.840× speedup |
+| 64 pages of 4 KiB copied four times, 1 MiB each way | 1.023 GB/s each way | 0.077 GB/s each way |
+
+The one-SM comparisons use a dispatch mask and identical work. N-body enabled the read-only L1 for each step's immutable input. Both masks produced byte-identical final states with a maximum absolute error of 1.19×10⁻⁷ against the CPU reference. The page-copy kernel moved 2.046 GB/s of aggregate useful traffic, reaching 16.0% of the dual-interface 6.4 GB/s ceiling in each direction. A separate short 8 KiB copy reached 530.9 MB/s counting reads and writes together. Both verified the output. Per-stack traffic was not measured on this board run. [Compute and short-copy counters](board-01/final/performance.json) · [Four N-body steps](board-01/final/stress/results.json) · [Page-copy counters and digest](board-01/final/page-copy.json)
+
+The Linux suite checked every output word of 100 consecutive integer and FP32 AXPY jobs, then verified a buffer written by SM0 in one job and read by SM1 in the next. The CPU's private-memory check and a JTAG read/write to a separate address overlapped GPU sequence 129. [Concurrent access evidence](board-01/final/concurrent.json)
 
 An isolated checkout at `e46aeee8333676544123c8a3f5f5155b6f2af58f` generated the complete 4×4 SM SoC. Each SM has four physical lanes, giving 64 GraphicsLane instances. The capability mask for triangle setup, binning, raster, ROP and SFU is `0x1f`. The SFU supports approximate FP32 reciprocal and reciprocal square root. The CPU and GPU target 100 MHz. Two native 256-bit GPU AXI4 ports connect to the 225 MHz HBM interface. [Configuration and hashes](inputs.json)
 
@@ -11,7 +49,7 @@ An isolated checkout at `e46aeee8333676544123c8a3f5f5155b6f2af58f` generated the
 | Memory access | Each SM has two global LSU slots and two data L1 miss entries. Four clusters of four SMs feed a tree NoC. Each GPU port supports eight outstanding reads and four outstanding writes. The DMA window is striped across the stacks in 4 KiB pages. The GPU uses HBM SAXI01 and SAXI17, the CPU and JTAG share SAXI00, and the GPU control port uses 32-bit AXI4-Lite. |
 | Graphics | Programs issue instructions for triangle edge coefficients and top-left bias, 8×8-pixel binning, edge evaluation and coverage, FP32 depth comparison, RGBA8 alpha blending, and approximate reciprocal and reciprocal square root. Programs control primitive traversal and framebuffer writes. |
 
-At 100 MHz the 64 lanes can deliver **12.8 GFLOPS** if every lane accepts an FP32 FMA every cycle. The two 256-bit masters together can transfer **6.4 GB/s** in one direction at full utilization. Board measurements of throughput and render time are pending for this build. A same-port write followed by a read returned all X in the vendor HBM simulation. [Pin-level trace](../16sm-wide-hbm-rtl-20261126/pin-handshakes.txt)
+At 100 MHz the 64 lanes can deliver **12.8 GFLOPS** if every lane accepts an FP32 FMA every cycle. The two 256-bit masters together can transfer **6.4 GB/s** in one direction at full utilization. A same-port write followed by a read returned all X in the vendor HBM simulation. [Pin-level trace](../16sm-wide-hbm-rtl-20261126/pin-handshakes.txt)
 
 The Vivado 2023.2 build started at 19:08:59 UTC+8 on 2026-11-26 in `/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs`, targeting `xcu50-fsvh2104-2-e`. CPU and GPU RTL hashes were verified after transfer. The previous timing build was stopped during rip-up and reroute with its opt, placed and physopt checkpoints retained. [Run status](status.json) · [Previous run stop record](previous-build-stopped.json)
 
@@ -67,7 +105,7 @@ All 1,068,825 routable nets were routed, with zero routing errors. Worst setup/h
 
 DRC reported 5,281 warnings, including 5,272 DSP pipeline warnings, eight LUT equation warnings and one net without routable loads. DRC errors and critical warnings were zero. The CDC summary classified all 166 endpoints as safe. The constraint check reported zero unconstrained internal endpoints and a missing output delay on the board pin `HBM_CATTRIP`. The separate methodology report includes TIMING-9. See `exceptions_impl.rpt` and `methodology_impl.rpt` in the implementation archive for clocks, exceptions and affected cells.
 
-Vivado estimated **26.755 W** total on-chip power, including 16.847 W for the FPGA and 9.908 W for HBM, with medium confidence. Estimated rail current exceeded the reported budget on Vccint_io (7.445 A of 7.380 A), VCC_IO_HBM (4.584 A of 3.840 A) and VCC_HBM (4.919 A of 4.160 A). Board current, Linux boot, HBM readback and rendering remain unmeasured for this bitstream.
+Vivado estimated **26.755 W** total on-chip power, including 16.847 W for the FPGA and 9.908 W for HBM, with medium confidence. Estimated rail current exceeded the reported budget on Vccint_io (7.445 A of 7.380 A), VCC_IO_HBM (4.584 A of 3.840 A) and VCC_HBM (4.919 A of 4.160 A). The VM provides no board current telemetry. Physical board power and rail currents were unmeasured.
 
 Run `sha256sum -c SHA256SUMS` to verify the local artifacts. The uncompressed bitstream hashes to `fe12b419b028d031f5a61e4f3c7f8c7b688399a73a744d613905cdb5c1e192bd` and the matching LTX hashes to `2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc`. Chisel elaboration runs locally. The FPGA build server receives generated Verilog/SystemVerilog, board glue, Tcl/XDC, board definitions and build manifests. [Bitstream](artifacts/u50c_top.bit.gz) · [Debug probes](artifacts/u50c_top.ltx) · [Actual build input package](artifacts/soc-inputs.tar.gz)
 
@@ -86,7 +124,7 @@ This was a **5.35×** speedup with **63.8%** fewer read beats. A separate 64×32
 
 The 128×96 ray test traces 12,288 primary rays against 20 spheres and casts shadows for lit hits. With identical sphere tables and output layouts, software square root took 220,616 cycles (2.206 ms) and the SFU with one Newton refinement took 219,395 cycles (2.194 ms), a **1.006×** speedup. Each had a maximum RGBA8 channel error of one against the double-precision CPU reference. [Ray-traced frame](rtl/ray.png) · [Ray counters](rtl/ray.json)
 
-The board package contains a 256×192 ray test and reference pixels. The Linux image SHA-256 is `37843c6c4f759ec99d05045363a449771b282b65f07fdc099fedf768ff0f72b0`. Its BSS zero range is `[0x01200000, 0x0127c2c8)`. The uploaded software package passed its hash checks and JTAG identified the target U50C. Linux boot and on-board performance measurements are pending. [Linux image, driver and GPU programs](artifacts/linux-board.tar.gz)
+The board package contains a 256×192 ray test and reference pixels. The Linux image SHA-256 is `37843c6c4f759ec99d05045363a449771b282b65f07fdc099fedf768ff0f72b0`. Its BSS zero range is `[0x01200000, 0x0127c2c8)`. The live shell verified the CLI and GPU program hashes. The driver allocated a 2 MiB coherent DMA buffer at device address `0x01c00000`. [Linux image, driver and GPU programs](artifacts/linux-board.tar.gz) · [DMA evidence](board-01/dma-mapping.json)
 
 ```bash
 bash linux/build_userspace.sh --units setup bins raster rop sfu --software-assets
@@ -94,7 +132,9 @@ python3 linux/build_kernel.py --feature-register --graphics-registers --initramf
 python3 scripts/stage_software.py build/linux-gfx --sms 16 --gpu-features 0x403
 ```
 
-On the VM, substitute the actual hardware, software and output directories for `python3 software/start_test.py build software output` and `python3 software/uart_jobs.py output --paired-graphics --full`.
+On the VM, extract the host runner package in the software directory. Link `runner/gpu` and `runner/references` to `../gpu` and `../references`. Run `python3 start_test.py <build-directory> . output`, then `python3 runner/uart_jobs.py output --paired-graphics --stress-suite nbody-suite --stress-case nbody --stress-readonly --page-copy --full`. The first depth readback failed its UART gzip CRC. The runner now verifies SHA-256 per chunk and per file. The minimal initramfs lacked `/dev/zero`, so the runner created the node using the device number verified against sysfs and resumed on the same boot. [Host scripts and N-body inputs](artifacts/board-runner.tar.gz) · [First transfer log](board-01/suite.log) · [Retry log](board-01/retry/suite.log)
+
+The archived workload sources and reference generator match the per-file software manifest from the tested tree. The earlier twin-cube retry scripts are available separately. [Workload source snapshot](artifacts/workload-sources.tar.gz) · [Twin-cube retry scripts](artifacts/uart-raster-retry.tar.gz)
 
 The worst setup path crosses SLR0 to SLR1 from a GPU descriptor register to the DMA segment request state machine, with 12 logic levels and 9.395 ns of data-path delay. The worst hold path is inside the AXI4-to-AXI3 write address queue of the HBM bridge. CPU, GPU and full-SoC per-SLR counts come from the same checkpoint. [Timing endpoints and constraints](implementation.json) · [Resources by SLR](resources.json)
 

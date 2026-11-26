@@ -30,7 +30,8 @@ out.mkdir(parents=True,exist_ok=False)
 shutil.copytree(root/"baseline/runtime",out/"runtime")
 shutil.copytree(root/"build/initramfs-extra/gpu",out/"gpu")
 for src in ("build/kernel/ram.dat","build/kernel/image.json","board/start_test.py","board/uart_jobs.py",
-            "board/memory_layout.py","board/uart_cache.py","board/uart_stress.py","board/uart_graphics.py"):
+            "board/memory_layout.py","board/uart_cache.py","board/uart_stress.py","board/uart_graphics.py",
+            "board/uart_compute.py"):
     shutil.copy2(root/src,out)
 shutil.copy2(root/"board/observe.tcl",out/"runtime")
 if args.verify_load:

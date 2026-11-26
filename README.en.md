@@ -6,7 +6,9 @@
 
 The cover is a framebuffer read back from an Alveo U50C. The Aurora out-of-order CPU boots LoongArch32 Linux and loads an assembled GPU program into HBM. Morganite’s 16 SMs evaluate four Mandelbrot samples per pixel and write RGBA8. The same bitstream runs ray tracing, N-body gravity, and independently replaceable vertex and fragment shaders.
 
-## Architecture
+The full graphics build uses two native 256-bit HBM masters. On the same 4×4 SM bitstream, the 320×240 twin-cube frame took 30.559 ms with software shaders and 6.030 ms with the accelerated shaders. Register-resident FP32 reached 12.570 GFLOPS. [Full graphics board report](docs/u50c-16sm-graphics-20261126/README.en.md) · [Board ray image](docs/u50c-16sm-graphics-20261126/board-01/final/paired/hardware/ray.png)
+
+## Architecture of the cover-image build
 
 [![16-SM GPU, from job dispatch to HBM](docs/media/gpu-16sm.en.svg)](docs/media/gpu-16sm.en.svg)
 
@@ -22,7 +24,7 @@ Each eight-thread warp uses four physical lanes in two slices. Arithmetic and lo
 |:---:|:---:|:---:|
 | [![Julia set](docs/u50c-16sm-20261124/images/julia.png)](docs/u50c-16sm-20261124/images/julia.png) | [![Directional light and hard shadows](docs/u50c-16sm-20261124/images/raytrace.png)](docs/u50c-16sm-20261124/images/raytrace.png) | [![Cube rendered by vertex and fragment programs](docs/u50c-16sm-20261124/images/cube_a/color.png)](docs/u50c-16sm-20261124/images/cube_a/color.png) |
 
-## Measured on the U50C
+## U50C measurements for the cover-image build
 
 | 16 SM, one bitstream | Measurement | Work measured |
 | --- | ---: | --- |
@@ -33,7 +35,7 @@ Each eight-thread warp uses four physical lanes in two slices. Arithmetic and lo
 
 Frame times sum all tiles using the 100 MHz device counter. The optimized programs also used a read-only submission window. Both full frames passed comparison. The optimized Julia run encountered a userspace fault, and the optimized N-body run has no complete board result. [Benchmarks and image errors](docs/u50c-16sm-20261124/README.en.md) · [Optimized run and counters](docs/u50c-16sm-opt-20261125/README.en.md)
 
-## SoC data path
+## SoC data path of the cover-image build
 
 ```text
 CPU  ──┐

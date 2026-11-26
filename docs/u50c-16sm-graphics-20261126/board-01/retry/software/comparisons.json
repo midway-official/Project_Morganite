@@ -1,0 +1,23 @@
+{
+  "backend": "board",
+  "scenes": {
+    "twin_cubes": {
+      "covered": 13907,
+      "coverage_errors": 0,
+      "winner_errors": 0,
+      "max_channel_error": 0,
+      "color_errors": 0,
+      "max_depth_error": 1.1920928955078125e-07,
+      "depth_errors": 0,
+      "sha256": [
+        "520d16c1128884ec156bc905b013f0462b614e66bba6db6ef93e9481f90ec823",
+        "29b3056f7da16713ba749be3b578dc72cb28204fade6d96a91e67f9ebf63efac",
+        "c92ee197f8119e175c86a40448de68aa532fa3623af9f148cadd881b44629ca4"
+      ],
+      "triangles": 24,
+      "width": 320,
+      "height": 240,
+      "stages": []
+    }
+  }
+}

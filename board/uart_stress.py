@@ -4,14 +4,25 @@ import gzip
 import hashlib
 import json
 import math
-import re
 import struct
 import time
 
 from PIL import Image
+from uart_graphics import read_uart_file
 
 
-def verify_stress(command, jobs, info, suite, out):
+def upload_uart(command, offset, data):
+    encoded = base64.b64encode(gzip.compress(data)).decode("ascii")
+    for i in range(0, len(encoded), 600):
+        command("echo {} {} /tmp/mgst.b64".format(encoded[i:i+600], ">>" if i else ">"))
+    digest = hashlib.sha256(data).hexdigest()
+    command("/bin/busybox base64 -d /tmp/mgst.b64 > /tmp/mgst.gz && "
+            "/bin/busybox gzip -dc /tmp/mgst.gz > /tmp/mgst.in && "
+            "echo '{}  /tmp/mgst.in' | /bin/busybox sha256sum -c - && "
+            "/bin/mgpu upload {} /tmp/mgst.in".format(digest, offset))
+
+
+def verify_stress(command, jobs, info, suite, out, readonly=False, cases=None):
     out.mkdir(parents=True, exist_ok=True)
     manifest = json.loads((suite / "suite.json").read_text())
     for name, digest in manifest["sha256"].items():
@@ -24,26 +35,14 @@ def verify_stress(command, jobs, info, suite, out):
     code, arg, buf_a, buf_b = 4096, 8192, 65536, 131072
 
     def upload(offset, data):
-        encoded = base64.b64encode(gzip.compress(data)).decode("ascii")
-        for i in range(0, len(encoded), 600):
-            command("echo {} {} /tmp/mgst.b64".format(encoded[i:i+600], ">>" if i else ">"))
-        command("/bin/busybox base64 -d /tmp/mgst.b64 > /tmp/mgst.gz && "
-                "/bin/busybox gzip -dc /tmp/mgst.gz > /tmp/mgst.in && "
-                "/bin/mgpu upload {} /tmp/mgst.in".format(offset))
+        upload_uart(command, offset, data)
 
     def download(offset, size):
-        log = command("/bin/mgpu download {} {} /tmp/mgst.out && ".format(offset, size) +
-                      "/bin/busybox sha256sum /tmp/mgst.out && "
-                      "/bin/busybox gzip -c /tmp/mgst.out | /bin/busybox base64", 1800)
-        sha = re.search(r"(?m)^([0-9a-f]{64})  /tmp/mgst.out$", log)
-        encoded = "".join(s for s in log.splitlines() if re.fullmatch(r"[a-zA-Z0-9+/]+=*", s))
-        raw = gzip.decompress(base64.b64decode(encoded, validate=True))
-        if len(raw) != size or not sha or hashlib.sha256(raw).hexdigest() != sha[1]:
-            raise ValueError("incomplete GPU readback")
-        return raw
+        command("/bin/mgpu download {} {} /tmp/mgst.out".format(offset, size))
+        return read_uart_file(command, "/tmp/mgst.out", size)
 
     report = {}
-    for name in ("raytrace", "mandelbrot", "julia", "nbody"):
+    for name in cases or ("raytrace", "mandelbrot", "julia", "nbody"):
         cfg = manifest["cases"][name]
         binary = (suite / cfg["program"]).read_bytes()
         upload(code, binary)
@@ -53,14 +52,17 @@ def verify_stress(command, jobs, info, suite, out):
         params = bytes.fromhex(cfg["params_hex"])
         upload(0, struct.pack("<8I", 0x3144474d, 0x10000, base+code, len(binary)//4,
                               base+arg, cfg["groups"], cfg["threads"], 0))
-        case = {"runs": []}
+        case = {"runs": [], "submit_readonly": readonly}
         report[name] = case
         def save():
             tmp = out / "results.tmp"
             tmp.write_text(json.dumps(report, indent=2) + "\n")
             tmp.replace(out / "results.json")
-        def submit(mask, index):
-            rows = jobs("{} {} mask={}".format(name, index, mask), "submit 0 {}".format(mask), 600)
+        def submit(mask, index, ro=None):
+            command_line = "submit 0 {}".format(mask)
+            if readonly and ro is not None:
+                command_line += " {} {}".format(ro[0], ro[1])
+            rows = jobs("{} {} mask={}".format(name, index, mask), command_line, 600)
             if len(rows) != 1:
                 raise ValueError("missing GPU job")
             row = rows[0]
@@ -83,7 +85,7 @@ def verify_stress(command, jobs, info, suite, out):
                 total = 0
                 for step in range(cfg["steps"]):
                     upload(arg, struct.pack("<2I", base+src, base+dst) + params)
-                    total += submit(mask, step)
+                    total += submit(mask, step, (src, len(ref)))
                     src, dst = dst, src
                 raw = download(src, len(ref))
                 (out / ("nbody-{}.f32".format(mask))).write_bytes(raw)
@@ -105,7 +107,8 @@ def verify_stress(command, jobs, info, suite, out):
             row_arg = arg + (12 if name == "raytrace" else 44)
             upload(row_arg, struct.pack("<I", benchmark_y))
             upload(buf_b, bytes([0xa5])*size)
-            single_cycles = submit(1, benchmark_y)
+            ro = (arg, (4 + len(params) + 31) & ~31)
+            single_cycles = submit(1, benchmark_y, ro)
             baseline = download(buf_b, size)
             frame = bytearray()
             start = time.monotonic()
@@ -113,7 +116,7 @@ def verify_stress(command, jobs, info, suite, out):
             for y in range(0,h,tile):
                 upload(row_arg, struct.pack("<I", y))
                 upload(buf_b, bytes([0xa5])*size)
-                ticks = submit(65535, y)
+                ticks = submit(65535, y, ro)
                 raw = download(buf_b, size)
                 frame.extend(raw)
                 expected = ref[y*w*4:y*w*4+size]
