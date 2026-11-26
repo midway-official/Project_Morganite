@@ -26,7 +26,7 @@ class SegmentSource(p: GpuParams) extends Module {
     val cancel = Input(Bool())
     val idle = Output(Bool())
   })
-  val idle :: issue :: waitData :: finish :: Nil = Enum(4)
+  val idle :: matchLine :: issue :: waitData :: finish :: Nil = Enum(5)
   val state = RegInit(idle)
   val req = Reg(new VectorRequest(p))
   val reply = Reg(new VectorReply(p))
@@ -51,20 +51,27 @@ class SegmentSource(p: GpuParams) extends Module {
     reply := 0.U.asTypeOf(reply)
     reply.fault := Mux(bad.orR, 3.U, 0.U)
     reply.address := Mux1H(PriorityEncoderOH(bad), in.addr)
-    state := Mux(bad.orR || !in.mask.orR, finish, issue)
+    state := Mux(bad.orR || !in.mask.orR, finish, matchLine)
   }
   val first = Mux1H(PriorityEncoderOH(remaining), req.addr)(31, 0)
   val line = Cat(first(31,5), 0.U(5.W))
   val full = line >= io.base && (line +& 32.U) <= io.limit
-  val selected = VecInit(req.addr.zipWithIndex.map { case (a, i) =>
-    val duplicate = (0 until i).map(j => remaining(j) && req.addr(j) === a).foldLeft(false.B)(_ || _)
-    remaining(i) && Mux(full, a(31,5) === first(31,5), a === first) && !(req.store && duplicate)
+  val candidates = VecInit(req.addr.zipWithIndex.map { case (a,i) =>
+    remaining(i) && Mux(full, a(31,5) === first(31,5), a === first)
+  })
+  val grant = VecInit(req.addr.zipWithIndex.map { case (a,i) =>
+    val duplicate = (0 until i).map(j => candidates(j) && req.addr(j)(4,0) === a(4,0)).foldLeft(false.B)(_ || _)
+    candidates(i) && !(req.store && duplicate)
   }).asUInt
+  val selected = RegEnable(grant, state === matchLine)
+  val segmentAddress = RegEnable(Mux(full, line, first), state === matchLine)
+  val segmentSize = RegEnable(Mux(full, 5.U, req.size), state === matchLine)
+  when(state === matchLine) { state := issue }
   val stop = cancelled || io.cancel
-  when(state === issue && stop) { state := finish; reply.fault := 7.U }
+  when((state === matchLine || state === issue) && stop) { state := finish; reply.fault := 7.U }
   io.issue.valid := state === issue && !stop
-  io.issue.bits.address := Mux(full, line, first)
-  io.issue.bits.size := Mux(full, 5.U, req.size)
+  io.issue.bits.address := segmentAddress
+  io.issue.bits.size := segmentSize
   io.issue.bits.store := req.store
   val words = (0 until 8).map { word =>
     val lanes = req.addr.zipWithIndex.map { case (a,i) =>
@@ -96,7 +103,7 @@ class SegmentSource(p: GpuParams) extends Module {
     val rest = remaining & ~selected
     remaining := rest
     when(stop && !r.fault.orR) { reply.fault := 7.U }
-    state := Mux(stop || r.fault.orR || !rest.orR, finish, issue)
+    state := Mux(stop || r.fault.orR || !rest.orR, finish, matchLine)
   }
   io.core.rsp.valid := state === finish
   io.core.rsp.bits := reply

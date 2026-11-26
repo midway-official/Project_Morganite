@@ -48,6 +48,15 @@ class Gpu(p: GpuParams) extends Module {
   val occupied = RegInit(VecInit(Seq.fill(p.numSms)(false.B)))
   val stats = RegInit(VecInit(Seq.fill(p.numSms)(VecInit(Seq.fill(6)(0.U(32.W))))))
   val errorCondition = cancel || fault.orR
+  // Job control stops dispatch immediately. A local stop reaches only live groups.
+  // Different occupancy enables keep the cluster and SM register cones distinct.
+  val localStop = if (p.axiDataBits == 256) {
+    (0 until p.numSms).grouped(4).flatMap { members =>
+      val clusterActive = members.map(occupied(_)).reduce(_ || _)
+      val clusterStop = RegNext(errorCondition && clusterActive, false.B)
+      members.map(i => RegNext(clusterStop && occupied(i), false.B))
+    }.toVector
+  } else Seq.fill(p.numSms)(errorCondition)
   def firstFault(code: UInt, address: UInt): Unit = {
     when(!fault.orR) { fault := code; faultAddress := address }
   }
@@ -227,7 +236,7 @@ class Gpu(p: GpuParams) extends Module {
       c.roBase := roBase
       c.roEnd := roEnd
       c.invalidate := submit
-      c.cancel := errorCondition
+      c.cancel := localStop(i)
     } else if (dataCaches.nonEmpty) {
       val c = dataCaches(i).io
       c.core <> sm.io.global
@@ -242,7 +251,7 @@ class Gpu(p: GpuParams) extends Module {
     sm.io.program.valid := state === load && !errorCondition
     sm.io.program.bits.address := index + lane
     sm.io.program.bits.data := block(lane)
-    sm.io.cancel := errorCondition
+    sm.io.cancel := localStop(i)
     sm.io.start.valid := state === dispatch && !errorCondition && nextGroup < desc(5) && chosen(i)
     sm.io.start.bits.id := nextGroup
     sm.io.start.bits.argument := desc(4)
