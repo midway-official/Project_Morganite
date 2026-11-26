@@ -1,0 +1,13 @@
+{
+  "status": "stopped_by_request",
+  "utc": "2026-11-26T11:06:56.783099+00:00",
+  "process_group": 18154,
+  "gpu_commit": "14d52528b5169845dd18f6abeef1cbb3b270133a",
+  "stopped_processes": 13,
+  "remaining_live_processes": 0,
+  "checkpoints": [
+    "u50c_top_opt.dcp",
+    "u50c_top_physopt.dcp",
+    "u50c_top_placed.dcp"
+  ]
+}

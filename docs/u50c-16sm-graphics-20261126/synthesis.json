@@ -1,0 +1,31 @@
+{
+  "SoC": {
+    "LUT": 836769,
+    "FF": 343496,
+    "BRAM_tile": 321.5,
+    "URAM": 0,
+    "DSP": 1864
+  },
+  "CPU": {
+    "LUT": 112056,
+    "FF": 40080,
+    "BRAM_tile": 61.0,
+    "URAM": 0,
+    "DSP": 8
+  },
+  "GPU": {
+    "LUT": 712789,
+    "FF": 290794,
+    "BRAM_tile": 254.0,
+    "URAM": 0,
+    "DSP": 1856
+  },
+  "graphics_lane_instances_visible": 64,
+  "graphics_lanes_total_within_GPU": {
+    "LUT": 43152,
+    "FF": 64640,
+    "BRAM_tile": 0.0,
+    "URAM": 0,
+    "DSP": 1280
+  }
+}
