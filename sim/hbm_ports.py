@@ -13,11 +13,11 @@ axi = body[body.index("    always @(posedge AXI_00_ACLK)"):body.index("endmodule
 assigns = [s for s in body.splitlines() if s.startswith("    assign ")]
 stack = lambda text: text.replace("APB_0", "APB_1").replace("apb_complete_0", "apb_complete_1").replace("DRAM_0", "DRAM_1").replace("REF_CLK_0", "REF_CLK_1")
 ports = pins + [stack(s) for s in pins if "AXI_00" not in s]
-for n in ("01", "17"):
+for n in ("01", "16", "17"):
     ports.extend(s.replace("AXI_00", "AXI_"+n) for s in pins if "AXI_00" in s)
 output = ["`timescale 1ns/1ps", "module hbm_0(", ",\n".join(s.rstrip(",") for s in ports), ");",
           "    logic [7:0] memory_bytes [longint unsigned];", common]
-for n in ("00", "01", "17"):
+for n in ("00", "01", "16", "17"):
     local = "\n".join([variables, "    int unsigned cycles=0;", *[s for s in assigns if "AXI_00" in s], axi])
     output += ["    if (1) begin : port_"+n, local.replace("AXI_00","AXI_"+n),"    end"]
 for n in range(2):

@@ -45,6 +45,15 @@ module dual_hbm_tb;
         cpu_init(); even_init(); odd_init();
         #300; @(negedge clk); rst=1;
         wait(ready); repeat(40) @(posedge clk);
+        // Initialize whole HBM words before any masked write. A read-modify-write
+        // against uninitialized DRAM has no defined initial bytes or parity.
+        even_write(32'h01c00000,32'haabbccdd,32'hffffffff);
+        odd_write(32'h01c01000,32'hee557711,32'hffffffff);
+        even_check(32'h01c00000,32'haabbccdd);
+        odd_check(32'h01c01000,32'hee557711);
+        cpu_check(32'h01c00000,32'haabbccdd);
+        cpu_check(32'h01c01000,32'hee557711);
+        $display("Both stacks initialized and visible to the host");
         cpu_write(32'h01c00000,32'h11223344,15);
         cpu_write(32'h01c01000,32'h55667788,15);
         fork

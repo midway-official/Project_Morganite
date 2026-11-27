@@ -4,6 +4,25 @@
 
 第一版采用四个 4 SM 簇、两级树形访存 NoC 和一个 GPU 专用 256 位 AXI4 master。后续保留同一套 LSU、链路和端点，把树根扩为两个可并行工作的 HBM 出口。SM、NoC 与 AXI4 master 工作在 100 MHz，HBM AXI 工作在 225 MHz。Aurora 通过 32 位 AXI4-Lite 提交作业。ISA、32 位设备地址、每 warp 8 线程、4 条物理 lane 和现有 GPU 程序作为兼容边界。以下队列深度和性能目标均为候选设计值。
 
+## 现代 GPU 访存机制如何落到 U50C
+
+下面按原始文档和 RTL 对照给出可独立交付的改动。建议以已验证的 16 SM 硬件为对照，硬件功能首先在相同二进制、相同只读窗口下配对。2026-11-25 已完成的光追全帧有 57,317 笔读、457,988 个读字节，平均 7.99 B/笔；24,576 笔写恰好写出 786,432 B，平均 32 B/笔。曼德博读为 5.01 B/笔，写也为 32 B/笔。这些是 GPU 主口计数；目前没有 HBM 侧数据拍占用率。GPU 最细粒度的改动应能分别解释读和写发生了什么。[逐作业原始计数](u50c-16sm-opt-20261125/readonly/stress/results.json)
+
+| 一手资料 | Morganite 的具体实验 |
+| --- | --- |
+| NVIDIA CUDA Best Practices Guide 对计算能力 6.0 及以后设备按 warp 所需 32 B 段数解释全局读合并，涵盖部分 lane、非对齐和跨段访问。[Coalesced Access](https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html#coalesced-access-to-global-memory) | 8×FP32 的一个 Morganite warp 正好占一个段。地址置换也应合为一个段；起始地址偏移 4 B 时应产生两个段。统计每条指令的不同段数、每段不同有效字节和实际 R/W 拍。 |
+| AMD HIP 指南分别讨论全局合并与 LDS bank 冲突，给出同 bank 同地址读广播的例子。[Memory coalescing / Bank conflict theory](https://rocm.docs.amd.com/projects/HIP/en/latest/understand/performance_optimization.html) | 维持 4 个 scratchpad bank。一个 bank 每拍选一个字索引，把读值分发给本拍访问该字的所有活动 lane，各自解包；同 bank 不同字排队。用 N 体内层循环及独立 stride 基准分别测广播和冲突。 |
+| Vortex 的 cache bank 有可配置的 MSHR（记录未完成缺失的表）、回复队列和 replay 流程。[固定版本 RTL](https://github.com/vortexgpgpu/vortex/blob/279e65b47e63f6b87d043729d9afbbcb12fc198c/hw/rtl/cache/VX_cache_bank.sv) | 保留每 SM 的 2 KiB I-L1 和 2 KiB 只读 D-L1，先给 D-L1 两个 MSHR。条目存行地址、作业代、等待槽及 lane 映射。同一不可变行缺失合并一次 refill；不同索引的 hit 可越过 miss。同索引不同 tag 的填充分配互斥，等待者满则反压。先验旧 fill 排空、错误传播和取消，再比较直接映射与等容量两路。 |
+| AMD/Xilinx 的 HBM 带宽教程单独改变事务长度、随机性、AXI master 到伪通道的路径及在途数。[HBM Bandwidth Explorations](https://xilinx.github.io/Vitis-Tutorials/2022-1/build/html/docs/Hardware_Acceleration/Feature_Tutorials/07-using-hbm/3_BW_Explorations.html) | 用一个流量生成器测 32/128/512 B、连续/随机、同 PC/不同 PC；512 B 对应 16 个 HBM 数据拍。生成器数据与真实 warp 数据分报。在 GPU 100 MHz 端统计 AR→RLAST 往返拍数，在 HBM 225 MHz 端独立统计握手和阻塞。 |
+| Berkeley Constellation 将虚拟网络、credit 流控与无死锁路由验证分开，文档包含 AXI 运输层。[Constellation](https://constellation.readthedocs.io/en/latest/) | 单出口树是板级首选。ring 对照可选更简单的固定时槽环，四簇加一个内存节点，各设单向请求环与返回环，256 位载荷和一行元数据同行传递。单包单行、逐跳寄存且无中途停包；注入前取得目的队列容量，节点在目的地必定接收。给各源保留循环注入机会，credit 通过独立、不依赖数据队列的路径返回。多行 burst 在端点组装；对时槽浪费、回环距离和总缓冲做同预算对照。 |
+
+### 第一批实现与通过条件
+
+1. **独立验证一个宽端点。** 在 Chisel 的地址、数据和 ID 参数中分开主机与 GPU 两套配置，更新 `Generate.scala`、`Board.scala` 和 `scripts/stage_soc.py`；在 `sim/gpu.cpp` 先实现正确的 32 字节 R/W、32 位 WSTRB、按 ID 的事务队列和独立背压。测试 4 字节对齐的连续、同址广播、反序置换、跨两行、8 行 gather、尾线程和同字节写冲突。例：地址为 0x1000+4×lane 时为一拍；换成 0x1004+4×lane 时为两拍；8 个 lane 同读 0x100c 为一拍并复制八份。按每拍实际占用、不同字节、lane 请求字节分别计数。
+2. **先测有效在途深度，再定队列。** 端点初值 8R/4W。假设实测一个单拍读从占用到释放 ID 需 40 个 GPU 周期：有效载荷 32 B 时，要达 1.6 GB/s（16 B/拍）至少需约 20 笔在途，8 笔的理想上限仅 0.64 GB/s。40 拍是算例；应代入实测延迟、有效字节和桥的接纳深度。扫描 1/4/8/16，并在出现这个数量级时加入 32。读深度 32 若每笔单独用 ID，至少需 5 位 RID；核查生成的 CDC、协议 IP 和 HBM 端口 ID，或为同 ID 的有序返回维护 FIFO。
+3. **隔离两类验证。** 单端口固定提交模式下逐项比较宽度、路由、在途数、LSU 槽、D-L1 MSHR 和 scratchpad 广播；其中宽度对照使用同一路径的专用 GPU 端口，原共享 SoC 另列，避免把端口隔离的收益归给位宽。读写队列须在任意合法背压下保持安全；在下游最终就绪并返回响应的假设下验证每个 warp、每个簇和取指端最终前进。板上用实际桥 IP 做 WSTRB 相邻字节保护、4 KiB 边界、同址跨端口读后写/写后读，以及写响应到主机可见性测试。设备错误按首错报告，排空其余已接纳事务；已经获得成功响应的存储可能已产生副作用。
+4. **以应用和资源决定扩展。** 首轮建议流量生成器连续单向目标 ≥1.6 GB/s；另外报告真实 SM 连续内核，避免用生成器代替 GPU。DMA 池目前 2 MiB，拷贝应为程序、描述符和参数留出空间，使用两个小于 1 MiB 的不重叠缓冲，重复搬运使计时总量超过 1 MiB。对光追、曼德博以及 CPU 在 GPU 空闲/满载时的访存延迟做同频配对。单口瓶颈经计数证实后再做双口，并给不同 PC 的缓冲分别授权：现有 GPU 和 Linux 以 0x1fe00000 为 DMA 上界，不能直接把 PC2 以上地址填进原描述符。扩展须定义设备地址到允许区间的映射，隔离 Linux RAM/MMIO/JTAG，并验证 CPU 可达性或使用显式搬运。等容量 L2 可作为有跨 SM 只读复用时的后续对照；可写 L1/L2 需要另行实现所有权/失效及写可见性协议。[GPU 窗口](../src/main/scala/morganite/Gpu.scala) · [Linux 驱动](../linux/morganite.c)
+
 ## 为什么先选树
 
 16 个 SM 的全局数据、指令 refill 和描述符读主要流向内存，scratchpad 属于各自 SM。当前一个 SM 的所有 warp 共用一套 `gather/send/awaitReply/writeRegs` 状态，数据和 scratchpad 共用这套状态，load 写回期间还阻挡其他 warp 发射。当前 DMA 最多仲裁 33 个来源（16 个数据端、16 个指令端、1 个作业端），全机只保留一个读 owner 和一个写 owner。只替换连接线，LSU 和端点仍会串行。[SM](../src/main/scala/morganite/Sm.scala) · [DMA](../src/main/scala/morganite/Dma.scala)

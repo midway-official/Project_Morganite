@@ -114,8 +114,7 @@ def model_check(words, name):
         mem.data[src:src + len(init)] = init
         for _ in range(2):
             mem.data[:20] = struct.pack("<2I", src, dst) + params
-            for gid in range(2):
-                model.group(words, gid, 16, 0)
+            model.group(words, 0, 32, 0)
             src, dst = dst, src
         got = np.frombuffer(mem.data[src:src + len(ref)], dtype="<f4")
         error = float(np.max(np.abs(got - np.frombuffer(ref, dtype="<f4"))))
@@ -144,7 +143,7 @@ def stage(out):
         if name == "nbody":
             params, data, expected = bodies(512, 4, 6521)
             (out / "nbody.init").write_bytes(data)
-            config = dict(bodies=512, steps=4, seed=6521, threads=16, groups=32, max_abs_error=2e-6)
+            config = dict(bodies=512, steps=4, seed=6521, threads=32, groups=16, max_abs_error=2e-6)
         else:
             width, height = (512, 384) if name == "raytrace" else (1024, 768)
             params, color = raytrace(width,height) if name == "raytrace" else fractal(name,width,height,192)

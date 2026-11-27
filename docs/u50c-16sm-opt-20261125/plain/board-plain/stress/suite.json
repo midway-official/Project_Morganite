@@ -1,0 +1,85 @@
+{
+  "cases": {
+    "mandelbrot": {
+      "width": 1024,
+      "height": 768,
+      "tile_rows": 16,
+      "threads": 32,
+      "groups": 512,
+      "max_channel_error": 0,
+      "iterations": 192,
+      "samples_per_pixel": 4,
+      "program": "fractal.bin",
+      "params_hex": "0a000000ff030000c000000000000000000010c0000090bf0000403b0000403bcdcc4cbf77be1f3e00000000090f2dff14457eff1d9bb1ffb2cfa4fff9b97cfff56d47ffa04456ff57235eff2d1844ff09102fff0e2751ff123c71ff165a8aff1a7d9fff1d9db2ff54b4b0ff98c7a7ffd8da9ffffbd690fff9b579fff79664fff6794fffe1624affbe5251ff9c4257ff7c335dff5d2562ff4c2057ff3b1c4dff2b1842ff1b1438ff0c102fff0b1738ff0c2046ff0e2853ff103160ff12396dff14427aff154e83ff175d8cff186b94ff19799cff1b86a4ff1c93acff1da0b4ff30aab5ff4cb2b1ff68baadff83c2aaff9ec9a6ffb8d1a3ffd2d89fffebdf9cfffce097fffbd28efffac584fff9b87bfff9ac73fff89f6afff79361fff78759fff67b51fff56f48ffeb6748ffdd604bffce5a4dffc15350ffb34d53ffa54755ff984058ff8b3a5aff7e345dff712e5fff642862ff5b2461ff54225cff4d2158ff461f54ff3f1d4fff391b4bff321a47ff2c1843ff25163fff1f153bff191337ff131133ff0c102fff09112fff0a1435ff0b183bff0c1c40ff0c1f46ff0d234bff0e2650ff0f2a56ff0f2d5bff103160ff113465ff11386aff123b6fff133e74ff134279ff14457eff154b81ff155185ff165788ff175d8cff17628fff186892ff186e96ff197399ff19799cff1a7ea0ff1b83a3ff1b89a6ff1c8ea9ff1c93acff1d98afff1d9eb3ff1ea3b6ff24a7b6ff30aab5ff3badb3ff47b1b2ff52b4b0ff5db7afff68baadff73bdacff7ec0aaff89c3a9ff94c6a8ff9fcaa6ffa9cda5ffb4d0a3ffbed2a2ffc9d5a1ffd3d89fffdddb9effe7de9dfff2e19bfffce49afffcdf96fffbd993fffbd48ffffbcf8bfffaca88fffac484fffabf80fffaba7dfff9b579fff9b076fff9ab72fff8a66ffff8a16bfff89c68fff89764fff79261fff78d5dfff7885afff68457fff67f53fff67a50fff6754dfff57149fff56c46ffef6947ffe96748ffe46449ffde614affd85f4cffd35c4dffcd594effc7574fffc25450ffbc5151ffb74f52ffb14c53ffac4a54ffa64755ffa14556ff9c4257ff964058ff913d59ff8c3b5aff87385bff81365cff7c335dff77315eff722e5fff6d2c60ff682a61ff632762ff050818ff",
+      "source_sha256": "571f63e3005f2613e5c24e5570604128c3f01572f1f51c8af212fc20149a0194"
+    },
+    "julia": {
+      "width": 1024,
+      "height": 768,
+      "tile_rows": 16,
+      "threads": 32,
+      "groups": 512,
+      "max_channel_error": 0,
+      "iterations": 192,
+      "samples_per_pixel": 4,
+      "program": "fractal.bin",
+      "params_hex": "0a000000ff030000c0000000010000000000c0bf000090bf0000403b0000403bcdcc4cbf77be1f3e00000000090f2dff14457eff1d9bb1ffb2cfa4fff9b97cfff56d47ffa04456ff57235eff2d1844ff09102fff0e2751ff123c71ff165a8aff1a7d9fff1d9db2ff54b4b0ff98c7a7ffd8da9ffffbd690fff9b579fff79664fff6794fffe1624affbe5251ff9c4257ff7c335dff5d2562ff4c2057ff3b1c4dff2b1842ff1b1438ff0c102fff0b1738ff0c2046ff0e2853ff103160ff12396dff14427aff154e83ff175d8cff186b94ff19799cff1b86a4ff1c93acff1da0b4ff30aab5ff4cb2b1ff68baadff83c2aaff9ec9a6ffb8d1a3ffd2d89fffebdf9cfffce097fffbd28efffac584fff9b87bfff9ac73fff89f6afff79361fff78759fff67b51fff56f48ffeb6748ffdd604bffce5a4dffc15350ffb34d53ffa54755ff984058ff8b3a5aff7e345dff712e5fff642862ff5b2461ff54225cff4d2158ff461f54ff3f1d4fff391b4bff321a47ff2c1843ff25163fff1f153bff191337ff131133ff0c102fff09112fff0a1435ff0b183bff0c1c40ff0c1f46ff0d234bff0e2650ff0f2a56ff0f2d5bff103160ff113465ff11386aff123b6fff133e74ff134279ff14457eff154b81ff155185ff165788ff175d8cff17628fff186892ff186e96ff197399ff19799cff1a7ea0ff1b83a3ff1b89a6ff1c8ea9ff1c93acff1d98afff1d9eb3ff1ea3b6ff24a7b6ff30aab5ff3badb3ff47b1b2ff52b4b0ff5db7afff68baadff73bdacff7ec0aaff89c3a9ff94c6a8ff9fcaa6ffa9cda5ffb4d0a3ffbed2a2ffc9d5a1ffd3d89fffdddb9effe7de9dfff2e19bfffce49afffcdf96fffbd993fffbd48ffffbcf8bfffaca88fffac484fffabf80fffaba7dfff9b579fff9b076fff9ab72fff8a66ffff8a16bfff89c68fff89764fff79261fff78d5dfff7885afff68457fff67f53fff67a50fff6754dfff57149fff56c46ffef6947ffe96748ffe46449ffde614affd85f4cffd35c4dffcd594effc7574fffc25450ffbc5151ffb74f52ffb14c53ffac4a54ffa64755ffa14556ff9c4257ff964058ff913d59ff8c3b5aff87385bff81365cff7c335dff77315eff722e5fff6d2c60ff682a61ff632762ff050818ff",
+      "source_sha256": "571f63e3005f2613e5c24e5570604128c3f01572f1f51c8af212fc20149a0194"
+    },
+    "raytrace": {
+      "width": 512,
+      "height": 384,
+      "tile_rows": 16,
+      "threads": 32,
+      "groups": 256,
+      "max_channel_error": 1,
+      "program": "raytrace.bin",
+      "params_hex": "09000000ff010000000000000000003c04000000666626bfcdcccc3d666646402bf6273f52069e3f000068430000b242000094427b142e3f8fc2753e00005040b1bfec3e3c3cbc3f00004c4200003b4300002f430ad7233dae4721bfcdcc1c40faed6b3e555505400000754300003e430000a44285eb913f713d0abf66668640ddb5043e1cc731400000e6420000fc4200005e43",
+      "source_sha256": "9e3200e5bf9a0b3bd9efa86ba3f6e131dd4298c2a50ce932b25767cabef3a4de"
+    },
+    "nbody": {
+      "bodies": 512,
+      "steps": 4,
+      "seed": 6521,
+      "threads": 32,
+      "groups": 16,
+      "max_abs_error": 2e-06,
+      "program": "nbody.bin",
+      "params_hex": "000200000000803b0000003b",
+      "source_sha256": "c52fbb6b36371081054b1a322759758d9ccc5912dbf41f41c721bc9e263a5e5b"
+    }
+  },
+  "model": {
+    "mandelbrot": {
+      "width": 32,
+      "height": 24,
+      "max_channel_error": 0
+    },
+    "julia": {
+      "width": 32,
+      "height": 24,
+      "max_channel_error": 0
+    },
+    "raytrace": {
+      "width": 32,
+      "height": 24,
+      "max_channel_error": 0
+    },
+    "nbody": {
+      "bodies": 32,
+      "steps": 2,
+      "max_abs_error": 9.685754776000977e-08
+    }
+  },
+  "sha256": {
+    "fractal.bin": "8171deeb21415e17c214ef30b174a3faf3f002fd12d33d22d55d0173ed5f0551",
+    "input.bin": "bccc1b37626769786ad062468f7c45082cfb9c46fd6d4caaa4250ac0f01760fa",
+    "julia.ref": "7dc27c3d173ca6ec5215b05b4ffdff22dfe26fd7daa1047b32aa8a079824fcdb",
+    "mandelbrot.ref": "4927a7b1c692cea5ab76411d1c5d45d1782ea8b05a846e34b3e55983d76934f7",
+    "nbody.bin": "7b16c36ce9efda8338a4fb6d2e9b6173610deb5f8926bda02f2f36f14fcc27d9",
+    "nbody.init": "b7590c229c94ff9475d890e5b993b33b20524fff9bfe12a26cc17e02dc3f8bdd",
+    "nbody.ref": "f49fb0db6a885ae9fa4dc98c1254a3be1e983f9b50012e1a50f040c7c4e74e57",
+    "raytrace.bin": "89822ae75a284811ce00ec49c27fa2c2e9455a94d9c3abec3c39f0fbe63ca7d2",
+    "raytrace.ref": "7837389edd8391f7aa2438aee4a79175932e16b49e372d08dec7b2843506d90d"
+  }
+}

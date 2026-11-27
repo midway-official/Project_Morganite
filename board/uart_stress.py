@@ -4,6 +4,7 @@ import gzip
 import hashlib
 import json
 import math
+import re
 import struct
 import time
 
@@ -42,7 +43,7 @@ def verify_stress(command, jobs, info, suite, out, readonly=False, cases=None):
         return read_uart_file(command, "/tmp/mgst.out", size)
 
     report = {}
-    for name in cases or ("raytrace", "mandelbrot", "julia", "nbody"):
+    for name in cases or ("nbody", "julia", "raytrace", "mandelbrot"):
         cfg = manifest["cases"][name]
         binary = (suite / cfg["program"]).read_bytes()
         upload(code, binary)

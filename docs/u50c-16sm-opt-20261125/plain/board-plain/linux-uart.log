@@ -1,0 +1,190 @@
+
+/ # uname -m; echo MG_EXIT_$?
+loongarch32r
+MG_EXIT_0
+/ # /bin/busybox sha256sum /bin/mgpu /gpu/*; echo MG_EXIT_$?
+8683787e9f3664de2d3da70b8f35b9c5b1c4c0d33d1da05d67975f00eaa88c88  /bin/mgpu
+7fbee2798e6f58f56b8e9a949e37593a0d982f584c515f5eaa4a83ec36a42286  /gpu/axpy.bin
+25315605f4bd58da09857ab6b135df410e6d4be589b93ce3a2999b58b1486cd3  /gpu/copy.bin
+ae587a4b2b9de1c7ed3e989fce3035ef57b26209be5b64fe48b99b23b21fd01f  /gpu/cube_a.scene
+58157bc977a6736a7dc92bc28b630944b5d0b1477f53e38488d20ba50fbd59b1  /gpu/cube_b.scene
+647fc179a58295d1f7e3e8d8d71f4e83e4894e8e8a34ed3e470708eb4942430f  /gpu/degenerate.scene
+4e2c6d45dc3f68415e4f6b0358d646e136390253ebb582433bde2bd32caa5e8e  /gpu/divergence.bin
+2f6fc34502d66f87ededc44f24f8cd4775f7a578167479dc715bea391ebbcf13  /gpu/fma_bench.bin
+16adb5c29004a999b3341bd3cd55bc6adaccb8b3d308317591e65c769ea953bd  /gpu/fragment_swap.scene
+225816a701e36cd68d32b736375a5948a2d52c07bb24171e90cfe0d0c35c1366  /gpu/integer.bin
+b580c3fe6b398329cd5b622c843497aae69f843f65ba311ddd63631461862dde  /gpu/overlap.scene
+6abc620ec5a0425797e78c22ae98c489ea39dc9886e80c28cd05599f0594da16  /gpu/pixel.bin
+7915c8bf4448bbaf2954fd6768721eb711a1b7314f6a05bf9ffe6b33a76ec301  /gpu/pixel_swap.bin
+da9a0be794346efdd2866b380978c55d10097e4d2e38b3faa8ce482eea43d6b6  /gpu/setup.bin
+b11ce5feec58f7db84fda10767a0e9df5762f9f8a45502bc485020b68fbf1389  /gpu/shared.bin
+d4d7733d94517999afd60700419d86ed55a6386ad6b14d31f6fa2faea3ef9e3b  /gpu/shared.scene
+10d4bc023f7e0d386a581bc20970f6c4a41bfa04553817bc348dd3490f748c40  /gpu/strides.bin
+3fc332a6dfee53d930bdacde2f7a17bb81a58890b125db57b5a6567c3f368774  /gpu/tensor_bench.bin
+1b4846fbb7396e83c93b7f8afbbef00245fb4bbc32f3d366c75b1da573f30e74  /gpu/triangle.scene
+be01fc66074ba2815643cd2595a7246ff286bec50ab54f318822ea1ea7c79564  /gpu/vertex.bin
+4bad48d0b26ab8b5952493a5946e36b6be53480e2763f6e37c02a8d4087cda3f  /gpu/vertex_shift.bin
+f9be494f9c2074f565fb2b4640473f3d35efdae55e8e744f515c2d378e9d068e  /gpu/vertex_shift.scene
+MG_EXIT_0
+/ # cat /proc/iomem; cat /proc/interrupts; ls /sys/bus/platform/devices; echo MG
+_EXIT_$?
+00000000-1fdfffff : System RAM
+  00300000-00b8ecaf : Kernel code
+  00b8ecb0-00e4745f : Kernel data
+  011d0000-0124c2c7 : Kernel bss
+1fe001e0-1fe001ef : serial
+1fe20000-1fe20fff : 1fe20000.gpu gpu@1fe20000
+1ff00000-1ff0ffff : 1ff00000.dmfe
+           CPU0       
+ 18:     286207  LoongArch   2  ttyS0
+ 27:     360127  LoongArch  11  timer
+ERR:          0
+[1;36m1fe001e0.serial[m                  [1;36minterrupt-controller@0x1fe11600[m
+[1;36m1fe20000.gpu[m                     [1;36mserial8250[m
+[1;36m1ff00000.dmfe[m                    [1;36mserial8250.0[m
+[1;36mFixed MDIO bus.0[m                 [1;36msoc[m
+MG_EXIT_0
+/ # /bin/mgpu info; echo MG_EXIT_$?
+{"id":1297044039,"abi":65536,"caps":67634192,"features":1027,"dma":29360128,"bytes":2097152,"completed_or_active":87}
+MG_EXIT_0
+/ # /bin/mgpu loopback; echo MG_EXIT_$?
+{"kernel":"copy","seq":88,"mask":65535,"cycles":8062,"host_ns":562900,"fault":0,"fault_addr":0,"read_bytes":912,"write_bytes":256,"read_bursts":141,"write_bursts":8,"cpu_busy_samples":0,"sm":[[7878,1,0,0,7696],[7965,1,0,0,7704],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0]]}
+MORGANITE_LOOPBACK_PASS=1
+MG_EXIT_0
+/ # echo H4sIAN7nBmsC/3WOsUsCYQDF3+ed3tmlGLcYLdbXcFKD4SBNKucQTcU1BAY1JQYNN8YVFJ9
+R51UEt7QEaindEYHcEFGDck2tjv4tSnc0N/z48d7weOMcwLUB1i6B65yDdQbgnkDGMlDlAdvW4DH2Z16
+Hd6GD6/Jg3Qq4XgNeDMgLgBcgp5dhyzvIEx2F48K+nJg8vidQtG8TKCQHRTmZBFMIVjJpwpRy6DhTLkL
+PMWUYet5IBVsiIDkiLEcUJVdMWa6Y1uIOPzI/eG3mh1elbFa11vuqtNm3qwvwpLOyJn0K2o0haLNWwF1
+0ZFn/5NOAPcGPmXX1ytR9oXliX2/A/hJFY7AKI5eZhh9kQkpyJDI1SktBl5twDk+YUyGc2yDM/YZqHt7
+78dqD2qy11Gh9y7+s76qxowPaaoN2+qDPQ9DeNqEvi4S6a4S+lgl9IzAA/AJ9eg4AdAEAAA== > /tmp
+/mgst.b64; echo MG_EXIT_$?
+MG_EXIT_0
+/ # /bin/busybox base64 -d /tmp/mgst.b64 > /tmp/mgst.gz && /bin/busybox gzip -dc
+ /tmp/mgst.gz > /tmp/mgst.in && /bin/mgpu upload 4096 /tmp/mgst.in; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # /bin/mgpu download 4096 372 /tmp/mgst.out && /bin/busybox sha256sum /tmp/mgs
+t.out && /bin/busybox gzip -c /tmp/mgst.out | /bin/busybox base64; echo MG_EXIT_
+$?
+7b16c36ce9efda8338a4fb6d2e9b6173610deb5f8926bda02f2f36f14fcc27d9  /tmp/mgst.out
+H4sIAAAAAAAAA3WOsUsCYQDF3+ed3tmlGLcYLdbXcFKD4SBNKucQTcU1BAY1JQYNN8YVFJ9R51UE
+t7QEaindEYHcEFGDck2tjv4tSnc0N/z48d7weOMcwLUB1i6B65yDdQbgnkDGMlDlAdvW4DH2Z16H
+d6GD6/Jg3Qq4XgNeDMgLgBcgp5dhyzvIEx2F48K+nJg8vidQtG8TKCQHRTmZBFMIVjJpwpRy6DhT
+LkLPMWUYet5IBVsiIDkiLEcUJVdMWa6Y1uIOPzI/eG3mh1elbFa11vuqtNm3qwvwpLOyJn0K2o0h
+aLNWwF10ZFn/5NOAPcGPmXX1ytR9oXliX2/A/hJFY7AKI5eZhh9kQkpyJDI1SktBl5twDk+YUyGc
+2yDM/YZqHt778dqD2qy11Gh9y7+s76qxowPaaoN2+qDPQ9DeNqEvi4S6a4S+lgl9IzAA/AJ9eg4A
+dAEAAA==
+MG_EXIT_0
+/ # echo H4sIAObnBmsC//N1dzFkYGBkYBA4wBjLAAQKBxgFQBQDBAAAWulnDyAAAAA= > /tmp/mgs
+t.b64; echo MG_EXIT_$?
+MG_EXIT_0
+/ # /bin/busybox base64 -d /tmp/mgst.b64 > /tmp/mgst.gz && /bin/busybox gzip -dc
+ /tmp/mgst.gz > /tmp/mgst.in && /bin/mgpu upload 0 /tmp/mgst.in; echo MG_EXIT_$?
+MG_EXIT_0
+/ # echo H4sIAOnnBmsC/y1bdzxX3/83M7KysrJXZjb33HMOya5UQhsN0SIVLS2lQYmiPUTa2or3vee
+Q0dBWpJQmSYmGNNTv873350/Px/O1zrmv8zqv83o/6s/gz0WYoGOSSDSyeAgw/FzKZrzxhcfb8lip//6
+a7m0mA2aYkVttVlTR/jmzar4N7PwkAweM4gT8zLqdxGheHCWZerDc3QNs/snwT9SV+PXRMgL+dvIcPHL
+6F9SYP4/ed29iWuFf1vsjw+67Kw//h8+G0nQZn8OtLRxPDo9WAIYJlrz0NMy7/qXc/3A7xR9ctJ4uHSB
+3B1Vv38TYWHvz0paK/MSj9cz/8F2t3rR2Zz/ZedQXb5yhC47VO8N3YftYVWt1/n94gnQGGXrFjr7I/EP
++xMsDk5d2/FXHJtah7C34Hy7l5ENXjFiEV8RF4JclWxkb2T5u9tpOCTfojKB/L/+F3AlbgkP/puHmuON
+M7Y0tbEHnR26SPRFw9pkpDdXxp6dWp+LPho+Z1z9sYSswgVWzKwS8W2M2/vF2ObmbOAnf1pIB5FYonDU
+ylfVYN1ywr0VKjabvXkHLTJ3ouSMDQfk/O/j8UTi3v9dNwF9e > /tmp/mgst.b64; echo MG_EXIT_
+$?
+MG_EXIT_0
+/ # echo Pktg5XnSEeRDI0y1wMJqP2idFM5Nr7UT5E84EUUPGq6HXfNC8dy8e8yVrCR2d7o8L/fwkoB
+3flUmsxNcqffoRHr6oQsYfV0R+j3N4WLv6Avy+6W10Kw+MxRuE0hvhzUxMtsqJa+Vn7G2p42E9THTfsY
+Xp6ThT0mr6M/bfxiZpflgsfo0dt/G7cL67j/hTceFpWGtTQvA4IohYLTvSJ5f0svNjB8p8K+kutM7knq
++ISoETw08y1w6r8tNexHA/YpyEXDfs4txxwGGNmxLoxFVqsAg8bvPuadh0LEqS/I/vC/hOUJ33aiDUyc
+Zt94ZjO1WBh2vr3DqN58K+q8djKcXs56j0PSrZKORM3hw2ITfOzNJYlHACPJ3jEzAc8q80JK9Q5HRphN
+MJe/Aa8/RhdWtCwX+AO0EzJi2kuV22jigspqZcvsWU5U+hZ2h0CfET+r9WGR1LBwvPKVFyx/pA8luH/6
+lrgYs7RP9P1U2nbjeHo+NgofiYgVT4DDem784QBaeUgNCfGU1ZbBmuh7OOP0Yps4/x9zfNpwr+mIAW7o
+1Bf9m/5Oi5pZF6NTKBTTjszrYdT4Mbpofy/2uMBL4T3+PoJK5 >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo a9FOXV868Zs6CBuYxam0EdYuVoyvtt89sjN5AZVuNyUrkQHYtEcXqmg48tdO6Aj8+efesP9
+WTsfr1VbhrB3HGHevTu77MB9ou0tTwGPVW5H5I0ts0D4bD007zVy21+dtxrnzweanBf8s/FSp6dxYsuK
+fG1Vu6maS3ofx2uN9YCF3S4jPzp7FdKVJK0r59REdK3/FLJYbxo+o+MsOmqcm2He+sBD9ejKMeu3zp63
+zmphB58+zi741AJ9jGYL/RZuisZ3OSZIxA6LOxlwmsNaNC2L8weMjboL+XQEUZdWr00blzSjpVSOT+WA
+9+7gPQ7ct4v7ZFzMeg0519Ff2LRqkrwDYV4P5ktUhcOrkiUJ+cNepI8opIbhkUTbqmSILFrXLs7oZ0az
+yxkmC/SYHgvHRnHS8ZdYrcumFBjj4L4M1NtJl38YGCvL5mJ9o8yxp2GbtSV80SAFF199gszXDaOi4Cfg
+mZyXc+80Da00zpZo3pcFXzQ7O5bcxV2T+Xcgv7acBLdh3i9w3vMw3f5ACA5Y85aoHRbLbXM4J+onZVDz
+09XYy640Tdf/gCTbuGwxXhXmzfC4v2F+qsRfF90RjI8UWYn/8 >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo PZMxYTq36gqC98bLVPwPNz2sSk9tf4Nc1afg4DOuYM3+X+zrvQ8lp6WxYJ/adTt6c6UBHTF
+8KibbPzEa7bfYDkV7MPb7T0G+o8Inss4jhCbfzUTXnXYyv/dFcz8HqsAh8ZmCfWd+nkXyC0ZQt1ZnGlP
+pCRSWD+YVvprC52+3Cfj5yDxiQw1o7lcZzOzTB8rv9rOfbnjC0kP1Aj634xE7HtuQXS2ZKL59DZP/+SZ
+QnqfMby07IuCrQ4bgriky+GBcLP3DfmRKAnz5UeFW8EnpQQGX755LvWVSSO4vD3r9Rx+jtK6NTclzha/
+Xi/lzn9doXAud6LrKShj0zhEkJuiyanU/2cj5j4X9tcuToJLP0mjj9YG0cKEFyJwkxUaazGWvBvwR9+9
+tfbQ/q5no3YvHJiuuMe2Ts9ic00u4g3CjgC9Y24vquULUdzwOx7kZA9P96hApD4N7DKcJ+7Pu/VGi71c
+D7/UE4ocTvACNhXDXTBP+IHgo8G8cKiGaP5agH5NnkkUJjUxzwFBWeWwQ9+M2FOz/KzeQhqlHIesdCvS
+Okg+YnG4BU/NegieVjgK+RWUuzZSeSLdUbOPnLRkMqrZpw1xj >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo bb6pXsx/Wk7ONDBqK3Ldboc0MweACFs3/lTbFPaFyilh/90ymgazIibQc569ZH/4dUbBC8I
+5Ug7wQLivsD8+TEFY+ZUJrsyKQ6kb/zLkrSObuN0Btu/9IMRvyCiM9/v0keIXm8nITiOwyFGNT/usA6P
+cxfwkG1XKh+a7UX07JZy2RQpsTnvEPXr/CmSMMxbwldUxWHF1Ajps0YfQvCrm8djNbMwDK5jgKi/gN83
+l0K7dwYg8SMWTPniAwX01rMFDTbhNebLgn33hPqRz04hmrdOj110HgnndV9nJccN52xW8EN/37/JhRMs
+mvnvoI5I75Bdz+24gXHh4DzdSr1jwf6tvLF64MxJ3pK7EVSN3MqrT68G19Asgsj5bkK9DypDvqUQcd82
+WZOxWA/tWl7AJuvvYOShEsK+3KgRbTF1EbVfNwl8mPmHqXbtYIP2wvGm1jRC//E8p+IRrGXsoMYnG7L/
+GnLMtYjfcq2Tttj4S5Hs8MEEfH+VzodgcjZz+kUl8Kwf9darYGwF2At44wwIrbQvG1z6uJU2tPiAp9Du
+npmgIdVfaC/InbqojX5u7SU5dEoW4gVHe6wMz9SZL+m0/CXzL >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo 2CxSep2hea3xKLqploms8AHx+iEwe7ehYH/2qGTuUWYWan9Yg75sKGMaVp8Hlxu1YU3vBWF
+9zbEyHTrxKXpV+B6F9j5nRmmf4lZPDoU/1H4J8gefjcUXeYgftJ0mGi2fGWkbIzjfYBhck7NKiP/sXCn
+8nblNouui0JK+bGaQZgivP+kjl0IcBPtZXYS1SoKIj/Rs+mdaNTMz1ok7EjuA38QAQf8iWx1q2e2Plsy
+TwYGXVcGu231cjJE3s8VKU+DfLUjABVXzMBvcisZlrmVkN/WxD2e3sDe37hfWd1tcEeqb9I7IGz0ncTW
+qwNc5nJtmUcKyNhGCfbLNh9HlCRnoXrsePmPGMXpBI7njR3eza4PF+uzznDo0+u8YbPfxElqhbwO8Bvx
+l311tZid8uSrg+tL2uH9ECzkw9CQyaJUBz/gDbOdZW740a4aAv7s/k65L98azX1Sg5MsdjNdCc3iJDeG
+/L1EX7P9yuJt4rzPF+RMX47pgF5C73Jb3XPGZ03peKPADPGToaWYWndP3i0wvGAjW/73Ptleqw49rxwj
+xX/p7NU1mrbDKVE36oqaX2XZhC0dn2nMTrB8LOGouIwmT/GlW >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo 3HzqOcQNHN7wlHvqL88OmO4v6M9clkBmtMdSlxeb+XWqOoA3Xc4O7UlgyoJaxPrpjhF+nWZ
+GT62EeJfTKaYx1Bs+WDMEbn8mLfALRiTzSRP/wd/n9HH7dTtg3NbD5c6vYWdNlxfr44su2BKsoEpWPrT
+psTsY24L4+kN+EH8dIey/rv1jyUcFD3LDRYbe0yhh/mRuZ9dmarIHl6gI8g+vd8TPdtwjrwzs6WvnZwy
+33ZovvhPGxy3VEXDN02tI/rJlWDrnIwn8Wsv8NQzioww0WdlmMX9Oa3SG1+Ir0cHhlDT9t/5B7ea8dMN
+UNtBcVsAdY1Xouk4P8sVEjf6raGK6zmryIfq/uV+NBwT70zco4o0FDA0o1EUlvreZma+C+OOKJ9itMVp
+CfG4ojMLy6y6g7H862LzdHFyNJtyd9BKuPNdXkK/9ZjY2n7KOGFwwpa16xkDjpx+fAm5xNnYuAn7k93T
+65MhM7Bk9h44qLGCGR3Zyg+0QdEjWFfw7mhtIi2NXkNppC+mjPfuZmUkD4CfXNezkaWJ+6dpzF+VsRPj
+OtdOkNtEWHPaxhjIpBhBZvRTsHzoojgy5+ZjIhkdgEz8t8NB4 >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo CLd5qRF/5F+1YH9NoQU5pv0JbvjqSrJjDzFViSO5z4+decXDNsL3p94+kQQtP4esi9v49O+
+PGTpaFoY/+8Ldv1UlyK+5Px87LTchUyc0oYgx5cy1Q4gf82CvxDQqW8Azj47Eln8qUGxZB+mO+8hsfLW
+ZU4v155aZi+tjMFGXLN3wEj3E/dB+P89s1vDkpxyTSJb8EOu3s7ts6a9BHnTkk/dEWUkOqC6yZWu+7mT
+jSpwFfJhNEsqZY4bLu9r5pietzJ60I5Kz8maw2mKdoN//qDJ1WGGK73p6U5kBlKkyfsW1T3SDqfqKAn8
++McBOq78izSyO/TaoinlfivklRMKFBd4U+EmnPxF0chF1SB6PGwYNA80HfrLeS315nZTRQvzM1XRYo9m
+DsFyPM+oZqA2Q9kCo9Hg/a3R4oLi/R/jRzYfr0bTpfWjD0asMJoNhuO8/rvfaCYGfW2JI7uVcI/Lvy2H
+Rs7vMhsqrksjSwdzdXCDoX3QolA7ss6M9C+zxo4pWpv/yIP72YC1e/2upkN8ebE2lyfVRtP7yHiKXZQJ
+Cj9lwI+IHsPr6GgI+Xzcab3s9C3+6/5uPTbvDSIXpQHR9FRh/ >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo qFeQf7pxLH0YMhz7rAigW+M8waOVhLMuygXfVToF+2Jym9ApNy085dEGFLFpPxPu7s3nLfP
+mn8/iBfye5Riq6TCCDlpVCwe6O4Lxb/q5f3sGw8TkICG+F44No406kXjouFtI2dYMaITq8NdsbGFbu3i
++4EnpeOykGfiBmgFN+W4PDoUMgXLtpVyWrJ/Ab/8QTjv7nfB4pxlo15s6RuP9Mm4gz8LyvRoC7mKRTrv
+dZuAj0gdhl5Ym+PFanj+UHcgXvN0n+Bd49AqpCmtBERdW4yWpFsBhyXs2qieIXxRWJtivPHs8Hbsnh5y
+6vJUs3uQCfL0H82O/ybNL3lgK/Htng1GzdBT55DqFtsc7AP9NbZwW487ftrYQ9KeMiMV+HevQ5bv/7U9
+7LXByUBf7qyfb59b3YkH+hLXxWC9SF/prh+AzWbqge6YK/PidZ4c0DxL2x9HTzfyEv3K0I24Mmj4lg9n
+oqMtHeVjyh3rOC/pjclagpuKzUPnSZzLPVx2oFw+CyUn+/KsrX1nx/v+M3HlaRbhFI+CPg3Jg5BoX6L5
+GBTZ2TRf4fbeH01r3f4TvUiFDFnqDi46n2FeFZSDnooygf8yx >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo 1bzKkWDc88yU7jG2A7Xy7j5VdaF81igxvth2LGWDtvJXfA1R0smHTGurHjyh3sqF5In5+9O
++NeiKbiBedcOOLljPgLrMAdB33Rcm4arYn0ldEE7Nou2xyQAt2mZwk6n+ehVcug/4wO0jBPkh6f+QW7g
+BmhF3kZiUe4BNWSZ8qNJFkJHvJOCnt3xHQdGBeMNHG7Qkww38fvaGU3g+FBrI/hb8983ai6r/uz8q/Qi
+mRh/bmLaL0dyw3/USzzNfBLxbawu5dPQQOulYKpnVpgrY3hccV2XJOt63E76PZV6mOGT7VLz5tyy+720
+HVi9QYQd5VQCrW+7i/fZeEv0WhPAEVVf8YaolcDLy5XjHkeCZtBi/dz4z8F3FRLz+ZDJ+aWMFbttdZHU
+XX2I5Fyzgb2+vJMZcD8w0cmNfm/xj7C9uZ+9xdZIoVVbAZaJ1ScRPQ1p6O4oekngBtzZnuPCJNJ8cNlD
+w/+fHi7yNOsLDm9KoI+8MUjSN4Y7XiVzDO/H+vabMgE7MHYf6LvaRjktrmXfShpxe7gAYmmws8AtXemG
+rBn9q0VDBO+BM5mPQWyAd5ABfSt0Q1oezm413/Xf1GzP4Hfnl >> /tmp/mgst.b64; echo MG_EXIT
+_$?
+MG_EXIT_0
+/ # echo ksuYh2znNtbI8bxVjhCfynormhB1E/3d1MyXGw4E/UG/JGO7NGHcZ3tBf6zdf4dP/zHoaby
+avgqzB2cOaYJ6AxXO+c1xge91bD7+ojaHljs70bWx35lpQ/aw4Z8/cSXhgwX/T7qn4Y3HIJYK0aCmV2z
+B6uHPKywadHjL6p2C/JQb50jOITu8cdwfomfiAIKWSsMlIVrwj0mjYH9bShzevr6asA5zcLKzCzD6rAv
+zXRB/6oyZIB+VdJHwXUeR99VTJOeYFahM/8DOyavgbid5C/KP9p6Dv97sQZ/OWdHex8pguRuGD29ms6k
+VfQI+3qeKKPwZQRcpppEa1ctM/31jFjlkM6u21wm47dvDpNhfl96I8sSu+iogfMoF7ttcC3gwOkvApWt
+d6f4tY8jBzRH4YrgciJLPYvu/+vI5v1sE+w1uGOGiX6l0h4wrGZBvCCzdFWHi7+tsiJyTwPfSf0Gsi53
+wkHRz2nLNCJS0OnF/drrCvK/Xhfz5VVOVXgqQwyWHbaj7YmXQGq3MKwXncYb

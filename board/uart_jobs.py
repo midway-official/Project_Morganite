@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """Exercise a fresh physical Linux boot and retain device outputs on the FPGA VM."""
 import argparse
+import base64
+import gzip
+import hashlib
 import json
 import re
 import socket
@@ -27,16 +30,20 @@ def main():
     p.add_argument("--page-copy", action="store_true", help="measure the installed HBM page-copy program")
     p.add_argument("--cache-test", action="store_true", help="check data L1 counters and same-address updates")
     p.add_argument("--resume-cache", action="store_true", help="retry a cache test on the same verified Linux boot")
+    p.add_argument("--resume-stress", type=Path, metavar="OUTPUT",
+                   help="run the stress suite on this Linux boot and store results in a new directory")
     p.add_argument("--stress-readonly", action="store_true", help="submit immutable buffers through MG_SUBMIT_RO")
     p.add_argument("--resume-run", type=Path, metavar="OUTPUT",
                    help="run graphics or full tests again on the same idle Linux shell in a new directory")
     args = p.parse_args()
     paired = args.paired_graphics or args.paired_rays_only
     if args.resume_run and (not (args.full or paired or args.stress_suite or args.page_copy or args.cache_test)
-                            or args.resume_cache):
+                            or args.resume_stress or args.resume_cache):
         p.error("--resume-run requires a test and a single resume mode")
     if args.stress_case and not args.stress_suite:
         p.error("--stress-case requires --stress-suite")
+    if args.resume_stress and (not args.stress_suite or args.full or args.resume_cache or args.cache_test):
+        p.error("--resume-stress requires --stress-suite alone")
     if args.stress_readonly and not args.stress_suite:
         p.error("--stress-readonly requires --stress-suite")
     run = args.run.resolve()
@@ -54,7 +61,7 @@ def main():
         raise ValueError("manager request and launch differ")
     boot_log = run/"linux-uart.log"
     stats = []
-    resume = args.resume_cache or args.resume_run
+    resume = args.resume_cache or args.resume_stress or args.resume_run
     if resume:
         if args.resume_cache and (not args.cache_test or args.full or args.stress_suite or (run/"uart-result.json").exists()):
             p.error("--resume-cache requires --cache-test alone")
@@ -63,8 +70,8 @@ def main():
                 "CLIENTS=0" not in (actual/"heartbeat").read_text().splitlines()):
             raise RuntimeError("board run or UART ownership changed")
         boot = boot_log.read_text(errors="replace")
-        if args.resume_run:
-            run = args.resume_run.resolve()
+        if args.resume_stress or args.resume_run:
+            run = (args.resume_stress or args.resume_run).resolve()
             run.mkdir(parents=True, exist_ok=False)
             record(run/"launch.json", launch)
             boot_log = run/"linux-uart.log"

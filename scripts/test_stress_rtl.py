@@ -23,7 +23,7 @@ def main(sim, out):
             params, initial, ref = bodies(256, 1, 6521)
             params = struct.pack("<2I", base+src, base+dst) + params
             mem[src:src+len(initial)] = initial
-            groups, threads = 16, 16
+            groups, threads = 8, 32
         else:
             params, colors = raytrace(64,48) if name == "raytrace" else fractal(name,64,48,32)
             params = struct.pack("<I",base+dst) + params
@@ -38,7 +38,8 @@ def main(sim, out):
         inp.write_bytes(mem)
         row = json.loads(subprocess.check_output([sim, inp, output, "16","65535","0","render"]))
         raw = output.read_bytes()[dst:dst+len(ref)]
-        if min(row["groups"]) == 0 or sum(row["groups"]) != groups or row["fault"]:
+        active = sum(count > 0 for count in row["groups"])
+        if active != min(16, groups) or sum(row["groups"]) != groups or row["fault"]:
             raise ValueError("missing workgroups: {}".format(row))
         if name == "nbody":
             error = float(np.abs(np.frombuffer(ref,"<f4") - np.frombuffer(raw,"<f4")).max())

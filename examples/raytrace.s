@@ -30,7 +30,8 @@ fma r6, r6, r7, r8
 li r10, 0x42c80000
 add r11, r0, r0
 addi r12, r1, 24
-lw r13, 20(r1)
+lw r30, 20(r1)
+add r13, r30, r0
 li r25, 0x5f3759df
 li r26, 0x3f000000
 li r27, 0x3fc00000
@@ -88,7 +89,7 @@ fmul r22, r22, r17
 flt r18, r0, r22
 split r18, unlit
 addi r12, r1, 24
-lw r13, 20(r1)
+add r13, r30, r0
 shadow: lw r14, 0(r12)
 lw r15, 4(r12)
 lw r16, 8(r12)

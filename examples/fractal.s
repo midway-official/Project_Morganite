@@ -15,6 +15,15 @@ lw r4, 4(r1)
 srl r6, r2, r4
 lw r7, 44(r1)
 add r6, r6, r7
+# Keep per-pixel constants in registers across all four samples.
+lw r28, 28(r1)
+lw r29, 20(r1)
+lw r30, 32(r1)
+lw r31, 24(r1)
+lw r9, 36(r1)
+lw r10, 40(r1)
+lw r4, 16(r1)
+lw r11, 12(r1)
 utof r20, r5
 utof r21, r6
 add r22, r0, r0
@@ -31,23 +40,15 @@ fma r7, r7, r26, r27
 fma r8, r8, r26, r27
 fadd r5, r20, r7
 fadd r6, r21, r8
-lw r7, 28(r1)
-lw r8, 20(r1)
-fma r5, r5, r7, r8
-lw r7, 32(r1)
-lw r8, 24(r1)
-fma r6, r6, r7, r8
-lw r9, 36(r1)
-lw r10, 40(r1)
-lw r4, 16(r1)
+fma r5, r5, r28, r29
+fma r6, r6, r30, r31
 bz r4, mandelbrot
 jmp start
 mandelbrot: add r9, r5, r0
 add r10, r6, r0
 add r5, r0, r0
 add r6, r0, r0
-start: lw r11, 12(r1)
-add r12, r11, r0
+start: add r12, r11, r0
 addi r13, r0, 1
 add r14, r0, r0
 li r15, 0x40800000
