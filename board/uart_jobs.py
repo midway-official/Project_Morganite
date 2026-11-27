@@ -22,6 +22,7 @@ def main():
     p.add_argument("--full", action="store_true")
     p.add_argument("--paired-graphics", action="store_true",
                    help="compare 320x240 twin-cube pipelines and dense ray programs on one Linux boot")
+    p.add_argument("--scene", type=Path, help="render an uploaded indexed scene on both GPU pipelines")
     p.add_argument("--paired-rays-only", action="store_true",
                    help="run the two ray kernels after a completed twin-cube comparison")
     p.add_argument("--stress-suite", type=Path, help="load assembled stress programs through Linux")
@@ -37,7 +38,7 @@ def main():
                    help="run graphics or full tests again on the same idle Linux shell in a new directory")
     args = p.parse_args()
     paired = args.paired_graphics or args.paired_rays_only
-    if args.resume_run and (not (args.full or paired or args.stress_suite or args.page_copy or args.cache_test)
+    if args.resume_run and (not (args.full or paired or args.scene or args.stress_suite or args.page_copy or args.cache_test)
                             or args.resume_stress or args.resume_cache):
         p.error("--resume-run requires a test and a single resume mode")
     if args.stress_case and not args.stress_suite:
@@ -134,7 +135,7 @@ def main():
             raise ValueError("unexpected GPU identity: " + str(info))
         if info.get("features", 0) != expected_features:
             raise ValueError("unexpected GPU features: " + str(info))
-        if paired and (sms != 16 or info.get("graphics_units") != 31 or
+        if (paired or args.scene) and (sms != 16 or info.get("graphics_units") != 31 or
                                      (info.get("sm_rows"), info.get("sm_cols")) != (4, 4)):
             raise ValueError("paired graphics suite requires the 4x4 full graphics configuration")
         record(run/"dma-mapping.json", linux_mapping(layout, info["dma"], info["bytes"], resources, boot))
@@ -160,6 +161,9 @@ def main():
         if paired or args.page_copy:
             command("test -c /dev/zero || { test \"$(cat /sys/class/mem/zero/dev)\" = 1:5 && "
                     "/bin/busybox mknod -m 666 /dev/zero c 1 5; }")
+        if args.scene:
+            from uart_graphics import indexed_scene
+            indexed_scene(command, jobs, args.scene, run/"scene")
         if paired:
             from uart_graphics import paired_graphics
             paired_graphics(command, jobs, info, run/"paired", rays_only=args.paired_rays_only)

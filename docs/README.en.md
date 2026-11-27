@@ -14,6 +14,7 @@ For the board configuration start with the architecture diagrams, then follow a 
 | WSL build and replay | [WSL 构建与回滚](build.md) | [WSL build and replay](build.en.md) |
 | 16-SM board report | [16 SM 实板报告](u50c-16sm-20261124/README.md) | [16-SM board report](u50c-16sm-20261124/README.en.md) |
 | Full graphics, 16 SMs and dual HBM masters | [实板与物理实现报告](u50c-16sm-graphics-20261126/README.md) | [Board and implementation report](u50c-16sm-graphics-20261126/README.en.md) |
+| Complex workloads and scene rendering on 16 SMs | [实板图集与性能](u50c-16sm-complex-20261127/README.md) | [Board images and performance](u50c-16sm-complex-20261127/README.en.md) |
 | Kernel optimization measurements | [内核优化实板记录](u50c-16sm-opt-20261125/README.md) | [Kernel optimization measurements](u50c-16sm-opt-20261125/README.en.md) |
 | Two-SM release and reproduction | [双 SM 发布与复现](u50c-boot-20.md) | [Two-SM release and reproduction](u50c-boot-20.en.md) |
 | Proposed NoC and LSU | [下一版 NoC 与 LSU 提案](16sm-noc-lsu.md) | [Proposed NoC and LSU](16sm-noc-lsu.en.md) |

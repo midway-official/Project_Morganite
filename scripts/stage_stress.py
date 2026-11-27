@@ -131,7 +131,7 @@ def model_check(words, name):
     return {"width": 32, "height": 24, "max_channel_error": int(delta.max())}
 
 
-def stage(out):
+def stage(out, dense_rays=False, tile_rows=16):
     out.mkdir(parents=True, exist_ok=True)
     manifest = {"cases": {}, "model": {}, "sha256": {}}
     for name in ("mandelbrot", "julia", "raytrace", "nbody"):
@@ -146,12 +146,14 @@ def stage(out):
             config = dict(bodies=512, steps=4, seed=6521, threads=32, groups=16, max_abs_error=2e-6)
         else:
             width, height = (512, 384) if name == "raytrace" else (1024, 768)
-            params, color = raytrace(width,height) if name == "raytrace" else fractal(name,width,height,192)
+            params, color = raytrace(width,height,dense=dense_rays) if name == "raytrace" else fractal(name,width,height,192)
             expected = color.tobytes()
             Image.fromarray(color).save(out / (name + "-reference.png"))
-            config = dict(width=width, height=height, tile_rows=16, threads=32,
-                          groups=width*16//32, max_channel_error=int(name == "raytrace"))
-            if name != "raytrace":
+            config = dict(width=width, height=height, tile_rows=tile_rows, threads=32,
+                          groups=width*tile_rows//32, max_channel_error=int(name == "raytrace"))
+            if name == "raytrace":
+                config["spheres"] = 20 if dense_rays else 4
+            else:
                 config.update(iterations=192, samples_per_pixel=4)
         (out / (name + ".ref")).write_bytes(expected)
         manifest["cases"][name] = dict(config, program=kernel + ".bin", params_hex=params.hex(),
@@ -166,4 +168,9 @@ def stage(out):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("out", type=Path)
-    stage(parser.parse_args().out)
+    parser.add_argument("--dense-rays", action="store_true")
+    parser.add_argument("--tile-rows", type=int, default=16)
+    args = parser.parse_args()
+    if args.tile_rows < 1 or 192 % args.tile_rows:
+        parser.error("tile height must divide both image half-heights (192 and 384)")
+    stage(args.out, args.dense_rays, args.tile_rows)

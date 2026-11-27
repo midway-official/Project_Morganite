@@ -1,0 +1,21 @@
+{
+  "image_format": "dat",
+  "load_address": null,
+  "server": "127.0.0.1:3122",
+  "uart_port": 23251,
+  "vivado_root": "/home/fpga/Xilinx/Vivado/2023.2",
+  "program": true,
+  "hbm_test": true,
+  "zero_ranges": [
+    [
+      18874368,
+      19382984
+    ]
+  ],
+  "bit": "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/vivado/aurora_u50c.runs/impl_1/u50c_top.bit",
+  "bit_sha256": "fe12b419b028d031f5a61e4f3c7f8c7b688399a73a744d613905cdb5c1e192bd",
+  "ltx": "/home/fpga/morganite-16sm-graphics-e46aeee-qQitZVZs/implementation/u50c_top.ltx",
+  "ltx_sha256": "2cc13d4e7a8ff29d4df5feb449363702a3971c4a03c4fe0facfb57c8d87025bc",
+  "image": "/home/fpga/morganite-16sm-gfx-linux-PRM1pbf2/ram.dat",
+  "image_sha256": "37843c6c4f759ec99d05045363a449771b282b65f07fdc099fedf768ff0f72b0"
+}

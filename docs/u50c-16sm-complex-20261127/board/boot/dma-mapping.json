@@ -1,0 +1,13 @@
+{
+  "base": 29360128,
+  "end": 31457280,
+  "bytes": 2097152,
+  "cpu_alias": 2176843776,
+  "system_ram": [
+    [
+      0,
+      534773760
+    ]
+  ],
+  "allocation": "dma_alloc_coherent with loongarch32 uncached direct mapping"
+}

@@ -14,6 +14,7 @@
 | WSL 构建与回滚 | [WSL 构建与回滚](build.md) | [WSL build and replay](build.en.md) |
 | 16 SM 实板报告 | [16 SM 实板报告](u50c-16sm-20261124/README.md) | [16-SM board report](u50c-16sm-20261124/README.en.md) |
 | 16 SM 全图形版，双 HBM 主口 | [实板与物理实现报告](u50c-16sm-graphics-20261126/README.md) | [Board and implementation report](u50c-16sm-graphics-20261126/README.en.md) |
+| 16 SM 复杂负载与场景渲染 | [实板图集与性能](u50c-16sm-complex-20261127/README.md) | [Board images and performance](u50c-16sm-complex-20261127/README.en.md) |
 | 内核优化实板记录 | [内核优化实板记录](u50c-16sm-opt-20261125/README.md) | [Kernel optimization measurements](u50c-16sm-opt-20261125/README.en.md) |
 | 双 SM 发布与复现 | [双 SM 发布与复现](u50c-boot-20.md) | [Two-SM release and reproduction](u50c-boot-20.en.md) |
 | 下一版 NoC 与 LSU 提案 | [下一版 NoC 与 LSU 提案](16sm-noc-lsu.md) | [Proposed NoC and LSU](16sm-noc-lsu.en.md) |

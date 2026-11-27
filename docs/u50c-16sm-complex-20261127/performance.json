@@ -1,0 +1,61 @@
+{
+  "backend": "U50C",
+  "clock_hz": 100000000,
+  "manager_run": "/home/fpga/aurora-u50c-debug/runs/20261127T151408.322724Z",
+  "stress": {
+    "raytrace": {
+      "cycles": 3323902,
+      "gpu_ms": 33.23902,
+      "host_submit_ms": 35.89058,
+      "speedup": 15.896348613713254,
+      "max_error": 1,
+      "full_sm_jobs": 4,
+      "sha256": "283135051e3493360eb4875e23f8e8c71ad3909f3afd67f2d07c9511c3467cdf",
+      "frame_loop_elapsed_with_uart_s": 88.65837891213596
+    },
+    "nbody": {
+      "cycles": 1078204,
+      "gpu_ms": 10.78204,
+      "host_submit_ms": 17.07836,
+      "speedup": 12.847907260592615,
+      "max_error": 1.1920928955078125e-07,
+      "full_sm_jobs": 4,
+      "sha256": "261e20d5749321ca97640bc1cce7bd2262d623141a1ea6fb78e68ba2bb5e8bbb"
+    },
+    "mandelbrot": {
+      "cycles": 87923558,
+      "gpu_ms": 879.23558,
+      "host_submit_ms": 888.83288,
+      "speedup": 15.972445042355277,
+      "max_error": 0,
+      "full_sm_jobs": 8,
+      "sha256": "4927a7b1c692cea5ab76411d1c5d45d1782ea8b05a846e34b3e55983d76934f7",
+      "frame_loop_elapsed_with_uart_s": 205.0891076149419
+    },
+    "julia": {
+      "cycles": 85718198,
+      "gpu_ms": 857.18198,
+      "host_submit_ms": 863.94718,
+      "speedup": 15.949931514402545,
+      "max_error": 0,
+      "full_sm_jobs": 8,
+      "sha256": "7dc27c3d173ca6ec5215b05b4ffdff22dfe26fd7daa1047b32aa8a079824fcdb",
+      "frame_loop_elapsed_with_uart_s": 292.2683269875124
+    }
+  },
+  "indexed_scene": {
+    "hardware": {
+      "gpu_ms": 9.39017,
+      "linux_ms": 1821.24846,
+      "read_bytes": 2962112,
+      "cycles": 939017
+    },
+    "software": {
+      "gpu_ms": 41.48947,
+      "linux_ms": 1937.96022,
+      "read_bytes": 12075712,
+      "cycles": 4148947
+    },
+    "speedup": 4.41839391619108
+  }
+}

@@ -22,11 +22,13 @@ def read_uart_file(command, source, size):
             command("/bin/busybox gzip -c "+source+" > "+path)
         count = int(next(t for t in command("/bin/busybox wc -c < "+path).splitlines() if t.strip().isdigit()))
         raw = bytearray()
-        chunk_size = 1536
-        for offset in range(0,count,chunk_size):
-            request = ("/bin/busybox dd if={} of=/tmp/mgpu-xfer.part bs={} skip={} count=1 2>/dev/null"
+        chunk_size = 24 * 1024
+        unit = 1536
+        while len(raw) < count:
+            offset = len(raw)
+            request = ("/bin/busybox dd if={} of=/tmp/mgpu-xfer.part bs={} skip={} count={} 2>/dev/null"
                        " && /bin/busybox sha256sum /tmp/mgpu-xfer.part && /bin/busybox base64 /tmp/mgpu-xfer.part"
-                       ).format(path,chunk_size,offset//chunk_size)
+                       ).format(path,unit,offset//unit,chunk_size//unit)
             for attempt in range(4):
                 text = command(request)
                 match = re.search(r"(?m)^([0-9a-f]{64})  /tmp/mgpu-xfer.part$",text)
@@ -42,7 +44,9 @@ def read_uart_file(command, source, size):
                     raw.extend(block)
                     break
             else:
-                raise ValueError("UART chunk hash failed at {} in {}".format(offset,path))
+                if chunk_size == unit:
+                    raise ValueError("UART chunk hash failed at {} in {}".format(offset,path))
+                chunk_size //= 2
         try:
             data = gzip.decompress(raw) if compressed else bytes(raw)
         except (OSError, EOFError):
@@ -134,3 +138,31 @@ def paired_graphics(command, jobs, info, out, rays_only=False):
                           for label,key in (("ray","cycles"),("raster","render_cycles"))
                           if label in results["software"]}
     (out/"results.json").write_text(json.dumps(results,indent=2)+"\n")
+
+
+def indexed_scene(command, jobs, scene, out):
+    from uart_stress import upload_uart
+
+    data = scene.read_bytes()
+    magic, vertices, triangles, flags = struct.unpack_from("<4I", data)
+    if (magic != 0x3153474d or not 1 <= vertices <= 32 or not 1 <= triangles <= 32
+            or flags > 3 or len(data) != 208 + 32*vertices + 12*triangles):
+        raise ValueError("invalid indexed scene")
+    upload_uart(command, 4096, data)
+    command("/bin/busybox cp /tmp/mgst.in /tmp/complex.scene")
+    for mode in ("hardware", "software"):
+        folder = out / mode
+        folder.mkdir(parents=True)
+        cmd = "render /tmp/complex.scene /tmp/complex-frame"
+        rows = jobs(mode + " indexed scene", cmd + (" software" if mode == "software" else ""), 1200)
+        stages, frame = rows[:-1], rows[-1]
+        expected_groups = [1, 1] + ([300] if mode == "hardware" else []) + [2400]
+        if (frame["triangles"] != triangles or frame["pixels"] != 320*240
+                or frame["render_cycles"] != sum(s["cycles"] for s in stages)
+                or any(s["fault"] for s in stages)
+                or [sum(sm[1] for sm in s["sm"]) for s in stages] != expected_groups):
+            raise ValueError("incomplete indexed scene")
+        for name in ("color.rgba", "depth.f32", "winner.u32"):
+            raw = read_uart_file(command, "/tmp/complex-frame/" + name, 320*240*4)
+            (folder/name).write_bytes(raw)
+        (folder/"counters.json").write_text(json.dumps(rows, indent=2) + "\n")

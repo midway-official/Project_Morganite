@@ -1,0 +1,19 @@
+{
+  "name": "complex32",
+  "triangles": 32,
+  "vertices": 22,
+  "width": 320,
+  "height": 240,
+  "covered_pixels": 24849,
+  "scene_bytes": 1296,
+  "scene_sha256": "a681b8ac48ad457fb16f6d751a34cca272c83455bf6ad9b2767daf8b4fca8368",
+  "reference_sha256": [
+    "c760d1ecd917dec04bc51132f5de4acb509fe9ae36e044fffbf05edc599ad8f7",
+    "1db84ae6499b8f06e4a9fa718b43403f36d021070053cd7862bbd92585b58f3b",
+    "6327af9d6a5b52833fec76d76a3d318449c833dd61bdca37c90d1a4efc616c11"
+  ],
+  "depth_range": [
+    0.9827358722686768,
+    0.9921842217445374
+  ]
+}

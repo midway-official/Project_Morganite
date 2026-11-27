@@ -1,0 +1,14 @@
+{
+  "covered": 24849,
+  "coverage_errors": 0,
+  "winner_errors": 0,
+  "max_channel_error": 1,
+  "color_errors": 0,
+  "max_depth_error": 1.7881393432617188e-07,
+  "depth_errors": 0,
+  "sha256": [
+    "50e28f1d66ef45bdf02215909fb37e3fb493afcf89da0a539302b825a3a1f995",
+    "f8e8bdc0a4f6b05e6783e3a4492ffdeab0b04fb3a858bb31d08c8054ff5c1289",
+    "6327af9d6a5b52833fec76d76a3d318449c833dd61bdca37c90d1a4efc616c11"
+  ]
+}
